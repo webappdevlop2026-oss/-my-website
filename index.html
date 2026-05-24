@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MRSNF9KC');</script>
+<!-- End Google Tag Manager -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="google-site-verification" content="Chy0Vysor5xZ4jAqvoAeO9Q0LyrIjS5GvVJlLpDndkQ" />
+  <title>Digital Agency by Chandan Das | Website & App Development Dubrajpur</title>
+  <meta name="description" content="Professional website, app and digital services in Dubrajpur by Chandan Das. Starting at ₹999.">
+
+  <!-- PWA -->
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Digital Agency" />
+  <meta name="theme-color" content="#8b5cf6" />
+  <link rel="apple-touch-icon" href="https://ui-avatars.com/api/?name=CD&background=8b5cf6&color=fff&size=192" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-9929BK5LN5"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-9929BK5LN5');
+  </script>
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"></script>
+  <style>
+    body {
+      background: #050816;
+      color: white;
+      overflow-x: hidden;
+      font-family: Arial, sans-serif;
+    }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .gradient-text {
+      background: linear-gradient(to right, #8b5cf6, #06b6d4, #ec4899);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-bg {
+      background: radial-gradient(circle at top left, rgba(139,92,246,0.3), transparent 30%),
+                  radial-gradient(circle at bottom right, rgba(6,182,212,0.3), transparent 30%);
+    }
+
+    .glow:hover {
+      box-shadow: 0 0 30px rgba(139,92,246,0.5);
+      transform: translateY(-5px);
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(1.08); }
+    }
+
+    .blink-contact {
+      animation: blink 1.2s infinite;
+      background: linear-gradient(135deg, rgba(34,197,94,0.25), rgba(6,182,212,0.25), rgba(236,72,153,0.25));
+      border: 1px solid rgba(255,255,255,0.2);
+      box-shadow: 0 0 25px rgba(34,197,94,0.35);
+    }
+
+    .blink-contact:hover {
+      box-shadow: 0 0 40px rgba(6,182,212,0.6);
+      transform: scale(1.05);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    @keyframes slide {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .animate-slide {
+      display: flex;
+      width: max-content;
+      animation: slide 25s linear infinite;
+      will-change: transform;
+    }
+
+    .welcome-track {
+      display: flex;
+      width: max-content;
+      animation: welcomeMove 18s linear infinite;
+    }
+
+    .welcome-text {
+      white-space: nowrap;
+      font-weight: 600;
+      color: white;
+      padding-right: 80px;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+    }
+
+    @keyframes welcomeMove {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+
+    /* Back to Top */
+    #backToTop {
+      display: none;
+      position: fixed;
+      bottom: 90px;
+      right: 24px;
+      z-index: 999;
+      background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(139,92,246,0.5);
+      transition: all 0.3s;
+    }
+    #backToTop:hover { transform: translateY(-3px); }
+
+    /* WhatsApp Popup */
+    #waPopup {
+      position: fixed;
+      bottom: 90px;
+      right: 90px;
+      z-index: 998;
+      background: #1f1f2e;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 16px;
+      padding: 16px 20px;
+      width: 240px;
+      display: none;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+      animation: fadeIn 0.3s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Offer Banner */
+    #offerBanner {
+      display: none;
+      position: fixed;
+      top: 60px;
+      left: 0;
+      width: 100%;
+      z-index: 55;
+      background: linear-gradient(90deg, #7c3aed, #0891b2, #db2777);
+      text-align: center;
+      padding: 10px 16px;
+      font-size: 14px;
+      font-weight: 600;
+      color: white;
+    }
+    /* Portfolio tag */
+    .portfolio-tag {
+      display: inline-block;
+      font-size: 11px;
+      padding: 2px 10px;
+      border-radius: 999px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+  </style>
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+<link rel="canonical" href="https://ornate-pasca-755e74.netlify.app/" />
+<meta name="robots" content="index, follow" />
+  <meta name="author" content="Chandan Das" />
+  <meta name="geo.region" content="IN-WB" />
+  <meta name="geo.placename" content="Dubrajpur, West Bengal, India" />
+  <meta property="og:title" content="Digital Agency by Chandan Das" />
+  <meta property="og:description" content="Professional website, app and digital services in Dubrajpur by Chandan Das. Starting at ₹999." />
+  <meta property="og:url" content="https://ornate-pasca-755e74.netlify.app/" />
+  <meta property="og:type" content="website" />
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MRSNF9KC"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+  <!-- Offer Banner -->
+  <div id="offerBanner">
+    🎉 Special Offer: Get 20% OFF on any website this month! &nbsp;
+    <a href="#contact" onclick="document.getElementById('offerBanner').style.display='none'" class="underline">Grab Now</a>
+    &nbsp;&nbsp;
+    <span onclick="document.getElementById('offerBanner').style.display='none'" style="cursor:pointer;opacity:0.7;">✕</span>
+  </div>
+
+
+  <!-- Welcome Bar -->
+  <div class="bg-gradient-to-r from-purple-600 via-cyan-500 to-pink-500 py-3 overflow-hidden fixed top-0 left-0 w-full z-[60] shadow-lg">
+    <div class="welcome-track">
+      <div class="welcome-text">
+        <span class="text-cyan-200">Welcome to Digital Agency by Chandan Das • Fast & Reliable Digital Services</span>
+        <span class="mx-10 text-pink-200">স্বাগতম Digital Agency by Chandan Das এ • দ্রুত ও বিশ্বস্ত ডিজিটাল সার্ভিস</span>
+        <span class="mx-10 text-yellow-200">Digital Agency by Chandan Das में आपका स्वागत है • तेज और भरोसेमंद डिजिटल सेवाएं</span>
+      </div>
+      <div class="welcome-text">
+        <span class="text-cyan-200">Welcome to Digital Agency by Chandan Das • Fast & Reliable Digital Services</span>
+        <span class="mx-10 text-pink-200">স্বাগতম Digital Agency by Chandan Das এ • দ্রুত ও বিশ্বস্ত ডিজিটাল সার্ভিস</span>
+        <span class="mx-10 text-yellow-200">Digital Agency by Chandan Das में आपका स्वागत है • तेज और भरोसेमंद डिजिटल सेवाएं</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <header class="fixed top-12 left-0 w-full z-50 glass">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div>
+        <h1 class="text-2xl font-bold gradient-text">Digital Agency</h1>
+        <p class="text-gray-400 text-sm">by Chandan Das</p>
+      </div>
+      <nav class="hidden md:flex gap-8 text-sm">
+        <a href="#home" class="hover:text-cyan-400">Home</a>
+        <a href="#services" class="hover:text-cyan-400">Services</a>
+        <a href="#about" class="hover:text-cyan-400">About</a>
+        <a href="#portfolio" class="hover:text-cyan-400">Portfolio</a>
+        <a href="#contact" class="hover:text-cyan-400">Contact</a>
+      </nav>
+      <a href="#contact" class="bg-purple-600 hover:bg-purple-700 px-5 py-2 rounded-full transition">
+        Get Started
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section id="home" class="hero-bg min-h-screen flex items-center pt-40">
+    <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+      <div>
+        <p class="text-cyan-400 mb-4">Modern App & Website Solution • Dubrajpur</p>
+        <h2 class="text-5xl md:text-7xl font-bold leading-tight mb-6">
+          Professional <span class="gradient-text">Website & App</span> Services
+        </h2>
+        <p class="text-gray-400 text-lg mb-8">
+          We create premium websites, mobile apps, smart tools and modern business solutions with futuristic UI/UX.
+        </p>
+        <div class="flex gap-4 flex-wrap">
+          <a href="#contact" class="bg-purple-600 hover:bg-purple-700 px-8 py-4 rounded-full font-semibold transition">
+            Start Project
+          </a>
+          <a href="#portfolio" class="glass px-8 py-4 rounded-full font-semibold hover:border-cyan-400 transition">
+            View Portfolio
+          </a>
+        </div>
+        <div class="mt-10 inline-block bg-gradient-to-r from-yellow-400 via-pink-500 to-cyan-500 text-black font-bold px-6 py-3 rounded-full shadow-2xl animate-pulse text-lg">
+          Website Starting Price Only ₹999
+        </div>
+
+        <!-- Stats — honest numbers -->
+        <div class="flex gap-8 mt-12">
+          <div>
+            <h3 class="text-3xl font-bold">Happy</h3>
+            <p class="text-gray-400">Clients</p>
+          </div>
+          <div>
+            <h3 class="text-3xl font-bold">Fast</h3>
+            <p class="text-gray-400">Delivery</p>
+          </div>
+          <div>
+            <h3 class="text-3xl font-bold">24/7</h3>
+            <p class="text-gray-400">Support</p>
+          </div>
+          <div>
+            <h3 class="text-3xl font-bold text-green-400"><span id="visitorCount">--</span></h3>
+            <p class="text-gray-400">Viewing Now</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="relative">
+        <div class="glass rounded-3xl p-6 shadow-2xl">
+          <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop" class="rounded-2xl" alt="dashboard">
+        </div>
+        <div class="absolute -top-6 -left-6 glass p-4 rounded-2xl">
+          <i class="fa-solid fa-chart-line text-cyan-400 text-2xl"></i>
+        </div>
+        <div class="absolute -bottom-6 -right-6 glass p-4 rounded-2xl">
+          <i class="fa-solid fa-star text-pink-400 text-2xl"></i>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services" class="py-24">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="text-5xl font-bold mb-4">Our <span class="gradient-text">Services</span></h2>
+        <p class="text-gray-400">Premium digital services for modern businesses.</p>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <div class="glass rounded-3xl overflow-hidden glow transition duration-300 min-h-[280px] flex flex-col hover:border-cyan-400">
+          <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop" class="w-full h-40 object-cover">
+          <div class="p-8">
+            <i class="fa-solid fa-code text-4xl text-purple-400 mb-5"></i>
+            <h3 class="text-2xl font-bold mb-3">Website Development</h3>
+            <p class="text-gray-400">Modern responsive websites with premium UI design.</p>
+          </div>
+        </div>
+
+        <div class="glass rounded-3xl overflow-hidden glow transition duration-300 min-h-[280px] flex flex-col hover:border-cyan-400">
+          <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?q=80&w=1200&auto=format&fit=crop" class="w-full h-40 object-cover">
+          <div class="p-8">
+            <i class="fa-solid fa-mobile-screen text-4xl text-cyan-400 mb-5"></i>
+            <h3 class="text-2xl font-bold mb-3">Mobile Apps</h3>
+            <p class="text-gray-400">Android & iOS applications with smooth experience.</p>
+          </div>
+        </div>
+
+        <div class="glass rounded-3xl overflow-hidden glow transition duration-300 min-h-[280px] flex flex-col hover:border-cyan-400">
+          <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200&auto=format&fit=crop" class="w-full h-40 object-cover">
+          <div class="p-8">
+            <i class="fa-solid fa-cart-shopping text-4xl text-pink-400 mb-5"></i>
+            <h3 class="text-2xl font-bold mb-3">Ecommerce</h3>
+            <p class="text-gray-400">Complete ecommerce systems with payment gateway.</p>
+          </div>
+        </div>
+
+        <div class="glass rounded-3xl overflow-hidden glow transition duration-300 min-h-[280px] flex flex-col hover:border-cyan-400">
+          <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop" class="w-full h-40 object-cover">
+          <div class="p-8">
+            <i class="fa-solid fa-brain text-4xl text-yellow-400 mb-5"></i>
+            <h3 class="text-2xl font-bold mb-3">Smart Solutions</h3>
+            <p class="text-gray-400">Custom automation tools and smart integrations.</p>
+          </div>
+        </div>
+
+        <div class="glass rounded-3xl overflow-hidden glow transition duration-300 min-h-[280px] flex flex-col hover:border-cyan-400">
+          <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=1200&auto=format&fit=crop" class="w-full h-40 object-cover">
+          <div class="p-8">
+            <i class="fa-solid fa-file-excel text-4xl text-green-400 mb-5"></i>
+            <h3 class="text-2xl font-bold mb-3">Excel Work</h3>
+            <p class="text-gray-400">Professional Excel data work with fast service delivery.</p>
+          </div>
+        </div>
+
+        <div class="glass rounded-3xl overflow-hidden glow transition duration-300 min-h-[280px] flex flex-col hover:border-cyan-400">
+          <img src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?q=80&w=1200&auto=format&fit=crop" class="w-full h-40 object-cover">
+          <div class="p-8">
+            <i class="fa-solid fa-video text-4xl text-red-400 mb-5"></i>
+            <h3 class="text-2xl font-bold mb-3">Wedding Video Mixing</h3>
+            <p class="text-gray-400">Professional wedding video editing and cinematic mixing service.</p>
+          </div>
+        </div>
+
+        <div class="glass rounded-3xl overflow-hidden glow transition duration-300 min-h-[280px] flex flex-col hover:border-cyan-400">
+          <img src="https://images.unsplash.com/photo-1586281380349-632531db7ed4?q=80&w=1200&auto=format&fit=crop" class="w-full h-40 object-cover">
+          <div class="p-8">
+            <i class="fa-solid fa-id-card text-4xl text-blue-400 mb-5"></i>
+            <h3 class="text-2xl font-bold mb-3">Digital Visiting Card</h3>
+            <p class="text-gray-400">Modern smart digital business visiting card for professionals and businesses.</p>
+          </div>
+        </div>
+
+        <div class="glass rounded-3xl overflow-hidden glow transition duration-300 min-h-[280px] flex flex-col hover:border-cyan-400">
+          <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=1200&auto=format&fit=crop" class="w-full h-40 object-cover">
+          <div class="p-8">
+            <i class="fa-solid fa-image text-4xl text-orange-400 mb-5"></i>
+            <h3 class="text-2xl font-bold mb-3">Old Photo Recover</h3>
+            <p class="text-gray-400">Restore damaged old photos with clear quality and modern editing.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section (NEW) -->
+  <section id="about" class="py-24">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="glass rounded-3xl p-10 grid md:grid-cols-2 gap-12 items-center">
+        <div class="flex flex-col items-center text-center">
+          <div class="w-40 h-40 rounded-full bg-gradient-to-br from-purple-600 to-cyan-500 flex items-center justify-center mb-6 shadow-2xl">
+            <i class="fa-solid fa-user text-6xl text-white"></i>
+          </div>
+          <h3 class="text-3xl font-bold mb-2">Chandan Das</h3>
+          <p class="text-cyan-400 font-semibold mb-4">Web Developer & Digital Service Expert</p>
+          <p class="text-gray-400">📍 Dubrajpur, West Bengal</p>
+          <div class="flex gap-4 mt-6">
+            <a href="https://wa.me/917549459770" class="bg-green-500 hover:bg-green-600 px-5 py-2 rounded-full text-sm font-semibold transition">
+              <i class="fab fa-whatsapp mr-2"></i>WhatsApp
+            </a>
+            <a href="tel:+919735474770" class="bg-cyan-600 hover:bg-cyan-700 px-5 py-2 rounded-full text-sm font-semibold transition">
+              <i class="fa-solid fa-phone mr-2"></i>Call
+            </a>
+          </div>
+        </div>
+        <div>
+          <h2 class="text-4xl font-bold mb-6">About <span class="gradient-text">Me</span></h2>
+          <p class="text-gray-300 text-lg leading-8 mb-6">
+            I am Chandan Das from Dubrajpur, West Bengal. I specialize in website development, mobile apps, ecommerce and digital services. My goal is to help small businesses and local shop owners build a professional online presence at an affordable price.
+          </p>
+          <div class="space-y-4">
+            <div class="flex items-center gap-4">
+              <i class="fa-solid fa-circle-check text-purple-400 text-xl"></i>
+              <p class="text-gray-300">Expert in HTML, CSS, JavaScript &amp; React</p>
+            </div>
+            <div class="flex items-center gap-4">
+              <i class="fa-solid fa-circle-check text-cyan-400 text-xl"></i>
+              <p class="text-gray-300">Fast delivery — work completed on time, guaranteed</p>
+            </div>
+            <div class="flex items-center gap-4">
+              <i class="fa-solid fa-circle-check text-pink-400 text-xl"></i>
+              <p class="text-gray-300">100% satisfaction — no payment until you are happy</p>
+            </div>
+            <div class="flex items-center gap-4">
+              <i class="fa-solid fa-circle-check text-green-400 text-xl"></i>
+              <p class="text-gray-300">Serving Dubrajpur locally and clients online across India</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Business Growth Section -->
+  <section class="py-20">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-2 gap-10 items-center glass rounded-3xl overflow-hidden p-8">
+        <div>
+          <img src="https://images.unsplash.com/photo-1556740749-887f6717d7e4?q=80&w=1200&auto=format&fit=crop" class="rounded-3xl w-full h-[400px] object-cover">
+        </div>
+        <div>
+          <h2 class="text-5xl font-bold leading-tight mb-6">
+            Grow Your <span class="gradient-text">Business Online</span>
+          </h2>
+          <p class="text-gray-300 text-lg mb-6 leading-8">
+            Small shop owners, local businesses and startups can now grow faster with a modern website and digital presence. Bring more customers online and make your business look professional.
+          </p>
+          <div class="space-y-4 mb-8">
+            <div class="flex items-center gap-4">
+              <i class="fa-solid fa-circle-check text-green-400 text-2xl"></i>
+              <p class="text-gray-300">Perfect for small shops & local businesses</p>
+            </div>
+            <div class="flex items-center gap-4">
+              <i class="fa-solid fa-circle-check text-cyan-400 text-2xl"></i>
+              <p class="text-gray-300">Increase customers with online presence</p>
+            </div>
+            <div class="flex items-center gap-4">
+              <i class="fa-solid fa-circle-check text-pink-400 text-2xl"></i>
+              <p class="text-gray-300">Affordable website packages starting at ₹999</p>
+            </div>
+          </div>
+          <a href="#contact" class="bg-gradient-to-r from-purple-600 to-cyan-500 px-8 py-4 rounded-full font-bold inline-block hover:scale-105 transition">
+            Start Your Business Website
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Portfolio -->
+  <section id="portfolio" class="py-24 bg-black/20">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="text-5xl font-bold mb-4">Our <span class="gradient-text">Portfolio</span></h2>
+        <p class="text-gray-400">Real projects we have built for clients.</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+
+        <!-- Portfolio card 1 — this site itself -->
+        <div class="glass rounded-3xl overflow-hidden glow transition duration-300">
+          <img src="https://images.unsplash.com/photo-1559028012-481c04fa702d?q=80&w=1200&auto=format&fit=crop" class="w-full h-60 object-cover">
+          <div class="p-6">
+            <span class="portfolio-tag bg-purple-600/30 text-purple-300">Agency Website</span>
+            <h3 class="text-2xl font-bold mb-3">Digital Agency Website</h3>
+            <p class="text-gray-400 mb-4">This website — built with HTML, CSS, Tailwind & PWA support.</p>
+            <a href="https://ornate-pasca-755e74.netlify.app/" target="_blank" class="bg-purple-600 px-5 py-2 rounded-full inline-block hover:bg-purple-700 transition">Live Demo</a>
+          </div>
+        </div>
+
+        <!-- Portfolio card 2 — placeholder for next project -->
+        <div class="glass rounded-3xl overflow-hidden glow transition duration-300 border border-dashed border-white/20">
+          <div class="w-full h-60 bg-gradient-to-br from-purple-900/40 to-cyan-900/40 flex items-center justify-center">
+            <div class="text-center">
+              <i class="fa-solid fa-plus text-5xl text-white/20 mb-3"></i>
+              <p class="text-gray-500">Your project here</p>
+            </div>
+          </div>
+          <div class="p-6">
+            <span class="portfolio-tag bg-cyan-600/30 text-cyan-300">Coming Soon</span>
+            <h3 class="text-2xl font-bold mb-3">Next Client Project</h3>
+            <p class="text-gray-400 mb-4">Contact us to start your project and be featured here.</p>
+            <a href="#contact" class="bg-cyan-600 px-5 py-2 rounded-full inline-block hover:bg-cyan-700 transition">Start Project</a>
+          </div>
+        </div>
+
+        <!-- Portfolio card 3 — placeholder -->
+        <div class="glass rounded-3xl overflow-hidden glow transition duration-300 border border-dashed border-white/20">
+          <div class="w-full h-60 bg-gradient-to-br from-pink-900/40 to-purple-900/40 flex items-center justify-center">
+            <div class="text-center">
+              <i class="fa-solid fa-plus text-5xl text-white/20 mb-3"></i>
+              <p class="text-gray-500">Your project here</p>
+            </div>
+          </div>
+          <div class="p-6">
+            <span class="portfolio-tag bg-pink-600/30 text-pink-300">Coming Soon</span>
+            <h3 class="text-2xl font-bold mb-3">Next Client Project</h3>
+            <p class="text-gray-400 mb-4">Contact us to start your project and be featured here.</p>
+            <a href="#contact" class="bg-pink-600 px-5 py-2 rounded-full inline-block hover:bg-pink-700 transition">Start Project</a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="text-center mt-10 glass rounded-2xl p-6 max-w-2xl mx-auto">
+        <p class="text-gray-400 text-lg">📸 Send us screenshots of your work — we will update the portfolio. <a href="https://wa.me/917549459770" class="text-green-400 underline">WhatsApp us</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="py-24 bg-black/20">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="text-5xl font-bold mb-4">Contact <span class="gradient-text">Us</span></h2>
+        <p class="text-gray-400">Contact us directly for any questions or project inquiries.</p>
+      </div>
+
+      <div class="glass rounded-3xl p-10">
+        <div class="grid md:grid-cols-2 gap-6 mb-8">
+          <a href="https://wa.me/917549459770" class="glass p-5 rounded-2xl text-center hover:border-green-400 transition block blink-contact">
+            <i class="fab fa-whatsapp text-4xl text-green-400 mb-3"></i>
+            <h3 class="text-2xl font-bold mb-2">WhatsApp</h3>
+            <p class="text-gray-400">7549459770</p>
+          </a>
+          <a href="tel:+919735474770" class="glass p-5 rounded-2xl text-center hover:border-cyan-400 transition block blink-contact">
+            <i class="fa-solid fa-phone text-4xl text-cyan-400 mb-3"></i>
+            <h3 class="text-2xl font-bold mb-2">Call Now</h3>
+            <p class="text-gray-400">9735474770</p>
+          </a>
+        </div>
+
+        <form id="contactForm" class="space-y-6">
+          <select name="service" id="serviceSelect" class="w-full bg-transparent border border-white/10 rounded-xl px-5 py-4 outline-none focus:border-cyan-400 text-gray-400" onchange="toggleOtherService()">
+            <option class="bg-black">What Service Do You Need?</option>
+            <option class="bg-black">Website Development</option>
+            <option class="bg-black">Mobile App Development</option>
+            <option class="bg-black">Ecommerce Website</option>
+            <option class="bg-black">Excel Work</option>
+            <option class="bg-black">Graphic Design</option>
+            <option class="bg-black">Wedding Video Mixing</option>
+            <option class="bg-black">Digital Visiting Card</option>
+            <option class="bg-black">Old Photo Recover</option>
+            <option class="bg-black">Other Services</option>
+          </select>
+
+          <div id="otherServiceBox" class="hidden">
+            <input name="customService" type="text" placeholder="Write Your Custom Service" class="w-full bg-transparent border border-white/10 rounded-xl px-5 py-4 outline-none focus:border-pink-400">
+          </div>
+
+          <input name="name" type="text" placeholder="Your Name" required class="w-full bg-transparent border border-white/10 rounded-xl px-5 py-4 outline-none focus:border-cyan-400">
+          <input name="mobile" type="tel" placeholder="Mobile Number" required class="w-full bg-transparent border border-white/10 rounded-xl px-5 py-4 outline-none focus:border-green-400">
+          <textarea name="message" rows="5" placeholder="Your Message" class="w-full bg-transparent border border-white/10 rounded-xl px-5 py-4 outline-none focus:border-cyan-400"></textarea>
+
+          <button type="submit" class="bg-purple-600 hover:bg-purple-700 px-8 py-4 rounded-full font-bold transition w-full">
+            Send Message via WhatsApp
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-10 border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-5">
+      <div>
+        <h2 class="text-2xl font-bold gradient-text">Digital Agency</h2>
+        <p class="text-gray-400 text-sm">by Chandan Das • Dubrajpur</p>
+      </div>
+      <div class="flex gap-6 text-xl">
+        <a href="https://wa.me/917549459770" class="hover:text-green-400 transition"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://www.instagram.com/webappdevlop2026/" target="_blank" class="hover:text-pink-400 transition"><i class="fab fa-instagram"></i></a>
+        <a href="tel:+919735474770" class="hover:text-cyan-400 transition"><i class="fa-solid fa-phone"></i></a>
+      </div>
+      <div class="text-center">
+        <p class="text-gray-400">© 2026 All Rights Reserved</p>
+        <p class="text-gray-500 text-sm mt-2">Built by Chandan Das</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WhatsApp Floating -->
+  <a href="https://wa.me/917549459770" class="fixed bottom-6 right-6 bg-green-500 w-16 h-16 rounded-full flex items-center justify-center text-3xl shadow-2xl hover:scale-110 transition z-50">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <!-- WhatsApp Popup -->
+  <div id="waPopup">
+    <div class="flex items-center gap-3 mb-3">
+      <div class="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center">
+        <i class="fab fa-whatsapp text-white text-xl"></i>
+      </div>
+      <div>
+        <p class="font-bold text-sm">Chandan Das</p>
+        <p class="text-green-400 text-xs">● Online</p>
+      </div>
+      <span onclick="document.getElementById('waPopup').style.display='none'" class="ml-auto cursor-pointer text-gray-400 hover:text-white">✕</span>
+    </div>
+    <p class="text-gray-300 text-sm mb-3">Hi! 👋 Need a website or any digital service? Let's chat!</p>
+    <a href="https://wa.me/917549459770?text=Hi Chandan! I need help with a project." target="_blank"
+      class="block bg-green-500 hover:bg-green-600 text-white text-center py-2 rounded-xl text-sm font-semibold transition">
+      Start Chat
+    </a>
+  </div>
+
+  <!-- Back to Top -->
+  <div id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="display:none;position:fixed;bottom:90px;right:24px;z-index:999;background:linear-gradient(135deg,#8b5cf6,#06b6d4);width:48px;height:48px;border-radius:50%;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 20px rgba(139,92,246,0.5);transition:all 0.3s;">
+    <i class="fa-solid fa-chevron-up text-white"></i>
+  </div>
+
+
+  <script>
+    function toggleOtherService() {
+      const select = document.getElementById('serviceSelect');
+      const otherBox = document.getElementById('otherServiceBox');
+      if (select.value === 'Other Services') {
+        otherBox.classList.remove('hidden');
+      } else {
+        otherBox.classList.add('hidden');
+      }
+    }
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/sw.js').then(function(reg) {
+          console.log('SW registered');
+        }).catch(function(err) {
+          console.log('SW error', err);
+        });
+      });
+    }
+
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const service = document.querySelector('[name="service"]').value;
+      const customService = document.querySelector('[name="customService"]')?.value || '';
+      const name = document.querySelector('[name="name"]').value;
+      const mobile = document.querySelector('[name="mobile"]').value;
+      const message = document.querySelector('[name="message"]').value;
+
+      if (!name || !mobile) {
+        alert('Please fill your name and mobile number.');
+        return;
+      }
+
+      const finalService = service === 'Other Services' ? customService : service;
+      const whatsappMessage = `New Service Request:%0A%0AName: ${name}%0AMobile: ${mobile}%0AService: ${finalService}%0AMessage: ${message}`;
+      window.open(`https://wa.me/919735474770?text=${whatsappMessage}`, '_blank');
+    });
+  </script>
+
+</body>
+</html>

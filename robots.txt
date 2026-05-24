@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://ornate-pasca-755e74.netlify.app/sitemap.xml
