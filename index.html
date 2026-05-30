@@ -31,6 +31,61 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'G-9929BK5LN5');
+
+
+
+    function adminLogin(){
+      const pin = document.getElementById('adminPin').value.trim();
+      if(pin === '1234'){ localStorage.setItem('adminLoggedIn','yes'); showAdminDashboard(); } else { alert('Wrong PIN'); }
+    }
+    function adminLogout(){ localStorage.removeItem('adminLoggedIn'); document.getElementById('adminDashboard').classList.add('admin-hidden'); document.getElementById('adminLoginBox').classList.remove('admin-hidden'); }
+    function showAdminDashboard(){ document.getElementById('adminLoginBox').classList.add('admin-hidden'); document.getElementById('adminDashboard').classList.remove('admin-hidden'); loadAdminContent(); renderAdminPortfolio(); renderEnquiries(); }
+    function openAdminTab(evt, tabId){ document.querySelectorAll('.admin-tab').forEach(t=>t.classList.add('admin-hidden')); document.getElementById(tabId).classList.remove('admin-hidden'); document.querySelectorAll('.admin-tab-btn').forEach(b=>b.classList.remove('active')); evt.target.classList.add('active'); }
+    function loadAdminContent(){
+      const settings = JSON.parse(localStorage.getItem('siteAdminSettings') || '{}');
+      document.getElementById('adminOfferText').value = settings.offer || '🎁 লিমিটেড টাইম অফার! আমাদের সাথে যোগাযোগ করুন এবং পান বিনামূল্যে দোকান বিলিং সফটওয়্যার 🧾';
+      document.getElementById('adminPriceText').value = settings.price || 'Website Starting Price Only ₹999';
+      document.getElementById('adminWhatsapp').value = settings.whatsapp || '917549459770';
+      document.getElementById('adminCall').value = settings.call || '919735474770';
+    }
+    function saveAdminContent(){
+      const settings = { offer: document.getElementById('adminOfferText').value, price: document.getElementById('adminPriceText').value, whatsapp: document.getElementById('adminWhatsapp').value.replace(/[^0-9]/g,''), call: document.getElementById('adminCall').value.replace(/[^0-9]/g,'') };
+      localStorage.setItem('siteAdminSettings', JSON.stringify(settings)); applyAdminSettings(); alert('Content saved successfully');
+    }
+    function applyAdminSettings(){
+      const settings = JSON.parse(localStorage.getItem('siteAdminSettings') || '{}');
+      if(settings.offer && document.getElementById('offerBanner')) document.getElementById('offerBanner').innerHTML = `${settings.offer} &nbsp; <a href="#contact" class="underline" style="color:#fff700;">এখনই যোগাযোগ করুন →</a> &nbsp;&nbsp; <span onclick="document.getElementById('offerBanner').style.display='none'" style="cursor:pointer;opacity:0.7;">✕</span>`;
+      if(settings.price){ const priceBadge = Array.from(document.querySelectorAll('div')).find(el => el.textContent.trim().startsWith('Website Starting Price')); if(priceBadge) priceBadge.textContent = settings.price; }
+      if(settings.whatsapp) document.querySelectorAll('a[href^="https://wa.me/"]').forEach(a=>{ a.href = a.href.replace(/https:\/\/wa\.me\/\d+/, 'https://wa.me/' + settings.whatsapp); });
+      if(settings.call) document.querySelectorAll('a[href^="tel:"]').forEach(a=>{ a.href = 'tel:+' + settings.call; });
+    }
+    function addPortfolioItem(){
+      const item = { title: document.getElementById('pfTitle').value, tag: document.getElementById('pfTag').value, link: document.getElementById('pfLink').value, image: document.getElementById('pfImage').value, desc: document.getElementById('pfDesc').value };
+      if(!item.title){ alert('Project title required'); return; }
+      const list = JSON.parse(localStorage.getItem('adminPortfolio') || '[]'); list.unshift(item); localStorage.setItem('adminPortfolio', JSON.stringify(list)); ['pfTitle','pfTag','pfLink','pfImage','pfDesc'].forEach(id=>document.getElementById(id).value=''); renderAdminPortfolio(); alert('Portfolio added');
+    }
+    function renderAdminPortfolio(){
+      const list = JSON.parse(localStorage.getItem('adminPortfolio') || '[]'); const box = document.getElementById('adminPortfolioList'); if(!box) return;
+      box.innerHTML = list.length ? list.map((p,i)=>`<div class="glass rounded-2xl p-4 mb-3"><b>${p.title}</b><p class="text-gray-400 text-sm">${p.tag || ''} ${p.link ? '• '+p.link : ''}</p><button onclick="deletePortfolio(${i})" class="bg-red-600 px-3 py-1 rounded-full text-sm mt-2">Delete</button></div>`).join('') : '<p class="text-gray-500">No portfolio added from admin yet.</p>';
+    }
+    function deletePortfolio(i){ const list = JSON.parse(localStorage.getItem('adminPortfolio') || '[]'); list.splice(i,1); localStorage.setItem('adminPortfolio', JSON.stringify(list)); renderAdminPortfolio(); }
+    function renderEnquiries(){ const enquiries = JSON.parse(localStorage.getItem('siteEnquiries') || '[]'); const table = document.getElementById('adminEnquiryTable'); if(!table) return; table.innerHTML = enquiries.length ? enquiries.map(e=>`<tr><td>${e.date}</td><td>${e.name}</td><td>${e.mobile}</td><td>${e.service}</td><td>${e.message}</td></tr>`).join('') : '<tr><td colspan="5" class="text-gray-500">No enquiries yet.</td></tr>'; }
+    function clearEnquiries(){ if(confirm('Clear all enquiries?')){ localStorage.removeItem('siteEnquiries'); renderEnquiries(); } }
+    function revealHiddenAdmin(){
+      const admin = document.getElementById('admin');
+      if(admin){ admin.classList.remove('hidden'); admin.scrollIntoView({behavior:'smooth'}); }
+    }
+
+    window.addEventListener('load', function(){
+      applyAdminSettings();
+      if(location.hash === '#chandan-admin'){ revealHiddenAdmin(); }
+      if(localStorage.getItem('adminLoggedIn') === 'yes' && document.getElementById('admin')) showAdminDashboard();
+    });
+
+    document.addEventListener('keydown', function(e){
+      if(e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'a') revealHiddenAdmin();
+    });
+
   </script>
   <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
   <script src="https://cdn.tailwindcss.com"></script>
@@ -180,16 +235,30 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       font-weight: bold;
       margin-bottom: 8px;
     }
+
+
+    /* Simple Admin Panel */
+    .admin-input { width: 100%; background: rgba(0,0,0,0.35); border: 1px solid rgba(255,255,255,0.14); border-radius: 14px; padding: 13px 16px; color: white; outline: none; }
+    .admin-input:focus { border-color: #facc15; }
+    .admin-btn { background: linear-gradient(135deg,#facc15,#fb923c); color: #111; font-weight: 800; padding: 12px 18px; border-radius: 999px; display: inline-block; cursor: pointer; transition: .25s; }
+    .admin-btn:hover { transform: translateY(-2px); filter: brightness(1.05); }
+    .admin-tab-btn { padding: 10px 16px; border-radius: 999px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); font-weight: 700; cursor: pointer; }
+    .admin-tab-btn.active { background:#facc15; color:#111; }
+    .admin-table { width:100%; border-collapse: collapse; overflow:hidden; border-radius:16px; }
+    .admin-table th,.admin-table td { padding:12px; border-bottom:1px solid rgba(255,255,255,0.10); text-align:left; font-size:14px; }
+    .admin-table th { color:#facc15; background:rgba(255,255,255,0.06); }
+    .admin-hidden { display:none; }
+
   </style>
   <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
-<link rel="canonical" href="https://ornate-pasca-755e74.netlify.app/" />
+<link rel="canonical" href="https://my-website-one-kappa-68.vercel.app/" />
 <meta name="robots" content="index, follow" />
   <meta name="author" content="Chandan Das" />
   <meta name="geo.region" content="IN-WB" />
   <meta name="geo.placename" content="Dubrajpur, West Bengal, India" />
   <meta property="og:title" content="Digital Agency by Chandan Das" />
   <meta property="og:description" content="Professional website, app and digital services in Dubrajpur by Chandan Das. Starting at ₹999." />
-  <meta property="og:url" content="https://ornate-pasca-755e74.netlify.app/" />
+  <meta property="og:url" content="https://my-website-one-kappa-68.vercel.app/" />
   <meta property="og:type" content="website" />
 </head>
 <body>
@@ -392,7 +461,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <i class="fa-solid fa-receipt text-4xl text-yellow-400 mb-5"></i>
             <h3 class="text-2xl font-bold mb-3">দোকান বিলিং সফটওয়্যার <span class="text-yellow-400">FREE</span></h3>
             <p class="text-gray-400 mb-4">লিমিটেড টাইম অফার! বিনামূল্যে বাংলা বিলিং সফটওয়্যার! বিল তৈরি, প্রিন্ট ও কাস্টমার ম্যানেজমেন্ট — সব এক জায়গায়।</p>
-            <a href="#contact" class="inline-block bg-yellow-400 text-black font-bold px-5 py-2 rounded-full hover:bg-yellow-300 transition">যোগাযোগ করুন → পান ফ্রি!</a>
+            <a href="#billingRequest" class="inline-block bg-yellow-400 text-black font-bold px-5 py-2 rounded-full hover:bg-yellow-300 transition">Request করুন → পান ফ্রি!</a>
           </div>
         </div>
 
@@ -690,7 +759,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <span class="portfolio-tag bg-purple-600/30 text-purple-300">Agency Website</span>
             <h3 class="text-2xl font-bold mb-3">Digital Agency Website</h3>
             <p class="text-gray-400 mb-4">This website — built with HTML, CSS, Tailwind & PWA support.</p>
-            <a href="https://ornate-pasca-755e74.netlify.app/" target="_blank" class="bg-purple-600 px-5 py-2 rounded-full inline-block hover:bg-purple-700 transition">Live Demo</a>
+            <a href="https://my-website-one-kappa-68.vercel.app/" target="_blank" class="bg-purple-600 px-5 py-2 rounded-full inline-block hover:bg-purple-700 transition">Live Demo</a>
           </div>
         </div>
 
@@ -734,6 +803,33 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </section>
 
+
+
+  <!-- Free Billing Software Request Form -->
+  <section id="billingRequest" class="py-24 bg-black/30">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="text-center mb-10">
+        <h2 class="text-5xl font-bold mb-4">Free <span class="gradient-text">Billing Software</span> Request</h2>
+        <p class="text-gray-300 text-lg">যদি কেউ দোকানের billing software নিতে চান, নিচের form fill করে request পাঠান। আপনার WhatsApp নম্বরে billing software 24 hours-এর ভিতরে send করা হবে।</p>
+      </div>
+      <div class="glass rounded-3xl p-10">
+        <form id="billingRequestForm" class="space-y-5">
+          <div class="grid md:grid-cols-2 gap-5">
+            <input name="brName" type="text" placeholder="Your Name" required class="w-full bg-transparent border border-white/10 rounded-xl px-5 py-4 outline-none focus:border-yellow-400">
+            <input name="brMobile" type="tel" placeholder="Mobile Number" required class="w-full bg-transparent border border-white/10 rounded-xl px-5 py-4 outline-none focus:border-green-400">
+            <input name="brShop" type="text" placeholder="Shop Name" required class="w-full bg-transparent border border-white/10 rounded-xl px-5 py-4 outline-none focus:border-cyan-400">
+            <input name="brType" type="text" placeholder="Kiser Dukan? e.g. Grocery, Mobile, Garments" required class="w-full bg-transparent border border-white/10 rounded-xl px-5 py-4 outline-none focus:border-pink-400">
+          </div>
+          <textarea name="brAddress" rows="4" placeholder="Full Address" required class="w-full bg-transparent border border-white/10 rounded-xl px-5 py-4 outline-none focus:border-cyan-400"></textarea>
+          <button type="submit" class="bg-gradient-to-r from-yellow-400 to-orange-500 text-black px-8 py-4 rounded-full font-bold transition w-full hover:scale-[1.01]">
+            Request For Free Billing Software
+          </button>
+          <p class="text-gray-500 text-sm text-center">Powered By Digital Agency by Chandan Das</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
   <!-- Contact -->
   <section id="contact" class="py-24 bg-black/20">
     <div class="max-w-4xl mx-auto px-6">
@@ -762,6 +858,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <option class="bg-black">Website Development</option>
             <option class="bg-black">Mobile App Development</option>
             <option class="bg-black">Ecommerce Website</option>
+            <option class="bg-black">Free Billing Software Request</option>
             <option class="bg-black">Excel Work</option>
             <option class="bg-black">Graphic Design</option>
             <option class="bg-black">Wedding Video Mixing</option>
@@ -782,6 +879,73 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             Send Message via WhatsApp
           </button>
         </form>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- Admin Panel -->
+  <section id="admin" class="py-24 bg-black/40 hidden">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-5xl font-bold mb-4">Website <span class="gradient-text">Admin Panel</span></h2>
+        <p class="text-gray-400">PIN দিয়ে website offer, notice, portfolio ও enquiry manage করুন।</p>
+      </div>
+
+      <div id="adminLoginBox" class="glass rounded-3xl p-8 max-w-xl mx-auto">
+        <h3 class="text-2xl font-bold mb-4 text-yellow-300">Admin Login</h3>
+        <input id="adminPin" type="password" class="admin-input mb-4" placeholder="Enter Admin PIN" />
+        <button onclick="adminLogin()" class="admin-btn w-full">Login</button>
+        <p class="text-gray-500 text-sm mt-4">Private access only</p>
+      </div>
+
+      <div id="adminDashboard" class="admin-hidden">
+        <div class="glass rounded-3xl p-6 mb-6 flex flex-wrap gap-3 justify-between items-center">
+          <div><h3 class="text-2xl font-bold">Welcome Admin</h3><p class="text-gray-400">Digital Agency by Chandan Das</p></div>
+          <button onclick="adminLogout()" class="bg-red-600 hover:bg-red-700 px-5 py-2 rounded-full font-bold">Logout</button>
+        </div>
+        <div class="flex flex-wrap gap-3 mb-6">
+          <button class="admin-tab-btn active" onclick="openAdminTab(event,'tabContent')">Content Control</button>
+          <button class="admin-tab-btn" onclick="openAdminTab(event,'tabPortfolio')">Portfolio Add</button>
+          <button class="admin-tab-btn" onclick="openAdminTab(event,'tabEnquiry')">Enquiry List</button>
+          <button class="admin-tab-btn" onclick="openAdminTab(event,'tabBillingRequests')">Billing Requests</button>
+        </div>
+        <div id="tabContent" class="glass rounded-3xl p-8 admin-tab">
+          <h3 class="text-2xl font-bold mb-6 text-yellow-300">Content Control</h3>
+          <div class="grid md:grid-cols-2 gap-4">
+            <div><label class="text-gray-400 text-sm">Offer Banner Text</label><input id="adminOfferText" class="admin-input mt-2" placeholder="Offer banner text" /></div>
+            <div><label class="text-gray-400 text-sm">Hero Price Text</label><input id="adminPriceText" class="admin-input mt-2" placeholder="Website Starting Price Only ₹999" /></div>
+            <div><label class="text-gray-400 text-sm">WhatsApp Number</label><input id="adminWhatsapp" class="admin-input mt-2" placeholder="917549459770" /></div>
+            <div><label class="text-gray-400 text-sm">Call Number</label><input id="adminCall" class="admin-input mt-2" placeholder="919735474770" /></div>
+          </div>
+          <button onclick="saveAdminContent()" class="admin-btn mt-6">Save Content</button>
+        </div>
+        <div id="tabPortfolio" class="glass rounded-3xl p-8 admin-tab admin-hidden">
+          <h3 class="text-2xl font-bold mb-6 text-yellow-300">Add Portfolio Item</h3>
+          <div class="grid md:grid-cols-2 gap-4">
+            <input id="pfTitle" class="admin-input" placeholder="Project Title" />
+            <input id="pfTag" class="admin-input" placeholder="Category / Tag" />
+            <input id="pfLink" class="admin-input" placeholder="Live Demo Link" />
+            <input id="pfImage" class="admin-input" placeholder="Image URL" />
+          </div>
+          <textarea id="pfDesc" class="admin-input mt-4" rows="4" placeholder="Project Description"></textarea>
+          <button onclick="addPortfolioItem()" class="admin-btn mt-4">Add Portfolio</button>
+          <div id="adminPortfolioList" class="mt-6"></div>
+        </div>
+        <div id="tabEnquiry" class="glass rounded-3xl p-8 admin-tab admin-hidden">
+          <h3 class="text-2xl font-bold mb-6 text-yellow-300">Website Enquiry List</h3>
+          <div class="overflow-x-auto"><table class="admin-table"><thead><tr><th>Date</th><th>Name</th><th>Mobile</th><th>Service</th><th>Message</th></tr></thead><tbody id="adminEnquiryTable"></tbody></table></div>
+          <button onclick="clearEnquiries()" class="bg-red-600 hover:bg-red-700 px-5 py-2 rounded-full font-bold mt-5">Clear Enquiries</button>
+        </div>
+      
+        <div id="tabBillingRequests" class="glass rounded-3xl p-8 admin-tab admin-hidden">
+          <h3 class="text-2xl font-bold mb-6 text-yellow-300">Billing Software Request List</h3>
+          <p class="text-gray-400 mb-4">User request confirm করলে তার দোকানের নামে billing software download তৈরি হবে।</p>
+          <div class="overflow-x-auto"><table class="admin-table"><thead><tr><th>Date</th><th>Name</th><th>Mobile</th><th>Shop</th><th>Type</th><th>Address</th><th>Status</th><th>Action</th></tr></thead><tbody id="billingRequestTable"></tbody></table></div>
+          <button onclick="clearBillingRequests()" class="bg-red-600 hover:bg-red-700 px-5 py-2 rounded-full font-bold mt-5">Clear Billing Requests</button>
+        </div>
+
       </div>
     </div>
   </section>
@@ -870,10 +1034,117 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       }
 
       const finalService = service === 'Other Services' ? customService : service;
+      const enquiry = { date: new Date().toLocaleString(), name, mobile, service: finalService, message };
+      const enquiries = JSON.parse(localStorage.getItem('siteEnquiries') || '[]');
+      enquiries.unshift(enquiry);
+      localStorage.setItem('siteEnquiries', JSON.stringify(enquiries));
+
+      const adminSettings = JSON.parse(localStorage.getItem('siteAdminSettings') || '{}');
+      const waNumber = adminSettings.whatsapp || '919735474770';
       const whatsappMessage = `New Service Request:%0A%0AName: ${name}%0AMobile: ${mobile}%0AService: ${finalService}%0AMessage: ${message}`;
-      window.open(`https://wa.me/919735474770?text=${whatsappMessage}`, '_blank');
+      window.open(`https://wa.me/${waNumber}?text=${whatsappMessage}`, '_blank');
     });
-  </script>
+  
+
+    // Billing Software Request System + Google Sheet Save
+    const GOOGLE_SHEET_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw9IOkMPvWECGKMzRHAopqnzVmZH56ZHPqcu2p03iYwwcb-M7DuZPLZ1LKB5V7s7lcYEQ/exec';
+    const billingRequestForm = document.getElementById('billingRequestForm');
+    if (billingRequestForm) {
+      billingRequestForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const data = {
+          id: 'BR-' + Date.now().toString().slice(-7),
+          date: new Date().toLocaleString(),
+          name: document.querySelector('[name="brName"]').value.trim(),
+          mobile: document.querySelector('[name="brMobile"]').value.trim(),
+          shop: document.querySelector('[name="brShop"]').value.trim(),
+          type: document.querySelector('[name="brType"]').value.trim(),
+          address: document.querySelector('[name="brAddress"]').value.trim(),
+          status: 'Pending'
+        };
+        if(!data.name || !data.mobile || !data.shop || !data.type || !data.address){ alert('Please fill all details.'); return; }
+
+        // Local admin panel backup
+        const list = JSON.parse(localStorage.getItem('billingSoftwareRequests') || '[]');
+        list.unshift(data);
+        localStorage.setItem('billingSoftwareRequests', JSON.stringify(list));
+        renderBillingRequests();
+
+        // Save request to Google Sheet
+        try {
+          await fetch(GOOGLE_SHEET_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            body: JSON.stringify({
+              name: data.name,
+              mobile: data.mobile,
+              address: data.address,
+              shopname: data.shop,
+              shoptype: data.type
+            })
+          });
+        } catch (error) {
+          console.log('Google Sheet save error:', error);
+        }
+
+        billingRequestForm.reset();
+        alert('Request sent successfully. আপনার WhatsApp নম্বরে billing software 24 hours-এর ভিতরে send করা হবে।');
+
+        const adminSettings = JSON.parse(localStorage.getItem('siteAdminSettings') || '{}');
+        const waNumber = adminSettings.whatsapp || '919735474770';
+        const msg = `New Billing Software Request:%0A%0AName: ${data.name}%0AMobile: ${data.mobile}%0AShop: ${data.shop}%0AShop Type: ${data.type}%0AAddress: ${data.address}%0AStatus: Pending`;
+        window.open(`https://wa.me/${waNumber}?text=${msg}`, '_blank');
+      });
+    }
+
+    function renderBillingRequests(){
+      const table = document.getElementById('billingRequestTable');
+      if(!table) return;
+      const list = JSON.parse(localStorage.getItem('billingSoftwareRequests') || '[]');
+      table.innerHTML = list.length ? list.map((r,i)=>`<tr><td>${r.date}</td><td>${r.name}</td><td>${r.mobile}</td><td>${r.shop}</td><td>${r.type}</td><td>${r.address}</td><td>${r.status}</td><td>${r.status === 'Confirmed' ? `<button onclick="downloadCustomerBilling(${i})" class="bg-green-600 px-3 py-1 rounded-full text-sm font-bold">Download</button>` : `<button onclick="confirmBillingRequest(${i})" class="bg-yellow-400 text-black px-3 py-1 rounded-full text-sm font-bold">Confirm</button>`}</td></tr>`).join('') : '<tr><td colspan="8" class="text-gray-500">No billing software request yet.</td></tr>';
+    }
+
+    function confirmBillingRequest(i){
+      const list = JSON.parse(localStorage.getItem('billingSoftwareRequests') || '[]');
+      if(!list[i]) return;
+      list[i].status = 'Confirmed';
+      localStorage.setItem('billingSoftwareRequests', JSON.stringify(list));
+      renderBillingRequests();
+      alert('Request confirmed. এখন Download button থেকে তার দোকানের নামে billing software download করুন।');
+    }
+
+    function clearBillingRequests(){
+      if(confirm('Clear all billing software requests?')){
+        localStorage.removeItem('billingSoftwareRequests');
+        renderBillingRequests();
+      }
+    }
+
+    function downloadCustomerBilling(i){
+      const list = JSON.parse(localStorage.getItem('billingSoftwareRequests') || '[]');
+      const r = list[i];
+      if(!r) return;
+      const safeShop = (r.shop || 'Shop').replace(/[^a-z0-9]/gi,'_');
+      const billingHtml = makeCustomerBillingHtml(r);
+      const blob = new Blob([billingHtml], {type:'text/html'});
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = safeShop + '_billing_software.html';
+      a.click();
+    }
+
+    function makeCustomerBillingHtml(r){
+      const shop = (r.shop || 'Your Shop').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      const mobile = (r.mobile || '').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      const address = (r.address || '').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      return `<!DOCTYPE html><html lang="bn"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>${shop} Billing Software</title><style>*{box-sizing:border-box;font-family:Arial,sans-serif}body{margin:0;background:#f4f7fb;color:#111}header{background:#0f172a;color:#fff;text-align:center;padding:18px}.brand{background:#facc15;color:#111;padding:7px 13px;border-radius:999px;font-weight:700;display:inline-block}.container{max-width:1050px;margin:18px auto;padding:14px}.card{background:#fff;border-radius:14px;padding:18px;margin-bottom:15px;box-shadow:0 4px 18px #0001}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}input,button{width:100%;padding:11px;border:1px solid #cbd5e1;border-radius:10px;font-size:15px}button{border:0;background:#2563eb;color:#fff;font-weight:700;cursor:pointer}.danger{background:#dc2626}.success{background:#16a34a}table{width:100%;border-collapse:collapse;margin-top:12px}th,td{border:1px solid #e2e8f0;padding:9px}th{background:#eaf0ff}.totals{max-width:420px;margin-left:auto}.totals div{display:flex;justify-content:space-between;padding:8px;border-bottom:1px dashed #ddd}.grand{font-size:22px;font-weight:700;color:#16a34a}.powered{text-align:center;border-top:1px dashed #999;margin-top:16px;padding-top:10px;font-weight:700}@media(max-width:800px){.grid{grid-template-columns:1fr}table{font-size:13px}}@media print{.no-print{display:none}body{background:#fff}.card{box-shadow:none}}</style></head><body><header class="no-print"><h1>🧾 ${shop}</h1><p>${address} | ${mobile}</p><span class="brand">Powered By Digital Agency By Chandan Das</span></header><div class="container"><section class="card"><h2>${shop}</h2><p><b>Address:</b> ${address} | <b>Mobile:</b> ${mobile}</p></section><section class="card"><h2>Customer Details</h2><div class="grid"><input id="customerName" placeholder="Customer Name"><input id="customerMobile" placeholder="Customer Mobile"><input id="invoiceNo" placeholder="Invoice No"><input id="invoiceDate" type="date"></div></section><section class="card no-print"><h2>Add Product</h2><div class="grid"><input id="productName" placeholder="Product Name"><input id="productQty" type="number" value="1" min="1"><input id="productPrice" type="number" placeholder="Price ₹"><input id="productGst" type="number" value="0" placeholder="GST %"></div><div class="grid" style="margin-top:10px"><button onclick="addItem()">Add Item</button><button class="danger" onclick="clearBill()">Clear Bill</button><button class="success" onclick="saveBill()">Save Bill</button><button onclick="loadBills()">Show Saved Bills</button></div></section><section class="card"><h2>Invoice</h2><p><b>Customer:</b> <span id="cNameView"></span> | <b>Mobile:</b> <span id="cMobileView"></span></p><p><b>Invoice No:</b> <span id="invNoView"></span> | <b>Date:</b> <span id="dateView"></span></p><table><thead><tr><th>#</th><th>Product</th><th>Qty</th><th>Price</th><th>GST</th><th>Total</th><th class="no-print">Action</th></tr></thead><tbody id="billBody"></tbody></table><div class="totals"><div><span>Sub Total</span><b>₹<span id="subTotal">0</span></b></div><div><span>GST Total</span><b>₹<span id="gstTotal">0</span></b></div><div><span>Discount ₹</span><input id="discount" type="number" value="0" oninput="renderBill()" style="max-width:120px"></div><div class="grand"><span>Grand Total</span><span>₹<span id="grandTotal">0</span></span></div></div><div class="powered">Software Provided Free By Digital Agency By Chandan Das | Contact: 9735474770</div><div class="grid no-print" style="margin-top:12px"><button onclick="window.print()">Print Invoice</button><button class="success" onclick="downloadTextInvoice()">Download TXT</button><button onclick="newInvoice()">New Invoice</button></div></section><section class="card no-print"><h2>Saved Bills</h2><div id="savedBills">No saved bills yet.</div></section></div><script>let items=[];document.getElementById('invoiceDate').valueAsDate=new Date();document.getElementById('invoiceNo').value='INV-'+Date.now().toString().slice(-6);['customerName','customerMobile','invoiceNo','invoiceDate'].forEach(id=>document.getElementById(id).addEventListener('input',renderBill));function addItem(){const name=document.getElementById('productName').value.trim(),qty=Number(document.getElementById('productQty').value),price=Number(document.getElementById('productPrice').value),gst=Number(document.getElementById('productGst').value);if(!name||qty<=0||price<0){alert('Product details thik kore din');return}items.push({name,qty,price,gst});document.getElementById('productName').value='';document.getElementById('productQty').value=1;document.getElementById('productPrice').value='';document.getElementById('productGst').value=0;renderBill()}function removeItem(i){items.splice(i,1);renderBill()}function renderBill(){document.getElementById('cNameView').innerText=document.getElementById('customerName').value;document.getElementById('cMobileView').innerText=document.getElementById('customerMobile').value;document.getElementById('invNoView').innerText=document.getElementById('invoiceNo').value;document.getElementById('dateView').innerText=document.getElementById('invoiceDate').value;let sub=0,gstTotal=0;const body=document.getElementById('billBody');body.innerHTML='';items.forEach((item,i)=>{const itemSub=item.qty*item.price,itemGst=itemSub*item.gst/100,total=itemSub+itemGst;sub+=itemSub;gstTotal+=itemGst;body.innerHTML='<tr><td>'+(i+1)+'</td><td>'+item.name+'</td><td>'+item.qty+'</td><td>₹'+item.price.toFixed(2)+'</td><td>'+item.gst+'%</td><td>₹'+total.toFixed(2)+'</td><td class="no-print"><button class="danger" onclick="removeItem('+i+')">Delete</button></td></tr>'+body.innerHTML});const discount=Number(document.getElementById('discount').value||0);document.getElementById('subTotal').innerText=sub.toFixed(2);document.getElementById('gstTotal').innerText=gstTotal.toFixed(2);document.getElementById('grandTotal').innerText=(sub+gstTotal-discount).toFixed(2)}function clearBill(){if(confirm('Bill clear korben?')){items=[];renderBill()}}function newInvoice(){items=[];document.getElementById('customerName').value='';document.getElementById('customerMobile').value='';document.getElementById('discount').value=0;document.getElementById('invoiceNo').value='INV-'+Date.now().toString().slice(-6);document.getElementById('invoiceDate').valueAsDate=new Date();renderBill()}function saveBill(){const bill={invoiceNo:document.getElementById('invoiceNo').value,customer:document.getElementById('customerName').value,mobile:document.getElementById('customerMobile').value,date:document.getElementById('invoiceDate').value,items,total:document.getElementById('grandTotal').innerText};const bills=JSON.parse(localStorage.getItem('bills')||'[]');bills.push(bill);localStorage.setItem('bills',JSON.stringify(bills));alert('Bill saved successfully');loadBills()}function loadBills(){const bills=JSON.parse(localStorage.getItem('bills')||'[]');document.getElementById('savedBills').innerHTML=bills.length?bills.map(b=>'<p><b>'+b.invoiceNo+'</b> - '+(b.customer||'Customer')+' - ₹'+b.total+' - '+b.date+'</p>').join(''):'No saved bills yet.'}function downloadTextInvoice(){let text='${shop}\n${address} | ${mobile}\n\nSoftware Provided Free By Digital Agency By Chandan Das\nContact: 9735474770\n\n';text+='Invoice: '+document.getElementById('invoiceNo').value+'\nCustomer: '+document.getElementById('customerName').value+'\nMobile: '+document.getElementById('customerMobile').value+'\nDate: '+document.getElementById('invoiceDate').value+'\n\n';items.forEach((item,i)=>{text+=(i+1)+'. '+item.name+' | Qty '+item.qty+' | ₹'+item.price+' | GST '+item.gst+'%\n'});text+='\nGrand Total: ₹'+document.getElementById('grandTotal').innerText;const blob=new Blob([text],{type:'text/plain'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=document.getElementById('invoiceNo').value+'.txt';a.click()}renderBill();</scr`+`ipt></body></html>`;
+    }
+
+    const originalShowAdminDashboard = window.showAdminDashboard;
+    if (typeof originalShowAdminDashboard === 'function') {
+      window.showAdminDashboard = function(){ originalShowAdminDashboard(); renderBillingRequests(); };
+    }
+</script>
 
 </body>
 </html>
