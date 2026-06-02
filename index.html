@@ -275,13 +275,78 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
-  <!-- Offer Banner -->
+  <!-- Offer Banner with Countdown Timer -->
   <div id="offerBanner" style="display:block;">
-    🎁 লিমিটেড টাইম অফার! আমাদের সাথে যোগাযোগ করুন এবং পান বিনামূল্যে <strong>দোকান বিলিং সফটওয়্যার</strong> 🧾 &nbsp;
+    🎁 লিমিটেড টাইম অফার! বিনামূল্যে <strong>দোকান বিলিং সফটওয়্যার</strong> 🧾 &nbsp;
+    ⏰ শেষ হচ্ছে: <strong id="countdownTimer" style="color:#fff700;font-size:1.1em;">00:00:00</strong> &nbsp;
     <a href="#contact" class="underline" style="color:#fff700;">এখনই যোগাযোগ করুন →</a>
     &nbsp;&nbsp;
     <span onclick="document.getElementById('offerBanner').style.display='none'" style="cursor:pointer;opacity:0.7;">✕</span>
   </div>
+
+  <!-- Floating Call Button -->
+  <a href="tel:+919735474770" id="floatingCallBtn" style="position:fixed;bottom:90px;right:20px;z-index:9999;background:linear-gradient(135deg,#22c55e,#16a34a);color:white;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;box-shadow:0 4px 20px rgba(34,197,94,0.5);text-decoration:none;animation:callPulse 2s infinite;">📞</a>
+  <style>@keyframes callPulse{0%,100%{box-shadow:0 4px 20px rgba(34,197,94,0.5);}50%{box-shadow:0 4px 30px rgba(34,197,94,0.9),0 0 0 10px rgba(34,197,94,0.15);}}</style>
+
+  <!-- Free Consultation Popup -->
+  <div id="consultPopup" style="display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.7);align-items:center;justify-content:center;">
+    <div style="background:linear-gradient(135deg,#1e1b4b,#0f172a);border:1px solid #7c3aed;border-radius:20px;padding:32px;max-width:420px;width:90%;position:relative;box-shadow:0 20px 60px rgba(124,58,237,0.4);">
+      <button onclick="document.getElementById('consultPopup').style.display='none'" style="position:absolute;top:14px;right:16px;background:none;border:none;color:#9ca3af;font-size:22px;cursor:pointer;">✕</button>
+      <div style="text-align:center;margin-bottom:20px;">
+        <div style="font-size:40px;">🎯</div>
+        <h3 style="color:white;font-size:20px;font-weight:700;margin:8px 0 4px;">FREE Consultation নিন!</h3>
+        <p style="color:#a5b4fc;font-size:13px;margin:0;">সম্পূর্ণ বিনামূল্যে — কোনো charge নেই</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <input id="c_name" placeholder="আপনার নাম *" style="padding:12px 16px;border-radius:10px;border:1px solid #4c1d95;background:#1e1b4b;color:white;font-size:14px;outline:none;">
+        <input id="c_mobile" placeholder="Mobile Number *" style="padding:12px 16px;border-radius:10px;border:1px solid #4c1d95;background:#1e1b4b;color:white;font-size:14px;outline:none;">
+        <select id="c_service" style="padding:12px 16px;border-radius:10px;border:1px solid #4c1d95;background:#1e1b4b;color:white;font-size:14px;outline:none;">
+          <option value="">কী চান? বেছে নিন</option>
+          <option>Website Development</option>
+          <option>Mobile App Development</option>
+          <option>Ecommerce Website</option>
+          <option>Billing Software</option>
+          <option>Digital Visiting Card</option>
+          <option>Photo Restoration</option>
+          <option>Wedding Video Editing</option>
+        </select>
+        <select id="c_budget" style="padding:12px 16px;border-radius:10px;border:1px solid #4c1d95;background:#1e1b4b;color:white;font-size:14px;outline:none;">
+          <option value="">বাজেট কত?</option>
+          <option>৳999 - ৳2,999</option>
+          <option>৳3,000 - ৳9,999</option>
+          <option>৳10,000 - ৳25,000</option>
+          <option>৳25,000 এর বেশি</option>
+        </select>
+        <button onclick="sendConsultWA()" style="padding:14px;border-radius:10px;border:none;background:linear-gradient(135deg,#7c3aed,#06b6d4);color:white;font-size:15px;font-weight:700;cursor:pointer;">🚀 WhatsApp-এ Free Consultation নিন</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Exit Intent Popup -->
+  <div id="exitPopup" style="display:none;position:fixed;inset:0;z-index:99998;background:rgba(0,0,0,0.75);align-items:center;justify-content:center;">
+    <div style="background:linear-gradient(135deg,#0f172a,#1e1b4b);border:2px solid #f59e0b;border-radius:20px;padding:32px;max-width:400px;width:90%;position:relative;text-align:center;box-shadow:0 20px 60px rgba(245,158,11,0.3);">
+      <button onclick="closeExitPopup()" style="position:absolute;top:14px;right:16px;background:none;border:none;color:#9ca3af;font-size:22px;cursor:pointer;">✕</button>
+      <div style="font-size:48px;margin-bottom:12px;">🎁</div>
+      <h3 style="color:#fbbf24;font-size:22px;font-weight:700;margin:0 0 8px;">যাওয়ার আগে একটু দেখুন!</h3>
+      <p style="color:#e2e8f0;font-size:14px;margin:0 0 20px;">আজই যোগাযোগ করলে পাবেন একদম বিনামূল্যে:</p>
+      <div style="background:rgba(124,58,237,0.2);border-radius:12px;padding:16px;margin-bottom:20px;text-align:left;">
+        <p style="color:#a5b4fc;margin:6px 0;font-size:14px;">✅ FREE Billing Software <strong style="color:#fbbf24;">(Lifetime)</strong> 🎁</p>
+        <p style="color:#a5b4fc;margin:6px 0;font-size:14px;">✅ FREE SSL Certificate ♾️</p>
+        <p style="color:#a5b4fc;margin:6px 0;font-size:14px;">✅ FREE Lifetime Support 🤝</p>
+        <p style="color:#a5b4fc;margin:6px 0;font-size:14px;">✅ FREE Lifetime Updates ♾️</p>
+        <div style="margin-top:10px;border-top:1px dashed #4c1d95;padding-top:10px;">
+          <p style="color:#fbbf24;font-size:13px;margin:0 0 8px;">🏪 এখনই আপনার দোকানের Billing Software নিন:</p>
+          <input id="exitShopName" placeholder="আপনার দোকানের নাম লিখুন" style="width:100%;padding:10px 12px;border-radius:8px;border:1px solid #7c3aed;background:#1e1b4b;color:white;font-size:13px;outline:none;box-sizing:border-box;">
+          <button onclick="openExitBilling()" style="width:100%;margin-top:8px;padding:10px;border-radius:8px;border:none;background:linear-gradient(135deg,#f59e0b,#ef4444);color:white;font-size:13px;font-weight:700;cursor:pointer;">🧾 Lifetime Billing Software পান — FREE</button>
+        </div>
+      </div>
+      <a href="https://wa.me/919735474770?text=আমি%20special%20offer%20সম্পর্কে%20জানতে%20চাই" target="_blank" style="display:block;padding:14px;border-radius:10px;background:linear-gradient(135deg,#25d366,#128c7e);color:white;font-size:15px;font-weight:700;text-decoration:none;margin-bottom:10px;">💬 এখনই WhatsApp করুন</a>
+      <button onclick="closeExitPopup()" style="background:none;border:none;color:#6b7280;font-size:13px;cursor:pointer;text-decoration:underline;">না, আমার দরকার নেই</button>
+    </div>
+  </div>
+
+  <!-- Free Consultation Floating Button -->
+  <button onclick="document.getElementById('consultPopup').style.display='flex'" style="position:fixed;bottom:160px;right:20px;z-index:9998;background:linear-gradient(135deg,#7c3aed,#06b6d4);color:white;border:none;border-radius:50px;padding:10px 16px;font-size:12px;font-weight:700;cursor:pointer;box-shadow:0 4px 20px rgba(124,58,237,0.5);white-space:nowrap;">🎯 Free Consultation</button>
 
 
   <!-- Welcome Bar -->
@@ -366,7 +431,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       <div class="relative">
         <div class="glass rounded-3xl p-6 shadow-2xl">
-          <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop" class="rounded-2xl" alt="dashboard">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop" class="rounded-2xl" alt="dashboard">
         </div>
         <div class="absolute -top-6 -left-6 glass p-4 rounded-2xl">
           <i class="fa-solid fa-chart-line text-cyan-400 text-2xl"></i>
@@ -388,7 +453,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
 
         <div class="glass rounded-3xl overflow-hidden glow transition duration-300 min-h-[280px] flex flex-col hover:border-cyan-400">
-          <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop" class="w-full h-40 object-cover">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop" class="w-full h-40 object-cover">
           <div class="p-8">
             <i class="fa-solid fa-code text-4xl text-purple-400 mb-5"></i>
             <h3 class="text-2xl font-bold mb-3">Website Development</h3>
@@ -397,7 +462,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
 
         <div class="glass rounded-3xl overflow-hidden glow transition duration-300 min-h-[280px] flex flex-col hover:border-cyan-400">
-          <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?q=80&w=1200&auto=format&fit=crop" class="w-full h-40 object-cover">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1551650975-87deedd944c3?q=80&w=1200&auto=format&fit=crop" class="w-full h-40 object-cover">
           <div class="p-8">
             <i class="fa-solid fa-mobile-screen text-4xl text-cyan-400 mb-5"></i>
             <h3 class="text-2xl font-bold mb-3">Mobile Apps</h3>
@@ -406,7 +471,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
 
         <div class="glass rounded-3xl overflow-hidden glow transition duration-300 min-h-[280px] flex flex-col hover:border-cyan-400">
-          <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200&auto=format&fit=crop" class="w-full h-40 object-cover">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200&auto=format&fit=crop" class="w-full h-40 object-cover">
           <div class="p-8">
             <i class="fa-solid fa-cart-shopping text-4xl text-pink-400 mb-5"></i>
             <h3 class="text-2xl font-bold mb-3">Ecommerce</h3>
@@ -415,7 +480,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
 
         <div class="glass rounded-3xl overflow-hidden glow transition duration-300 min-h-[280px] flex flex-col hover:border-cyan-400">
-          <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop" class="w-full h-40 object-cover">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop" class="w-full h-40 object-cover">
           <div class="p-8">
             <i class="fa-solid fa-brain text-4xl text-yellow-400 mb-5"></i>
             <h3 class="text-2xl font-bold mb-3">Smart Solutions</h3>
@@ -424,7 +489,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
 
         <div class="glass rounded-3xl overflow-hidden glow transition duration-300 min-h-[280px] flex flex-col hover:border-cyan-400">
-          <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=1200&auto=format&fit=crop" class="w-full h-40 object-cover">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=1200&auto=format&fit=crop" class="w-full h-40 object-cover">
           <div class="p-8">
             <i class="fa-solid fa-file-excel text-4xl text-green-400 mb-5"></i>
             <h3 class="text-2xl font-bold mb-3">Excel Work</h3>
@@ -433,7 +498,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
 
         <div class="glass rounded-3xl overflow-hidden glow transition duration-300 min-h-[280px] flex flex-col hover:border-cyan-400">
-          <img src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?q=80&w=1200&auto=format&fit=crop" class="w-full h-40 object-cover">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?q=80&w=1200&auto=format&fit=crop" class="w-full h-40 object-cover">
           <div class="p-8">
             <i class="fa-solid fa-video text-4xl text-red-400 mb-5"></i>
             <h3 class="text-2xl font-bold mb-3">Wedding Video Mixing</h3>
@@ -442,7 +507,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
 
         <div class="glass rounded-3xl overflow-hidden glow transition duration-300 min-h-[280px] flex flex-col hover:border-cyan-400">
-          <img src="https://images.unsplash.com/photo-1586281380349-632531db7ed4?q=80&w=1200&auto=format&fit=crop" class="w-full h-40 object-cover">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1586281380349-632531db7ed4?q=80&w=1200&auto=format&fit=crop" class="w-full h-40 object-cover">
           <div class="p-8">
             <i class="fa-solid fa-id-card text-4xl text-blue-400 mb-5"></i>
             <h3 class="text-2xl font-bold mb-3">Digital Visiting Card</h3>
@@ -451,7 +516,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
 
         <div class="glass rounded-3xl overflow-hidden glow transition duration-300 min-h-[280px] flex flex-col hover:border-cyan-400">
-          <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=1200&auto=format&fit=crop" class="w-full h-40 object-cover">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=1200&auto=format&fit=crop" class="w-full h-40 object-cover">
           <div class="p-8">
             <i class="fa-solid fa-image text-4xl text-orange-400 mb-5"></i>
             <h3 class="text-2xl font-bold mb-3">Old Photo Recover</h3>
@@ -530,7 +595,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="max-w-7xl mx-auto px-6">
       <div class="grid md:grid-cols-2 gap-10 items-center glass rounded-3xl overflow-hidden p-8">
         <div>
-          <img src="https://images.unsplash.com/photo-1556740749-887f6717d7e4?q=80&w=1200&auto=format&fit=crop" class="rounded-3xl w-full h-[400px] object-cover">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1556740749-887f6717d7e4?q=80&w=1200&auto=format&fit=crop" class="rounded-3xl w-full h-[400px] object-cover">
         </div>
         <div>
           <h2 class="text-5xl font-bold leading-tight mb-6">
@@ -574,7 +639,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <!-- Restaurant -->
         <div class="glass rounded-2xl overflow-hidden hover:border-orange-400 border border-transparent transition duration-300 group cursor-pointer" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
           <div class="relative overflow-hidden h-44">
-            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
             <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
             <div class="absolute bottom-3 left-3 text-2xl">🍽️</div>
           </div>
@@ -588,7 +653,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <!-- Hotel -->
         <div class="glass rounded-2xl overflow-hidden hover:border-cyan-400 border border-transparent transition duration-300 group cursor-pointer" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
           <div class="relative overflow-hidden h-44">
-            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
             <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
             <div class="absolute bottom-3 left-3 text-2xl">🏨</div>
           </div>
@@ -602,7 +667,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <!-- E-commerce -->
         <div class="glass rounded-2xl overflow-hidden hover:border-green-400 border border-transparent transition duration-300 group cursor-pointer" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
           <div class="relative overflow-hidden h-44">
-            <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
             <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
             <div class="absolute bottom-3 left-3 text-2xl">🛒</div>
           </div>
@@ -616,7 +681,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <!-- Billing Software -->
         <div class="glass rounded-2xl overflow-hidden hover:border-yellow-400 border border-yellow-500/30 transition duration-300 group cursor-pointer" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
           <div class="relative overflow-hidden h-44">
-            <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
             <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
             <div class="absolute bottom-3 left-3 text-2xl">🧾</div>
             <div class="absolute top-3 right-3 bg-yellow-400 text-black text-xs font-bold px-2 py-0.5 rounded-full animate-pulse">FREE*</div>
@@ -631,7 +696,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <!-- Clinic / Doctor -->
         <div class="glass rounded-2xl overflow-hidden hover:border-red-400 border border-transparent transition duration-300 group cursor-pointer" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
           <div class="relative overflow-hidden h-44">
-            <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=600&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=600&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
             <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
             <div class="absolute bottom-3 left-3 text-2xl">🏥</div>
           </div>
@@ -645,7 +710,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <!-- School -->
         <div class="glass rounded-2xl overflow-hidden hover:border-blue-400 border border-transparent transition duration-300 group cursor-pointer" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
           <div class="relative overflow-hidden h-44">
-            <img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=600&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=600&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
             <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
             <div class="absolute bottom-3 left-3 text-2xl">🎓</div>
           </div>
@@ -659,7 +724,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <!-- Salon -->
         <div class="glass rounded-2xl overflow-hidden hover:border-pink-400 border border-transparent transition duration-300 group cursor-pointer" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
           <div class="relative overflow-hidden h-44">
-            <img src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=600&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=600&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
             <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
             <div class="absolute bottom-3 left-3 text-2xl">💇</div>
           </div>
@@ -673,7 +738,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <!-- Gym -->
         <div class="glass rounded-2xl overflow-hidden hover:border-purple-400 border border-transparent transition duration-300 group cursor-pointer" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
           <div class="relative overflow-hidden h-44">
-            <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
             <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
             <div class="absolute bottom-3 left-3 text-2xl">💪</div>
           </div>
@@ -687,7 +752,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <!-- Real Estate -->
         <div class="glass rounded-2xl overflow-hidden hover:border-emerald-400 border border-transparent transition duration-300 group cursor-pointer" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
           <div class="relative overflow-hidden h-44">
-            <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
             <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
             <div class="absolute bottom-3 left-3 text-2xl">🏠</div>
           </div>
@@ -701,7 +766,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <!-- Transport -->
         <div class="glass rounded-2xl overflow-hidden hover:border-amber-400 border border-transparent transition duration-300 group cursor-pointer" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
           <div class="relative overflow-hidden h-44">
-            <img src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=600&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=600&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
             <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
             <div class="absolute bottom-3 left-3 text-2xl">🚗</div>
           </div>
@@ -715,7 +780,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <!-- Pharmacy -->
         <div class="glass rounded-2xl overflow-hidden hover:border-teal-400 border border-transparent transition duration-300 group cursor-pointer" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
           <div class="relative overflow-hidden h-44">
-            <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
             <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
             <div class="absolute bottom-3 left-3 text-2xl">💊</div>
           </div>
@@ -729,7 +794,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <!-- Custom -->
         <div class="glass rounded-2xl overflow-hidden hover:border-white border border-white/20 transition duration-300 group cursor-pointer" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
           <div class="relative overflow-hidden h-44">
-            <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
             <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
             <div class="absolute bottom-3 left-3 text-2xl">⚡</div>
           </div>
@@ -762,7 +827,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <!-- Portfolio card 1 — this site itself -->
         <div class="glass rounded-3xl overflow-hidden glow transition duration-300">
-          <img src="https://images.unsplash.com/photo-1559028012-481c04fa702d?q=80&w=1200&auto=format&fit=crop" class="w-full h-60 object-cover">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1559028012-481c04fa702d?q=80&w=1200&auto=format&fit=crop" class="w-full h-60 object-cover">
           <div class="p-6">
             <span class="portfolio-tag bg-purple-600/30 text-purple-300">Agency Website</span>
             <h3 class="text-2xl font-bold mb-3">Digital Agency Website</h3>
@@ -1261,5 +1326,82 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 }
 </script>
 
+
+<script>
+// ✅ 1. Countdown Timer — প্রতিদিন রাত ১২টায় reset
+function updateCountdown() {
+  const now = new Date();
+  const midnight = new Date();
+  midnight.setHours(24, 0, 0, 0);
+  const diff = midnight - now;
+  const h = String(Math.floor(diff / 3600000)).padStart(2, '0');
+  const m = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
+  const s = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
+  const el = document.getElementById('countdownTimer');
+  if (el) el.textContent = h + ':' + m + ':' + s;
+}
+setInterval(updateCountdown, 1000);
+updateCountdown();
+
+// ✅ 2. Exit Intent Popup — mouse উপরে গেলে দেখাবে
+let exitShown = false;
+document.addEventListener('mouseleave', function(e) {
+  if (e.clientY < 10 && !exitShown) {
+    exitShown = true;
+    document.getElementById('exitPopup').style.display = 'flex';
+  }
+});
+// Mobile — ২০ সেকেন্ড পরে দেখাবে
+setTimeout(function() {
+  if (!exitShown && window.innerWidth < 768) {
+    exitShown = true;
+    document.getElementById('exitPopup').style.display = 'flex';
+  }
+}, 20000);
+function closeExitPopup() {
+  document.getElementById('exitPopup').style.display = 'none';
+  sessionStorage.setItem('exitShown', '1');
+}
+if (sessionStorage.getItem('exitShown')) exitShown = true;
+
+// ✅ 3b. Exit Popup Billing Open
+function openExitBilling() {
+  const shop = document.getElementById('exitShopName').value.trim();
+  if (!shop) { 
+    document.getElementById('exitShopName').focus();
+    document.getElementById('exitShopName').style.border = '1px solid #ef4444';
+    return; 
+  }
+  // Open billing software with shop name pre-filled
+  const billingWin = window.open('', '_blank');
+  // Find existing generateBillingSoftware function and call it
+  if (typeof generateBillingSoftware === 'function') {
+    const html = generateBillingSoftware(shop, '', '');
+    billingWin.document.write(html);
+    billingWin.document.close();
+  } else {
+    // Fallback: send to WhatsApp with shop name
+    const msg = 'নমস্কার! আমি Lifetime FREE Billing Software চাই।%0Aদোকানের নাম: ' + encodeURIComponent(shop);
+    window.open('https://wa.me/919735474770?text=' + msg, '_blank');
+  }
+  closeExitPopup();
+}
+
+// ✅ 3. Free Consultation WhatsApp Send
+function sendConsultWA() {
+  const name = document.getElementById('c_name').value.trim();
+  const mobile = document.getElementById('c_mobile').value.trim();
+  const service = document.getElementById('c_service').value;
+  const budget = document.getElementById('c_budget').value;
+  if (!name || !mobile) { alert('নাম ও mobile number দিন'); return; }
+  const msg = 'নমস্কার! আমি Free Consultation চাই।%0A' +
+    'নাম: ' + encodeURIComponent(name) + '%0A' +
+    'Mobile: ' + encodeURIComponent(mobile) + '%0A' +
+    'Service: ' + encodeURIComponent(service || 'জানাব') + '%0A' +
+    'Budget: ' + encodeURIComponent(budget || 'আলোচনা করব');
+  window.open('https://wa.me/919735474770?text=' + msg, '_blank');
+  document.getElementById('consultPopup').style.display = 'none';
+}
+</script>
 </body>
 </html>
