@@ -462,22 +462,52 @@ function submitRegistration() {
 // ═══════════════════════════════════════════
 let currentPartner = null;
 
-function partnerLogin() {
-  const pid = document.getElementById('login_id').value.trim().toUpperCase();
-  const mobile = document.getElementById('login_mobile').value.trim();
+function cleanMobile(v) {
+  return String(v || '').replace(/\D/g, '').slice(-10);
+}
+function cleanText(v) {
+  return String(v || '').trim();
+}
+
+async function partnerLogin() {
+  const pid = cleanText(document.getElementById('login_id').value).toUpperCase();
+  const mobile = cleanMobile(document.getElementById('login_mobile').value);
   if (!pid || !mobile) { alert('Partner ID ও mobile number দিন'); return; }
 
-  const apps = getData('partnerApplications');
-  const partner = apps.find(a => a.partnerId === pid && a.mobile === mobile && a.status === 'approved');
+  try {
+    const res = await fetch(SHEET_API + '?sheet=Partner_Applications&ts=' + Date.now());
+    const json = await res.json();
+    const rows = Array.isArray(json.data) ? json.data : [];
 
-  if (!partner) {
-    alert('❌ Partner ID বা Mobile Number ভুল! অথবা এখনো Approved হয়নি।');
-    return;
+    const partner = rows.find(r => {
+      const sheetPid = cleanText(r['Partner ID'] || r.partnerId || r['PartnerID']).toUpperCase();
+      const sheetMobile = cleanMobile(r['Mobile'] || r.mobile);
+      const sheetStatus = cleanText(r['Status'] || r.status).toLowerCase();
+      return sheetPid === pid && sheetMobile === mobile && sheetStatus === 'approved';
+    });
+
+    if (!partner) {
+      alert('❌ Partner ID বা Mobile Number ভুল! অথবা এখনো Approved হয়নি।');
+      return;
+    }
+
+    currentPartner = {
+      name: cleanText(partner['নাম'] || partner.name || 'Partner'),
+      mobile: cleanMobile(partner['Mobile'] || partner.mobile),
+      area: cleanText(partner['এলাকা'] || partner.area || ''),
+      upi: cleanText(partner['UPI'] || partner.upi || ''),
+      status: 'approved',
+      partnerId: pid,
+      clients: JSON.parse(localStorage.getItem('partnerClients_' + pid) || '[]')
+    };
+
+    sessionStorage.setItem('currentPartner', JSON.stringify(currentPartner));
+    localStorage.setItem('partnerLogin_' + pid, JSON.stringify(currentPartner));
+    loadDashboard(currentPartner);
+  } catch (err) {
+    console.log(err);
+    alert('❌ Google Sheet থেকে data আনতে সমস্যা হচ্ছে। একটু পরে আবার চেষ্টা করুন।');
   }
-
-  currentPartner = partner;
-  sessionStorage.setItem('currentPartner', JSON.stringify(partner));
-  loadDashboard(partner);
 }
 
 function loadDashboard(partner) {
@@ -512,13 +542,10 @@ window.addEventListener('load', () => {
   if (saved) {
     try {
       const p = JSON.parse(saved);
-      // Refresh from storage
-      const apps = getData('partnerApplications');
-      const fresh = apps.find(a => a.partnerId === p.partnerId);
-      if (fresh && fresh.status === 'approved') {
-        currentPartner = fresh;
+      if (p && p.status === 'approved') {
+        currentPartner = p;
         showTab('login');
-        loadDashboard(fresh);
+        loadDashboard(p);
       }
     } catch {}
   }
@@ -547,14 +574,10 @@ function submitClient() {
     partnerName: currentPartner.name,
   };
 
-  // Save to partner's clients
-  const apps = getData('partnerApplications');
-  const idx = apps.findIndex(a => a.partnerId === currentPartner.partnerId);
-  if (idx === -1) return;
-  if (!apps[idx].clients) apps[idx].clients = [];
-  apps[idx].clients.push(client);
-  setData('partnerApplications', apps);
-  currentPartner = apps[idx];
+  // Save to Google Sheet + local client history for this partner
+  if (!currentPartner.clients) currentPartner.clients = [];
+  currentPartner.clients.push(client);
+  localStorage.setItem('partnerClients_' + currentPartner.partnerId, JSON.stringify(currentPartner.clients));
   sendToSheet('Partner_Clients',
     ['তারিখ','Partner নাম','Partner ID','Client নাম','Client Mobile','ঠিকানা','Service','বাজেট','Note'],
     [new Date().toLocaleString('bn-BD'), currentPartner.name, currentPartner.partnerId, client.name, client.mobile, client.address, client.service, client.budget||'-', client.note||'-']
