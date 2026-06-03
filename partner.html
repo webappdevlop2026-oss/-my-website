@@ -383,6 +383,29 @@ async function sendToSheet(sheetName, headers, row) {
     });
   } catch(e) { console.log('Sheet:', e); }
 }
+
+async function fetchSheet(sheetName) {
+  const url = SHEET_API + '?sheet=' + encodeURIComponent(sheetName) + '&t=' + Date.now();
+  const res = await fetch(url);
+  const json = await res.json();
+  return Array.isArray(json.data) ? json.data : [];
+}
+function normText(v){ return String(v || '').trim(); }
+function normId(v){ return normText(v).toUpperCase().replace(/\s+/g,''); }
+function normMobile(v){ return normText(v).replace(/\D/g,'').slice(-10); }
+function getField(obj, names){
+  for (const n of names) {
+    if (obj[n] !== undefined && obj[n] !== null && String(obj[n]).trim() !== '') return obj[n];
+  }
+  const keys = Object.keys(obj || {});
+  for (const n of names) {
+    const target = n.toLowerCase().replace(/\s+/g,'');
+    const k = keys.find(x => x.toLowerCase().replace(/\s+/g,'') === target);
+    if (k) return obj[k];
+  }
+  return '';
+}
+
 </script>
 <script>
 // ═══════════════════════════════════════════
@@ -462,96 +485,74 @@ function submitRegistration() {
 // ═══════════════════════════════════════════
 let currentPartner = null;
 
-async function fetchSheetData(sheetName) {
-  try {
-    const res = await fetch(SHEET_API + '?sheet=' + encodeURIComponent(sheetName) + '&t=' + Date.now());
-    const json = await res.json();
-    return json.data || [];
-  } catch (err) {
-    console.log('Sheet fetch error:', err);
-    return [];
-  }
-}
-
-function cleanMobile(num) {
-  return String(num || '').replace(/\D/g, '').slice(-10);
-}
-
-function cleanId(id) {
-  return String(id || '').trim().toUpperCase().replace(/\s+/g, '');
-}
-
-function getAny(obj, keys) {
-  for (const k of keys) {
-    if (obj[k] !== undefined && obj[k] !== null && String(obj[k]).trim() !== '') return obj[k];
-  }
-  return '';
-}
-
 async function partnerLogin() {
-  const pid = cleanId(document.getElementById('login_id').value);
-  const mobile = cleanMobile(document.getElementById('login_mobile').value);
+  const pid = normId(document.getElementById('login_id').value);
+  const mobile = normMobile(document.getElementById('login_mobile').value);
   if (!pid || !mobile) { alert('Partner ID ও mobile number দিন'); return; }
 
-  const btn = event?.target;
+  const btn = document.querySelector('#login-form-view button');
   const oldText = btn ? btn.innerHTML : '';
   if (btn) { btn.innerHTML = '⏳ Checking...'; btn.disabled = true; }
 
-  let apps = await fetchSheetData('Partner_Applications');
+  try {
+    // Admin approval data is saved in Partner_Status sheet.
+    const rows = await fetchSheet('Partner_Status');
+    const partner = rows.find(r =>
+      normId(getField(r, ['Partner ID','Partner Id','partnerId','ID'])) === pid &&
+      normMobile(getField(r, ['Mobile','Mobile Number','mobile'])) === mobile &&
+      normText(getField(r, ['Status','status'])).toLowerCase() === 'approved'
+    );
 
-  // Backup: localStorage also check, in case sheet read is slow
-  const localApps = getData('partnerApplications');
-  const normalizedLocal = localApps.map(a => ({
-    'নাম': a.name,
-    'Mobile': a.mobile,
-    'Partner ID': a.partnerId,
-    'Status': a.status,
-    clients: a.clients || []
-  }));
-  apps = [...apps, ...normalizedLocal];
+    if (!partner) {
+      alert('❌ Partner ID বা Mobile Number ভুল! অথবা এখনো Approved হয়নি।');
+      return;
+    }
 
-  const partnerRow = apps.find(a => {
-    const rowPid = cleanId(getAny(a, ['Partner ID','partnerId','PartnerID','ID','id']));
-    const rowMobile = cleanMobile(getAny(a, ['Mobile','mobile','মোবাইল','Phone','phone']));
-    const rowStatus = String(getAny(a, ['Status','status'])).trim().toLowerCase();
-    return rowPid === pid && rowMobile === mobile && rowStatus === 'approved';
-  });
-
-  if (btn) { btn.innerHTML = oldText; btn.disabled = false; }
-
-  if (!partnerRow) {
-    alert('❌ Partner ID বা Mobile Number ভুল! অথবা এখনো Approved হয়নি।');
-    return;
+    currentPartner = {
+      name: normText(getField(partner, ['নাম','Name','name'])) || 'Partner',
+      mobile: normText(getField(partner, ['Mobile','Mobile Number','mobile'])),
+      partnerId: normText(getField(partner, ['Partner ID','Partner Id','partnerId','ID'])),
+      status: 'approved',
+      clients: []
+    };
+    sessionStorage.setItem('currentPartner', JSON.stringify(currentPartner));
+    await loadDashboard(currentPartner);
+  } catch (err) {
+    console.error(err);
+    alert('❌ Google Sheet থেকে data পড়া যাচ্ছে না। একটু পরে আবার চেষ্টা করুন।');
+  } finally {
+    if (btn) { btn.innerHTML = oldText; btn.disabled = false; }
   }
-
-  currentPartner = {
-    id: pid,
-    name: getAny(partnerRow, ['নাম','Name','name']) || 'Partner',
-    mobile: mobile,
-    partnerId: pid,
-    status: 'approved',
-    clients: partnerRow.clients || [],
-    earnings: 0
-  };
-
-  sessionStorage.setItem('currentPartner', JSON.stringify(currentPartner));
-  loadDashboard(currentPartner);
 }
 
-function loadDashboard(partner) {
+async function loadDashboard(partner) {
   document.getElementById('login-form-view').style.display = 'none';
   document.getElementById('partner-dashboard').style.display = 'block';
   document.getElementById('dash_name').textContent = '👋 ' + partner.name;
   document.getElementById('dash_id_show').textContent = 'Partner ID: ' + partner.partnerId;
 
-  // Load stats
-  const clients = partner.clients || [];
-  const approved = clients.filter(c => c.status === 'approved').length;
+  let clients = partner.clients || [];
+  try {
+    const rows = await fetchSheet('Partner_Clients');
+    clients = rows
+      .filter(r => normId(getField(r, ['Partner ID','Partner Id','partnerId','ID'])) === normId(partner.partnerId))
+      .map(r => ({
+        name: getField(r, ['Client নাম','Client Name','Client','name']),
+        mobile: getField(r, ['Client Mobile','Mobile','mobile']),
+        address: getField(r, ['ঠিকানা','Address','address']),
+        service: getField(r, ['Service','service']),
+        budget: getField(r, ['বাজেট','Budget','budget']),
+        note: getField(r, ['Note','note']),
+        status: String(getField(r, ['Status','status']) || 'pending').toLowerCase(),
+        date: getField(r, ['তারিখ','Date','date']) || ''
+      }));
+  } catch(e) { console.log('Client fetch error', e); }
+
+  partner.clients = clients;
+  const approved = clients.filter(c => String(c.status).toLowerCase() === 'approved').length;
   document.getElementById('stat_submitted').textContent = clients.length;
   document.getElementById('stat_approved').textContent = approved;
   document.getElementById('stat_earned').textContent = approved + ' sale';
-
-  // Load client list
   renderMyClients(clients);
 }
 
@@ -570,14 +571,9 @@ window.addEventListener('load', () => {
   if (saved) {
     try {
       const p = JSON.parse(saved);
-      // Refresh from storage
-      const apps = getData('partnerApplications');
-      const fresh = apps.find(a => a.partnerId === p.partnerId);
-      if (fresh && String(fresh.status || '').toLowerCase() === 'approved') {
-        currentPartner = fresh;
-        showTab('login');
-        loadDashboard(fresh);
-      }
+      currentPartner = p;
+      showTab('login');
+      loadDashboard(p);
     } catch {}
   }
 });
@@ -605,17 +601,11 @@ function submitClient() {
     partnerName: currentPartner.name,
   };
 
-  // Save to partner's clients
-  const apps = getData('partnerApplications');
-  const idx = apps.findIndex(a => a.partnerId === currentPartner.partnerId);
-  if (idx === -1) return;
-  if (!apps[idx].clients) apps[idx].clients = [];
-  apps[idx].clients.push(client);
-  setData('partnerApplications', apps);
-  currentPartner = apps[idx];
+  if (!currentPartner.clients) currentPartner.clients = [];
+  currentPartner.clients.push(client);
   sendToSheet('Partner_Clients',
-    ['তারিখ','Partner নাম','Partner ID','Client নাম','Client Mobile','ঠিকানা','Service','বাজেট','Note'],
-    [new Date().toLocaleString('bn-BD'), currentPartner.name, currentPartner.partnerId, client.name, client.mobile, client.address, client.service, client.budget||'-', client.note||'-']
+    ['তারিখ','Partner নাম','Partner ID','Client নাম','Client Mobile','ঠিকানা','Service','বাজেট','Note','Status'],
+    [new Date().toLocaleString('bn-BD'), currentPartner.name, currentPartner.partnerId, client.name, client.mobile, client.address, client.service, client.budget||'-', client.note||'-', 'Pending']
   );
   sessionStorage.setItem('currentPartner', JSON.stringify(currentPartner));
 
