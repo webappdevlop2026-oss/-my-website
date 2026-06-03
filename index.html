@@ -32,62 +32,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'G-9929BK5LN5');
-
-
-
-    function adminLogin(){
-      const pin = document.getElementById('adminPin').value.trim();
-      if(pin === '1234'){ localStorage.setItem('adminLoggedIn','yes'); showAdminDashboard(); } else { alert('Wrong PIN'); }
-    }
-    function adminLogout(){ localStorage.removeItem('adminLoggedIn'); document.getElementById('adminDashboard').classList.add('admin-hidden'); document.getElementById('adminLoginBox').classList.remove('admin-hidden'); }
-    function showAdminDashboard(){ document.getElementById('adminLoginBox').classList.add('admin-hidden'); document.getElementById('adminDashboard').classList.remove('admin-hidden'); loadAdminContent(); renderAdminPortfolio(); renderEnquiries(); }
-    function openAdminTab(evt, tabId){ document.querySelectorAll('.admin-tab').forEach(t=>t.classList.add('admin-hidden')); document.getElementById(tabId).classList.remove('admin-hidden'); document.querySelectorAll('.admin-tab-btn').forEach(b=>b.classList.remove('active')); evt.target.classList.add('active'); }
-    function loadAdminContent(){
-      const settings = JSON.parse(localStorage.getItem('siteAdminSettings') || '{}');
-      document.getElementById('adminOfferText').value = settings.offer || '🎁 লিমিটেড টাইম অফার! আমাদের সাথে যোগাযোগ করুন এবং পান বিনামূল্যে দোকান বিলিং সফটওয়্যার 🧾';
-      document.getElementById('adminPriceText').value = settings.price || 'Website Starting Price Only ₹999';
-      document.getElementById('adminWhatsapp').value = settings.whatsapp || '917549459770';
-      document.getElementById('adminCall').value = settings.call || '919735474770';
-    }
-    function saveAdminContent(){
-      const settings = { offer: document.getElementById('adminOfferText').value, price: document.getElementById('adminPriceText').value, whatsapp: document.getElementById('adminWhatsapp').value.replace(/[^0-9]/g,''), call: document.getElementById('adminCall').value.replace(/[^0-9]/g,'') };
-      localStorage.setItem('siteAdminSettings', JSON.stringify(settings)); applyAdminSettings(); alert('Content saved successfully');
-    }
-    function applyAdminSettings(){
-      const settings = JSON.parse(localStorage.getItem('siteAdminSettings') || '{}');
-      if(settings.offer && document.getElementById('offerBanner')) document.getElementById('offerBanner').innerHTML = `${settings.offer} &nbsp; <a href="#contact" class="underline" style="color:#fff700;">এখনই যোগাযোগ করুন →</a> &nbsp;&nbsp; <span onclick="document.getElementById('offerBanner').style.display='none'" style="cursor:pointer;opacity:0.7;">✕</span>`;
-      if(settings.price){ const priceBadge = Array.from(document.querySelectorAll('div')).find(el => el.textContent.trim().startsWith('Website Starting Price')); if(priceBadge) priceBadge.textContent = settings.price; }
-      if(settings.whatsapp) document.querySelectorAll('a[href^="https://wa.me/"]').forEach(a=>{ a.href = a.href.replace(/https:\/\/wa\.me\/\d+/, 'https://wa.me/' + settings.whatsapp); });
-      if(settings.call) document.querySelectorAll('a[href^="tel:"]').forEach(a=>{ a.href = 'tel:+' + settings.call; });
-    }
-    function addPortfolioItem(){
-      const item = { title: document.getElementById('pfTitle').value, tag: document.getElementById('pfTag').value, link: document.getElementById('pfLink').value, image: document.getElementById('pfImage').value, desc: document.getElementById('pfDesc').value };
-      if(!item.title){ alert('Project title required'); return; }
-      const list = JSON.parse(localStorage.getItem('adminPortfolio') || '[]'); list.unshift(item); localStorage.setItem('adminPortfolio', JSON.stringify(list)); ['pfTitle','pfTag','pfLink','pfImage','pfDesc'].forEach(id=>document.getElementById(id).value=''); renderAdminPortfolio(); alert('Portfolio added');
-    }
-    function renderAdminPortfolio(){
-      const list = JSON.parse(localStorage.getItem('adminPortfolio') || '[]'); const box = document.getElementById('adminPortfolioList'); if(!box) return;
-      box.innerHTML = list.length ? list.map((p,i)=>`<div class="glass rounded-2xl p-4 mb-3"><b>${p.title}</b><p class="text-gray-400 text-sm">${p.tag || ''} ${p.link ? '• '+p.link : ''}</p><button onclick="deletePortfolio(${i})" class="bg-red-600 px-3 py-1 rounded-full text-sm mt-2">Delete</button></div>`).join('') : '<p class="text-gray-500">No portfolio added from admin yet.</p>';
-    }
-    function deletePortfolio(i){ const list = JSON.parse(localStorage.getItem('adminPortfolio') || '[]'); list.splice(i,1); localStorage.setItem('adminPortfolio', JSON.stringify(list)); renderAdminPortfolio(); }
-    function renderEnquiries(){ const enquiries = JSON.parse(localStorage.getItem('siteEnquiries') || '[]'); const table = document.getElementById('adminEnquiryTable'); if(!table) return; table.innerHTML = enquiries.length ? enquiries.map(e=>`<tr><td>${e.date}</td><td>${e.name}</td><td>${e.mobile}</td><td>${e.service}</td><td>${e.message}</td></tr>`).join('') : '<tr><td colspan="5" class="text-gray-500">No enquiries yet.</td></tr>'; }
-    function clearEnquiries(){ if(confirm('Clear all enquiries?')){ localStorage.removeItem('siteEnquiries'); renderEnquiries(); } }
-    function revealHiddenAdmin(){
-      const admin = document.getElementById('admin');
-      if(admin){ admin.classList.remove('hidden'); admin.scrollIntoView({behavior:'smooth'}); }
-    }
-
-    window.addEventListener('load', function(){
-      applyAdminSettings();
-      if(location.hash === '#chandan-admin'){ revealHiddenAdmin(); }
-      if(localStorage.getItem('adminLoggedIn') === 'yes' && document.getElementById('admin')) showAdminDashboard();
-    });
-
-    document.addEventListener('keydown', function(e){
-      if(e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'a') revealHiddenAdmin();
-    });
-
   </script>
+  
   <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"></script>
@@ -275,78 +221,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
-  <!-- Offer Banner with Countdown Timer -->
+  <!-- Offer Banner -->
   <div id="offerBanner" style="display:block;">
-    🎁 লিমিটেড টাইম অফার! বিনামূল্যে <strong>দোকান বিলিং সফটওয়্যার</strong> 🧾 &nbsp;
-    ⏰ শেষ হচ্ছে: <strong id="countdownTimer" style="color:#fff700;font-size:1.1em;">00:00:00</strong> &nbsp;
+    🎁 লিমিটেড টাইম অফার! বিনামূল্যে <strong>দোকান বিলিং সফটওয়্যার</strong> 🧾 &nbsp; ⏰ শেষ হচ্ছে: <strong id="countdownTimer" style="color:#fff700;font-size:1.1em;">00:00:00</strong> &nbsp;
     <a href="#contact" class="underline" style="color:#fff700;">এখনই যোগাযোগ করুন →</a>
     &nbsp;&nbsp;
     <span onclick="document.getElementById('offerBanner').style.display='none'" style="cursor:pointer;opacity:0.7;">✕</span>
   </div>
-
-  <!-- Floating Call Button -->
-  <a href="tel:+919735474770" id="floatingCallBtn" style="position:fixed;bottom:90px;right:20px;z-index:9999;background:linear-gradient(135deg,#22c55e,#16a34a);color:white;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;box-shadow:0 4px 20px rgba(34,197,94,0.5);text-decoration:none;animation:callPulse 2s infinite;">📞</a>
-  <style>@keyframes callPulse{0%,100%{box-shadow:0 4px 20px rgba(34,197,94,0.5);}50%{box-shadow:0 4px 30px rgba(34,197,94,0.9),0 0 0 10px rgba(34,197,94,0.15);}}</style>
-
-  <!-- Free Consultation Popup -->
-  <div id="consultPopup" style="display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.7);align-items:center;justify-content:center;">
-    <div style="background:linear-gradient(135deg,#1e1b4b,#0f172a);border:1px solid #7c3aed;border-radius:20px;padding:32px;max-width:420px;width:90%;position:relative;box-shadow:0 20px 60px rgba(124,58,237,0.4);">
-      <button onclick="document.getElementById('consultPopup').style.display='none'" style="position:absolute;top:14px;right:16px;background:none;border:none;color:#9ca3af;font-size:22px;cursor:pointer;">✕</button>
-      <div style="text-align:center;margin-bottom:20px;">
-        <div style="font-size:40px;">🎯</div>
-        <h3 style="color:white;font-size:20px;font-weight:700;margin:8px 0 4px;">FREE Consultation নিন!</h3>
-        <p style="color:#a5b4fc;font-size:13px;margin:0;">সম্পূর্ণ বিনামূল্যে — কোনো charge নেই</p>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:10px;">
-        <input id="c_name" placeholder="আপনার নাম *" style="padding:12px 16px;border-radius:10px;border:1px solid #4c1d95;background:#1e1b4b;color:white;font-size:14px;outline:none;">
-        <input id="c_mobile" placeholder="Mobile Number *" style="padding:12px 16px;border-radius:10px;border:1px solid #4c1d95;background:#1e1b4b;color:white;font-size:14px;outline:none;">
-        <select id="c_service" style="padding:12px 16px;border-radius:10px;border:1px solid #4c1d95;background:#1e1b4b;color:white;font-size:14px;outline:none;">
-          <option value="">কী চান? বেছে নিন</option>
-          <option>Website Development</option>
-          <option>Mobile App Development</option>
-          <option>Ecommerce Website</option>
-          <option>Billing Software</option>
-          <option>Digital Visiting Card</option>
-          <option>Photo Restoration</option>
-          <option>Wedding Video Editing</option>
-        </select>
-        <select id="c_budget" style="padding:12px 16px;border-radius:10px;border:1px solid #4c1d95;background:#1e1b4b;color:white;font-size:14px;outline:none;">
-          <option value="">বাজেট কত?</option>
-          <option>৳999 - ৳2,999</option>
-          <option>৳3,000 - ৳9,999</option>
-          <option>৳10,000 - ৳25,000</option>
-          <option>৳25,000 এর বেশি</option>
-        </select>
-        <button onclick="sendConsultWA()" style="padding:14px;border-radius:10px;border:none;background:linear-gradient(135deg,#7c3aed,#06b6d4);color:white;font-size:15px;font-weight:700;cursor:pointer;">🚀 WhatsApp-এ Free Consultation নিন</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Exit Intent Popup -->
-  <div id="exitPopup" style="display:none;position:fixed;inset:0;z-index:99998;background:rgba(0,0,0,0.75);align-items:center;justify-content:center;">
-    <div style="background:linear-gradient(135deg,#0f172a,#1e1b4b);border:2px solid #f59e0b;border-radius:20px;padding:32px;max-width:400px;width:90%;position:relative;text-align:center;box-shadow:0 20px 60px rgba(245,158,11,0.3);">
-      <button onclick="closeExitPopup()" style="position:absolute;top:14px;right:16px;background:none;border:none;color:#9ca3af;font-size:22px;cursor:pointer;">✕</button>
-      <div style="font-size:48px;margin-bottom:12px;">🎁</div>
-      <h3 style="color:#fbbf24;font-size:22px;font-weight:700;margin:0 0 8px;">যাওয়ার আগে একটু দেখুন!</h3>
-      <p style="color:#e2e8f0;font-size:14px;margin:0 0 20px;">আজই যোগাযোগ করলে পাবেন একদম বিনামূল্যে:</p>
-      <div style="background:rgba(124,58,237,0.2);border-radius:12px;padding:16px;margin-bottom:20px;text-align:left;">
-        <p style="color:#a5b4fc;margin:6px 0;font-size:14px;">✅ FREE Billing Software <strong style="color:#fbbf24;">(Lifetime)</strong> 🎁</p>
-        <p style="color:#a5b4fc;margin:6px 0;font-size:14px;">✅ FREE SSL Certificate ♾️</p>
-        <p style="color:#a5b4fc;margin:6px 0;font-size:14px;">✅ FREE Lifetime Support 🤝</p>
-        <p style="color:#a5b4fc;margin:6px 0;font-size:14px;">✅ FREE Lifetime Updates ♾️</p>
-        <div style="margin-top:10px;border-top:1px dashed #4c1d95;padding-top:10px;">
-          <p style="color:#fbbf24;font-size:13px;margin:0 0 8px;">🏪 এখনই আপনার দোকানের Billing Software নিন:</p>
-          <input id="exitShopName" placeholder="আপনার দোকানের নাম লিখুন" style="width:100%;padding:10px 12px;border-radius:8px;border:1px solid #7c3aed;background:#1e1b4b;color:white;font-size:13px;outline:none;box-sizing:border-box;">
-          <button onclick="openExitBilling()" style="width:100%;margin-top:8px;padding:10px;border-radius:8px;border:none;background:linear-gradient(135deg,#f59e0b,#ef4444);color:white;font-size:13px;font-weight:700;cursor:pointer;">🧾 Lifetime Billing Software পান — FREE</button>
-        </div>
-      </div>
-      <a href="https://wa.me/919735474770?text=আমি%20special%20offer%20সম্পর্কে%20জানতে%20চাই" target="_blank" style="display:block;padding:14px;border-radius:10px;background:linear-gradient(135deg,#25d366,#128c7e);color:white;font-size:15px;font-weight:700;text-decoration:none;margin-bottom:10px;">💬 এখনই WhatsApp করুন</a>
-      <button onclick="closeExitPopup()" style="background:none;border:none;color:#6b7280;font-size:13px;cursor:pointer;text-decoration:underline;">না, আমার দরকার নেই</button>
-    </div>
-  </div>
-
-  <!-- Free Consultation Floating Button -->
-  <button onclick="document.getElementById('consultPopup').style.display='flex'" style="position:fixed;bottom:160px;right:20px;z-index:9998;background:linear-gradient(135deg,#7c3aed,#06b6d4);color:white;border:none;border-radius:50px;padding:10px 16px;font-size:12px;font-weight:700;cursor:pointer;box-shadow:0 4px 20px rgba(124,58,237,0.5);white-space:nowrap;">🎯 Free Consultation</button>
 
 
   <!-- Welcome Bar -->
@@ -959,69 +840,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 
   <!-- Admin Panel -->
-  <section id="admin" class="py-24 bg-black/40 hidden">
-    <div class="max-w-7xl mx-auto px-6">
-      <div class="text-center mb-12">
-        <h2 class="text-5xl font-bold mb-4">Website <span class="gradient-text">Admin Panel</span></h2>
-        <p class="text-gray-400">PIN দিয়ে website offer, notice, portfolio ও enquiry manage করুন।</p>
-      </div>
-
-      <div id="adminLoginBox" class="glass rounded-3xl p-8 max-w-xl mx-auto">
-        <h3 class="text-2xl font-bold mb-4 text-yellow-300">Admin Login</h3>
-        <input id="adminPin" type="password" class="admin-input mb-4" placeholder="Enter Admin PIN" />
-        <button onclick="adminLogin()" class="admin-btn w-full">Login</button>
-        <p class="text-gray-500 text-sm mt-4">Private access only</p>
-      </div>
-
-      <div id="adminDashboard" class="admin-hidden">
-        <div class="glass rounded-3xl p-6 mb-6 flex flex-wrap gap-3 justify-between items-center">
-          <div><h3 class="text-2xl font-bold">Welcome Admin</h3><p class="text-gray-400">Digital Agency by Chandan Das</p></div>
-          <button onclick="adminLogout()" class="bg-red-600 hover:bg-red-700 px-5 py-2 rounded-full font-bold">Logout</button>
-        </div>
-        <div class="flex flex-wrap gap-3 mb-6">
-          <button class="admin-tab-btn active" onclick="openAdminTab(event,'tabContent')">Content Control</button>
-          <button class="admin-tab-btn" onclick="openAdminTab(event,'tabPortfolio')">Portfolio Add</button>
-          <button class="admin-tab-btn" onclick="openAdminTab(event,'tabEnquiry')">Enquiry List</button>
-          <button class="admin-tab-btn" onclick="openAdminTab(event,'tabBillingRequests')">Billing Requests</button>
-        </div>
-        <div id="tabContent" class="glass rounded-3xl p-8 admin-tab">
-          <h3 class="text-2xl font-bold mb-6 text-yellow-300">Content Control</h3>
-          <div class="grid md:grid-cols-2 gap-4">
-            <div><label class="text-gray-400 text-sm">Offer Banner Text</label><input id="adminOfferText" class="admin-input mt-2" placeholder="Offer banner text" /></div>
-            <div><label class="text-gray-400 text-sm">Hero Price Text</label><input id="adminPriceText" class="admin-input mt-2" placeholder="Website Starting Price Only ₹999" /></div>
-            <div><label class="text-gray-400 text-sm">WhatsApp Number</label><input id="adminWhatsapp" class="admin-input mt-2" placeholder="917549459770" /></div>
-            <div><label class="text-gray-400 text-sm">Call Number</label><input id="adminCall" class="admin-input mt-2" placeholder="919735474770" /></div>
-          </div>
-          <button onclick="saveAdminContent()" class="admin-btn mt-6">Save Content</button>
-        </div>
-        <div id="tabPortfolio" class="glass rounded-3xl p-8 admin-tab admin-hidden">
-          <h3 class="text-2xl font-bold mb-6 text-yellow-300">Add Portfolio Item</h3>
-          <div class="grid md:grid-cols-2 gap-4">
-            <input id="pfTitle" class="admin-input" placeholder="Project Title" />
-            <input id="pfTag" class="admin-input" placeholder="Category / Tag" />
-            <input id="pfLink" class="admin-input" placeholder="Live Demo Link" />
-            <input id="pfImage" class="admin-input" placeholder="Image URL" />
-          </div>
-          <textarea id="pfDesc" class="admin-input mt-4" rows="4" placeholder="Project Description"></textarea>
-          <button onclick="addPortfolioItem()" class="admin-btn mt-4">Add Portfolio</button>
-          <div id="adminPortfolioList" class="mt-6"></div>
-        </div>
-        <div id="tabEnquiry" class="glass rounded-3xl p-8 admin-tab admin-hidden">
-          <h3 class="text-2xl font-bold mb-6 text-yellow-300">Website Enquiry List</h3>
-          <div class="overflow-x-auto"><table class="admin-table"><thead><tr><th>Date</th><th>Name</th><th>Mobile</th><th>Service</th><th>Message</th></tr></thead><tbody id="adminEnquiryTable"></tbody></table></div>
-          <button onclick="clearEnquiries()" class="bg-red-600 hover:bg-red-700 px-5 py-2 rounded-full font-bold mt-5">Clear Enquiries</button>
-        </div>
-      
-        <div id="tabBillingRequests" class="glass rounded-3xl p-8 admin-tab admin-hidden">
-          <h3 class="text-2xl font-bold mb-6 text-yellow-300">Billing Software Request List</h3>
-          <p class="text-gray-400 mb-4">User request confirm করলে তার দোকানের নামে billing software download তৈরি হবে।</p>
-          <div class="overflow-x-auto"><table class="admin-table"><thead><tr><th>Date</th><th>Name</th><th>Mobile</th><th>Shop</th><th>Type</th><th>Address</th><th>Status</th><th>Action</th></tr></thead><tbody id="billingRequestTable"></tbody></table></div>
-          <button onclick="clearBillingRequests()" class="bg-red-600 hover:bg-red-700 px-5 py-2 rounded-full font-bold mt-5">Clear Billing Requests</button>
-        </div>
-
-      </div>
-    </div>
-  </section>
 
   <!-- Footer -->
   <footer class="py-10 border-t border-white/10">
@@ -1111,6 +929,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       const enquiries = JSON.parse(localStorage.getItem('siteEnquiries') || '[]');
       enquiries.unshift(enquiry);
       localStorage.setItem('siteEnquiries', JSON.stringify(enquiries));
+    sendToSheet('Enquiries',
+      ['তারিখ','নাম','Mobile','Service','Message'],
+      [new Date().toLocaleString('bn-BD'), name, mobile, service||'-', message||'-']
+    );
 
       const adminSettings = JSON.parse(localStorage.getItem('siteAdminSettings') || '{}');
       const waNumber = adminSettings.whatsapp || '919735474770';
@@ -1120,7 +942,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   
 
     // Billing Software Request System + Google Sheet Save
-    const GOOGLE_SHEET_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw9IOkMPvWECGKMzRHAopqnzVmZH56ZHPqcu2p03iYwwcb-M7DuZPLZ1LKB5V7s7lcYEQ/exec';
+    const GOOGLE_SHEET_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzWQTojQoBC1qwtKE5qdGU2ljEp-8CFyyOzVzirzkdrJ-Hw8ltJXT-nsyrrZAokpnH0qQ/exec';
     const billingRequestForm = document.getElementById('billingRequestForm');
     if (billingRequestForm) {
       billingRequestForm.addEventListener('submit', async function(e) {
@@ -1144,21 +966,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         renderBillingRequests();
 
         // Save request to Google Sheet
-        try {
-          await fetch(GOOGLE_SHEET_SCRIPT_URL, {
-            method: 'POST',
-            mode: 'no-cors',
-            body: JSON.stringify({
-              name: data.name,
-              mobile: data.mobile,
-              address: data.address,
-              shopname: data.shop,
-              shoptype: data.type
-            })
-          });
-        } catch (error) {
-          console.log('Google Sheet save error:', error);
-        }
+        sendToSheet('Billing_Requests',
+          ['তারিখ','নাম','Mobile','দোকান','Type','ঠিকানা'],
+          [new Date().toLocaleString('bn-BD'), data.name, data.mobile, data.shop, data.type, data.address]
+        );
 
         billingRequestForm.reset();
         alert('Request sent successfully. আপনার WhatsApp নম্বরে billing software 24 hours-এর ভিতরে send করা হবে।');
@@ -1219,188 +1030,170 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     }
 </script>
 
-<!-- Schema.org JSON-LD Structured Data -->
+
+  <!-- Floating Call Button -->
+  <a href="tel:+919735474770" id="floatingCallBtn" style="position:fixed;bottom:90px;right:20px;z-index:9999;background:linear-gradient(135deg,#22c55e,#16a34a);color:white;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;box-shadow:0 4px 20px rgba(34,197,94,0.5);text-decoration:none;animation:callPulse 2s infinite;">📞</a>
+  <style>@keyframes callPulse{0%,100%{box-shadow:0 4px 20px rgba(34,197,94,0.5);}50%{box-shadow:0 4px 30px rgba(34,197,94,0.9),0 0 0 10px rgba(34,197,94,0.15);}}</style>
+
+  <!-- Free Consultation Button -->
+  <button onclick="document.getElementById('consultPopup').style.display='flex'" style="position:fixed;bottom:160px;right:20px;z-index:9998;background:linear-gradient(135deg,#7c3aed,#06b6d4);color:white;border:none;border-radius:50px;padding:10px 16px;font-size:12px;font-weight:700;cursor:pointer;box-shadow:0 4px 20px rgba(124,58,237,0.5);white-space:nowrap;">🎯 Free Consultation</button>
+
+  <!-- Partner Button -->
+  <button onclick="document.getElementById('partnerPopup').style.display='flex'" style="position:fixed;bottom:220px;right:20px;z-index:9997;background:linear-gradient(135deg,#06b6d4,#7c3aed);color:white;border:none;border-radius:50px;padding:10px 16px;font-size:12px;font-weight:700;cursor:pointer;box-shadow:0 4px 20px rgba(6,182,212,0.5);white-space:nowrap;">🤝 Partner হন</button>
+
+  <!-- Free Consultation Popup -->
+  <div id="consultPopup" style="display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.7);align-items:center;justify-content:center;">
+    <div style="background:linear-gradient(135deg,#1e1b4b,#0f172a);border:1px solid #7c3aed;border-radius:20px;padding:32px;max-width:420px;width:90%;position:relative;box-shadow:0 20px 60px rgba(124,58,237,0.4);">
+      <button onclick="document.getElementById('consultPopup').style.display='none'" style="position:absolute;top:14px;right:16px;background:none;border:none;color:#9ca3af;font-size:22px;cursor:pointer;">✕</button>
+      <div style="text-align:center;margin-bottom:20px;"><div style="font-size:40px;">🎯</div>
+        <h3 style="color:white;font-size:20px;font-weight:700;margin:8px 0 4px;">FREE Consultation নিন!</h3>
+        <p style="color:#a5b4fc;font-size:13px;margin:0;">সম্পূর্ণ বিনামূল্যে</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <input id="c_name" placeholder="আপনার নাম *" style="padding:12px 16px;border-radius:10px;border:1px solid #4c1d95;background:#1e1b4b;color:white;font-size:14px;outline:none;">
+        <input id="c_mobile" placeholder="Mobile Number *" style="padding:12px 16px;border-radius:10px;border:1px solid #4c1d95;background:#1e1b4b;color:white;font-size:14px;outline:none;">
+        <select id="c_service" style="padding:12px 16px;border-radius:10px;border:1px solid #4c1d95;background:#1e1b4b;color:white;font-size:14px;outline:none;">
+          <option value="">কী চান?</option>
+          <option>Website Development</option><option>Mobile App Development</option>
+          <option>Ecommerce Website</option><option>Billing Software</option>
+          <option>Digital Visiting Card</option><option>Photo Restoration</option>
+        </select>
+        <select id="c_budget" style="padding:12px 16px;border-radius:10px;border:1px solid #4c1d95;background:#1e1b4b;color:white;font-size:14px;outline:none;">
+          <option value="">বাজেট কত?</option>
+          <option>₹999 - ₹2,999</option><option>₹3,000 - ₹9,999</option>
+          <option>₹10,000 - ₹25,000</option><option>₹25,000+</option>
+        </select>
+        <button onclick="sendConsultWA()" style="padding:14px;border-radius:10px;border:none;background:linear-gradient(135deg,#7c3aed,#06b6d4);color:white;font-size:15px;font-weight:700;cursor:pointer;">🚀 WhatsApp-এ Consultation নিন</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Exit Intent Popup -->
+  <div id="exitPopup" style="display:none;position:fixed;inset:0;z-index:99998;background:rgba(0,0,0,0.75);align-items:center;justify-content:center;">
+    <div style="background:linear-gradient(135deg,#0f172a,#1e1b4b);border:2px solid #f59e0b;border-radius:20px;padding:32px;max-width:400px;width:90%;position:relative;text-align:center;">
+      <button onclick="closeExitPopup()" style="position:absolute;top:14px;right:16px;background:none;border:none;color:#9ca3af;font-size:22px;cursor:pointer;">✕</button>
+      <div style="font-size:48px;margin-bottom:12px;">🎁</div>
+      <h3 style="color:#fbbf24;font-size:22px;font-weight:700;margin:0 0 8px;">যাওয়ার আগে একটু দেখুন!</h3>
+      <p style="color:#e2e8f0;font-size:14px;margin:0 0 16px;">আজই যোগাযোগ করলে পাবেন:</p>
+      <div style="background:rgba(124,58,237,0.2);border-radius:12px;padding:16px;margin-bottom:16px;text-align:left;">
+        <p style="color:#a5b4fc;margin:6px 0;font-size:14px;">✅ FREE Billing Software <strong style="color:#fbbf24;">(Lifetime)</strong> 🎁</p>
+        <p style="color:#a5b4fc;margin:6px 0;font-size:14px;">✅ FREE SSL Certificate ♾️</p>
+        <p style="color:#a5b4fc;margin:6px 0;font-size:14px;">✅ FREE Lifetime Support 🤝</p>
+        <p style="color:#a5b4fc;margin:6px 0;font-size:14px;">✅ FREE Lifetime Updates ♾️</p>
+      </div>
+      <div style="margin-top:10px;border-top:1px dashed #4c1d95;padding-top:12px;">
+        <p style="color:#fbbf24;font-size:13px;margin:0 0 8px;">🏪 দোকানের Billing Software নিন:</p>
+        <input id="exitShopName" placeholder="দোকানের নাম লিখুন" style="width:100%;padding:10px 12px;border-radius:8px;border:1px solid #7c3aed;background:#1e1b4b;color:white;font-size:13px;outline:none;box-sizing:border-box;">
+        <button onclick="openExitBilling()" style="width:100%;margin-top:8px;padding:10px;border-radius:8px;border:none;background:linear-gradient(135deg,#f59e0b,#ef4444);color:white;font-size:13px;font-weight:700;cursor:pointer;">🧾 Lifetime Billing Software — FREE</button>
+      </div>
+      <a href="https://wa.me/919735474770?text=আমি%20special%20offer%20দেখতে%20চাই" target="_blank" style="display:block;padding:12px;border-radius:10px;background:linear-gradient(135deg,#25d366,#128c7e);color:white;font-size:14px;font-weight:700;text-decoration:none;margin-top:10px;">💬 WhatsApp করুন</a>
+      <button onclick="closeExitPopup()" style="background:none;border:none;color:#6b7280;font-size:12px;cursor:pointer;margin-top:8px;text-decoration:underline;">না, দরকার নেই</button>
+    </div>
+  </div>
+
+  <!-- Partner Popup -->
+  <div id="partnerPopup" style="display:none;position:fixed;inset:0;z-index:99997;background:rgba(0,0,0,0.75);align-items:center;justify-content:center;">
+    <div style="background:linear-gradient(135deg,#0f172a,#1e1b4b);border:2px solid #06b6d4;border-radius:20px;padding:28px;max-width:430px;width:90%;position:relative;text-align:center;max-height:90vh;overflow-y:auto;">
+      <button onclick="document.getElementById('partnerPopup').style.display='none'" style="position:absolute;top:14px;right:16px;background:none;border:none;color:#9ca3af;font-size:22px;cursor:pointer;">✕</button>
+      <div style="font-size:44px;margin-bottom:8px;">🤝</div>
+      <h3 style="color:#06b6d4;font-size:20px;font-weight:700;margin:0 0 6px;">Partner হন!</h3>
+      <p style="color:#a5b4fc;font-size:13px;margin:0 0 16px;">প্রতি sale-এ <strong style="color:#fbbf24;">26% Commission!</strong></p>
+      <a href="partner.html" target="_blank" style="display:block;padding:14px;border-radius:10px;background:linear-gradient(135deg,#06b6d4,#7c3aed);color:white;font-size:15px;font-weight:700;text-decoration:none;margin-bottom:10px;">📝 Partner Registration করুন</a>
+      <a href="partner.html" target="_blank" style="display:block;padding:12px;border-radius:10px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#a5b4fc;font-size:13px;text-decoration:none;">🔐 Already Partner? Login করুন</a>
+    </div>
+  </div>
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   "name": "Digital Agency by Chandan Das",
-  "description": "Professional website, app and digital services in Dubrajpur by Chandan Das. Starting at ₹999. Services include website development, mobile apps, ecommerce, billing software, digital visiting card, photo restoration and wedding video editing.",
+  "description": "Professional website, app and digital services in Dubrajpur. Starting at Rs.999.",
   "url": "https://my-website-one-kappa-68.vercel.app/",
   "telephone": "+919735474770",
-  "email": "chandandas@example.com",
-  "founder": {
-    "@type": "Person",
-    "name": "Chandan Das"
-  },
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "Dubrajpur",
-    "addressRegion": "West Bengal",
-    "postalCode": "731123",
-    "addressCountry": "IN"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": "23.7957",
-    "longitude": "87.3783"
-  },
-  "areaServed": [
-    "Dubrajpur",
-    "Birbhum",
-    "West Bengal",
-    "India"
-  ],
-  "priceRange": "₹999 - ₹49999",
-  "currenciesAccepted": "INR",
-  "paymentAccepted": "Cash, UPI, Bank Transfer",
-  "sameAs": [
-    "https://wa.me/917549459770"
-  ],
-  "hasOfferCatalog": {
-    "@type": "OfferCatalog",
-    "name": "Digital Services",
-    "itemListElement": [
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Website Development",
-          "description": "Modern responsive websites starting at ₹999"
-        },
-        "price": "999",
-        "priceCurrency": "INR"
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Mobile App Development",
-          "description": "Android & iOS applications"
-        }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Ecommerce Website",
-          "description": "Complete ecommerce with payment gateway"
-        }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Free Billing Software",
-          "description": "Free Bengali billing software for local shops"
-        },
-        "price": "0",
-        "priceCurrency": "INR"
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Digital Visiting Card",
-          "description": "Modern smart digital business card"
-        }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Old Photo Restoration",
-          "description": "Restore damaged old photos with clear quality"
-        }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Wedding Video Editing",
-          "description": "Professional wedding video editing and cinematic mixing"
-        }
-      }
-    ]
-  }
+  "founder": {"@type": "Person", "name": "Chandan Das"},
+  "address": {"@type": "PostalAddress", "addressLocality": "Dubrajpur", "addressRegion": "West Bengal", "addressCountry": "IN"},
+  "geo": {"@type": "GeoCoordinates", "latitude": "23.7957", "longitude": "87.3783"},
+  "areaServed": ["Dubrajpur", "Birbhum", "West Bengal", "India"],
+  "priceRange": "Rs.999 - Rs.49999"
 }
 </script>
 
-
 <script>
-// ✅ 1. Countdown Timer — প্রতিদিন রাত ১২টায় reset
+// Countdown Timer
 function updateCountdown() {
-  const now = new Date();
-  const midnight = new Date();
-  midnight.setHours(24, 0, 0, 0);
+  const now = new Date(), midnight = new Date();
+  midnight.setHours(24,0,0,0);
   const diff = midnight - now;
-  const h = String(Math.floor(diff / 3600000)).padStart(2, '0');
-  const m = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
-  const s = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
+  const h = String(Math.floor(diff/3600000)).padStart(2,'0');
+  const m = String(Math.floor((diff%3600000)/60000)).padStart(2,'0');
+  const s = String(Math.floor((diff%60000)/1000)).padStart(2,'0');
   const el = document.getElementById('countdownTimer');
-  if (el) el.textContent = h + ':' + m + ':' + s;
+  if(el) el.textContent = h+':'+m+':'+s;
 }
-setInterval(updateCountdown, 1000);
-updateCountdown();
+setInterval(updateCountdown,1000); updateCountdown();
 
-// ✅ 2. Exit Intent Popup — mouse উপরে গেলে দেখাবে
+// Exit Intent
 let exitShown = false;
-document.addEventListener('mouseleave', function(e) {
-  if (e.clientY < 10 && !exitShown) {
-    exitShown = true;
-    document.getElementById('exitPopup').style.display = 'flex';
-  }
+document.addEventListener('mouseleave', function(e){
+  if(e.clientY<10 && !exitShown){ exitShown=true; document.getElementById('exitPopup').style.display='flex'; }
 });
-// Mobile — ২০ সেকেন্ড পরে দেখাবে
-setTimeout(function() {
-  if (!exitShown && window.innerWidth < 768) {
-    exitShown = true;
-    document.getElementById('exitPopup').style.display = 'flex';
-  }
-}, 20000);
-function closeExitPopup() {
-  document.getElementById('exitPopup').style.display = 'none';
-  sessionStorage.setItem('exitShown', '1');
-}
-if (sessionStorage.getItem('exitShown')) exitShown = true;
+setTimeout(function(){ if(!exitShown && window.innerWidth<768){ exitShown=true; document.getElementById('exitPopup').style.display='flex'; } },20000);
+function closeExitPopup(){ document.getElementById('exitPopup').style.display='none'; sessionStorage.setItem('exitShown','1'); }
+if(sessionStorage.getItem('exitShown')) exitShown=true;
 
-// ✅ 3b. Exit Popup Billing Open
-function openExitBilling() {
+// Exit Billing
+function openExitBilling(){
   const shop = document.getElementById('exitShopName').value.trim();
-  if (!shop) { 
-    document.getElementById('exitShopName').focus();
-    document.getElementById('exitShopName').style.border = '1px solid #ef4444';
-    return; 
-  }
-  // Open billing software with shop name pre-filled
-  const billingWin = window.open('', '_blank');
-  // Find existing generateBillingSoftware function and call it
-  if (typeof generateBillingSoftware === 'function') {
-    const html = generateBillingSoftware(shop, '', '');
-    billingWin.document.write(html);
-    billingWin.document.close();
+  if(!shop){ document.getElementById('exitShopName').focus(); return; }
+  if(typeof generateBillingSoftware==='function'){
+    const w=window.open('','_blank'); w.document.write(generateBillingSoftware(shop,'','')); w.document.close();
   } else {
-    // Fallback: send to WhatsApp with shop name
-    const msg = 'নমস্কার! আমি Lifetime FREE Billing Software চাই।%0Aদোকানের নাম: ' + encodeURIComponent(shop);
-    window.open('https://wa.me/919735474770?text=' + msg, '_blank');
+    window.open('https://wa.me/919735474770?text=Lifetime+Billing+Software+চাই।+দোকান:+'+encodeURIComponent(shop),'_blank');
   }
   closeExitPopup();
 }
 
-// ✅ 3. Free Consultation WhatsApp Send
-function sendConsultWA() {
-  const name = document.getElementById('c_name').value.trim();
-  const mobile = document.getElementById('c_mobile').value.trim();
-  const service = document.getElementById('c_service').value;
-  const budget = document.getElementById('c_budget').value;
-  if (!name || !mobile) { alert('নাম ও mobile number দিন'); return; }
-  const msg = 'নমস্কার! আমি Free Consultation চাই।%0A' +
-    'নাম: ' + encodeURIComponent(name) + '%0A' +
-    'Mobile: ' + encodeURIComponent(mobile) + '%0A' +
-    'Service: ' + encodeURIComponent(service || 'জানাব') + '%0A' +
-    'Budget: ' + encodeURIComponent(budget || 'আলোচনা করব');
-  window.open('https://wa.me/919735474770?text=' + msg, '_blank');
-  document.getElementById('consultPopup').style.display = 'none';
+// Consultation WhatsApp
+function sendConsultWA(){
+  const name=document.getElementById('c_name').value.trim();
+  const mobile=document.getElementById('c_mobile').value.trim();
+  if(!name||!mobile){alert('নাম ও mobile দিন');return;}
+  const msg='নমস্কার! Free Consultation চাই।%0Aনাম: '+encodeURIComponent(name)+'%0AMobile: '+encodeURIComponent(mobile)+'%0AService: '+encodeURIComponent(document.getElementById('c_service').value||'জানাব')+'%0ABudget: '+encodeURIComponent(document.getElementById('c_budget').value||'আলোচনা করব');
+  window.open('https://wa.me/919735474770?text='+msg,'_blank');
+  document.getElementById('consultPopup').style.display='none';
+  sendToSheet('Consultations',
+    ['তারিখ','নাম','Mobile','Service','Budget'],
+    [new Date().toLocaleString('bn-BD'), name, mobile, document.getElementById('c_service').value||'-', document.getElementById('c_budget').value||'-']
+  );
+}
+
+// Partner visit check
+(function(){
+  const p=new URLSearchParams(window.location.search);
+  const partner=p.get('partner'), pname=p.get('pname');
+  if(partner&&pname){
+    setTimeout(()=>{
+      const b=document.createElement('div');
+      b.style.cssText='position:fixed;top:80px;left:50%;transform:translateX(-50%);z-index:99996;background:linear-gradient(135deg,#06b6d4,#7c3aed);color:white;padding:12px 24px;border-radius:50px;font-size:13px;font-weight:700;box-shadow:0 4px 20px rgba(6,182,212,0.5);white-space:nowrap;';
+      b.innerHTML='🤝 '+decodeURIComponent(pname)+'-এর Partner Link দিয়ে এসেছেন!';
+      document.body.appendChild(b); setTimeout(()=>b.remove(),6000);
+    },2000);
+  }
+})();
+</script>
+
+<script>
+// Google Sheet API
+const SHEET_API = 'https://script.google.com/macros/s/AKfycbzWQTojQoBC1qwtKE5qdGU2ljEp-8CFyyOzVzirzkdrJ-Hw8ltJXT-nsyrrZAokpnH0qQ/exec';
+async function sendToSheet(sheetName, headers, row) {
+  try {
+    await fetch(SHEET_API, {
+      method: 'POST', mode: 'no-cors',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({sheet: sheetName, headers: headers, row: row})
+    });
+  } catch(e) { console.log('Sheet:', e); }
 }
 </script>
 </body>
