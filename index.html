@@ -12,7 +12,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="google-site-verification" content="Chy0Vysor5xZ4jAqvoAeO9Q0LyrIjS5GvVJlLpDndkQ" />
   <title>Digital Agency by Chandan Das | Website & App Development Dubrajpur</title>
-  <meta name="description" content="Professional website, app and digital services in Dubrajpur by Chandan Das. Starting at ₹999.">
+  <meta name="description" content="Professional website, app and digital services in Dubrajpur by Chandan Das. Starting at ₹999 with ₹500 first order discount.">
   <meta name="keywords" content="website development Dubrajpur, web design Birbhum, digital agency West Bengal, Chandan Das developer, app development West Bengal, ecommerce website India, website 999 rupees, billing software free, digital visiting card, photo restoration, wedding video editing, school app, salon app, gym app, pharmacy app, cheap website India">
 
   <!-- PWA -->
@@ -196,6 +196,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .admin-table th { color:#facc15; background:rgba(255,255,255,0.06); }
     .admin-hidden { display:none; }
 
+  
+
+/* Header Translate Button */
+.header-translate{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:6px 10px;color:#fff;font-weight:700;font-size:12px;min-height:40px}
+.header-translate::before{content:'🌐';font-size:16px}
+#google_translate_element{min-width:120px}
+#google_translate_element select{background:#111827;color:#fff;border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:6px 10px;font-size:12px;outline:none;max-width:140px}
+.goog-logo-link,.goog-te-gadget span{display:none!important}
+.goog-te-gadget{font-size:0!important;color:transparent!important}
+body{top:0!important}
+.skiptranslate iframe{display:none!important}
+@media(max-width:768px){.header-translate{position:fixed;top:64px;right:12px;z-index:9999;background:#111827}.header-translate .label{display:none}#google_translate_element select{max-width:110px}}
+
   </style>
   <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
 <link rel="canonical" href="https://my-website-one-kappa-68.vercel.app/" />
@@ -223,8 +236,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <!-- Offer Banner -->
   <div id="offerBanner" style="display:block;">
-    🎁 লিমিটেড টাইম অফার! বিনামূল্যে <strong>দোকান বিলিং সফটওয়্যার</strong> 🧾 &nbsp; ⏰ শেষ হচ্ছে: <strong id="countdownTimer" style="color:#fff700;font-size:1.1em;">00:00:00</strong> &nbsp;
-    <a href="#contact" class="underline" style="color:#fff700;">এখনই যোগাযোগ করুন →</a>
+    🎉 <strong>FIRST ORDER OFFER!</strong> Website / App Order করলে <strong style="color:#fff700;font-size:1.1em;">₹500 OFF</strong> + FREE Consultation &nbsp; | &nbsp; 🎁 Free Billing Software Offer Available
+    &nbsp; <a href="#contact" class="underline" style="color:#fff700;">এখনই Order করুন →</a>
     &nbsp;&nbsp;
     <span onclick="document.getElementById('offerBanner').style.display='none'" style="cursor:pointer;opacity:0.7;">✕</span>
   </div>
@@ -260,6 +273,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <a href="#portfolio" class="hover:text-cyan-400">Portfolio</a>
         <a href="#contact" class="hover:text-cyan-400">Contact</a>
       </nav>
+      <div class="header-translate" title="Translate Website"><span class="label">Translate</span><div id="google_translate_element"></div></div>
       <a href="#contact" class="bg-purple-600 hover:bg-purple-700 px-5 py-2 rounded-full transition">
         Get Started
       </a>
@@ -271,6 +285,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
       <div>
         <p class="text-cyan-400 mb-4">Modern App & Website Solution • Dubrajpur</p>
+        <div class="first-order-offer inline-block mb-5 bg-gradient-to-r from-green-400 via-yellow-300 to-orange-400 text-black font-extrabold px-5 py-3 rounded-full shadow-2xl animate-pulse text-base md:text-lg">
+          🎉 FIRST ORDER SPECIAL OFFER – ₹500 OFF
+        </div>
         <h2 class="text-5xl md:text-7xl font-bold leading-tight mb-6">
           Professional <span class="gradient-text">Website & App</span> Services
         </h2>
@@ -1196,5 +1213,18 @@ async function sendToSheet(sheetName, headers, row) {
   } catch(e) { console.log('Sheet:', e); }
 }
 </script>
+
+<!-- Google Website Translate -->
+<script>
+function googleTranslateElementInit(){
+  new google.translate.TranslateElement({
+    pageLanguage:'en',
+    includedLanguages:'en,bn,hi',
+    layout:google.translate.TranslateElement.InlineLayout.SIMPLE,
+    autoDisplay:false
+  }, 'google_translate_element');
+}
+</script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
