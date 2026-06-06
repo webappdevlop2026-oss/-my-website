@@ -59,6 +59,20 @@ color:#ffffff !important;
 <section id="jpgpng" class="tool"><h2 data-t="jpgTitle">JPG to PNG Converter</h2><p class="note">আপনার browser-এর ভিতরেই image convert হবে। Server-এ upload হবে না।</p><input type="file" accept="image/jpeg" onchange="convertImage(event,'png')"><div id="jpgpngResult" class="result">PNG download link এখানে আসবে।</div></section>
 <section id="pngjpg" class="tool"><h2 data-t="pngTitle">PNG to JPG Converter</h2><p class="note">Transparent PNG হলে background white হবে।</p><input type="file" accept="image/png" onchange="convertImage(event,'jpeg')"><div id="pngjpgResult" class="result">JPG download link এখানে আসবে।</div></section>
 <section id="qr" class="tool"><h2 data-t="qrTitle">QR Code Generator</h2><div class="field"><label data-t="textLink">Text / Link</label><input id="qrText" placeholder="https://example.com"></div><button onclick="makeQR()" data-t="generateQR">Generate QR</button><div id="qrResult" class="result">QR এখানে দেখাবে।</div></section>
+
+<section id="requestTool" class="tool" style="display:block;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.25);">
+  <h2>📩 Request a New Tool</h2>
+  <p class="note">Can’t find the tool you need? Send your tool suggestion. We may add new tools based on customer requests.</p>
+  <div class="row">
+    <div class="field"><label>Your Name</label><input id="reqName" placeholder="Your Name"></div>
+    <div class="field"><label>Mobile Number</label><input id="reqMobile" placeholder="Mobile Number"></div>
+    <div class="field"><label>Tool Name</label><input id="reqToolName" placeholder="e.g. Image Compressor"></div>
+  </div>
+  <div class="field"><label>Message</label><textarea id="reqMsg" placeholder="Why do you need this tool?"></textarea></div>
+  <button onclick="sendToolRequest()" class="btn-green">Submit Tool Request</button>
+  <a class="btn btn-yellow" href="https://wa.me/917549459770?text=Tool%20Request:%20" target="_blank">WhatsApp Tool Request</a>
+  <div id="reqResult" class="result">Request status will show here.</div>
+</section>
 </main>
 <footer class="footer">© 2026 Digital Agency by Chandan Das • <a href="index.html" style="color:#facc15" data-t="backHomeFooter">Back to Home</a></footer>
 <script>
