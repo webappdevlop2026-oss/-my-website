@@ -69,6 +69,8 @@
       <div class="stat-card"><div class="stat-val" id="stat_partners">0</div><div class="stat-label">🤝 Partners</div></div>
       <div class="stat-card"><div class="stat-val" id="stat_clients">0</div><div class="stat-label">👥 Partner Clients</div></div>
       <div class="stat-card"><div class="stat-val" id="stat_portfolio">0</div><div class="stat-label">🖼️ Portfolio</div></div>
+      <div class="stat-card"><div class="stat-val" id="stat_updates">0</div><div class="stat-label">🔔 Updates</div></div>
+      <div class="stat-card"><div class="stat-val" id="stat_toolreq">0</div><div class="stat-label">🛠️ Tool Requests</div></div>
     </div>
 
     <!-- Tabs -->
@@ -77,6 +79,10 @@
       <button class="admin-tab-btn" onclick="openAdminTab(event,'tabEnquiry');renderEnquiries()">📩 Enquiries</button>
       <button class="admin-tab-btn" onclick="openAdminTab(event,'tabBillingRequests');renderBillingRequests()">🧾 Billing</button>
       <button class="admin-tab-btn" onclick="openAdminTab(event,'tabPartners');loadPartnerAdmin()">🤝 Partners</button>
+      <button class="admin-tab-btn" onclick="openAdminTab(event,'tabUpdates');renderUpdates()">🔔 Updates</button>
+      <button class="admin-tab-btn" onclick="openAdminTab(event,'tabToolRequests');renderToolRequests()">🛠️ Tool Requests</button>
+      <button class="admin-tab-btn" onclick="openAdminTab(event,'tabCoupons');renderCoupons()">🎟️ Coupons</button>
+      <button class="admin-tab-btn" onclick="openAdminTab(event,'tabPayments');renderPayments()">💳 Payments</button>
       <button class="admin-tab-btn" onclick="openAdminTab(event,'tabPortfolio');renderAdminPortfolio()">🖼️ Portfolio</button>
     </div>
 
@@ -131,6 +137,56 @@
         <table class="admin-table"><thead><tr><th>তারিখ</th><th>Partner</th><th>ID</th><th>Client</th><th>Mobile</th><th>ঠিকানা</th><th>Service</th><th>বাজেট</th><th>Status</th><th>Action</th></tr></thead>
         <tbody id="partnerClientTable"></tbody></table>
       </div>
+    </div>
+
+
+    <!-- Tab: Updates -->
+    <div id="tabUpdates" class="glass rounded-3xl p-8 admin-tab">
+      <h3 class="text-2xl font-bold mb-6" style="color:#f59e0b;">🔔 Website Update Notification Manager</h3>
+      <p class="text-gray-400 text-sm mb-4">এখানে update message লিখলে Google Sheet-এর <b>Updates</b> tab-এ save হবে এবং website top notification bar-এ show করবে।</p>
+      <div class="grid md:grid-cols-2 gap-4 mb-4">
+        <input id="updTitle" class="admin-input" placeholder="Update Title e.g. New Tool Added">
+        <input id="updLink" class="admin-input" placeholder="Link e.g. tools.html">
+        <select id="updActive" class="admin-input"><option value="TRUE">Active</option><option value="FALSE">Inactive</option></select>
+        <input id="updEmoji" class="admin-input" placeholder="Emoji e.g. 🔔" value="🔔">
+      </div>
+      <textarea id="updMessage" class="admin-input mb-4" rows="3" placeholder="Update message e.g. Image Compressor will be added soon."></textarea>
+      <button onclick="saveWebsiteUpdate()" class="admin-btn">💾 Save Update</button>
+      <button onclick="renderUpdates()" class="admin-btn" style="background:#334155;">🔄 Refresh</button>
+      <div class="overflow-x-auto mt-6">
+        <table class="admin-table"><thead><tr><th>Date</th><th>Title</th><th>Message</th><th>Link</th><th>Active</th></tr></thead><tbody id="updatesTable"></tbody></table>
+      </div>
+    </div>
+
+    <!-- Tab: Tool Requests -->
+    <div id="tabToolRequests" class="glass rounded-3xl p-8 admin-tab">
+      <h3 class="text-2xl font-bold mb-6" style="color:#f59e0b;">🛠️ Customer Tool Requests</h3>
+      <p class="text-gray-400 text-sm mb-4">Tools page থেকে customer যে new tool request করবে, সেগুলো এখানে দেখাবে।</p>
+      <div class="overflow-x-auto">
+        <table class="admin-table"><thead><tr><th>Date</th><th>Name</th><th>Mobile</th><th>Tool Name</th><th>Message</th><th>Status</th></tr></thead><tbody id="toolRequestsTable"></tbody></table>
+      </div>
+    </div>
+
+    <!-- Tab: Coupons -->
+    <div id="tabCoupons" class="glass rounded-3xl p-8 admin-tab">
+      <h3 class="text-2xl font-bold mb-6" style="color:#f59e0b;">🎟️ Coupon / Discount Manager</h3>
+      <div class="grid md:grid-cols-4 gap-4 mb-4">
+        <input id="couponCode" class="admin-input" placeholder="Coupon Code e.g. FIRST500">
+        <input id="couponType" class="admin-input" placeholder="Type e.g. Flat / Percent">
+        <input id="couponValue" class="admin-input" placeholder="Value e.g. 500">
+        <select id="couponActive" class="admin-input"><option value="TRUE">Active</option><option value="FALSE">Inactive</option></select>
+      </div>
+      <textarea id="couponNote" class="admin-input mb-4" rows="2" placeholder="Coupon note"></textarea>
+      <button onclick="saveCoupon()" class="admin-btn">💾 Save Coupon</button>
+      <button onclick="renderCoupons()" class="admin-btn" style="background:#334155;">🔄 Refresh</button>
+      <div class="overflow-x-auto mt-6"><table class="admin-table"><thead><tr><th>Date</th><th>Code</th><th>Type</th><th>Value</th><th>Active</th><th>Note</th></tr></thead><tbody id="couponsTable"></tbody></table></div>
+    </div>
+
+    <!-- Tab: Payments -->
+    <div id="tabPayments" class="glass rounded-3xl p-8 admin-tab">
+      <h3 class="text-2xl font-bold mb-6" style="color:#f59e0b;">💳 Payment / UTR Verification</h3>
+      <p class="text-gray-400 text-sm mb-4">Customer payment/UTR entries Google Sheet-এর <b>Payments</b> tab থেকে load হবে।</p>
+      <div class="overflow-x-auto"><table class="admin-table"><thead><tr><th>Date</th><th>Name</th><th>Mobile</th><th>Amount</th><th>UTR</th><th>Status</th><th>Note</th></tr></thead><tbody id="paymentsTable"></tbody></table></div>
     </div>
 
     <!-- Tab: Portfolio -->
@@ -463,6 +519,56 @@ function rejectClientDeal(clientId) {
   apps.forEach(a => (a.clients||[]).forEach(c => { if (c.id === clientId) c.status = 'rejected'; }));
   localStorage.setItem('partnerApplications', JSON.stringify(apps));
   renderPartnerClients();
+}
+
+
+// Website Update Manager - Google Sheet
+async function saveWebsiteUpdate(){
+  const title = document.getElementById('updTitle').value.trim();
+  const msg = document.getElementById('updMessage').value.trim();
+  if(!title || !msg){ alert('Title এবং Message দিন'); return; }
+  const row = [new Date().toLocaleString('bn-BD'), title, msg, document.getElementById('updLink').value.trim() || 'tools.html', document.getElementById('updActive').value, document.getElementById('updEmoji').value.trim() || '🔔'];
+  await sendToSheet('Updates', ['Date','Title','Message','Link','Active','Emoji'], row);
+  ['updTitle','updMessage','updLink'].forEach(id=>document.getElementById(id).value='');
+  alert('✅ Update saved to Google Sheet!');
+  setTimeout(renderUpdates, 800);
+}
+async function renderUpdates(){
+  const tbody=document.getElementById('updatesTable'); if(!tbody) return;
+  tbody.innerHTML='<tr><td colspan="5" style="text-align:center;color:#6b7280;padding:20px;">Loading...</td></tr>';
+  const rows=await loadSheetRows('Updates');
+  document.getElementById('stat_updates').textContent = rows.length || 0;
+  if(!rows.length){ tbody.innerHTML='<tr><td colspan="5" style="text-align:center;color:#6b7280;padding:20px;">No updates found</td></tr>'; return; }
+  tbody.innerHTML = rows.slice().reverse().map(r=>`<tr><td>${r.Date||r.date||'-'}</td><td><b>${r.Title||'-'}</b></td><td>${r.Message||'-'}</td><td>${r.Link||'-'}</td><td>${String(r.Active).toUpperCase()==='TRUE'?'✅ Active':'⛔ Inactive'}</td></tr>`).join('');
+}
+async function renderToolRequests(){
+  const tbody=document.getElementById('toolRequestsTable'); if(!tbody) return;
+  tbody.innerHTML='<tr><td colspan="6" style="text-align:center;color:#6b7280;padding:20px;">Loading...</td></tr>';
+  const rows=await loadSheetRows('Tool_Requests');
+  document.getElementById('stat_toolreq').textContent = rows.length || 0;
+  if(!rows.length){ tbody.innerHTML='<tr><td colspan="6" style="text-align:center;color:#6b7280;padding:20px;">No tool requests found</td></tr>'; return; }
+  tbody.innerHTML = rows.slice().reverse().map(r=>`<tr><td>${r.Date||'-'}</td><td><b>${r.Name||'-'}</b></td><td>${r.Mobile||'-'}</td><td>${r.Tool_Name||r['Tool Name']||'-'}</td><td>${r.Message||'-'}</td><td>${r.Status||'Pending'}</td></tr>`).join('');
+}
+async function saveCoupon(){
+  const code=document.getElementById('couponCode').value.trim();
+  if(!code){ alert('Coupon code দিন'); return; }
+  await sendToSheet('Coupons', ['Date','Code','Type','Value','Active','Note'], [new Date().toLocaleString('bn-BD'), code, couponType.value, couponValue.value, couponActive.value, couponNote.value]);
+  ['couponCode','couponType','couponValue','couponNote'].forEach(id=>document.getElementById(id).value='');
+  alert('✅ Coupon saved!'); setTimeout(renderCoupons,800);
+}
+async function renderCoupons(){
+  const tbody=document.getElementById('couponsTable'); if(!tbody) return;
+  tbody.innerHTML='<tr><td colspan="6" style="text-align:center;color:#6b7280;padding:20px;">Loading...</td></tr>';
+  const rows=await loadSheetRows('Coupons');
+  if(!rows.length){ tbody.innerHTML='<tr><td colspan="6" style="text-align:center;color:#6b7280;padding:20px;">No coupons found</td></tr>'; return; }
+  tbody.innerHTML=rows.slice().reverse().map(r=>`<tr><td>${r.Date||'-'}</td><td><b>${r.Code||'-'}</b></td><td>${r.Type||'-'}</td><td>${r.Value||'-'}</td><td>${String(r.Active).toUpperCase()==='TRUE'?'✅ Active':'⛔ Inactive'}</td><td>${r.Note||'-'}</td></tr>`).join('');
+}
+async function renderPayments(){
+  const tbody=document.getElementById('paymentsTable'); if(!tbody) return;
+  tbody.innerHTML='<tr><td colspan="7" style="text-align:center;color:#6b7280;padding:20px;">Loading...</td></tr>';
+  const rows=await loadSheetRows('Payments');
+  if(!rows.length){ tbody.innerHTML='<tr><td colspan="7" style="text-align:center;color:#6b7280;padding:20px;">No payments found</td></tr>'; return; }
+  tbody.innerHTML=rows.slice().reverse().map(r=>`<tr><td>${r.Date||'-'}</td><td><b>${r.Name||'-'}</b></td><td>${r.Mobile||'-'}</td><td>${r.Amount||'-'}</td><td>${r.UTR||'-'}</td><td>${r.Status||'Pending'}</td><td>${r.Note||'-'}</td></tr>`).join('');
 }
 </script>
 </body>
