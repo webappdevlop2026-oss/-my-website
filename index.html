@@ -38,7 +38,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </script>
   
   <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
-  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.tailwindcss.com" defer></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"></noscript>
   <style>
@@ -419,7 +419,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       <div class="relative">
         <div class="glass rounded-3xl p-6 shadow-2xl">
-          <img loading="lazy" src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop" class="rounded-2xl" alt="dashboard">
+          <img fetchpriority="high" loading="eager" src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop" class="rounded-2xl" alt="Web development dashboard by Digital Agency Chandan Das">
         </div>
         <div class="absolute -top-6 -left-6 glass p-4 rounded-2xl">
           <i class="fa-solid fa-chart-line text-cyan-400 text-2xl"></i>
@@ -1211,19 +1211,167 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "name": "Digital Agency by Chandan Das",
-  "description": "Professional website, app and digital services in Dubrajpur. Starting at Rs.999.",
-  "url": "https://my-website-one-kappa-68.vercel.app/",
-  "telephone": "+919735474770",
-  "founder": {"@type": "Person", "name": "Chandan Das"},
-  "address": {"@type": "PostalAddress", "addressLocality": "Dubrajpur", "addressRegion": "West Bengal", "addressCountry": "IN"},
-  "geo": {"@type": "GeoCoordinates", "latitude": "23.7957", "longitude": "87.3783"},
-  "areaServed": ["Dubrajpur", "Birbhum", "West Bengal", "India"],
-  "priceRange": "Rs.999 - Rs.49999"
-}
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Digital Agency by Chandan Das",
+    "alternateName": "Chandan Das Digital Agency",
+    "description": "Professional website development, mobile app, ecommerce and digital services in Dubrajpur, Birbhum. Starting at Rs.999 with Rs.500 first order discount.",
+    "url": "https://my-website-one-kappa-68.vercel.app/",
+    "telephone": "+919735474770",
+    "email": "chandandas@digitalagency.in",
+    "founder": {
+      "@type": "Person",
+      "name": "Chandan Das",
+      "jobTitle": "Web Developer & Digital Agency Owner",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Dubrajpur",
+        "addressRegion": "West Bengal",
+        "addressCountry": "IN"
+      }
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Dubrajpur",
+      "addressLocality": "Dubrajpur",
+      "addressRegion": "West Bengal",
+      "postalCode": "731123",
+      "addressCountry": "IN"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "23.7957",
+      "longitude": "87.3783"
+    },
+    "areaServed": [
+      {"@type": "City", "name": "Dubrajpur"},
+      {"@type": "City", "name": "Suri"},
+      {"@type": "City", "name": "Bolpur"},
+      {"@type": "AdministrativeArea", "name": "Birbhum"},
+      {"@type": "State", "name": "West Bengal"},
+      {"@type": "Country", "name": "India"}
+    ],
+    "priceRange": "₹999 - ₹49999",
+    "currenciesAccepted": "INR",
+    "paymentAccepted": "Cash, UPI, Bank Transfer",
+    "openingHours": "Mo-Su 09:00-21:00",
+    "sameAs": [
+      "https://wa.me/917549459770"
+    ],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Digital Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Website Development",
+            "description": "Professional business website starting at Rs.999"
+          },
+          "price": "999",
+          "priceCurrency": "INR"
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Mobile App Development",
+            "description": "Android and iOS app for salon, gym, school, pharmacy"
+          },
+          "price": "4999",
+          "priceCurrency": "INR"
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Ecommerce Website",
+            "description": "Online store with payment gateway integration"
+          },
+          "price": "2999",
+          "priceCurrency": "INR"
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Billing Software",
+            "description": "Free lifetime billing software for shops and businesses"
+          },
+          "price": "0",
+          "priceCurrency": "INR"
+        }
+      ]
+    },
+    "image": "https://i.ibb.co/99J5JmFn/Whats-App-Image-2026-05-31-at-9-33-52-AM.jpg",
+    "logo": "https://ui-avatars.com/api/?name=CD&background=8b5cf6&color=fff&size=192"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Chandan Das",
+    "jobTitle": "Web Developer",
+    "description": "Freelance web developer and digital agency owner from Dubrajpur, West Bengal, specializing in affordable website and app development for small businesses.",
+    "url": "https://my-website-one-kappa-68.vercel.app/",
+    "telephone": "+919735474770",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Dubrajpur",
+      "addressRegion": "West Bengal",
+      "addressCountry": "IN"
+    },
+    "knowsAbout": ["Website Development", "App Development", "Ecommerce", "Digital Marketing", "Photo Restoration", "Video Editing"]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Website তৈরি করতে কত টাকা লাগে?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Digital Agency by Chandan Das-এ মাত্র ₹999 থেকে professional website তৈরি করা হয়। প্রথম order-এ ₹500 discount পাওয়া যায়।"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Dubrajpur-এ কি website development service পাওয়া যায়?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "হ্যাঁ, Chandan Das Dubrajpur থেকে পুরো West Bengal-এ website, app ও digital services দেন। WhatsApp: 7549459770"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Mobile app তৈরি করতে কত সময় লাগে?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Salon, gym, school বা pharmacy-র জন্য basic app সাধারণত ৫-৭ কার্যদিবসে তৈরি হয়। Complex app-এর জন্য ১৫-৩০ দিন লাগতে পারে।"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Billing software কি সত্যিই বিনামূল্যে?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "হ্যাঁ, Digital Agency by Chandan Das ছোট ব্যবসার জন্য lifetime billing software সম্পূর্ণ বিনামূল্যে দেয়।"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Ecommerce website-এ payment gateway connect করা যায়?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "হ্যাঁ, Razorpay, PhonePe ও UPI payment gateway সহ ecommerce website তৈরি করা হয়।"
+        }
+      }
+    ]
+  }
+]
 </script>
 
 <script>
