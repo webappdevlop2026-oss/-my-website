@@ -333,6 +333,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <nav class="hidden md:flex gap-8 text-sm">
         <a href="#home" class="hover:text-cyan-400">Home</a>
         <a href="#services" class="hover:text-cyan-400">Services</a>
+        <a href="#pricing" class="hover:text-cyan-400">Pricing</a>
         <a href="tools.html" class="hover:text-yellow-300 font-semibold">Free Tools</a>
         <a href="#about" class="hover:text-cyan-400">About</a>
         <a href="#portfolio" class="hover:text-cyan-400">Portfolio</a>
@@ -352,6 +353,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div id="mobileMenu" class="hidden md:hidden bg-gray-900 border-t border-white/10 px-6 py-4 flex-col gap-4 text-sm">
       <a href="#home" onclick="toggleMobileMenu()" class="hover:text-cyan-400 py-2 border-b border-white/10 block">Home</a>
       <a href="#services" onclick="toggleMobileMenu()" class="hover:text-cyan-400 py-2 border-b border-white/10 block">Services</a>
+      <a href="#pricing" onclick="toggleMobileMenu()" class="hover:text-cyan-400 py-2 border-b border-white/10 block">Pricing</a>
       <a href="tools.html" class="hover:text-yellow-300 py-2 border-b border-white/10 block font-semibold">Free Tools</a>
       <a href="#about" onclick="toggleMobileMenu()" class="hover:text-cyan-400 py-2 border-b border-white/10 block">About</a>
       <a href="#portfolio" onclick="toggleMobileMenu()" class="hover:text-cyan-400 py-2 border-b border-white/10 block">Portfolio</a>
@@ -804,7 +806,204 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </section>
 
   <!-- Portfolio -->
-  <section id="portfolio" class="py-24 bg-black/20">
+  <!-- Pricing Plans -->
+  <section id="pricing" class="py-24">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="text-5xl font-bold mb-4">Our <span class="gradient-text">Pricing</span></h2>
+        <p class="text-gray-400">সহজ pricing, কোনো লুকানো charge নেই। প্রথম order-এ <span class="text-green-400 font-bold">₹500 ছাড়!</span></p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+        <!-- Free Plan -->
+        <div class="rounded-3xl p-7 flex flex-col hover:scale-105 transition duration-300 relative" style="background:linear-gradient(135deg,rgba(16,185,129,0.2),rgba(6,182,212,0.15));border:1px solid rgba(16,185,129,0.4);">
+          <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-green-500 to-cyan-500 text-white text-xs font-bold px-5 py-1.5 rounded-full">🎁 FREE</div>
+          <div class="text-3xl mb-3 mt-2">🆓</div>
+          <h3 class="text-xl font-bold mb-1">Free Plan</h3>
+          <p class="text-gray-400 text-sm mb-4">For everyone — no cost</p>
+          <div class="text-4xl font-bold text-green-400 mb-1">₹0</div>
+          <p class="text-gray-500 text-xs mb-6">Always free, no hidden charges</p>
+          <ul class="space-y-2 text-sm text-gray-300 flex-1 mb-6">
+            <li class="flex gap-2"><span class="text-green-400">✓</span> Billing Software (Lifetime)</li>
+            <li class="flex gap-2"><span class="text-green-400">✓</span> SSL Certificate (HTTPS)</li>
+            <li class="flex gap-2"><span class="text-green-400">✓</span> Kids Learning Tools</li>
+            <li class="flex gap-2"><span class="text-green-400">✓</span> More Software on Request</li>
+            <li class="flex gap-2"><span class="text-green-400">✓</span> WhatsApp Support</li>
+            <li class="flex gap-2"><span class="text-gray-600">✗</span> Custom Website</li>
+          </ul>
+          <a href="https://wa.me/917549459770?text=Free Plan-এর software নিতে চাই" target="_blank" class="block text-center py-3 rounded-full font-bold transition text-sm" style="background:linear-gradient(135deg,#10b981,#06b6d4);">Get Free Now</a>
+        </div>
+
+        <!-- Plan 1 -->
+        <div class="glass rounded-3xl p-7 flex flex-col hover:scale-105 transition duration-300">
+          <div class="text-3xl mb-3">🌱</div>
+          <h3 class="text-xl font-bold mb-1">Starter</h3>
+          <p class="text-gray-500 text-sm mb-4">Small business or personal site</p>
+          <div class="text-4xl font-bold gradient-text mb-1">₹999</div>
+          <p class="text-gray-500 text-xs mb-6">One time payment</p>
+          <ul class="space-y-2 text-sm text-gray-300 flex-1 mb-6">
+            <li class="flex gap-2"><span class="text-green-400">✓</span> 3 Page Website</li>
+            <li class="flex gap-2"><span class="text-green-400">✓</span> Mobile Responsive</li>
+            <li class="flex gap-2"><span class="text-green-400">✓</span> Contact Form</li>
+            <li class="flex gap-2"><span class="text-green-400">✓</span> WhatsApp Button</li>
+            <li class="flex gap-2"><span class="text-gray-600">✗</span> Admin Panel</li>
+            <li class="flex gap-2"><span class="text-gray-600">✗</span> Payment Gateway</li>
+          </ul>
+          <a href="https://wa.me/917549459770?text=Starter Plan ₹999 নিতে চাই" target="_blank" class="block text-center py-3 rounded-full font-bold border border-white/20 hover:border-cyan-400 hover:text-cyan-400 transition text-sm">Order Now</a>
+        </div>
+
+        <!-- Plan 2 -->
+        <div class="glass rounded-3xl p-7 flex flex-col hover:scale-105 transition duration-300">
+          <div class="text-3xl mb-3">🚀</div>
+          <h3 class="text-xl font-bold mb-1">Basic</h3>
+          <p class="text-gray-500 text-sm mb-4">Shop or service business</p>
+          <div class="text-4xl font-bold gradient-text mb-1">₹2,999</div>
+          <p class="text-gray-500 text-xs mb-6">One time payment</p>
+          <ul class="space-y-2 text-sm text-gray-300 flex-1 mb-6">
+            <li class="flex gap-2"><span class="text-green-400">✓</span> 7 Page Website</li>
+            <li class="flex gap-2"><span class="text-green-400">✓</span> Mobile Responsive</li>
+            <li class="flex gap-2"><span class="text-green-400">✓</span> Contact + Enquiry Form</li>
+            <li class="flex gap-2"><span class="text-green-400">✓</span> WhatsApp Notification</li>
+            <li class="flex gap-2"><span class="text-green-400">✓</span> Basic Admin Panel</li>
+            <li class="flex gap-2"><span class="text-gray-600">✗</span> Payment Gateway</li>
+          </ul>
+          <a href="https://wa.me/917549459770?text=Basic Plan ₹2999 নিতে চাই" target="_blank" class="block text-center py-3 rounded-full font-bold border border-white/20 hover:border-cyan-400 hover:text-cyan-400 transition text-sm">Order Now</a>
+        </div>
+
+        <!-- Plan 3 — POPULAR -->
+        <div class="rounded-3xl p-7 flex flex-col hover:scale-105 transition duration-300 relative" style="background:linear-gradient(135deg,rgba(139,92,246,0.25),rgba(6,182,212,0.25));border:1px solid rgba(139,92,246,0.5);">
+          <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-purple-600 to-cyan-500 text-white text-xs font-bold px-5 py-1.5 rounded-full">⭐ POPULAR</div>
+          <div class="text-3xl mb-3 mt-2">💼</div>
+          <h3 class="text-xl font-bold mb-1">Business</h3>
+          <p class="text-gray-400 text-sm mb-4">Restaurant, Hotel, School, Clinic</p>
+          <div class="text-4xl font-bold gradient-text mb-1">₹5,999</div>
+          <p class="text-gray-500 text-xs mb-6">One time payment</p>
+          <ul class="space-y-2 text-sm text-gray-300 flex-1 mb-6">
+            <li class="flex gap-2"><span class="text-green-400">✓</span> 15 Page Website</li>
+            <li class="flex gap-2"><span class="text-green-400">✓</span> Mobile Responsive</li>
+            <li class="flex gap-2"><span class="text-green-400">✓</span> Full Admin Dashboard</li>
+            <li class="flex gap-2"><span class="text-green-400">✓</span> WhatsApp + Email Alert</li>
+            <li class="flex gap-2"><span class="text-green-400">✓</span> SEO Optimization</li>
+            <li class="flex gap-2"><span class="text-green-400">✓</span> 1 Year Free Support</li>
+          </ul>
+          <a href="https://wa.me/917549459770?text=Business Plan ₹5999 নিতে চাই" target="_blank" class="block text-center py-3 rounded-full font-bold transition text-sm" style="background:linear-gradient(135deg,#7c3aed,#06b6d4);">Order Now</a>
+        </div>
+
+      </div>
+
+      <!-- Second row: Premium plans -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
+
+        <!-- Plan 4 -->
+        <div class="glass rounded-3xl p-7 flex flex-col hover:scale-105 transition duration-300">
+          <div class="text-3xl mb-3">🛒</div>
+          <h3 class="text-xl font-bold mb-1">Ecommerce</h3>
+          <p class="text-gray-500 text-sm mb-4">Online shop with payment</p>
+          <div class="text-4xl font-bold gradient-text mb-1">₹8,999</div>
+          <p class="text-gray-500 text-xs mb-6">One time payment</p>
+          <ul class="space-y-2 text-sm text-gray-300 flex-1 mb-6">
+            <li class="flex gap-2"><span class="text-green-400">✓</span> Unlimited Products</li>
+            <li class="flex gap-2"><span class="text-green-400">✓</span> Razorpay / UPI Payment</li>
+            <li class="flex gap-2"><span class="text-green-400">✓</span> Order Management</li>
+            <li class="flex gap-2"><span class="text-green-400">✓</span> Customer Dashboard</li>
+            <li class="flex gap-2"><span class="text-green-400">✓</span> Stock Management</li>
+            <li class="flex gap-2"><span class="text-green-400">✓</span> 1 Year Free Support</li>
+          </ul>
+          <a href="https://wa.me/917549459770?text=Ecommerce Plan ₹8999 নিতে চাই" target="_blank" class="block text-center py-3 rounded-full font-bold border border-white/20 hover:border-cyan-400 hover:text-cyan-400 transition text-sm">Order Now</a>
+        </div>
+
+        <!-- Plan 5 -->
+        <div class="glass rounded-3xl p-7 flex flex-col hover:scale-105 transition duration-300">
+          <div class="text-3xl mb-3">📱</div>
+          <h3 class="text-xl font-bold mb-1">Mobile App</h3>
+          <p class="text-gray-500 text-sm mb-4">Android app for your business</p>
+          <div class="text-4xl font-bold gradient-text mb-1">₹12,999</div>
+          <p class="text-gray-500 text-xs mb-6">One time payment</p>
+          <ul class="space-y-2 text-sm text-gray-300 flex-1 mb-6">
+            <li class="flex gap-2"><span class="text-green-400">✓</span> Android App (APK)</li>
+            <li class="flex gap-2"><span class="text-green-400">✓</span> Push Notifications</li>
+            <li class="flex gap-2"><span class="text-green-400">✓</span> Admin Panel</li>
+            <li class="flex gap-2"><span class="text-green-400">✓</span> WhatsApp Integration</li>
+            <li class="flex gap-2"><span class="text-green-400">✓</span> Salon / Gym / School</li>
+            <li class="flex gap-2"><span class="text-green-400">✓</span> 6 Month Support</li>
+          </ul>
+          <a href="https://wa.me/917549459770?text=Mobile App Plan ₹12999 নিতে চাই" target="_blank" class="block text-center py-3 rounded-full font-bold border border-white/20 hover:border-cyan-400 hover:text-cyan-400 transition text-sm">Order Now</a>
+        </div>
+
+        <!-- Plan 6 -->
+        <div class="glass rounded-3xl p-7 flex flex-col hover:scale-105 transition duration-300">
+          <div class="text-3xl mb-3">🌐</div>
+          <h3 class="text-xl font-bold mb-1">App + Website</h3>
+          <p class="text-gray-500 text-sm mb-4">App and website together</p>
+          <div class="text-4xl font-bold gradient-text mb-1">₹19,999</div>
+          <p class="text-gray-500 text-xs mb-6">One time payment</p>
+          <ul class="space-y-2 text-sm text-gray-300 flex-1 mb-6">
+            <li class="flex gap-2"><span class="text-green-400">✓</span> Android App + Website</li>
+            <li class="flex gap-2"><span class="text-green-400">✓</span> Shared Admin Panel</li>
+            <li class="flex gap-2"><span class="text-green-400">✓</span> Payment Gateway</li>
+            <li class="flex gap-2"><span class="text-green-400">✓</span> Push Notifications</li>
+            <li class="flex gap-2"><span class="text-green-400">✓</span> SEO + Performance</li>
+            <li class="flex gap-2"><span class="text-green-400">✓</span> 1 Year Support</li>
+          </ul>
+          <a href="https://wa.me/917549459770?text=App+Website Combo ₹19999 নিতে চাই" target="_blank" class="block text-center py-3 rounded-full font-bold border border-white/20 hover:border-cyan-400 hover:text-cyan-400 transition text-sm">Order Now</a>
+        </div>
+
+        <!-- Plan 7 — BEST VALUE -->
+        <div class="rounded-3xl p-7 flex flex-col hover:scale-105 transition duration-300 relative" style="background:linear-gradient(135deg,rgba(6,182,212,0.2),rgba(16,185,129,0.2));border:1px solid rgba(6,182,212,0.4);">
+          <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-cyan-500 to-green-500 text-white text-xs font-bold px-5 py-1.5 rounded-full">💎 BEST VALUE</div>
+          <div class="text-3xl mb-3 mt-2">🏢</div>
+          <h3 class="text-xl font-bold mb-1">Enterprise</h3>
+          <p class="text-gray-400 text-sm mb-4">Large business or corporate</p>
+          <div class="text-4xl font-bold gradient-text mb-1">₹24,999</div>
+          <p class="text-gray-500 text-xs mb-6">One time payment</p>
+          <ul class="space-y-2 text-sm text-gray-300 flex-1 mb-6">
+            <li class="flex gap-2"><span class="text-green-400">✓</span> Full Custom Website</li>
+            <li class="flex gap-2"><span class="text-green-400">✓</span> Android + iOS App</li>
+            <li class="flex gap-2"><span class="text-green-400">✓</span> Advanced Admin Panel</li>
+            <li class="flex gap-2"><span class="text-green-400">✓</span> CRM Integration</li>
+            <li class="flex gap-2"><span class="text-green-400">✓</span> Analytics Dashboard</li>
+            <li class="flex gap-2"><span class="text-green-400">✓</span> 2 Year Free Support</li>
+          </ul>
+          <a href="https://wa.me/917549459770?text=Enterprise Plan ₹24999 নিতে চাই" target="_blank" class="block text-center py-3 rounded-full font-bold transition text-sm" style="background:linear-gradient(135deg,#06b6d4,#10b981);">Order Now</a>
+        </div>
+
+      </div>
+
+      <!-- Third row: Premium -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
+
+        <!-- Plan 8 -->
+        <div class="glass rounded-3xl p-7 flex flex-col hover:scale-105 transition duration-300">
+          <div class="text-3xl mb-3">👑</div>
+          <h3 class="text-xl font-bold mb-1">Premium</h3>
+          <p class="text-gray-500 text-sm mb-4">Complete digital solution</p>
+          <div class="text-4xl font-bold gradient-text mb-1">₹39,999</div>
+          <p class="text-gray-500 text-xs mb-6">One time payment</p>
+          <ul class="space-y-2 text-sm text-gray-300 flex-1 mb-6">
+            <li class="flex gap-2"><span class="text-green-400">✓</span> Everything in Enterprise</li>
+            <li class="flex gap-2"><span class="text-green-400">✓</span> Custom ERP / CRM</li>
+            <li class="flex gap-2"><span class="text-green-400">✓</span> Multi-branch Support</li>
+            <li class="flex gap-2"><span class="text-green-400">✓</span> Dedicated Support</li>
+            <li class="flex gap-2"><span class="text-green-400">✓</span> Digital Marketing Setup</li>
+            <li class="flex gap-2"><span class="text-green-400">✓</span> Lifetime Maintenance</li>
+          </ul>
+          <a href="https://wa.me/917549459770?text=Premium Plan ₹39999 নিতে চাই" target="_blank" class="block text-center py-3 rounded-full font-bold border border-white/20 hover:border-cyan-400 hover:text-cyan-400 transition text-sm">Order Now</a>
+        </div>
+
+      </div>
+
+      <!-- Custom plan CTA -->
+      <div class="mt-12 text-center glass rounded-3xl p-10">
+        <p class="text-2xl font-bold mb-2">Your requirement not listed? 🤔</p>
+        <p class="text-gray-400 mb-6">Have a custom project? Contact us on WhatsApp — we will send you a quote.</p>
+        <a href="https://wa.me/917549459770?text=আমার একটি custom project আছে, quote চাই" target="_blank" class="inline-block bg-gradient-to-r from-purple-600 to-cyan-500 px-10 py-4 rounded-full font-bold text-lg hover:scale-105 transition">Get Custom Quote →</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Portfolio -->
     <div class="max-w-7xl mx-auto px-6">
       <div class="text-center mb-16">
         <h2 class="text-5xl font-bold mb-4">Our <span class="gradient-text">Portfolio</span></h2>
