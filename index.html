@@ -1245,6 +1245,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       ['তারিখ','নাম','Mobile','Service','Message'],
       [new Date().toLocaleString('bn-BD'), name, mobile, service||'-', message||'-']
     );
+    if (typeof gtag === 'function') {
+      gtag('event', 'generate_lead', { lead_source: 'enquiry_form', service: service || 'general' });
+    }
 
       const adminSettings = JSON.parse(localStorage.getItem('siteAdminSettings') || '{}');
       const waNumber = adminSettings.whatsapp || '919735474770';
@@ -1282,6 +1285,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           ['তারিখ','নাম','Mobile','দোকান','Type','ঠিকানা'],
           [new Date().toLocaleString('bn-BD'), data.name, data.mobile, data.shop, data.type, data.address]
         );
+        if (typeof gtag === 'function') {
+          gtag('event', 'generate_lead', { lead_source: 'billing_software_request', shop_type: data.type || 'general' });
+        }
 
         billingRequestForm.reset();
         alert('Request sent successfully. আপনার WhatsApp নম্বরে billing software 24 hours-এর ভিতরে send করা হবে।');
@@ -1676,6 +1682,9 @@ function sendConsultWA(){
     ['তারিখ','নাম','Mobile','Service','Budget'],
     [new Date().toLocaleString('bn-BD'), name, mobile, document.getElementById('c_service').value||'-', document.getElementById('c_budget').value||'-']
   );
+  if (typeof gtag === 'function') {
+    gtag('event', 'generate_lead', { lead_source: 'free_consultation', service: document.getElementById('c_service').value || 'general' });
+  }
 }
 
 // Partner visit check
