@@ -1,0 +1,15 @@
+{
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "my-website-one-kappa-68.vercel.app"
+        }
+      ],
+      "destination": "https://www.digitalagencybychandandas.in/$1",
+      "permanent": true
+    }
+  ]
+}
