@@ -8,18 +8,7 @@
           "value": "my-website-one-kappa-68.vercel.app"
         }
       ],
-      "destination": "https://digitalagencybychandandas.in/$1",
-      "permanent": true
-    },
-    {
-      "source": "/(.*)",
-      "has": [
-        {
-          "type": "host",
-          "value": "www.digitalagencybychandandas.in"
-        }
-      ],
-      "destination": "https://digitalagencybychandandas.in/$1",
+      "destination": "https://www.digitalagencybychandandas.in/$1",
       "permanent": true
     }
   ]

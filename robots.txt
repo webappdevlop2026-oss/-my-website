@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /agency-control-2026.html
 
-Sitemap: https://digitalagencybychandandas.in/sitemap.xml
+Sitemap: https://www.digitalagencybychandandas.in/sitemap.xml
