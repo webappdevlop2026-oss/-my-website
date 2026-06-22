@@ -1,67 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-  <url>
-    <loc>https://www.digitalagencybychandandas.in/</loc>
-    <lastmod>2026-06-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
-
-  <url>
-    <loc>https://www.digitalagencybychandandas.in/tools.html</loc>
-    <lastmod>2026-06-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://www.digitalagencybychandandas.in/website-design-dubrajpur.html</loc>
-    <lastmod>2026-06-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://www.digitalagencybychandandas.in/ecommerce-website-birbhum.html</loc>
-    <lastmod>2026-06-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://www.digitalagencybychandandas.in/seo-service-birbhum.html</loc>
-    <lastmod>2026-06-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://www.digitalagencybychandandas.in/digital-marketing-dubrajpur.html</loc>
-    <lastmod>2026-06-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://www.digitalagencybychandandas.in/mobile-app-development-west-bengal.html</loc>
-    <lastmod>2026-06-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://www.digitalagencybychandandas.in/billing-software-dubrajpur.html</loc>
-    <lastmod>2026-06-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://www.digitalagencybychandandas.in/digital-visiting-card-dubrajpur.html</loc>
-    <lastmod>2026-06-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
+  <url><loc>https://www.digitalagencybychandandas.in/agency-control-2026.html</loc><changefreq>weekly</changefreq><priority>0.70</priority></url>
+  <url><loc>https://www.digitalagencybychandandas.in/billing-software-dubrajpur.html</loc><changefreq>weekly</changefreq><priority>0.70</priority></url>
+  <url><loc>https://www.digitalagencybychandandas.in/blog-billing-software-benefits.html</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://www.digitalagencybychandandas.in/blog-digital-marketing-service.html</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://www.digitalagencybychandandas.in/blog-digital-visiting-card.html</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://www.digitalagencybychandandas.in/blog-ecommerce-website-benefits.html</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://www.digitalagencybychandandas.in/blog-grow-business-online.html</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://www.digitalagencybychandandas.in/blog-mobile-app-development.html</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://www.digitalagencybychandandas.in/blog-online-business-ideas-2026.html</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://www.digitalagencybychandandas.in/blog-seo-service-birbhum.html</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://www.digitalagencybychandandas.in/blog-small-business-website.html</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://www.digitalagencybychandandas.in/blog-website-design-dubrajpur.html</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://www.digitalagencybychandandas.in/blog.html</loc><changefreq>weekly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://www.digitalagencybychandandas.in/digital-marketing-dubrajpur.html</loc><changefreq>weekly</changefreq><priority>0.70</priority></url>
+  <url><loc>https://www.digitalagencybychandandas.in/digital-visiting-card-dubrajpur.html</loc><changefreq>weekly</changefreq><priority>0.70</priority></url>
+  <url><loc>https://www.digitalagencybychandandas.in/ecommerce-website-birbhum.html</loc><changefreq>weekly</changefreq><priority>0.70</priority></url>
+  <url><loc>https://www.digitalagencybychandandas.in/</loc><changefreq>weekly</changefreq><priority>1.00</priority></url>
+  <url><loc>https://www.digitalagencybychandandas.in/mobile-app-development-west-bengal.html</loc><changefreq>weekly</changefreq><priority>0.70</priority></url>
+  <url><loc>https://www.digitalagencybychandandas.in/seo-service-birbhum.html</loc><changefreq>weekly</changefreq><priority>0.70</priority></url>
+  <url><loc>https://www.digitalagencybychandandas.in/tools.html</loc><changefreq>weekly</changefreq><priority>0.70</priority></url>
+  <url><loc>https://www.digitalagencybychandandas.in/website-design-dubrajpur.html</loc><changefreq>weekly</changefreq><priority>0.70</priority></url>
 </urlset>
