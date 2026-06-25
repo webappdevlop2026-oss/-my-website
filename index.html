@@ -36,7 +36,107 @@ section{scroll-margin-top:80px}
 .seo-articles h2{margin-bottom:8px}
 </style>
 
-</head><body><!-- Google Sheet Live Update Notification Bar --><div id="sheetUpdateBar"><span id="sheetUpdateText"></span><button aria-label="Close update notification" id="sheetUpdateClose">×</button></div><script>(function(){const SHEET_UPDATE_API = "https://script.google.com/macros/s/AKfycbzxaJUtXLbf6jugzbROr5m71Hpuo_r-bG-b4KFtIFId10F9exKH5jVrtufR1Mrlrili5A/exec";const bar = document.getElementById("sheetUpdateBar");const textBox = document.getElementById("sheetUpdateText");const closeBtn = document.getElementById("sheetUpdateClose");function showUpdate(update){if(!update) return;const active = String(update.Active || update.active || "").toUpperCase();if(active !== "TRUE") return;const emoji = update.Emoji || update.emoji || "🔔";const title = update.Title || update.title || "New Update";const message = update.Message || update.message || "";const link = update.Link || update.link || "";textBox.innerHTML = `${emoji} <b>${title}</b> - ${message} ${link ? `<a href="${link}">Open →</a>` : ""}`;bar.style.display = "block";document.body.classList.add("hasSheetUpdateBar");}async function loadLatestUpdate(){try {const res = await fetch(SHEET_UPDATE_API + "?sheet=Updates");const json = await res.json();const rows = (json && Array.isArray(json.data)) ? json.data : [];const activeRows = rows.filter(r => String(r.Active || r.active || "").toUpperCase() === "TRUE");if(activeRows.length) showUpdate(activeRows[activeRows.length - 1]);} catch(err) {}}closeBtn.addEventListener("click", function(){bar.style.display = "none";document.body.classList.remove("hasSheetUpdateBar");});window.addEventListener("load", loadLatestUpdate);})();</script><!-- Google Tag Manager (noscript) --><noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-MRSNF9KC" style="display:none;visibility:hidden" width="0"></iframe></noscript><div id="offerBanner" style="display:block;">🎉 <strong>FIRST ORDER OFFER!</strong> Website / App Order করলে <strong style="color:#fff700;font-size:1.1em;">₹500 OFF</strong> + FREE Consultation<a class="underline" href="#contact" style="color:#fff700;">এখনই Order করুন →</a>  <span onclick="document.getElementById('offerBanner').style.display='none'" style="cursor:pointer;opacity:0.7;">✕</span></div><div class="bg-gradient-to-r from-purple-600 via-cyan-500 to-pink-500 py-3 overflow-hidden fixed top-0 left-0 w-full z-[60] shadow-lg"><div class="welcome-track"><div class="welcome-text"><span class="text-cyan-200">Best Website Design Company in Dubrajpur • SEO • Ecommerce • Mobile Apps</span><span class="mx-10 text-pink-200">ডুবরাজপুর ও বীরভূমের বিশ্বস্ত Website Design Agency</span><span class="mx-10 text-yellow-200">दुबराजपुर की Trusted Website Design &amp; Digital Service Company</span></div><div class="welcome-text"><span class="text-cyan-200">Best Website Design Company in Dubrajpur • SEO • Ecommerce • Mobile Apps</span><span class="mx-10 text-pink-200">ডুবরাজপুর ও বীরভূমের বিশ্বস্ত Website Design Agency</span><span class="mx-10 text-yellow-200">दुबराजपुर की Trusted Website Design &amp; Digital Service Company</span></div></div></div><header class="fixed top-6 left-0 w-full z-50 glass"><div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center"><div><div aria-level="2" class="brand-title gradient-text" role="heading">Digital Agency</div><p class="brand-sub">by Chandan Das • Website &amp; App Development</p></div><nav class="hidden md:flex compact-nav"><a href="#home">Home</a><div class="services-dropdown"><a href="#services">Services ▾</a><div class="services-dropdown-menu"><a href="website-design-dubrajpur.html">Website Design</a><a href="ecommerce-website-birbhum.html">Ecommerce Website</a><a href="seo-service-birbhum.html">SEO Service</a><a href="digital-marketing-dubrajpur.html">Digital Marketing</a><a href="mobile-app-development-west-bengal.html">Mobile App</a><a href="billing-software-dubrajpur.html">Billing Software</a><a href="digital-visiting-card-dubrajpur.html">Digital Visiting Card</a></div></div><a href="#pricing">Pricing</a><a class="text-yellow-300 font-semibold" href="tools.html">Free Tools</a><a href="#about">About</a><a href="#contact">Contact</a></nav><div class="flex items-center gap-3"><div class="header-translate" title="Translate Website"><span class="label">Translate</span><div id="google_translate_element"></div></div><a class="hidden md:inline-block bg-green-500 hover:bg-green-600 px-5 py-2 rounded-full font-bold transition" href="tel:+919735474770">📞 9735474770</a><a class="hidden md:inline-block bg-purple-600 hover:bg-purple-700 px-5 py-2 rounded-full transition" href="#contact">Get Started</a><button aria-controls="mobileMenu" aria-expanded="false" aria-label="Toggle mobile menu" class="md:hidden flex flex-col gap-1.5 p-2" id="hamburger" onclick="toggleMobileMenu()"><span class="block w-6 h-0.5 bg-white transition-all duration-300" id="bar1"></span><span class="block w-6 h-0.5 bg-white transition-all duration-300" id="bar2"></span><span class="block w-6 h-0.5 bg-white transition-all duration-300" id="bar3"></span></button></div></div><div class="hidden md:hidden bg-gray-900 border-t border-white/10 px-6 py-4 flex-col gap-4 text-sm" id="mobileMenu"><a class="hover:text-cyan-400 py-2 border-b border-white/10 block" href="#home" onclick="toggleMobileMenu()">Home</a><a class="hover:text-cyan-400 py-2 border-b border-white/10 block" href="#services" onclick="toggleMobileMenu()">Services</a><a class="hover:text-cyan-400 py-2 border-b border-white/10 block" href="#pricing" onclick="toggleMobileMenu()">Pricing</a><a class="hover:text-cyan-400 py-2 border-b border-white/10 block" href="website-design-dubrajpur.html">Website Design</a><a class="hover:text-cyan-400 py-2 border-b border-white/10 block" href="seo-service-birbhum.html">SEO Service</a><a class="hover:text-cyan-400 py-2 border-b border-white/10 block" href="ecommerce-website-birbhum.html">Ecommerce</a><a class="hover:text-cyan-400 py-2 border-b border-white/10 block" href="tools.html">Free Tools</a><a class="hover:text-cyan-400 py-2 border-b border-white/10 block" href="#contact" onclick="toggleMobileMenu()">Contact</a><a class="hover:text-cyan-400 py-2 border-b border-white/10 block" href="tel:+919735474770">📞 Call: 9735474770</a></div></header><div style="position:fixed;top:80px;left:0;width:100%;z-index:48;background:rgba(5,8,22,0.97);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,0.08);overflow:hidden;">
+
+<style id="mobile-header-style">
+@media(max-width:768px){
+  #desktop-nav{display:none!important;}
+  #desktop-btns{display:none!important;}
+  #hamburger{display:flex!important;}
+}
+@media(min-width:769px){
+  #hamburger{display:none!important;}
+  #mobileMenu{display:none!important;}
+}
+</style>
+
+<style id="mobile-compact">
+@media(max-width:768px){
+  /* About section images smaller */
+  #about img{max-height:180px!important;object-fit:cover;}
+  #about .grid{grid-template-columns:1fr!important;}
+  
+  /* Why choose us / feature sections */
+  .rounded-3xl img{max-height:160px!important;object-fit:cover;}
+  
+  /* All section padding smaller */
+  section{padding-top:24px!important;padding-bottom:24px!important;}
+  
+  /* H2 smaller */
+  h2{font-size:22px!important;}
+  h3{font-size:16px!important;}
+  
+  /* Hide large decorative images on mobile */
+  .hero-bg img:not(.profile-img){max-height:200px!important;}
+
+  /* Welcome ticker hidden on mobile */
+  .welcome-ticker-wrap{display:none!important;}
+  
+  /* Pricing cards 1 column */
+  #pricing .grid{grid-template-columns:repeat(2,1fr)!important;gap:10px!important;}
+}
+</style>
+<style id="hide-mobile-floats">
+@media(max-width:768px){
+  #floatingCallBtn{display:none!important;}
+  button[onclick*="consultPopup"]{display:none!important;}
+  #backToTop{bottom:80px!important;}
+}
+</style></head><body><!-- Google Sheet Live Update Notification Bar --><div id="sheetUpdateBar"><span id="sheetUpdateText"></span><button aria-label="Close update notification" id="sheetUpdateClose">×</button></div><script>(function(){const SHEET_UPDATE_API = "https://script.google.com/macros/s/AKfycbzxaJUtXLbf6jugzbROr5m71Hpuo_r-bG-b4KFtIFId10F9exKH5jVrtufR1Mrlrili5A/exec";const bar = document.getElementById("sheetUpdateBar");const textBox = document.getElementById("sheetUpdateText");const closeBtn = document.getElementById("sheetUpdateClose");function showUpdate(update){if(!update) return;const active = String(update.Active || update.active || "").toUpperCase();if(active !== "TRUE") return;const emoji = update.Emoji || update.emoji || "🔔";const title = update.Title || update.title || "New Update";const message = update.Message || update.message || "";const link = update.Link || update.link || "";textBox.innerHTML = `${emoji} <b>${title}</b> - ${message} ${link ? `<a href="${link}">Open →</a>` : ""}`;bar.style.display = "block";document.body.classList.add("hasSheetUpdateBar");}async function loadLatestUpdate(){try {const res = await fetch(SHEET_UPDATE_API + "?sheet=Updates");const json = await res.json();const rows = (json && Array.isArray(json.data)) ? json.data : [];const activeRows = rows.filter(r => String(r.Active || r.active || "").toUpperCase() === "TRUE");if(activeRows.length) showUpdate(activeRows[activeRows.length - 1]);} catch(err) {}}closeBtn.addEventListener("click", function(){bar.style.display = "none";document.body.classList.remove("hasSheetUpdateBar");});window.addEventListener("load", loadLatestUpdate);})();</script><!-- Google Tag Manager (noscript) --><noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-MRSNF9KC" style="display:none;visibility:hidden" width="0"></iframe></noscript><div id="offerBanner" style="display:block;">🎉 <strong>FIRST ORDER OFFER!</strong> Website / App Order করলে <strong style="color:#fff700;font-size:1.1em;">₹500 OFF</strong> + FREE Consultation<a class="underline" href="#contact" style="color:#fff700;">এখনই Order করুন →</a>  <span onclick="document.getElementById('offerBanner').style.display='none'" style="cursor:pointer;opacity:0.7;">✕</span></div><div class="bg-gradient-to-r from-purple-600 via-cyan-500 to-pink-500 py-3 overflow-hidden fixed top-0 left-0 w-full z-[60] shadow-lg"><div class="welcome-track"><div class="welcome-text"><span class="text-cyan-200">Best Website Design Company in Dubrajpur • SEO • Ecommerce • Mobile Apps</span><span class="mx-10 text-pink-200">ডুবরাজপুর ও বীরভূমের বিশ্বস্ত Website Design Agency</span><span class="mx-10 text-yellow-200">दुबराजपुर की Trusted Website Design &amp; Digital Service Company</span></div><div class="welcome-text"><span class="text-cyan-200">Best Website Design Company in Dubrajpur • SEO • Ecommerce • Mobile Apps</span><span class="mx-10 text-pink-200">ডুবরাজপুর ও বীরভূমের বিশ্বস্ত Website Design Agency</span><span class="mx-10 text-yellow-200">दुबराजपुर की Trusted Website Design &amp; Digital Service Company</span></div></div></div><header style="position:fixed;top:0;left:0;width:100%;z-index:50;background:rgba(10,18,35,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.08);">
+<div style="max-width:1280px;margin:auto;padding:10px 16px;display:flex;justify-content:space-between;align-items:center;">
+  <!-- Logo -->
+  <div>
+    <div class="brand-title gradient-text" style="font-size:1.3rem;font-weight:800;">Digital Agency</div>
+    <p class="brand-sub" style="font-size:.7rem;color:#94a3b8;margin:0;">by Chandan Das • Website &amp; App Development</p>
+  </div>
+
+  <!-- Desktop Nav (hidden on mobile) -->
+  <nav id="desktop-nav" style="display:flex;gap:1rem;align-items:center;font-size:.9rem;">
+    <a href="#home" style="color:white;text-decoration:none;">Home</a>
+    <div class="services-dropdown"><a href="#services" style="color:white;text-decoration:none;">Services ▾</a>
+      <div class="services-dropdown-menu">
+        <a href="website-design-dubrajpur.html">Website Design</a>
+        <a href="ecommerce-website-birbhum.html">Ecommerce Website</a>
+        <a href="seo-service-birbhum.html">SEO Service</a>
+        <a href="digital-marketing-dubrajpur.html">Digital Marketing</a>
+        <a href="mobile-app-development-west-bengal.html">Mobile App</a>
+        <a href="billing-software-dubrajpur.html">Billing Software</a>
+        <a href="digital-visiting-card-dubrajpur.html">Digital Visiting Card</a>
+      </div>
+    </div>
+    <a href="#pricing" style="color:white;text-decoration:none;">Pricing</a>
+    <a href="tools.html" style="color:#fde047;font-weight:600;text-decoration:none;">Free Tools</a>
+    <a href="#about" style="color:white;text-decoration:none;">About</a>
+    <a href="#contact" style="color:white;text-decoration:none;">Contact</a>
+  </nav>
+
+  <!-- Desktop right buttons -->
+  <div id="desktop-btns" style="display:flex;align-items:center;gap:10px;">
+    <div class="header-translate" title="Translate Website"><span class="label">Translate</span><div id="google_translate_element"></div></div>
+    <a href="tel:+919735474770" style="background:#22c55e;color:white;padding:8px 16px;border-radius:999px;font-weight:700;text-decoration:none;font-size:.85rem;">📞 9735474770</a>
+    <a href="#contact" style="background:#7c3aed;color:white;padding:8px 16px;border-radius:999px;text-decoration:none;font-size:.85rem;">Get Started</a>
+  </div>
+
+  <!-- Mobile hamburger (hidden on desktop) -->
+  <button id="hamburger" aria-label="Toggle menu" onclick="toggleMobileMenu()" style="display:none;flex-direction:column;gap:5px;padding:8px;background:transparent;border:none;cursor:pointer;">
+    <span id="bar1" style="display:block;width:24px;height:2px;background:white;transition:.3s;"></span>
+    <span id="bar2" style="display:block;width:24px;height:2px;background:white;transition:.3s;"></span>
+    <span id="bar3" style="display:block;width:24px;height:2px;background:white;transition:.3s;"></span>
+  </button>
+</div>
+
+<!-- Mobile dropdown menu -->
+<div id="mobileMenu" style="display:none;flex-direction:column;gap:0;background:rgba(10,18,35,.98);border-top:1px solid rgba(255,255,255,.1);padding:8px 16px 16px;">
+  <a href="#home" onclick="toggleMobileMenu()" style="color:white;text-decoration:none;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:15px;">🏠 Home</a>
+  <a href="#services" onclick="toggleMobileMenu()" style="color:white;text-decoration:none;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:15px;">⚙️ Services</a>
+  <a href="website-design-dubrajpur.html" style="color:#94a3b8;text-decoration:none;padding:10px 0 10px 20px;border-bottom:1px solid rgba(255,255,255,.05);font-size:14px;">↳ Website Design</a>
+  <a href="ecommerce-website-birbhum.html" style="color:#94a3b8;text-decoration:none;padding:10px 0 10px 20px;border-bottom:1px solid rgba(255,255,255,.05);font-size:14px;">↳ Ecommerce</a>
+  <a href="seo-service-birbhum.html" style="color:#94a3b8;text-decoration:none;padding:10px 0 10px 20px;border-bottom:1px solid rgba(255,255,255,.05);font-size:14px;">↳ SEO Service</a>
+  <a href="#pricing" onclick="toggleMobileMenu()" style="color:white;text-decoration:none;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:15px;">💰 Pricing</a>
+  <a href="tools.html" style="color:#fde047;text-decoration:none;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:15px;font-weight:700;">🛠️ Free Tools</a>
+  <a href="blog.html" style="color:white;text-decoration:none;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:15px;">📝 Blog</a>
+  <a href="#contact" onclick="toggleMobileMenu()" style="color:white;text-decoration:none;padding:12px 0;font-size:15px;">📩 Contact</a>
+</div>
+</header><div style="position:fixed;top:80px;left:0;width:100%;z-index:48;background:rgba(5,8,22,0.97);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,0.08);overflow:hidden;">
 <div style="display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:nowrap;padding:0;">
 <div style="display:flex;width:max-content;animation:priceSlide 30s linear infinite;">
 <span style="padding:8px 20px;font-size:12px;font-weight:700;color:#4ade80;white-space:nowrap;">🌱 Starter  <span style="color:white;">₹999</span></span>
