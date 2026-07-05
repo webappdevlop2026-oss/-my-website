@@ -6,6 +6,7 @@ const SUPABASE_URL = 'https://vkkqfodjnvmozcupmdie.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_7PezfOHheRM_lhhTPqfp1w_3RscyPqk';
 
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+window.sb = sb; // ensure `sb` is also reachable as window.sb (const at top-level does not attach to window automatically)
 
 // Fetch site-wide settings (WhatsApp number, call number, offer text, price text)
 // Falls back to sensible defaults if the row hasn't been saved yet or the
