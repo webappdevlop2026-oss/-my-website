@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ready-Made Website Store | Digital Agency by Chandan Das</title>
+<meta name="description" content="Buy a ready-made website instantly — restaurant, shop, portfolio, school, clinic and more. Live demo, instant order, fast handover. Digital Agency by Chandan Das, Dubrajpur.">
+<meta name="robots" content="index, follow">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#8b5cf6">
+<style>
+*{box-sizing:border-box;}
+body{margin:0;background:#050816;color:white;font-family:Arial,sans-serif;overflow-x:hidden;padding-bottom:68px;}
+a{color:inherit;}
+.gradient-text{background:linear-gradient(to right,#8b5cf6,#06b6d4,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.glass{background:rgba(255,255,255,0.05);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.1);}
+
+/* ===== Header (matches main site) ===== */
+header{position:fixed;top:0;left:0;width:100%;z-index:50;background:rgba(10,18,35,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.08);}
+.header-inner{max-width:1280px;margin:auto;padding:10px 16px;display:flex;justify-content:space-between;align-items:center;}
+.brand-title{font-size:1.3rem;font-weight:800;}
+.brand-sub{font-size:.7rem;color:#94a3b8;margin:0;}
+.desktop-nav{display:flex;gap:1rem;align-items:center;font-size:.9rem;}
+.desktop-nav a{text-decoration:none;color:white;}
+#hamburger{display:none;flex-direction:column;gap:5px;padding:8px;background:transparent;border:none;cursor:pointer;}
+#hamburger span{display:block;width:24px;height:2px;background:white;}
+#mobileMenu{display:none;flex-direction:column;gap:0;background:rgba(10,18,35,.98);border-top:1px solid rgba(255,255,255,.1);padding:8px 16px 16px;}
+#mobileMenu a{color:white;text-decoration:none;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:15px;}
+@media(max-width:900px){.desktop-nav,#desktop-btns{display:none!important;}#hamburger{display:flex!important;}}
+
+/* ===== Hero ===== */
+.store-hero{padding-top:140px;padding-bottom:30px;background-image:radial-gradient(circle at 20% 20%,rgba(139,92,246,.20),transparent 28%),radial-gradient(circle at 75% 18%,rgba(34,211,238,.18),transparent 28%),linear-gradient(135deg,#050816,#0b1020);}
+.store-hero-inner{max-width:1100px;margin:0 auto;padding:0 20px;text-align:center;}
+.store-chip{display:inline-flex;align-items:center;gap:.4rem;background:rgba(34,211,238,.12);border:1px solid rgba(34,211,238,.35);color:#a5f3fc;padding:.45rem .9rem;border-radius:999px;font-weight:700;font-size:.8rem;margin-bottom:18px;}
+.store-hero h1{font-size:2.2rem;font-weight:800;margin:0 0 14px;line-height:1.15;}
+.store-hero p{color:#cbd5e1;font-size:1.05rem;max-width:600px;margin:0 auto 26px;}
+
+/* ===== Filters ===== */
+.filters{max-width:1100px;margin:0 auto 26px;padding:0 20px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center;}
+.filter-btn{font-weight:700;font-size:13px;padding:9px 18px;border-radius:999px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.04);color:#94a3b8;cursor:pointer;transition:.2s;}
+.filter-btn.active{background:linear-gradient(135deg,#8b5cf6,#06b6d4);color:white;border-color:transparent;}
+
+/* ===== Grid ===== */
+.grid{max-width:1100px;margin:0 auto;padding:0 20px 70px;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:22px;}
+.card{border-radius:20px;overflow:hidden;display:flex;flex-direction:column;transition:.2s;}
+.card:hover{transform:translateY(-4px);}
+.thumb{height:150px;display:flex;align-items:center;justify-content:center;font-size:44px;position:relative;}
+.ready-tag{position:absolute;top:10px;left:10px;background:rgba(0,0,0,.55);color:#4ade80;font-size:10px;font-weight:800;padding:5px 10px;border-radius:999px;display:flex;align-items:center;gap:5px;border:1px solid rgba(74,222,128,.4);}
+.ready-tag::before{content:"";width:6px;height:6px;border-radius:50%;background:#4ade80;}
+.card-body{padding:16px 16px 18px;display:flex;flex-direction:column;gap:8px;flex:1;}
+.cat{font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;color:#94a3b8;font-weight:700;}
+.card h3{margin:0;font-size:17px;font-weight:800;}
+.card-desc{font-size:13px;color:#94a3b8;line-height:1.5;margin:0;flex:1;}
+.price-row{display:flex;align-items:baseline;gap:8px;}
+.price{font-weight:800;font-size:19px;color:#4ade80;}
+.price-old{font-size:12px;color:#64748b;text-decoration:line-through;}
+.btn-row{display:flex;gap:8px;margin-top:4px;}
+.btn{flex:1;padding:10px;border-radius:10px;font-weight:700;font-size:13px;cursor:pointer;text-align:center;border:none;text-decoration:none;}
+.btn-ghost{background:rgba(255,255,255,.06);color:white;border:1px solid rgba(255,255,255,.15);}
+.btn-solid{background:linear-gradient(135deg,#8b5cf6,#06b6d4);color:white;}
+
+/* ===== Modal ===== */
+.overlay{position:fixed;inset:0;background:rgba(3,6,15,.75);display:none;align-items:center;justify-content:center;z-index:200;padding:16px;}
+.overlay.show{display:flex;}
+.modal{background:#0b1020;border:1px solid rgba(255,255,255,.1);border-radius:20px;max-width:420px;width:100%;padding:26px;position:relative;max-height:90vh;overflow-y:auto;}
+.modal-close{position:absolute;top:14px;right:14px;background:none;border:none;font-size:20px;color:#94a3b8;cursor:pointer;}
+.modal h2{margin:0 0 4px;font-size:20px;}
+.modal .sub{color:#94a3b8;font-size:13px;margin:0 0 20px;}
+.field{margin-bottom:13px;}
+.field label{display:block;font-size:12px;font-weight:700;margin-bottom:6px;color:#cbd5e1;}
+.field input,.field textarea{width:100%;padding:11px 13px;border-radius:10px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.05);color:white;font-size:14px;font-family:Arial,sans-serif;}
+.field textarea{resize:vertical;min-height:60px;}
+.field input::placeholder,.field textarea::placeholder{color:#64748b;}
+.submit-btn{width:100%;padding:13px;border:none;border-radius:10px;background:linear-gradient(135deg,#8b5cf6,#06b6d4);color:white;font-weight:800;font-size:15px;cursor:pointer;margin-top:6px;}
+.submit-btn:disabled{opacity:.6;}
+.confirm{text-align:center;padding:16px 0 4px;}
+.confirm .check{width:56px;height:56px;border-radius:50%;background:rgba(74,222,128,.15);color:#4ade80;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:26px;}
+.confirm p{color:#cbd5e1;font-size:14px;line-height:1.6;}
+.error-msg{color:#f87171;font-size:12.5px;margin-top:4px;display:none;}
+
+footer{padding:34px 20px;border-top:1px solid rgba(255,255,255,.1);text-align:center;color:#94a3b8;font-size:13px;}
+footer a{color:#4ade80;text-decoration:none;}
+
+.mobile-bottom-nav{display:none;}
+@media(max-width:768px){
+  .mobile-bottom-nav{display:flex!important;position:fixed;bottom:0;left:0;right:0;background:rgba(10,18,35,.97);backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,.1);z-index:999;padding:8px 0 10px;justify-content:space-around;}
+  .mobile-bottom-nav a{display:flex;flex-direction:column;align-items:center;gap:3px;color:rgba(255,255,255,.6);text-decoration:none;font-size:10px;flex:1;}
+  .mobile-bottom-nav a.active{color:#38bdf8;}
+  .mobile-bottom-nav a span.icon{font-size:19px;line-height:1;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div>
+      <div class="brand-title gradient-text">Digital Agency</div>
+      <p class="brand-sub">by Chandan Das • Ready-Made Website Store</p>
+    </div>
+    <nav class="desktop-nav">
+      <a href="index.html">Home</a>
+      <a href="index.html#services">Services</a>
+      <a href="index.html#pricing">Pricing</a>
+      <a href="store.html" style="color:#4ade80;font-weight:700;">🏪 Store</a>
+      <a href="tools.html" style="color:#fde047;font-weight:600;">Free Tools</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+    <div id="desktop-btns" style="display:flex;align-items:center;gap:10px;">
+      <a href="tel:+919735474770" style="background:#22c55e;color:white;padding:8px 16px;border-radius:999px;font-weight:700;text-decoration:none;font-size:.85rem;">📞 9735474770</a>
+    </div>
+    <button id="hamburger" aria-label="Toggle menu" onclick="toggleMobileMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div id="mobileMenu">
+    <a href="index.html">🏠 Home</a>
+    <a href="index.html#services">⚙️ Services</a>
+    <a href="index.html#pricing">💰 Pricing</a>
+    <a href="store.html">🏪 Ready-Made Store</a>
+    <a href="tools.html" style="color:#fde047;">🛠️ Free Tools</a>
+    <a href="index.html#contact">📩 Contact</a>
+  </div>
+</header>
+
+<section class="store-hero">
+  <div class="store-hero-inner">
+    <div class="store-chip">🟢 READY TO LAUNCH TODAY</div>
+    <h1>Skip the wait. Pick a website, <span class="gradient-text">make it yours.</span></h1>
+    <p>Every site below is fully built and tested. Preview it live, click Buy Now, and Chandan Das will call you shortly to confirm details and payment.</p>
+  </div>
+</section>
+
+<div class="filters" id="filters"></div>
+<div class="grid" id="grid"></div>
+
+<footer>
+  <div class="gradient-text" style="font-size:1.2rem;font-weight:800;margin-bottom:6px;">Digital Agency by Chandan Das</div>
+  <p>Dubrajpur, West Bengal · <a href="tel:+919735474770">📞 9735474770</a> · <a href="https://wa.me/917549459770">WhatsApp</a></p>
+  <p><a href="index.html">← Back to main website</a></p>
+</footer>
+
+<div class="overlay" id="overlay">
+  <div class="modal" id="modalBox"></div>
+</div>
+
+<nav class="mobile-bottom-nav" aria-label="Mobile navigation">
+  <a href="index.html"><span class="icon">🏠</span><span>Home</span></a>
+  <a href="index.html#services"><span class="icon">⚙️</span><span>Services</span></a>
+  <a href="store.html" class="active"><span class="icon">🏪</span><span>Store</span></a>
+  <a href="https://wa.me/917549459770?text=Hello" target="_blank"><span class="icon">💬</span><span>WhatsApp</span></a>
+  <a href="tel:+919735474770"><span class="icon">📞</span><span>Call</span></a>
+</nav>
+
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<script src="supabase-client.js"></script>
+<script>
+function toggleMobileMenu(){
+  const m = document.getElementById('mobileMenu');
+  m.style.display = (m.style.display === 'flex') ? 'none' : 'flex';
+}
+
+const PRODUCTS = [
+  {id:1, name:"Swaad Restaurant Site", cat:"Restaurant", price:4999, old:7999, color:"#7c2d12", icon:"🍽️", desc:"Menu, table booking, gallery and location map for restaurants and cafés."},
+  {id:2, name:"Shopverse Basic", cat:"E-commerce", price:8999, old:13999, color:"#4c1d95", icon:"🛍️", desc:"Product catalog, cart and enquiry checkout — for small shops going online."},
+  {id:3, name:"Portfolio Pro", cat:"Portfolio", price:2999, old:4499, color:"#065f46", icon:"🎨", desc:"Clean one-page portfolio for freelancers, designers and photographers."},
+  {id:4, name:"EduCoach School Site", cat:"Education", price:5999, old:8999, color:"#78350f", icon:"🎓", desc:"Course listing, admission form and results for schools and coaching centers."},
+  {id:5, name:"Clinic Care", cat:"Healthcare", price:5499, old:7999, color:"#155e75", icon:"🩺", desc:"Appointment form, doctor profiles and services for clinics and physicians."},
+  {id:6, name:"EstateHub", cat:"Real Estate", price:6999, old:9999, color:"#3730a3", icon:"🏠", desc:"Property listings with galleries and enquiry form for agents and builders."},
+  {id:7, name:"EventPro Landing", cat:"Events", price:3499, old:4999, color:"#831843", icon:"🎉", desc:"Countdown, schedule and RSVP form for weddings, conferences and events."},
+  {id:8, name:"BizCard Corporate", cat:"Business", price:4499, old:6499, color:"#1e3a5f", icon:"💼", desc:"About, services and team page for a sharp corporate presence online."}
+];
+
+let activeFilter = "All";
+
+function money(n){ return "₹" + n.toLocaleString("en-IN"); }
+
+function renderFilters(){
+  const cats = ["All", ...new Set(PRODUCTS.map(p=>p.cat))];
+  document.getElementById("filters").innerHTML = cats.map(c =>
+    `<button class="filter-btn ${c===activeFilter?'active':''}" onclick="setFilter('${c}')">${c}</button>`
+  ).join("");
+}
+function setFilter(c){ activeFilter = c; renderFilters(); renderGrid(); }
+
+function renderGrid(){
+  const list = activeFilter==="All" ? PRODUCTS : PRODUCTS.filter(p=>p.cat===activeFilter);
+  document.getElementById("grid").innerHTML = list.map(p => `
+    <div class="card glass">
+      <div class="thumb" style="background:${p.color}">
+        ${p.icon}
+        <span class="ready-tag">READY TO SHIP</span>
+      </div>
+      <div class="card-body">
+        <div class="cat">${p.cat}</div>
+        <h3>${p.name}</h3>
+        <p class="card-desc">${p.desc}</p>
+        <div class="price-row">
+          <span class="price">${money(p.price)}</span>
+          <span class="price-old">${money(p.old)}</span>
+        </div>
+        <div class="btn-row">
+          <button class="btn btn-ghost" onclick="alert('Connect this button to the live hosted demo URL for ${p.name}.')">Live Demo</button>
+          <button class="btn btn-solid" onclick="openBuy(${p.id})">Buy Now</button>
+        </div>
+      </div>
+    </div>
+  `).join("");
+}
+
+function openBuy(id){
+  const p = PRODUCTS.find(x=>x.id===id);
+  document.getElementById("modalBox").innerHTML = `
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h2>Buy ${p.name}</h2>
+    <p class="sub">Fill this in — Chandan Das will call you to confirm details and take payment.</p>
+    <div class="field"><label>Your name</label><input id="fName" placeholder="e.g. Rahul Kumar"></div>
+    <div class="field"><label>Phone number</label><input id="fPhone" placeholder="e.g. 98xxxxxxxx" type="tel"></div>
+    <div class="field"><label>Email (optional)</label><input id="fEmail" placeholder="e.g. you@email.com" type="email"></div>
+    <div class="field"><label>Notes / customization needed</label><textarea id="fNotes" placeholder="e.g. Need it in Bengali, want to add my logo"></textarea></div>
+    <p class="error-msg" id="fError"></p>
+    <button class="submit-btn" id="submitBtn" onclick="submitOrder(${p.id})">Submit Order — ${money(p.price)}</button>
+  `;
+  document.getElementById("overlay").classList.add("show");
+}
+
+async function submitOrder(id){
+  const p = PRODUCTS.find(x=>x.id===id);
+  const name = document.getElementById("fName").value.trim();
+  const phone = document.getElementById("fPhone").value.trim();
+  const email = document.getElementById("fEmail").value.trim();
+  const notes = document.getElementById("fNotes").value.trim();
+  const errBox = document.getElementById("fError");
+  const btn = document.getElementById("submitBtn");
+
+  if(!name || !phone){
+    errBox.textContent = "Please enter your name and phone number so we can call you.";
+    errBox.style.display = "block";
+    return;
+  }
+  errBox.style.display = "none";
+  btn.disabled = true;
+  btn.textContent = "Submitting...";
+
+  try{
+    const { error } = await sb.from('store_orders').insert({
+      product_name: p.name,
+      product_price: p.price,
+      customer_name: name,
+      customer_mobile: phone,
+      customer_email: email || null,
+      notes: notes || null,
+      status: 'New'
+    });
+    if(error) throw error;
+
+    document.getElementById("modalBox").innerHTML = `
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div class="confirm">
+        <div class="check">✓</div>
+        <h2>Order received!</h2>
+        <p>Thanks ${name.split(" ")[0]}, we've noted your order for <strong>${p.name}</strong>.<br>Chandan Das will call you on <strong>${phone}</strong> shortly to confirm details and payment.</p>
+      </div>
+    `;
+  } catch(err){
+    console.error('Order insert failed:', err);
+    errBox.textContent = "Something went wrong sending your order. Please try again, or WhatsApp us directly.";
+    errBox.style.display = "block";
+    btn.disabled = false;
+    btn.textContent = `Submit Order — ${money(p.price)}`;
+  }
+}
+
+function closeModal(){
+  document.getElementById("overlay").classList.remove("show");
+}
+document.getElementById("overlay").addEventListener("click", (e)=>{
+  if(e.target.id==="overlay") closeModal();
+});
+
+renderFilters();
+renderGrid();
+</script>
+
+</body>
+</html>
