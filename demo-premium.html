@@ -1,0 +1,64 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Élan Premium Store — Curated Luxury Shopping</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--black:#111111;--gold:#d4af37;--paper:#fafafa;--muted:#8a8a8a;--line:#2a2a2a;--line-l:#e7e7e7}
+*{box-sizing:border-box}body{margin:0;background:#fff;color:var(--black);font-family:'Inter',Arial,sans-serif}
+a{color:inherit;text-decoration:none}h1,h2,h3{font-family:'Cormorant Garamond',serif}
+.demo-strip{background:var(--black);color:#fff;text-align:center;font-size:12px;padding:8px;font-weight:600}
+header{background:var(--black);color:#fff}
+.nav{max-width:1180px;margin:auto;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.brand{display:flex;align-items:center;gap:10px}.mark{width:44px;height:44px;border:1px solid var(--gold);color:var(--gold);display:grid;place-items:center;font-weight:700;font-size:16px;font-family:'Cormorant Garamond'}
+.brand h1{margin:0;font-size:22px;color:#fff;letter-spacing:.03em}.brand p{margin:0;font-size:10px;color:#9a9a9a;letter-spacing:.15em;text-transform:uppercase}
+.nav-links{display:flex;gap:24px;font-weight:500;font-size:13px;color:#ddd;text-transform:uppercase;letter-spacing:.05em}@media(max-width:800px){.nav-links{display:none}}
+.pill{background:var(--gold);color:#111;padding:9px 18px;font-weight:700;font-size:12px;letter-spacing:.05em}
+.hero{background:var(--black);color:#fff;padding:10px 18px 50px}
+.hero-in{max-width:1180px;margin:auto;display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:center}
+.eyebrow{display:inline-block;color:var(--gold);border-bottom:1px solid var(--gold);padding-bottom:4px;font-weight:700;font-size:11px;letter-spacing:.15em;text-transform:uppercase;margin-bottom:18px}
+.hero h2{font-size:46px;line-height:1.1;margin:0 0 16px;color:#fff}.hero h2 em{font-style:normal;color:var(--gold)}
+.hero p{color:#b8b8b8;font-size:16px;line-height:1.7;max-width:480px;margin:0 0 26px}
+.btn{display:inline-flex;align-items:center;gap:8px;border:0;padding:14px 26px;font-weight:700;cursor:pointer;font-size:13px;letter-spacing:.05em;text-transform:uppercase}
+.btn.gold{background:var(--gold);color:#111}.btn.line{background:transparent;border:1px solid #666;color:#fff}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+.spotlight{position:relative;border:1px solid #2a2a2a;padding:26px;text-align:center}
+.spotlight .em{font-size:70px;margin-bottom:14px}
+.spotlight h4{color:#fff;margin:0 0 6px;font-size:20px}
+.spotlight .price{color:var(--gold);font-size:22px;font-family:'Cormorant Garamond';font-weight:700}
+.dots{display:flex;justify-content:center;gap:6px;margin-top:16px}
+.dot{width:7px;height:7px;border-radius:50%;background:#444;cursor:pointer}.dot.active{background:var(--gold)}
+.section-head{max-width:1180px;margin:44px auto 20px;padding:0 18px;text-align:center}
+.section-head h3{font-size:30px;margin:0}.section-head p{color:var(--muted);margin:8px 0 0;font-size:14px}
+.grid{max-width:1180px;margin:auto;padding:0 18px;display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--line-l)}
+.prod{background:#fff;padding:22px;text-align:center}
+.prod .em{font-size:42px;margin-bottom:12px}
+.prod h4{margin:0 0 6px;font-size:15px}
+.prod .price{color:var(--black);font-weight:700;font-size:15px}
+.prod .old{color:var(--muted);text-decoration:line-through;font-size:12px;margin-left:6px}
+@media(max-width:820px){.grid{grid-template-columns:repeat(2,1fr)}.hero-in{grid-template-columns:1fr}}
+footer{background:var(--black);color:#8a8a8a;text-align:center;padding:30px 18px;font-size:13px}footer b{color:#fff}
+</style></head><body>
+<div class="demo-strip">🧪 DEMO TEMPLATE — Digital Agency by Chandan Das</div>
+<header><div class="nav"><div class="brand"><div class="mark">É</div><div><h1>Élan</h1><p>Premium Store</p></div></div>
+<nav class="nav-links"><a href="#collection">Collection</a><a href="#contact">Contact</a></nav>
+<a class="pill" href="https://wa.me/917549459770?text=Hello%20Elan%20Premium%20Store" target="_blank">Shop Now</a></div></header>
+<section class="hero"><div class="hero-in">
+<div><span class="eyebrow">The Curated Edit</span>
+<h2>Luxury, <em>curated for you.</em></h2>
+<p>A refined collection of premium products — handpicked for quality, design and lasting value. Free shipping on every order.</p>
+<div class="hero-actions"><a class="btn gold" href="#collection">View Collection</a><a class="btn line" href="https://wa.me/917549459770" target="_blank">Ask a Stylist</a></div></div>
+<div class="spotlight" id="spotlight"><div class="em" id="spEm">⌚</div><h4 id="spName">Classic Chronograph Watch</h4><div class="price" id="spPrice">₹12,999</div>
+<div class="dots"><span class="dot active" onclick="showSpot(0)"></span><span class="dot" onclick="showSpot(1)"></span><span class="dot" onclick="showSpot(2)"></span></div></div>
+</div></section>
+<div class="section-head" id="collection"><h3>Featured Collection</h3><p>A selection from this season's curated edit</p></div>
+<div class="grid">
+<div class="prod"><div class="em">⌚</div><h4>Classic Chronograph</h4><span class="price">₹12,999</span></div>
+<div class="prod"><div class="em">👜</div><h4>Leather Tote Bag</h4><span class="price">₹6,499</span><span class="old">₹8,999</span></div>
+<div class="prod"><div class="em">🕶️</div><h4>Designer Sunglasses</h4><span class="price">₹3,299</span></div>
+<div class="prod"><div class="em">👞</div><h4>Handcrafted Loafers</h4><span class="price">₹5,799</span></div>
+</div>
+<footer id="contact"><b>Élan Premium Store</b> — Demo Website Template · Sample design by Digital Agency by Chandan Das, Dubrajpur.<br>Want this premium e-commerce design? <a href="https://wa.me/917549459770?text=I%20want%20the%20Elan%20Premium%20E-commerce%20website" style="color:#d4af37;font-weight:800" target="_blank">WhatsApp us →</a></footer>
+<script>
+const items=[{em:'⌚',n:'Classic Chronograph Watch',p:'₹12,999'},{em:'👜',n:'Leather Tote Bag',p:'₹6,499'},{em:'🕶️',n:'Designer Sunglasses',p:'₹3,299'}];
+function showSpot(i){document.getElementById('spEm').textContent=items[i].em;document.getElementById('spName').textContent=items[i].n;document.getElementById('spPrice').textContent=items[i].p;document.querySelectorAll('.dot').forEach((d,idx)=>d.classList.toggle('active',idx===i))}
+</script>
+</body></html>

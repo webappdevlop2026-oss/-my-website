@@ -1,0 +1,67 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AppReady — Website + Android App Package</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0f14;--panel:#141b24;--teal:#00e5ff;--violet:#7c3aed;--muted:#8a97a3;--line:rgba(255,255,255,.09)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#eef2f5;font-family:'Inter',Arial,sans-serif}
+a{color:inherit;text-decoration:none}h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
+.demo-strip{background:#000;color:#fff;text-align:center;font-size:12px;padding:8px;font-weight:600}
+header{background:rgba(11,15,20,.9);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50;backdrop-filter:blur(10px)}
+.nav{max-width:1180px;margin:auto;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.brand{display:flex;align-items:center;gap:10px}.mark{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--violet),var(--teal));display:grid;place-items:center;font-weight:800;font-size:17px}
+.brand h1{margin:0;font-size:19px;color:#fff}.brand p{margin:0;font-size:11px;color:var(--muted)}
+.nav-links{display:flex;gap:20px;font-weight:600;font-size:14px;color:#c8d1d9}@media(max-width:780px){.nav-links{display:none}}
+.pill{background:var(--teal);color:#04222a;padding:9px 16px;border-radius:999px;font-weight:800;font-size:13px}
+.hero{max-width:1180px;margin:auto;padding:46px 18px 24px;display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center}
+.eyebrow{display:inline-block;background:rgba(124,58,237,.15);color:#c4b5fd;border:1px solid rgba(124,58,237,.4);padding:6px 14px;border-radius:999px;font-weight:700;font-size:12px;margin-bottom:14px}
+.hero h2{font-size:40px;line-height:1.14;margin:0 0 14px;color:#fff}.hero h2 span{background:linear-gradient(90deg,var(--teal),var(--violet));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{color:var(--muted);font-size:16px;line-height:1.65;max-width:520px;margin:0 0 22px}
+.btn{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:12px;padding:13px 20px;font-weight:800;cursor:pointer;font-size:14px}
+.btn.grad{background:linear-gradient(135deg,var(--violet),var(--teal));color:#fff}.btn.outline{background:transparent;border:2px solid var(--line);color:#fff}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+.phone{width:230px;margin:auto;background:#000;border-radius:34px;padding:12px;border:2px solid #2a333d;box-shadow:0 30px 60px rgba(124,58,237,.25)}
+.screen{background:linear-gradient(160deg,var(--panel),#0b0f14);border-radius:22px;padding:16px;min-height:400px}
+.screen .app-top{display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-bottom:14px}
+.appcard{background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:10px}
+.appcard b{display:block;font-size:12px;color:#fff}.appcard span{font-size:10px;color:var(--muted)}
+.stats{max-width:1180px;margin:0 auto;padding:26px 18px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;text-align:center}
+.stat b{font-size:22px;color:var(--teal)}.stat span{display:block;font-size:12px;color:var(--muted);margin-top:4px}
+.section-head{max-width:1180px;margin:34px auto 16px;padding:0 18px}.section-head h3{font-size:26px;margin:0;color:#fff}.section-head p{color:var(--muted);margin:6px 0 0;font-size:14px}
+.grid{max-width:1180px;margin:auto;padding:0 18px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px}
+.card .ic{font-size:26px;margin-bottom:8px}.card h4{margin:0 0 6px;font-size:14px;color:#fff}.card p{margin:0;color:var(--muted);font-size:12px}
+@media(max-width:820px){.grid{grid-template-columns:repeat(2,1fr)}.hero{grid-template-columns:1fr}}
+footer{background:#000;color:var(--muted);text-align:center;padding:28px 18px;font-size:13px;margin-top:34px}footer b{color:#fff}
+</style></head><body>
+<div class="demo-strip">🧪 DEMO TEMPLATE — Digital Agency by Chandan Das</div>
+<header><div class="nav"><div class="brand"><div class="mark">📱</div><div><h1>AppReady Package</h1><p>Website + Android App</p></div></div>
+<nav class="nav-links"><a href="#features">Features</a><a href="#included">What's Included</a><a href="#contact">Contact</a></nav>
+<a class="pill" href="https://wa.me/917549459770?text=Hello%2C%20I%20want%20a%20Website%20%2B%20App%20package" target="_blank">Get Started</a></div></header>
+<section class="hero"><div><span class="eyebrow">⚡ One website, two platforms</span>
+<h2>Your website, <span>now in an app.</span></h2>
+<p>Get a fast website plus a companion Android app built from the same content — so customers can install your business on their home screen and get push notifications.</p>
+<div class="hero-actions"><a class="btn grad" href="#included">📦 See What's Included</a><a class="btn outline" href="https://wa.me/917549459770" target="_blank">💬 Ask a Question</a></div></div>
+<div class="phone"><div class="screen"><div class="app-top"><span>9:41</span><span>●●●●</span></div>
+<div class="appcard"><b>🛍️ Your Business App</b><span>Installed on home screen</span></div>
+<div class="appcard"><b>🔔 Push Notification</b><span>"New offer live today!"</span></div>
+<div class="appcard"><b>📦 Order Tracking</b><span>Real-time status updates</span></div>
+<div class="appcard"><b>⭐ Customer Reviews</b><span>4.8 average rating</span></div>
+</div></div></section>
+<section class="stats"><div class="stat"><b>2-in-1</b><span>Website + App</span></div><div class="stat"><b>Android</b><span>APK ready to install</span></div><div class="stat"><b>PWA</b><span>Works offline too</span></div><div class="stat"><b>7 Days</b><span>Delivery time</span></div></section>
+<div class="section-head" id="included"><h3>What's Included</h3><p>Everything you need to go live on web and mobile</p></div>
+<div class="grid">
+<div class="card"><div class="ic">🌐</div><h4>Responsive Website</h4><p>Fast, mobile-friendly website with your business content.</p></div>
+<div class="card"><div class="ic">📱</div><h4>Android App (APK)</h4><p>Installable app wrapping your website with app-like navigation.</p></div>
+<div class="card"><div class="ic">🔔</div><h4>Push Notifications</h4><p>Send offers and updates directly to installed users.</p></div>
+<div class="card"><div class="ic">🎨</div><h4>Custom Branding</h4><p>Your logo, colours and business name throughout.</p></div>
+</div>
+<div class="section-head" id="features"><h3>Ideal For</h3><p>Businesses ready to go beyond a website</p></div>
+<div class="grid">
+<div class="card"><div class="ic">🛒</div><h4>Shops & Retailers</h4><p>Let customers browse and order from an app.</p></div>
+<div class="card"><div class="ic">🏫</div><h4>Schools & Institutes</h4><p>Notices and updates pushed directly to parents.</p></div>
+<div class="card"><div class="ic">🍽️</div><h4>Restaurants</h4><p>Menu and offers accessible with one tap.</p></div>
+<div class="card"><div class="ic">🏢</div><h4>Service Businesses</h4><p>Booking and enquiry handled through the app.</p></div>
+</div>
+<footer id="contact"><b>AppReady Package</b> — Demo Website Template · Sample design by Digital Agency by Chandan Das, Dubrajpur.<br>Want this website + app package? <a href="https://wa.me/917549459770?text=I%20want%20the%20Website%20%2B%20App%20package" style="color:#00e5ff;font-weight:800" target="_blank">WhatsApp us →</a></footer>
+</body></html>
