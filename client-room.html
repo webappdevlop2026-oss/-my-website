@@ -23,8 +23,8 @@ header a{color:#b7c1d4;text-decoration:none}.brand{font-weight:900;background:li
 .enter{width:100%;margin-top:12px;border:0;border-radius:999px;padding:14px;color:#fff;font-weight:900;cursor:pointer;background:linear-gradient(90deg,#7c3aed,#06b6d4)}
 #error{color:#fb7185;min-height:22px;margin-top:10px}
 #world{display:none;position:absolute;inset:56px 0 0;background:#050816;perspective:1000px;overflow:hidden}
-.scene{position:absolute;left:50%;top:50%;width:1000px;height:620px;transform-style:preserve-3d;transform:translate(-50%,-50%) rotateX(-7deg) rotateY(0deg) scale(.92);transition:transform .8s cubic-bezier(.2,.8,.2,1)}
-.room{position:absolute;inset:0;transform-style:preserve-3d}
+.scene{position:absolute;left:50%;top:50%;width:1000px;height:620px;transform-style:preserve-3d;overflow:visible;transform:translate(-50%,-50%) rotateX(-7deg) rotateY(0deg) scale(.92);transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+.room{position:absolute;inset:0;transform-style:preserve-3d;overflow:visible}
 .floor{position:absolute;width:900px;height:850px;left:50px;top:160px;transform:rotateX(90deg) translateZ(-200px);background:repeating-linear-gradient(90deg,#1c2940 0 80px,#172238 80px 160px);box-shadow:inset 0 0 140px #000}
 .back{position:absolute;width:900px;height:500px;left:50px;top:30px;transform:translateZ(-420px);background:linear-gradient(#17233a,#0b1221);border:12px solid #08101f}
 .leftwall,.rightwall{position:absolute;width:850px;height:500px;top:30px;background:linear-gradient(90deg,#10192a,#18233a)}
@@ -32,7 +32,7 @@ header a{color:#b7c1d4;text-decoration:none}.brand{font-weight:900;background:li
 .ceiling{position:absolute;width:900px;height:850px;left:50px;top:-390px;transform:rotateX(90deg);background:#070c16}
 .logo{position:absolute;left:255px;top:62px;width:490px;padding:17px;text-align:center;font-size:27px;font-weight:900;background:#111b35;border:2px solid #6d5ce7;box-shadow:0 0 35px #6d5ce766;transform:translateZ(-400px)}
 .light{position:absolute;width:180px;height:16px;top:-40px;background:#dff6ff;box-shadow:0 0 45px #8be5ff}.l1{left:150px}.l2{left:410px}.l3{left:670px}
-.lcd{position:absolute;left:165px;top:105px;width:670px;height:355px;padding:12px;background:#030712;border:11px solid #111827;box-shadow:0 0 48px #22d3ee66;transform:translateZ(-370px);cursor:pointer;overflow:hidden}
+.lcd{position:absolute;left:165px;top:82px;width:670px;height:355px;padding:12px;background:#030712;border:11px solid #111827;box-shadow:0 0 48px #22d3ee66;transform:translateZ(-330px);cursor:pointer;overflow:hidden}
 .lcdscreen{height:100%;position:relative;overflow:hidden;background:radial-gradient(circle at 50% 20%,#0e749077,#071426 65%);border:1px solid #22d3ee66}
 .lcd-header{height:42px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;background:#020617cc;border-bottom:1px solid #22d3ee44}
 .lcd-header strong{font-size:15px;letter-spacing:.5px}.lcd-header small{color:#7dd3fc}
@@ -52,25 +52,42 @@ header a{color:#b7c1d4;text-decoration:none}.brand{font-weight:900;background:li
 .lcd-browserbar{position:relative;z-index:2}
 .lcd-browser iframe{scrollbar-width:auto}
 .lcd-dot{width:9px;height:9px;border-radius:50%;border:0;background:#64748b;cursor:pointer}.lcd-dot.active{background:#22d3ee;box-shadow:0 0 12px #22d3ee}
-.desk{position:absolute;left:205px;top:390px;width:590px;height:155px;background:linear-gradient(#74452d,#402317);transform:translateZ(-90px) rotateX(4deg);box-shadow:0 30px 45px #000}
+.desk{position:absolute;left:205px;top:405px;width:590px;height:155px;background:linear-gradient(#74452d,#402317);transform:translateZ(-35px) rotateX(4deg);box-shadow:0 30px 45px #000}
 .desk:before,.desk:after{content:"";position:absolute;top:130px;width:32px;height:140px;background:#25324a}.desk:before{left:45px}.desk:after{right:45px}
 .bell{position:absolute;right:65px;top:-34px;width:55px;height:40px;border-radius:50% 50% 15% 15%;background:linear-gradient(#fde047,#a16207);box-shadow:0 0 18px #facc15;cursor:pointer}
 .notepad{position:absolute;left:55px;top:25px;width:150px;height:95px;transform:rotate(-6deg);background:#f8fafc;color:#334155;padding:12px;font-weight:800;cursor:pointer;box-shadow:0 10px 20px #0008}
-.chair{position:absolute;left:435px;top:500px;width:130px;height:82px;background:#332653;border-radius:18px;transform:translateZ(130px);cursor:pointer;box-shadow:0 22px 30px #000}
+.project-play-box{position:absolute;left:225px;top:20px;width:180px;height:100px;border-radius:16px;padding:12px;background:linear-gradient(145deg,#1d4ed8,#7c3aed);color:#fff;box-shadow:0 12px 28px #0008;border:1px solid #ffffff33;cursor:pointer;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.project-play-box strong{font-size:15px}.project-play-box small{font-size:11px;color:#dbeafe;margin-top:5px}.project-play-box:hover{transform:translateY(-2px)}
+.project-play-box em{font-style:normal;font-size:9px;margin-top:5px;color:#bfdbfe}
+.live-dot{position:absolute;right:10px;top:9px;width:9px;height:9px;border-radius:50%;background:#22c55e;box-shadow:0 0 12px #22c55e;animation:livePulse 1.3s infinite}
+@keyframes livePulse{50%{opacity:.35;transform:scale(.8)}}
+.review-box{position:absolute;left:425px;top:20px;width:135px;height:100px;border-radius:16px;padding:10px;background:linear-gradient(145deg,#0f766e,#0891b2);color:#fff;box-shadow:0 12px 28px #0008;border:1px solid #ffffff33;cursor:pointer;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.review-box strong{font-size:13px}.review-box small{font-size:10px;color:#ccfbf1;margin-top:5px}
+.review-box:hover{transform:translateY(-2px)}
+.live-update-banner{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;border-radius:12px;background:#052e2b;border:1px solid #0f766e;color:#ccfbf1;margin-bottom:12px;font-size:12px}
+.review-project-preview{padding:12px;border-radius:12px;background:#020617;border:1px solid #ffffff14;margin:10px 0}
+.review-history-item{padding:11px;border:1px solid #ffffff14;border-radius:12px;margin-top:8px;background:#ffffff08}
+.review-history-item small{color:#94a3b8}
+
+.chair{position:absolute;left:435px;top:500px;width:130px;height:82px;background:#332653;border-radius:18px;transform:translateZ(165px);cursor:pointer;box-shadow:0 22px 30px #000}
 .chair:before{content:"";position:absolute;left:9px;right:9px;bottom:55px;height:120px;background:linear-gradient(#4c3b75,#241d3d);border-radius:24px 24px 10px 10px}
 .chair:after{content:"🪑 বসুন";position:absolute;left:0;right:0;text-align:center;top:28px;font-size:13px;font-weight:900}
 .plant{position:absolute;bottom:55px;width:90px;height:120px;background:#693c24;border-radius:10px 10px 25px 25px;transform:translateZ(-330px)}.plant:before{content:"🌿";position:absolute;font-size:100px;top:-85px;left:-8px}.p1{left:85px}.p2{right:85px}
-.assistant{position:absolute;left:90px;top:260px;width:72px;height:190px;transform:translateZ(-310px);transition:transform 2.8s ease,left 2.8s ease,top 2.8s ease;cursor:pointer}
-.assistant.come{left:245px;top:335px;transform:translateZ(20px)}
+.assistant{position:absolute;left:90px;top:260px;width:72px;height:190px;transform:translateZ(-310px);transition:transform 2.8s ease,left 2.8s ease,top 2.8s ease;cursor:pointer;z-index:40;overflow:visible}
+.assistant.come{left:180px;top:330px;transform:translateZ(30px)}
+.assistant.returning{left:90px;top:260px;transform:translateZ(-310px)}
 .head{position:absolute;left:15px;width:44px;height:44px;border-radius:50%;background:#d5a178;border:8px solid #1b1b25}
 .body{position:absolute;top:42px;width:72px;height:95px;border-radius:28px 28px 14px 14px;background:linear-gradient(#2563eb,#1e3a8a)}
 .legs:before,.legs:after{content:"";position:absolute;top:130px;width:19px;height:60px;background:#111827;border-radius:10px}.legs:before{left:13px}.legs:after{right:13px}
-.speech{display:none;position:absolute;width:300px;left:80px;top:-18px;padding:12px;border-radius:16px;background:white;color:#111827;font-weight:700;box-shadow:0 18px 45px #0006}.assistant.come .speech{display:block}
+.speech{display:none;position:absolute;width:320px;max-width:42vw;left:82px;top:-30px;padding:14px;border-radius:18px;background:white;color:#111827;font-weight:700;box-shadow:0 22px 55px #0009;z-index:999;overflow:visible;transform:translateZ(180px)}
+.speech:before{content:"";position:absolute;left:-12px;top:42px;border-width:10px 12px 10px 0;border-style:solid;border-color:transparent #fff transparent transparent}
+.assistant.come .speech{display:block}
 .assistant-title{font-size:14px;margin-bottom:8px}
 .assistant-chat{display:flex;gap:7px;margin-top:9px}
 .assistant-chat input{flex:1;min-width:0;border:1px solid #cbd5e1;border-radius:10px;padding:8px 9px;color:#111827;background:#fff}
 .assistant-chat button{border:0;border-radius:10px;padding:8px 11px;background:linear-gradient(90deg,#7c3aed,#06b6d4);color:#fff;font-weight:800}
 .assistant-reply{margin-top:8px;padding:8px 10px;border-radius:10px;background:#eef2ff;color:#3730a3;font-size:12px;line-height:1.45;display:none}
+.assistant-back-btn{border:0;border-radius:9px;padding:7px 11px;background:#1e293b;color:#fff;font-weight:800;cursor:pointer}
 .hud{position:fixed;z-index:50}.hint{left:15px;top:70px;background:#07101ee8;border:1px solid #ffffff18;border-radius:14px;padding:10px 13px;color:#cbd5e1;font-size:12px}
 .controls{left:50%;bottom:15px;transform:translateX(-50%);display:flex;flex-wrap:wrap;justify-content:center;gap:8px;width:96%}
 .controls button{border:1px solid #ffffff1c;background:#07101ee8;color:white;border-radius:999px;padding:10px 13px;cursor:pointer;transition:.2s}
@@ -85,7 +102,7 @@ header a{color:#b7c1d4;text-decoration:none}.brand{font-weight:900;background:li
 .meeting-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .fullscreen-lcd .lcd{position:fixed!important;z-index:140!important;left:2vw!important;top:2vh!important;width:96vw!important;height:96vh!important;transform:none!important}
 .fullscreen-lcd .controls,.fullscreen-lcd .fullscreen-lcd .hint{display:none!important}
-#lcdExpand{position:absolute;right:10px;top:7px;z-index:15;border:0;border-radius:8px;padding:6px 9px;background:#7c3aed;color:#fff;font-size:11px;font-weight:800}
+
 
 
 
@@ -96,7 +113,7 @@ header a{color:#b7c1d4;text-decoration:none}.brand{font-weight:900;background:li
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:11px;margin-top:15px}.demo,.project{padding:15px;border-radius:15px;background:#ffffff0a;border:1px solid #ffffff12}.demo p,.muted{color:#94a3b8}.demo a{color:#22d3ee;text-decoration:none;font-weight:800}
 .field{width:100%;padding:12px;margin-top:10px;border-radius:12px;border:1px solid #ffffff1c;background:#030712;color:white}.send{margin-top:10px;padding:11px 17px;border:0;border-radius:999px;background:linear-gradient(90deg,#7c3aed,#06b6d4);color:white;font-weight:800}
 .progress{height:8px;background:#ffffff12;border-radius:10px;overflow:hidden;margin:10px 0}.progress b{display:block;height:100%;background:linear-gradient(90deg,#7c3aed,#22d3ee)}
-@media(max-width:700px){.speech{width:260px;left:60px}.scene{transform:translate(-50%,-50%) rotateX(-7deg) scale(.54)}.loginbox h1{font-size:29px}.hint{max-width:230px}.brand{font-size:12px}}
+@media(max-width:700px){.speech{width:280px;max-width:72vw;left:54px;top:-62px}.scene{transform:translate(-50%,-50%) rotateX(-7deg) scale(.54)}.loginbox h1{font-size:29px}.hint{max-width:230px}.brand{font-size:12px}}
 
 .demo-player{position:relative;height:100%;background:#020617;overflow:hidden}
 .demo-stage{position:relative;height:calc(100% - 76px);overflow:hidden}
@@ -130,6 +147,83 @@ header a{color:#b7c1d4;text-decoration:none}.brand{font-weight:900;background:li
 .lcd-url{flex:1;padding:6px 10px;border-radius:8px;background:#020617;color:#94a3b8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:12px}
 .lcd-browser iframe{width:100%;height:calc(100% - 38px);border:0;background:#fff;display:block}
 
+
+.lcdscreen{
+  height:100%;
+  position:relative;
+  overflow:hidden;
+  background:#020617;
+  border:1px solid #22d3ee66;
+  padding-top:58px;
+}
+.lcd-topbar{
+  position:absolute;
+  left:0;
+  right:0;
+  top:0;
+  height:58px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  padding:0 14px 0 16px;
+  background:linear-gradient(180deg,rgba(15,23,42,.98),rgba(8,15,30,.96));
+  border-bottom:1px solid rgba(34,211,238,.35);
+  box-shadow:0 8px 22px rgba(0,0,0,.35);
+  z-index:60;
+  overflow:visible;
+}
+.lcd-title{
+  min-width:0;
+  flex:1;
+  color:#fff;
+  font-size:18px;
+  font-weight:900;
+  line-height:1.2;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  text-shadow:0 2px 10px rgba(34,211,238,.25);
+}
+#lcdExpand{
+  position:static;
+  flex:0 0 auto;
+  border:0;
+  border-radius:9px;
+  padding:8px 11px;
+  background:linear-gradient(90deg,#7c3aed,#06b6d4);
+  color:#fff;
+  font-size:11px;
+  font-weight:900;
+  z-index:70;
+}
+.demo-player{
+  height:100%;
+}
+.demo-stage{
+  height:calc(100% - 76px);
+}
+.lcd-browser{
+  top:58px;
+  height:calc(100% - 58px);
+}
+.fullscreen-lcd .lcdscreen{
+  padding-top:64px;
+}
+.fullscreen-lcd .lcd-topbar{
+  height:64px;
+}
+.fullscreen-lcd .lcd-title{
+  font-size:22px;
+}
+@media(max-width:700px){
+  .lcd-topbar{height:52px;padding:0 8px 0 10px}
+  .lcdscreen{padding-top:52px}
+  .lcd-title{font-size:13px}
+  #lcdExpand{padding:7px 8px;font-size:10px}
+  .lcd-browser{top:52px;height:calc(100% - 52px)}
+}
+
 </style>
 </head>
 <body>
@@ -142,7 +236,10 @@ header a{color:#b7c1d4;text-decoration:none}.brand{font-weight:900;background:li
 <div class="logo">Digital Agency by Chandan Das</div><div class="light l1"></div><div class="light l2"></div><div class="light l3"></div>
 <div class="lcd" onclick="event.stopPropagation()">
 <div class="lcdscreen">
-  <button id="lcdExpand" onclick="toggleLcdFullscreen(event)">⛶ Full Screen</button>
+  <div class="lcd-topbar">
+    <div class="lcd-title">🖥️ Digital Agency by Chandan Das</div>
+    <button id="lcdExpand" onclick="toggleLcdFullscreen(event)">⛶ Full Screen</button>
+  </div>
 
   <div class="demo-player" id="demoPlayer">
     <div class="demo-stage" id="demoStage">
@@ -191,7 +288,20 @@ header a{color:#b7c1d4;text-decoration:none}.brand{font-weight:900;background:li
   </div>
 </div>
 </div>
-<div class="desk"><div class="notepad" onclick="show('note')">CLIENT<br>NOTEPAD ✍️</div><div class="bell" onclick="ringBell()"></div></div>
+<div class="desk">
+<div class="notepad" onclick="show('note')">CLIENT<br>NOTEPAD ✍️</div>
+<div class="project-play-box" onclick="playClientProjects()">
+  <span class="live-dot"></span>
+  <strong>▶ Client Project Play</strong>
+  <small>নিজের Project LCD-তে দেখুন</small>
+  <em id="liveUpdateText">Live Update Ready</em>
+</div>
+<div class="review-box" onclick="openProjectReview()">
+  <strong>✍️ Correction বলুন</strong>
+  <small>কোথায় কী ঠিক হবে লিখুন</small>
+</div>
+<div class="bell" onclick="ringBell()"></div>
+</div>
 <div class="chair" onclick="sit()"></div><div class="plant p1"></div><div class="plant p2"></div>
 <div class="assistant" id="assistant">
 <div class="head"></div><div class="body"></div><div class="legs"></div>
@@ -208,11 +318,14 @@ header a{color:#b7c1d4;text-decoration:none}.brand{font-weight:900;background:li
 <button onclick="assistantQuick('support')">Support</button>
 </div>
 <div class="assistant-reply" id="assistantReply"></div>
+<div style="margin-top:9px;text-align:right">
+  <button class="assistant-back-btn" onclick="returnAssistant()">↩ Back</button>
+</div>
 </div>
 </div>
 </div></div>
 <div class="hud hint">Mouse drag করে room ঘোরান • LCD, chair, bell এবং notepad-এ click করুন</div>
-<div class="hud controls"><button onclick="sit()">🪑 বসুন</button><button onclick="nextLcdSlide()">🖥️ Next Demo</button><button onclick="ringBell()">🔔 Bell</button><button onclick="show('note')">📝 প্রশ্ন</button><button onclick="show('desk')">📁 Client Desk</button><button onclick="show('meeting')">📅 Meeting</button><button onclick="startTour()">🎬 Tour</button><button onclick="resetView()">🏠 Full Room</button></div>
+<div class="hud controls"><button onclick="sit()">🪑 বসুন</button><button onclick="nextLcdSlide()">🖥️ Next Demo</button><button onclick="ringBell()">🔔 Bell</button><button onclick="show('note')">📝 প্রশ্ন</button><button onclick="show('desk')">📁 Client Desk</button><button onclick="show('meeting')">📅 Meeting</button><button onclick="loadAgencyMarketing()">📢 Agency Marketing</button><button onclick="startTour()">🎬 Tour</button><button onclick="resetView()">🏠 Full Room</button></div>
 <div id="notify" class="notification"></div>
 </section>
 
@@ -225,6 +338,26 @@ header a{color:#b7c1d4;text-decoration:none}.brand{font-weight:900;background:li
 
 <div class="modal" id="note"><div class="card"><div class="cardtop"><h2>📝 Client Notepad</h2><button class="close" onclick="hide('note')">×</button></div><select class="field" id="projectSelect"><option value="">General Question</option></select><textarea class="field" rows="6" id="requestText" placeholder="আপনার প্রশ্ন বা feature request লিখুন..."></textarea><button class="send" onclick="submitRequest()">Request পাঠান</button><div id="requests"></div></div></div>
 
+
+
+<div class="modal" id="projectReview"><div class="card">
+<div class="cardtop"><h2>✍️ Project Correction Request</h2><button class="close" onclick="hide('projectReview')">×</button></div>
+<div class="live-update-banner"><span>🟢 Project live sync চালু আছে</span><button class="secondary" onclick="refreshClientProjects()">Refresh Now</button></div>
+<select id="reviewProjectSelect" class="field" onchange="renderReviewPreview()"></select>
+<div id="reviewProjectPreview" class="review-project-preview"></div>
+<select id="reviewArea" class="field">
+<option value="Design">Design / Color / Layout</option>
+<option value="Text">Text / Content</option>
+<option value="Feature">Feature / Function</option>
+<option value="Mobile">Mobile View</option>
+<option value="Speed">Speed / Loading</option>
+<option value="Other">Other Correction</option>
+</select>
+<textarea id="reviewMessage" class="field" rows="5" placeholder="কোন page বা section-এ কী ঠিক করতে হবে বিস্তারিত লিখুন..."></textarea>
+<input id="reviewPageUrl" class="field" placeholder="Page URL বা section name (optional)">
+<button class="send" onclick="submitProjectReview()">Correction পাঠান</button>
+<div id="reviewHistory" style="margin-top:14px"></div>
+</div></div>
 
 <div class="modal" id="meeting"><div class="card">
 <div class="cardtop"><h2>📅 Meeting Booking</h2><button class="close" onclick="hide('meeting')">×</button></div>
@@ -313,10 +446,10 @@ function openWorld(){
  $('world').style.display='block';
  $('exit').classList.remove('hide');
  renderDesk();
- buildClientDemoProjects();
- buildDemoThumbnails();
- renderDemoPlayer();
+ loadAgencyMarketing();
  startDemoPlayer();
+ populateReviewProjects();
+ startLiveProjectSync();
  setTimeout(()=>speakThreeLanguages(
   `${client.client_name}, ডিজিটাল এজেন্সি বাই চন্দন দাসের থ্রি ডি ক্লায়েন্ট রুমে আপনাকে স্বাগতম। অনুগ্রহ করে চেয়ারে বসুন।`,
   `${client.client_name}, डिजिटल एजेंसी बाय चंदन दास के थ्री डी क्लाइंट रूम में आपका स्वागत है। कृपया कुर्सी पर बैठें।`,
@@ -325,16 +458,19 @@ function openWorld(){
 }
 function show(id){$(id).classList.add('on')}function hide(id){$(id).classList.remove('on')}
 function sit(){
- $('scene').style.transform='translate(-50%,-50%) rotateX(-4deg) rotateY(0deg) scale(1.32) translateY(-70px)';
+ $('scene').style.transform='translate(-50%,-50%) rotateX(-3deg) rotateY(0deg) scale(1.18) translateY(-38px)';
  speakThreeLanguages(
-  'অনুগ্রহ করে বসুন। আপনার সামনে থাকা এল সি ডি পর্দায় আমাদের ডেমো প্রজেক্টগুলো দেখতে পারবেন।',
-  'कृपया बैठें। सामने की एल सी डी स्क्रीन पर हमारे डेमो प्रोजेक्ट देख सकते हैं।',
-  'Please have a seat. You can view our demo projects on the LCD screen in front of you.'
+  'অনুগ্রহ করে বসুন। আপনার সামনে মাঝারি দূরত্বে দেয়ালে লাগানো এল সি ডি পর্দায় project দেখতে পারবেন।',
+  'कृपया बैठें। सामने मध्यम दूरी पर दीवार पर लगी एल सी डी स्क्रीन पर प्रोजेक्ट देख सकते हैं।',
+  'Please have a seat. You can view the project on the wall-mounted LCD at a comfortable distance.'
  );
 }
 function resetView(){$('scene').style.transform=`translate(-50%,-50%) rotateX(-7deg) rotateY(${ry}deg) scale(.92)`}
+let assistantReturnTimer=null;
 function ringBell(){
- let a=$('assistant');
+ const a=$('assistant');
+ clearTimeout(assistantReturnTimer);
+ a.classList.remove('returning');
  a.classList.add('come');
  bell();
  setTimeout(()=>speakThreeLanguages(
@@ -342,6 +478,15 @@ function ringBell(){
   'नमस्कार। मैं आपका वर्चुअल सहायक हूँ। मैं आपकी कैसे मदद कर सकता हूँ?',
   'Hello. I am your virtual assistant. How may I help you?'
  ),1600);
+ assistantReturnTimer=setTimeout(returnAssistant,12000);
+}
+function returnAssistant(){
+ const a=$('assistant');
+ clearTimeout(assistantReturnTimer);
+ a.classList.remove('come');
+ a.classList.add('returning');
+ if('speechSynthesis' in window) speechSynthesis.cancel();
+ setTimeout(()=>a.classList.remove('returning'),2900);
 }
 function bell(){let A=new(window.AudioContext||window.webkitAudioContext),o=A.createOscillator(),g=A.createGain();o.frequency.value=900;g.gain.setValueAtTime(.18,A.currentTime);g.gain.exponentialRampToValueAtTime(.001,A.currentTime+.55);o.connect(g).connect(A.destination);o.start();o.stop(A.currentTime+.55)}
 
@@ -374,11 +519,11 @@ function sendAssistantMessage(){
      if(error){
        reply.textContent='Message save করা যায়নি। আবার চেষ্টা করুন।';
      }else{
-       reply.textContent='✅ Message পাঠানো হয়েছে।';
+       reply.textContent='✅ Message পাঠানো হয়েছে।';setTimeout(returnAssistant,2500);
      }
    });
  }else{
-   reply.textContent='✅ Demo mode: Message গ্রহণ করা হয়েছে।';
+   reply.textContent='✅ Demo mode: Message গ্রহণ করা হয়েছে।';setTimeout(returnAssistant,2500);
  }
 }
 
@@ -459,6 +604,49 @@ function startTour(){
 
 let demoProjects=[];
 
+const agencyMarketingProjects=[
+ {title:'Digital Agency by Chandan Das',icon:'🚀',desc:'Website, Mobile App, E-commerce, Branding এবং Digital Marketing Services.',cost:'',time:'',rating:'Agency Intro',url:'index.html',video:'',bg:'linear-gradient(135deg,#312e81,#0891b2)'},
+ {title:'Website Development',icon:'🌐',desc:'Business website, e-commerce, portfolio এবং custom web application.',cost:'',time:'',rating:'Service',url:'index.html#services',video:'',bg:'linear-gradient(135deg,#0f172a,#1d4ed8)'},
+ {title:'Digital Marketing',icon:'📈',desc:'SEO, Social Media Marketing, Facebook Ads, Google Ads এবং Brand Growth.',cost:'',time:'',rating:'Service',url:'index.html#services',video:'',bg:'linear-gradient(135deg,#14532d,#0f766e)'},
+ {title:'Mobile App Development',icon:'📱',desc:'Android, iOS এবং responsive mobile application design and development.',cost:'',time:'',rating:'Service',url:'index.html#services',video:'',bg:'linear-gradient(135deg,#4c1d95,#be185d)'}
+];
+
+let lcdMode='agency';
+
+function loadAgencyMarketing(){
+ lcdMode='agency';
+ demoProjects=agencyMarketingProjects.map(x=>({...x}));
+ demoIndex=0;
+ demoElapsed=0;
+ buildDemoThumbnails();
+ renderDemoPlayer();
+ demoPlaying=true;
+ document.getElementById('playPauseBtn').textContent='⏸';
+ notifyUser('Agency marketing presentation চলছে');
+}
+
+function playClientProjects(){
+ buildClientDemoProjects();
+ if(!projects || !projects.length){
+   notifyUser('Admin এখনও আপনার কোনো project যোগ করেনি');
+   speakThreeLanguages(
+    'আপনার project এখনও যোগ করা হয়নি।',
+    'आपका प्रोजेक्ट अभी जोड़ा नहीं गया है।',
+    'Your project has not been added yet.'
+   );
+   return;
+ }
+ lcdMode='client';
+ demoIndex=0;
+ demoElapsed=0;
+ buildDemoThumbnails();
+ renderDemoPlayer();
+ demoPlaying=true;
+ document.getElementById('playPauseBtn').textContent='⏸';
+ notifyUser('আপনার Client Project LCD-তে চলছে');
+}
+
+
 function buildClientDemoProjects(){
   demoProjects=(projects||[]).map((p,i)=>({
     id:p.id,
@@ -504,7 +692,7 @@ function formatPlayerTime(sec){
 }
 function renderDemoPlayer(){
  const p=demoProjects[demoIndex];
- document.getElementById('demoBadge').textContent=`PROJECT ${String(demoIndex+1).padStart(2,'0')}`;
+ document.getElementById('demoBadge').textContent=`${lcdMode==='client'?'CLIENT PROJECT':'AGENCY'} ${String(demoIndex+1).padStart(2,'0')}`;
  document.getElementById('demoIconBig').textContent=p.icon;
  document.getElementById('demoTitle').textContent=p.title;
  document.getElementById('demoDescription').textContent=p.desc;
@@ -622,6 +810,141 @@ function reloadLcdPreview(){
  try{f.contentWindow.location.reload()}catch(e){f.src=f.src}
 }
 function nextLcdSlide(){nextDemo()}
+
+
+let liveProjectTimer=null;
+let lastProjectSnapshot='';
+
+function projectSnapshot(list){
+ return JSON.stringify((list||[]).map(p=>({
+  id:p.id,name:p.project_name,status:p.status,progress:p.progress_percent,
+  stage:p.current_stage,preview:p.preview_url,video:p.video_url,notes:p.notes,
+  updated:p.updated_at||''
+ })));
+}
+
+async function refreshClientProjects(showNotice=true){
+ if(!client || client.id==='demo') return;
+ try{
+   const {data,error}=await sb.from('room_projects').select('*').eq('client_id',client.id).order('created_at',{ascending:false});
+   if(error) throw error;
+   const next=data||[];
+   const snap=projectSnapshot(next);
+   const changed=lastProjectSnapshot && snap!==lastProjectSnapshot;
+   projects=next;
+   lastProjectSnapshot=snap;
+   renderDesk();
+   populateReviewProjects();
+   if(lcdMode==='client'){
+     buildClientDemoProjects();
+     buildDemoThumbnails();
+     renderDemoPlayer();
+   }
+   const liveText=document.getElementById('liveUpdateText');
+   if(liveText) liveText.textContent='Last Sync: '+new Date().toLocaleTimeString();
+   if(changed){
+     notifyUser('Admin নতুন project update দিয়েছেন');
+     if(showNotice){
+       speakThreeLanguages(
+        'আপনার project-এ নতুন update এসেছে।',
+        'आपके प्रोजेक्ट में नया अपडेट आया है।',
+        'A new update is available for your project.'
+       );
+     }
+   }else if(showNotice){
+     notifyUser('Project latest version load হয়েছে');
+   }
+ }catch(e){
+   console.error(e);
+ }
+}
+
+function startLiveProjectSync(){
+ clearInterval(liveProjectTimer);
+ lastProjectSnapshot=projectSnapshot(projects);
+ liveProjectTimer=setInterval(()=>refreshClientProjects(false),8000);
+}
+
+function openProjectReview(){
+ if(!projects || !projects.length){
+   notifyUser('Review পাঠানোর জন্য আগে project যোগ করতে হবে');
+   return;
+ }
+ populateReviewProjects();
+ renderReviewPreview();
+ loadReviewHistory();
+ show('projectReview');
+}
+
+function populateReviewProjects(){
+ const sel=document.getElementById('reviewProjectSelect');
+ if(!sel)return;
+ const current=sel.value;
+ sel.innerHTML='';
+ (projects||[]).forEach(p=>{
+   const o=document.createElement('option');
+   o.value=p.id;
+   o.textContent=p.project_name;
+   sel.appendChild(o);
+ });
+ if(current && [...sel.options].some(o=>o.value===current)) sel.value=current;
+}
+
+function renderReviewPreview(){
+ const id=document.getElementById('reviewProjectSelect')?.value;
+ const p=(projects||[]).find(x=>String(x.id)===String(id));
+ const box=document.getElementById('reviewProjectPreview');
+ if(!box)return;
+ if(!p){box.innerHTML='Project select করুন';return}
+ box.innerHTML=`<b>${escapeHtml(p.project_name)}</b>
+ <div class="muted">Status: ${escapeHtml(p.status||'')} • Progress: ${p.progress_percent||0}%</div>
+ <div class="muted">Current Stage: ${escapeHtml(p.current_stage||'-')}</div>`;
+}
+
+async function submitProjectReview(){
+ const projectId=document.getElementById('reviewProjectSelect').value;
+ const area=document.getElementById('reviewArea').value;
+ const message=document.getElementById('reviewMessage').value.trim();
+ const pageUrl=document.getElementById('reviewPageUrl').value.trim();
+ if(!projectId || !message) return alert('Project এবং correction message লিখুন।');
+
+ const fullMessage=`[${area}] ${message}${pageUrl?` | Page/Section: ${pageUrl}`:''}`;
+ if(client.id==='demo'){
+   document.getElementById('reviewMessage').value='';
+   document.getElementById('reviewPageUrl').value='';
+   notifyUser('Demo correction request গ্রহণ করা হয়েছে');
+   loadReviewHistory(true,fullMessage);
+   return;
+ }
+
+ const {error}=await sb.from('room_feature_requests').insert({
+   client_id:client.id,
+   project_id:projectId,
+   request_text:fullMessage,
+   status:'New'
+ });
+ if(error) return alert('Correction পাঠানো যায়নি: '+error.message);
+
+ document.getElementById('reviewMessage').value='';
+ document.getElementById('reviewPageUrl').value='';
+ notifyUser('Correction request Admin Panel-এ পাঠানো হয়েছে');
+ loadReviewHistory();
+}
+
+async function loadReviewHistory(isDemo=false,demoText=''){
+ const box=document.getElementById('reviewHistory');
+ if(!box)return;
+ if(isDemo){
+   box.innerHTML=`<div class="review-history-item"><b>${escapeHtml(demoText)}</b><br><small>Status: New</small></div>`;
+   return;
+ }
+ if(!client || client.id==='demo'){box.innerHTML='';return}
+ const {data}=await sb.from('room_feature_requests').select('*').eq('client_id',client.id).order('created_at',{ascending:false}).limit(10);
+ box.innerHTML=(data||[]).map(r=>`<div class="review-history-item">
+   <b>${escapeHtml(r.request_text)}</b><br>
+   <small>Status: ${escapeHtml(r.status||'New')} • ${new Date(r.created_at).toLocaleString()}</small>
+ </div>`).join('') || '<div class="muted">এখনও কোনো correction পাঠানো হয়নি।</div>';
+}
 
 function renderDesk(){$('clientName').textContent='📁 স্বাগতম, '+client.client_name;$('clientCode').textContent='Client Code: '+client.client_code;
 $('projects').innerHTML=projects.length?projects.map(p=>`<div class="project"><b>${esc(p.project_name)}</b><span style="float:right">${esc(p.status||'')}</span><p class="muted">${esc(p.current_stage||'')}</p><div class="progress"><b style="width:${Math.min(100,p.progress_percent||0)}%"></b></div><small>${p.progress_percent||0}% Complete</small></div>`).join(''):'<p class="muted">কোনো project পাওয়া যায়নি।</p>';

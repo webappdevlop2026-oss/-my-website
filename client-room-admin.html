@@ -17,6 +17,10 @@ button{border:0;border-radius:10px;padding:10px 13px;background:#7c3aed;color:#f
 .client{padding:12px;border:1px solid #ffffff14;border-radius:12px;margin:8px 0;cursor:pointer}.client.active{border-color:#22d3ee;background:#0e749033}
 .row{display:flex;gap:8px;flex-wrap:wrap}.row>*{flex:1}.project{padding:14px;border:1px solid #ffffff14;border-radius:14px;margin:10px 0;background:#ffffff08}
 .badge{display:inline-block;padding:4px 8px;border-radius:999px;background:#164e63;font-size:11px}
+.request-card{padding:13px;border:1px solid #ffffff14;border-radius:13px;margin:9px 0;background:#ffffff08}
+.request-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}
+.request-actions button{padding:7px 10px;font-size:12px}
+.live-badge{display:inline-block;padding:4px 8px;border-radius:999px;background:#166534;color:#dcfce7;font-size:11px;margin-left:6px}
 .muted{color:#94a3b8;font-size:13px}#login{max-width:420px;margin:80px auto}
 @media(max-width:800px){.grid{grid-template-columns:1fr}}
 </style>
@@ -87,6 +91,12 @@ button{border:0;border-radius:10px;padding:10px 13px;background:#7c3aed;color:#f
 <h3>Client Projects</h3>
 <div id="projects"></div>
 </div>
+
+<div class="card">
+<h3>Client Correction Requests</h3>
+<button class="secondary" onclick="loadCorrectionRequests()">Refresh Requests</button>
+<div id="correctionRequests" style="margin-top:12px"></div>
+</div>
 </section>
 </div>
 </main>
@@ -133,7 +143,7 @@ function selectClient(c){
  selectedClient=c;renderClients();
  $('selectedTitle').textContent=c.client_name;
  $('selectedInfo').innerHTML=`Pass Code: <b>${escapeHtml(c.client_code)}</b> &nbsp; Mobile: ${escapeHtml(c.client_phone||'-')}`;
- $('projectForm').style.display='block';loadProjects();
+ $('projectForm').style.display='block';loadProjects();loadCorrectionRequests();
 }
 async function loadProjects(){
  const {data,error}=await sb.from('room_projects').select('*').eq('client_id',selectedClient.id).order('created_at',{ascending:false});
@@ -171,13 +181,48 @@ async function saveProject(){
  if($('projectId').value) result=await sb.from('room_projects').update(payload).eq('id',$('projectId').value);
  else result=await sb.from('room_projects').insert(payload);
  if(result.error)return alert(result.error.message);
- clearProjectForm();loadProjects();
+ clearProjectForm();loadProjects();alert('Project update save হয়েছে। Client LCD সর্বোচ্চ 8 সেকেন্ডের মধ্যে refresh হবে।');
 }
 async function deleteProject(id){
  if(!confirm('Project delete করবেন?'))return;
  const {error}=await sb.from('room_projects').delete().eq('id',id);
  if(error)return alert(error.message);loadProjects();
 }
+
+async function loadCorrectionRequests(){
+ if(!selectedClient){
+   $('correctionRequests').innerHTML='<div class="muted">Client select করুন</div>';
+   return;
+ }
+ const {data,error}=await sb.from('room_feature_requests')
+   .select('*, room_projects(project_name)')
+   .eq('client_id',selectedClient.id)
+   .order('created_at',{ascending:false});
+ if(error){
+   $('correctionRequests').innerHTML='<div class="muted">'+escapeHtml(error.message)+'</div>';
+   return;
+ }
+ const rows=data||[];
+ $('correctionRequests').innerHTML=rows.length?rows.map(r=>`
+ <div class="request-card">
+   <b>${escapeHtml(r.room_projects?.project_name||'General Request')}</b>
+   <span class="live-badge">${escapeHtml(r.status||'New')}</span>
+   <p>${escapeHtml(r.request_text||'')}</p>
+   <div class="muted">${new Date(r.created_at).toLocaleString()}</div>
+   <div class="request-actions">
+     <button class="secondary" onclick="updateRequestStatus('${r.id}','Checking')">Checking</button>
+     <button class="success" onclick="updateRequestStatus('${r.id}','Fixed')">Fixed</button>
+     <button onclick="updateRequestStatus('${r.id}','Completed')">Completed</button>
+   </div>
+ </div>`).join(''):'<div class="muted">কোনো correction request নেই</div>';
+}
+
+async function updateRequestStatus(id,status){
+ const {error}=await sb.from('room_feature_requests').update({status}).eq('id',id);
+ if(error)return alert(error.message);
+ loadCorrectionRequests();
+}
+
 function escapeHtml(v){const d=document.createElement('div');d.textContent=v??'';return d.innerHTML}
 checkSession();
 </script>
