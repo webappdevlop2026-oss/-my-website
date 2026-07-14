@@ -1,12 +1,15 @@
-ইনস্টল করার নিয়ম:
+VOICE FIX INSTALL:
 
-1. client-room.html ফাইলটি পুরনো client-room.html-এর জায়গায় Replace করুন।
-2. পুরো audio folder-টি website root folder-এ upload করুন।
-3. Structure এমন হবে:
+1. client-room.html replace করুন।
+2. পুরো audio folder upload/replace করুন।
+3. Preview code: DEMO-3D
+4. Gate খুলুন button চাপার সময় audio unlock হবে।
+5. Browser voice block করলে উপরে “বাংলা Voice চালু করুন” button দেখাবে।
+6. সেই button একবার চাপলেই বাংলা audio চলবে।
 
+Folder:
 website/
 ├── client-room.html
-├── supabase-client.js
 └── audio/
     ├── welcome.wav
     ├── sit.wav
@@ -14,7 +17,3 @@ website/
     ├── next-demo.wav
     ├── demo-open.wav
     └── message.wav
-
-4. Preview Code: DEMO-3D
-5. প্রথমে Gate খুলুন। User click-এর পরে Bengali audio চলবে।
-6. Browser Bengali voice-এর ওপর আর নির্ভর করবে না।
