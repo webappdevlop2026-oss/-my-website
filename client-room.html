@@ -47,7 +47,10 @@ header a{color:#b7c1d4;text-decoration:none}.brand{font-weight:900;background:li
 .lcd-browserbar{height:38px;display:flex;align-items:center;gap:8px;padding:0 10px;background:#111827;border-bottom:1px solid #ffffff1c}
 .lcd-browserbar button{border:0;border-radius:8px;padding:6px 10px;background:#263247;color:#fff;font-weight:700}
 .lcd-url{flex:1;padding:6px 10px;border-radius:8px;background:#020617;color:#94a3b8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:12px}
-.lcd-browser iframe{width:100%;height:calc(100% - 38px);border:0;background:white}
+.lcd-browser iframe{width:100%;height:calc(100% - 38px);border:0;background:white;display:block;overflow:auto}
+.lcd-browser{overflow:hidden}
+.lcd-browserbar{position:relative;z-index:2}
+.lcd-browser iframe{scrollbar-width:auto}
 .lcd-dot{width:9px;height:9px;border-radius:50%;border:0;background:#64748b;cursor:pointer}.lcd-dot.active{background:#22d3ee;box-shadow:0 0 12px #22d3ee}
 .desk{position:absolute;left:205px;top:390px;width:590px;height:155px;background:linear-gradient(#74452d,#402317);transform:translateZ(-90px) rotateX(4deg);box-shadow:0 30px 45px #000}
 .desk:before,.desk:after{content:"";position:absolute;top:130px;width:32px;height:140px;background:#25324a}.desk:before{left:45px}.desk:after{right:45px}
@@ -62,7 +65,12 @@ header a{color:#b7c1d4;text-decoration:none}.brand{font-weight:900;background:li
 .head{position:absolute;left:15px;width:44px;height:44px;border-radius:50%;background:#d5a178;border:8px solid #1b1b25}
 .body{position:absolute;top:42px;width:72px;height:95px;border-radius:28px 28px 14px 14px;background:linear-gradient(#2563eb,#1e3a8a)}
 .legs:before,.legs:after{content:"";position:absolute;top:130px;width:19px;height:60px;background:#111827;border-radius:10px}.legs:before{left:13px}.legs:after{right:13px}
-.speech{display:none;position:absolute;width:200px;left:80px;top:-5px;padding:12px;border-radius:15px;background:white;color:#111827;font-weight:700}.assistant.come .speech{display:block}
+.speech{display:none;position:absolute;width:300px;left:80px;top:-18px;padding:12px;border-radius:16px;background:white;color:#111827;font-weight:700;box-shadow:0 18px 45px #0006}.assistant.come .speech{display:block}
+.assistant-title{font-size:14px;margin-bottom:8px}
+.assistant-chat{display:flex;gap:7px;margin-top:9px}
+.assistant-chat input{flex:1;min-width:0;border:1px solid #cbd5e1;border-radius:10px;padding:8px 9px;color:#111827;background:#fff}
+.assistant-chat button{border:0;border-radius:10px;padding:8px 11px;background:linear-gradient(90deg,#7c3aed,#06b6d4);color:#fff;font-weight:800}
+.assistant-reply{margin-top:8px;padding:8px 10px;border-radius:10px;background:#eef2ff;color:#3730a3;font-size:12px;line-height:1.45;display:none}
 .hud{position:fixed;z-index:50}.hint{left:15px;top:70px;background:#07101ee8;border:1px solid #ffffff18;border-radius:14px;padding:10px 13px;color:#cbd5e1;font-size:12px}
 .controls{left:50%;bottom:15px;transform:translateX(-50%);display:flex;flex-wrap:wrap;justify-content:center;gap:8px;width:96%}.controls button{border:1px solid #ffffff1c;background:#07101ee8;color:white;border-radius:999px;padding:10px 13px;cursor:pointer}
 .modal{display:none;position:fixed;z-index:100;inset:0;background:#000c;place-items:center;padding:16px}.modal.on{display:grid}
@@ -71,7 +79,7 @@ header a{color:#b7c1d4;text-decoration:none}.brand{font-weight:900;background:li
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:11px;margin-top:15px}.demo,.project{padding:15px;border-radius:15px;background:#ffffff0a;border:1px solid #ffffff12}.demo p,.muted{color:#94a3b8}.demo a{color:#22d3ee;text-decoration:none;font-weight:800}
 .field{width:100%;padding:12px;margin-top:10px;border-radius:12px;border:1px solid #ffffff1c;background:#030712;color:white}.send{margin-top:10px;padding:11px 17px;border:0;border-radius:999px;background:linear-gradient(90deg,#7c3aed,#06b6d4);color:white;font-weight:800}
 .progress{height:8px;background:#ffffff12;border-radius:10px;overflow:hidden;margin:10px 0}.progress b{display:block;height:100%;background:linear-gradient(90deg,#7c3aed,#22d3ee)}
-@media(max-width:700px){.scene{transform:translate(-50%,-50%) rotateX(-7deg) scale(.54)}.loginbox h1{font-size:29px}.hint{max-width:230px}.brand{font-size:12px}}
+@media(max-width:700px){.speech{width:260px;left:60px}.scene{transform:translate(-50%,-50%) rotateX(-7deg) scale(.54)}.loginbox h1{font-size:29px}.hint{max-width:230px}.brand{font-size:12px}}
 </style>
 </head>
 <body>
@@ -109,7 +117,7 @@ header a{color:#b7c1d4;text-decoration:none}.brand{font-weight:900;background:li
       <div class="lcd-url" id="lcdUrl">Website Preview</div>
       <button onclick="reloadLcdPreview()">↻</button>
     </div>
-    <iframe id="lcdFrame" title="Website Demo Preview"></iframe>
+    <iframe id="lcdFrame" title="Website Demo Preview" scrolling="yes"></iframe>
   </div>
   <div class="lcd-nav">
     <button class="lcd-dot active" onclick="setLcdSlide(0)"></button>
@@ -121,7 +129,17 @@ header a{color:#b7c1d4;text-decoration:none}.brand{font-weight:900;background:li
 </div>
 <div class="desk"><div class="notepad" onclick="show('note')">CLIENT<br>NOTEPAD ✍️</div><div class="bell" onclick="ringBell()"></div></div>
 <div class="chair" onclick="sit()"></div><div class="plant p1"></div><div class="plant p2"></div>
-<div class="assistant" id="assistant" onclick="show('note')"><div class="head"></div><div class="body"></div><div class="legs"></div><div class="speech">Hello Sir/Madam! কীভাবে সাহায্য করতে পারি?</div></div>
+<div class="assistant" id="assistant">
+<div class="head"></div><div class="body"></div><div class="legs"></div>
+<div class="speech" onclick="event.stopPropagation()">
+  <div class="assistant-title">নমস্কার! কীভাবে সাহায্য করতে পারি?</div>
+  <div class="assistant-chat">
+    <input id="assistantInput" type="text" placeholder="আপনার message লিখুন..." onkeydown="if(event.key==='Enter')sendAssistantMessage()">
+    <button onclick="sendAssistantMessage()">Send</button>
+  </div>
+  <div class="assistant-reply" id="assistantReply"></div>
+</div>
+</div>
 </div></div>
 <div class="hud hint">Mouse drag করে room ঘোরান • LCD, chair, bell এবং notepad-এ click করুন</div>
 <div class="hud controls"><button onclick="sit()">🪑 বসুন</button><button onclick="nextLcdSlide()">🖥️ Next Demo</button><button onclick="ringBell()">🔔 Bell</button><button onclick="show('note')">📝 প্রশ্ন</button><button onclick="show('desk')">📁 Client Desk</button><button onclick="resetView()">🏠 Full Room</button></div>
@@ -228,7 +246,9 @@ function openDemoInLcd(url,title){
  const browser=document.getElementById('lcdBrowser');
  document.getElementById('lcdUrl').textContent=title+' — '+url;
  frame.src=url;
+ frame.setAttribute('scrolling','yes');
  browser.classList.add('on');
+ setTimeout(()=>{try{frame.focus()}catch(e){}},500);
  speakThreeLanguages(
    'ডেমো ওয়েবসাইটটি এখন এল সি ডি পর্দায় দেখানো হচ্ছে।',
    'डेमो वेबसाइट अब एल सी डी स्क्रीन पर दिखाई जा रही है।',
@@ -242,6 +262,37 @@ function closeLcdPreview(){
 function reloadLcdPreview(){
  const f=document.getElementById('lcdFrame');
  try{f.contentWindow.location.reload()}catch(e){f.src=f.src}
+}
+
+
+function sendAssistantMessage(){
+ const input=document.getElementById('assistantInput');
+ const reply=document.getElementById('assistantReply');
+ const message=input.value.trim();
+ if(!message)return;
+ input.value='';
+ reply.style.display='block';
+ reply.textContent='আপনার message গ্রহণ করা হয়েছে। অনুগ্রহ করে একটু অপেক্ষা করুন।';
+ speakThreeLanguages(
+   'আপনার বার্তা গ্রহণ করা হয়েছে। আমাদের টিম শীঘ্রই আপনাকে সাহায্য করবে।',
+   'आपका संदेश प्राप्त हो गया है। हमारी टीम जल्द ही आपकी सहायता करेगी।',
+   'Your message has been received. Our team will assist you shortly.'
+ );
+ if(client && client.id!=='demo' && typeof sb!=='undefined'){
+   sb.from('room_feature_requests').insert({
+     client_id:client.id,
+     project_id:null,
+     request_text:'Virtual Assistant: '+message
+   }).then(({error})=>{
+     if(error){
+       reply.textContent='Message save করা যায়নি। আবার চেষ্টা করুন।';
+     }else{
+       reply.textContent='✅ Message পাঠানো হয়েছে।';
+     }
+   });
+ }else{
+   reply.textContent='✅ Demo mode: Message গ্রহণ করা হয়েছে।';
+ }
 }
 
 function renderDesk(){$('clientName').textContent='📁 স্বাগতম, '+client.client_name;$('clientCode').textContent='Client Code: '+client.client_code;
