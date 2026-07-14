@@ -72,6 +72,99 @@
     background:transparent; border:1px solid rgba(255,255,255,.15); color:#e5e7eb;
   }
 
+  /* Door login screen */
+  .door-stage {
+    position:relative;
+    width:100%;
+    max-width:380px;
+    margin:10px auto 22px;
+    height:480px;
+    border-radius:26px;
+    overflow:hidden;
+    background:#050810;
+    box-shadow:0 30px 80px rgba(0,0,0,.55), inset 0 0 0 1px rgba(255,255,255,.05);
+  }
+  .door-frame-glow {
+    position:absolute; inset:0;
+    background: radial-gradient(circle at 50% 15%, rgba(167,139,250,.25), transparent 60%);
+    pointer-events:none; z-index:1;
+  }
+  .door {
+    position:absolute; top:0; width:50%; height:100%;
+    transition: transform 1s cubic-bezier(.77,0,.18,1);
+    z-index:3;
+  }
+  .door-inner {
+    position:absolute; inset:6px;
+    border-radius:14px;
+    background:linear-gradient(160deg,#1c2338 0%,#0c1020 65%);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.06), inset 0 20px 40px rgba(0,0,0,.4);
+  }
+  .left-door { left:0; }
+  .right-door { right:0; }
+  .left-door .door-inner { border-right:1px solid rgba(167,139,250,.25); }
+  .right-door .door-inner { border-left:1px solid rgba(34,211,238,.25); }
+  .door-seam {
+    position:absolute; top:0; bottom:0; left:50%; width:3px; transform:translateX(-50%);
+    background:linear-gradient(180deg,#a78bfa,#22d3ee);
+    box-shadow:0 0 16px rgba(167,139,250,.7), 0 0 30px rgba(34,211,238,.4);
+    z-index:4;
+    animation: seamPulse 2.4s ease-in-out infinite;
+    transition:opacity .4s ease;
+  }
+  @keyframes seamPulse { 0%,100%{opacity:.6;} 50%{opacity:1;} }
+  .keypad-panel {
+    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+    width:86%; z-index:5;
+    background:rgba(10,14,28,.85);
+    backdrop-filter:blur(6px);
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:20px;
+    padding:24px 20px;
+    text-align:center;
+    box-shadow:0 20px 50px rgba(0,0,0,.5);
+    transition: opacity .5s ease, transform .5s ease;
+  }
+  .lock-icon {
+    width:54px; height:54px; margin:0 auto 14px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#7c3aed,#06b6d4);
+    display:flex; align-items:center; justify-content:center;
+    font-size:24px;
+    box-shadow:0 0 24px rgba(139,92,246,.5);
+    transition: background .4s ease, box-shadow .4s ease;
+  }
+  .keypad-panel p { color:#94a3b8; font-size:.82rem; margin-bottom:16px; line-height:1.4; }
+  .keypad-panel input {
+    width:100%; text-align:center; letter-spacing:2px; font-weight:700;
+    background:rgba(0,0,0,.35); border:1px solid rgba(255,255,255,.15);
+    border-radius:12px; padding:14px; color:#fff; font-size:15px; outline:none; margin-bottom:10px;
+  }
+  .keypad-panel input:focus { border-color:#a78bfa; }
+  .keypad-panel small { display:block; color:#64748b; font-size:11px; margin-bottom:14px; }
+  @keyframes doorShake {
+    10%,90% { transform: translate(-50%,-50%) translateX(-2px); }
+    20%,80% { transform: translate(-50%,-50%) translateX(4px); }
+    30%,50%,70% { transform: translate(-50%,-50%) translateX(-8px); }
+    40%,60% { transform: translate(-50%,-50%) translateX(8px); }
+  }
+  .keypad-panel.shake { animation: doorShake .5s; }
+  .door-stage.open .left-door { transform: translateX(-102%); }
+  .door-stage.open .right-door { transform: translateX(102%); }
+  .door-stage.open .door-seam { opacity:0; }
+  .door-stage.open .keypad-panel { opacity:0; transform:translate(-50%,-50%) scale(.85); pointer-events:none; }
+  .door-stage.unlocked .lock-icon { background:linear-gradient(135deg,#22c55e,#16a34a); box-shadow:0 0 24px rgba(34,197,94,.6); }
+  .door-stage::after {
+    content:'';
+    position:absolute; inset:0;
+    background: radial-gradient(circle at 50% 50%, rgba(34,211,238,.25), transparent 70%);
+    opacity:0;
+    transition: opacity .6s ease .3s;
+    pointer-events:none;
+    z-index:2;
+  }
+  .door-stage.open::after { opacity:1; }
+
   .loader { display:none; text-align:center; padding:20px; color:#94a3b8; font-size:14px; }
   .spin { width:26px; height:26px; border:3px solid rgba(255,255,255,.2); border-top-color:#a78bfa; border-radius:50%; margin:0 auto 10px; animation:spin 1s linear infinite; }
   @keyframes spin { to { transform:rotate(360deg); } }
@@ -138,16 +231,27 @@
 
   <!-- LOGIN SCREEN -->
   <div id="loginScreen">
-    <div class="hero">
+    <div class="hero" style="margin-bottom:14px;">
       <h1>আপনার <span class="gradient-text">Client Room</span></h1>
-      <p>আপনার Invite Card এ দেওয়া Unique Code দিয়ে আপনার পার্সোনাল রুমে ঢুকুন</p>
+      <p>Unique Code দিন — দরজা নিজে থেকেই খুলে যাবে</p>
     </div>
-    <div class="card">
-      <input id="codeInput" type="text" placeholder="যেমন CR-2026-KKB01" autocomplete="off" style="text-transform:uppercase;">
-      <small>এই কোডটা আপনার Invite Card এ দেওয়া আছে। হারিয়ে ফেললে নিচে থেকে যোগাযোগ করুন।</small>
-      <button class="btn btn-full" id="loginBtn" onclick="enterRoom()">🔑 Enter Room</button>
+
+    <div class="door-stage" id="doorStage">
+      <div class="door-frame-glow"></div>
+      <div class="door left-door"><div class="door-inner"></div></div>
+      <div class="door right-door"><div class="door-inner"></div></div>
+      <div class="door-seam" id="doorSeam"></div>
+
+      <div class="keypad-panel" id="keypadPanel">
+        <div class="lock-icon" id="lockIcon">🔒</div>
+        <p>আপনার Invite Card এ দেওয়া Unique Code লিখুন</p>
+        <input id="codeInput" type="text" placeholder="CR-2026-KKB01" autocomplete="off" style="text-transform:uppercase;">
+        <small>হারিয়ে ফেললে নিচে থেকে যোগাযোগ করুন।</small>
+        <button class="btn btn-full" id="loginBtn" onclick="enterRoom()">🔑 Enter Room</button>
+        <div class="loader" id="loginLoader" style="margin-top:10px;"><div class="spin"></div>খোঁজা হচ্ছে...</div>
+      </div>
     </div>
-    <div class="loader" id="loginLoader"><div class="spin"></div>খোঁজা হচ্ছে...</div>
+
     <div id="loginError"></div>
   </div>
 
@@ -224,15 +328,37 @@ window.addEventListener('load', function() {
   const savedCode = sessionStorage.getItem('roomClientCode');
   if (savedCode) {
     document.getElementById('codeInput').value = savedCode;
-    enterRoom();
+    enterRoom(true); // skip door animation on refresh, go straight in
   }
 });
 
-async function enterRoom() {
+function shakeKeypad() {
+  const keypad = document.getElementById('keypadPanel');
+  keypad.classList.remove('shake');
+  void keypad.offsetWidth; // restart animation
+  keypad.classList.add('shake');
+  setTimeout(() => keypad.classList.remove('shake'), 500);
+}
+
+function revealRoom() {
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('roomScreen').style.display = 'block';
+  document.getElementById('logoutBtn').style.display = 'inline-block';
+  document.getElementById('welcomeName').textContent = `👋 স্বাগতম, ${currentClient.client_name}`;
+  document.getElementById('welcomeCode').textContent = `Client Code: ${currentClient.client_code}`;
+  renderProjects();
+  populateProjectSelects();
+  loadFeatureRequests();
+  loadFiles();
+}
+
+async function enterRoom(skipAnimation) {
   const code = document.getElementById('codeInput').value.trim().toUpperCase();
   const loginError = document.getElementById('loginError');
   const loader = document.getElementById('loginLoader');
   const btn = document.getElementById('loginBtn');
+  const doorStage = document.getElementById('doorStage');
+  const lockIcon = document.getElementById('lockIcon');
   loginError.innerHTML = '';
 
   if (!code) { alert('একটা Unique Code লিখুন।'); return; }
@@ -250,6 +376,7 @@ async function enterRoom() {
     if (clientErr || !clientData || clientData.length === 0) {
       loader.style.display = 'none';
       btn.disabled = false;
+      if (!skipAnimation) shakeKeypad();
       loginError.innerHTML = `
         <div class="card fadein" style="text-align:center;">
           <p style="color:#94a3b8;font-size:14px;margin-bottom:14px;">😕 এই কোড দিয়ে কোনো Client Room পাওয়া যায়নি। বানান চেক করুন।</p>
@@ -268,23 +395,23 @@ async function enterRoom() {
       .order('created_at', { ascending: false });
 
     currentProjects = projectsData || [];
-
     loader.style.display = 'none';
-    document.getElementById('loginScreen').style.display = 'none';
-    document.getElementById('roomScreen').style.display = 'block';
-    document.getElementById('logoutBtn').style.display = 'inline-block';
 
-    document.getElementById('welcomeName').textContent = `👋 স্বাগতম, ${currentClient.client_name}`;
-    document.getElementById('welcomeCode').textContent = `Client Code: ${currentClient.client_code}`;
+    if (skipAnimation) {
+      revealRoom();
+      return;
+    }
 
-    renderProjects();
-    populateProjectSelects();
-    loadFeatureRequests();
-    loadFiles();
+    // Play the door-opening animation, then reveal the room underneath
+    lockIcon.textContent = '🔓';
+    doorStage.classList.add('unlocked');
+    doorStage.classList.add('open');
+    setTimeout(revealRoom, 950);
   } catch (e) {
     console.error('Room login failed:', e);
     loader.style.display = 'none';
     btn.disabled = false;
+    if (!skipAnimation) shakeKeypad();
     loginError.innerHTML = `<div class="card"><p style="color:#f87171;font-size:13px;">কিছু একটা সমস্যা হয়েছে, আবার চেষ্টা করুন।</p></div>`;
   }
 }
