@@ -72,7 +72,24 @@ header a{color:#b7c1d4;text-decoration:none}.brand{font-weight:900;background:li
 .assistant-chat button{border:0;border-radius:10px;padding:8px 11px;background:linear-gradient(90deg,#7c3aed,#06b6d4);color:#fff;font-weight:800}
 .assistant-reply{margin-top:8px;padding:8px 10px;border-radius:10px;background:#eef2ff;color:#3730a3;font-size:12px;line-height:1.45;display:none}
 .hud{position:fixed;z-index:50}.hint{left:15px;top:70px;background:#07101ee8;border:1px solid #ffffff18;border-radius:14px;padding:10px 13px;color:#cbd5e1;font-size:12px}
-.controls{left:50%;bottom:15px;transform:translateX(-50%);display:flex;flex-wrap:wrap;justify-content:center;gap:8px;width:96%}.controls button{border:1px solid #ffffff1c;background:#07101ee8;color:white;border-radius:999px;padding:10px 13px;cursor:pointer}
+.controls{left:50%;bottom:15px;transform:translateX(-50%);display:flex;flex-wrap:wrap;justify-content:center;gap:8px;width:96%}
+.controls button{border:1px solid #ffffff1c;background:#07101ee8;color:white;border-radius:999px;padding:10px 13px;cursor:pointer;transition:.2s}
+.controls button:hover{transform:translateY(-2px);background:#18233a}
+
+
+
+
+.notification{position:fixed;z-index:120;right:18px;bottom:82px;max-width:320px;padding:12px 15px;border-radius:14px;background:#0f172a;color:#fff;border:1px solid #ffffff1c;box-shadow:0 18px 50px #0008;opacity:0;transform:translateY(15px);pointer-events:none;transition:.3s}
+.notification.show{opacity:1;transform:translateY(0)}
+.quick-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}.quick-actions button{border:1px solid #cbd5e1;background:#f8fafc;color:#334155;border-radius:999px;padding:6px 9px;font-size:11px}
+.meeting-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.fullscreen-lcd .lcd{position:fixed!important;z-index:140!important;left:2vw!important;top:2vh!important;width:96vw!important;height:96vh!important;transform:none!important}
+.fullscreen-lcd .controls,.fullscreen-lcd .fullscreen-lcd .hint{display:none!important}
+#lcdExpand{position:absolute;right:10px;top:7px;z-index:15;border:0;border-radius:8px;padding:6px 9px;background:#7c3aed;color:#fff;font-size:11px;font-weight:800}
+
+
+
+
 .modal{display:none;position:fixed;z-index:100;inset:0;background:#000c;place-items:center;padding:16px}.modal.on{display:grid}
 .card{width:min(760px,100%);max-height:88vh;overflow:auto;background:#081120;border:1px solid #ffffff1c;border-radius:24px;padding:20px}
 .cardtop{display:flex;align-items:center;justify-content:space-between}.close{width:38px;height:38px;border-radius:50%;background:#172033;border:1px solid #ffffff1c;color:white}
@@ -80,6 +97,39 @@ header a{color:#b7c1d4;text-decoration:none}.brand{font-weight:900;background:li
 .field{width:100%;padding:12px;margin-top:10px;border-radius:12px;border:1px solid #ffffff1c;background:#030712;color:white}.send{margin-top:10px;padding:11px 17px;border:0;border-radius:999px;background:linear-gradient(90deg,#7c3aed,#06b6d4);color:white;font-weight:800}
 .progress{height:8px;background:#ffffff12;border-radius:10px;overflow:hidden;margin:10px 0}.progress b{display:block;height:100%;background:linear-gradient(90deg,#7c3aed,#22d3ee)}
 @media(max-width:700px){.speech{width:260px;left:60px}.scene{transform:translate(-50%,-50%) rotateX(-7deg) scale(.54)}.loginbox h1{font-size:29px}.hint{max-width:230px}.brand{font-size:12px}}
+
+.demo-player{position:relative;height:100%;background:#020617;overflow:hidden}
+.demo-stage{position:relative;height:calc(100% - 76px);overflow:hidden}
+.demo-bg{position:absolute;inset:0;background:linear-gradient(135deg,#312e81,#0891b2);transition:.65s ease}
+.demo-bg:before,.demo-bg:after{content:"";position:absolute;border-radius:50%;filter:blur(8px);opacity:.45;animation:floatGlow 6s ease-in-out infinite}
+.demo-bg:before{width:240px;height:240px;background:#7c3aed;left:-60px;top:-50px}
+.demo-bg:after{width:210px;height:210px;background:#06b6d4;right:-45px;bottom:-55px;animation-delay:-3s}
+@keyframes floatGlow{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(25px,-18px) scale(1.12)}}
+.demo-overlay{position:absolute;inset:0;background:linear-gradient(90deg,#020617e8 0%,#02061799 50%,#02061755 100%)}
+.demo-brand{position:absolute;left:18px;top:15px;font-size:12px;font-weight:900;color:#bfdbfe;letter-spacing:.5px}
+.demo-content{position:absolute;left:30px;right:28px;top:52%;transform:translateY(-50%);z-index:2;text-align:left}
+.demo-badge{display:inline-block;padding:5px 9px;border-radius:999px;background:#ffffff1a;border:1px solid #ffffff24;font-size:10px;font-weight:900;letter-spacing:1px}
+.demo-icon-big{font-size:60px;margin:10px 0 3px;filter:drop-shadow(0 10px 25px #0008)}
+.demo-content h2{font-size:29px;margin:0 0 7px}
+.demo-content p{max-width:520px;margin:0;color:#d6e2f1;line-height:1.45;font-size:13px}
+.demo-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.demo-meta span{padding:6px 9px;border-radius:10px;background:#02061788;border:1px solid #ffffff1c;font-size:11px}
+.demo-open-btn{margin-top:13px;border:0;border-radius:999px;padding:9px 15px;background:linear-gradient(90deg,#7c3aed,#06b6d4);color:#fff;font-weight:900}
+.player-controls{height:42px;display:flex;align-items:center;gap:7px;padding:0 10px;background:#030712;border-top:1px solid #ffffff14}
+.player-controls button{border:0;background:#172033;color:#fff;width:29px;height:29px;border-radius:8px;cursor:pointer}
+.player-progress-wrap{flex:1;height:7px;border-radius:999px;background:#334155;overflow:hidden;cursor:pointer}
+.player-progress{height:100%;width:0;background:linear-gradient(90deg,#7c3aed,#22d3ee);transition:width .1s linear}
+#playerTime{font-size:10px;color:#cbd5e1;white-space:nowrap}
+.demo-thumbnails{height:34px;display:flex;align-items:center;gap:6px;padding:4px 8px;background:#07101e;overflow-x:auto;border-top:1px solid #ffffff0c}
+.demo-thumb{min-width:82px;height:25px;border:1px solid #ffffff18;background:#111827;color:#cbd5e1;border-radius:7px;font-size:9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 7px}
+.demo-thumb.active{border-color:#22d3ee;background:#0e749055;color:#fff}
+.lcd-browser{position:absolute;inset:0;background:#020617;display:none;z-index:30}
+.lcd-browser.on{display:block}
+.lcd-browserbar{height:38px;display:flex;align-items:center;gap:8px;padding:0 10px;background:#111827;border-bottom:1px solid #ffffff1c}
+.lcd-browserbar button{border:0;border-radius:8px;padding:6px 10px;background:#263247;color:#fff;font-weight:700}
+.lcd-url{flex:1;padding:6px 10px;border-radius:8px;background:#020617;color:#94a3b8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:12px}
+.lcd-browser iframe{width:100%;height:calc(100% - 38px);border:0;background:#fff;display:block}
+
 </style>
 </head>
 <body>
@@ -92,38 +142,52 @@ header a{color:#b7c1d4;text-decoration:none}.brand{font-weight:900;background:li
 <div class="logo">Digital Agency by Chandan Das</div><div class="light l1"></div><div class="light l2"></div><div class="light l3"></div>
 <div class="lcd" onclick="event.stopPropagation()">
 <div class="lcdscreen">
-  <div class="lcd-header"><strong>🖥️ CLIENT DEMO PROJECTS</strong><small id="lcdCounter">1 / 4</small></div>
-  <div class="lcd-stage">
-    <div class="lcd-slide active">
-      <div class="lcd-icon">🛍️</div>
-      <div class="lcd-copy"><h3>Marketplace App</h3><p>Customer, seller, product, cart এবং local shop-এর সম্পূর্ণ modern marketplace demo.</p><button onclick="openDemoInLcd('demo-marketplace.html','Marketplace App')">Demo খুলুন</button></div>
+  <button id="lcdExpand" onclick="toggleLcdFullscreen(event)">⛶ Full Screen</button>
+
+  <div class="demo-player" id="demoPlayer">
+    <div class="demo-stage" id="demoStage">
+      <div class="demo-bg" id="demoBg"></div>
+      <div class="demo-overlay"></div>
+      <div class="demo-brand">Digital Agency by Chandan Das</div>
+      <div class="demo-content">
+        <div class="demo-badge" id="demoBadge">PROJECT 01</div>
+        <div class="demo-icon-big" id="demoIconBig">🛍️</div>
+        <h2 id="demoTitle">Marketplace App</h2>
+        <p id="demoDescription">Customer, seller, product, cart এবং local shop-এর modern marketplace project.</p>
+        <div class="demo-meta">
+          <span id="demoCost">₹30,000+</span>
+          <span id="demoTime">30–45 Days</span>
+          <span id="demoRating">⭐ 4.9</span>
+        </div>
+        <button class="demo-open-btn" onclick="openCurrentDemo()">Live Demo খুলুন</button>
+      </div>
     </div>
-    <div class="lcd-slide">
-      <div class="lcd-icon">🏢</div>
-      <div class="lcd-copy"><h3>Business Website</h3><p>Professional company profile, services, contact এবং lead generation website.</p><button onclick="openDemoInLcd('demo-business.html','Business Website')">Demo খুলুন</button></div>
+
+    <div class="player-controls">
+      <button onclick="previousDemo()" title="Previous">⏮</button>
+      <button id="playPauseBtn" onclick="toggleDemoPlayback()" title="Play/Pause">⏸</button>
+      <button onclick="nextDemo()" title="Next">⏭</button>
+
+      <div class="player-progress-wrap" onclick="seekDemo(event)">
+        <div class="player-progress" id="playerProgress"></div>
+      </div>
+
+      <span id="playerTime">00:00 / 00:08</span>
+
+      <button id="volumeBtn" onclick="toggleDemoVolume()" title="Volume">🔊</button>
+      <button onclick="toggleLcdFullscreen(event)" title="Full Screen">⛶</button>
     </div>
-    <div class="lcd-slide">
-      <div class="lcd-icon">🧾</div>
-      <div class="lcd-copy"><h3>Billing Software</h3><p>Invoice, products, sales report এবং customer management dashboard.</p><button onclick="openDemoInLcd('demo-billing.html','Billing Software')">Demo খুলুন</button></div>
+
+    <div class="demo-thumbnails" id="demoThumbnails"></div>
+
+    <div class="lcd-browser" id="lcdBrowser">
+      <div class="lcd-browserbar">
+        <button onclick="closeLcdPreview()">← Player</button>
+        <div class="lcd-url" id="lcdUrl">Website Preview</div>
+        <button onclick="reloadLcdPreview()">↻</button>
+      </div>
+      <iframe id="lcdFrame" title="Website Demo Preview" scrolling="yes"></iframe>
     </div>
-    <div class="lcd-slide">
-      <div class="lcd-icon">📱</div>
-      <div class="lcd-copy"><h3>Mobile App UI</h3><p>Android এবং iOS-এর জন্য responsive modern mobile application interface.</p><button onclick="openDemoInLcd('demo-app.html','Mobile App UI')">Demo খুলুন</button></div>
-    </div>
-  </div>
-  <div class="lcd-browser" id="lcdBrowser">
-    <div class="lcd-browserbar">
-      <button onclick="closeLcdPreview()">← Back</button>
-      <div class="lcd-url" id="lcdUrl">Website Preview</div>
-      <button onclick="reloadLcdPreview()">↻</button>
-    </div>
-    <iframe id="lcdFrame" title="Website Demo Preview" scrolling="yes"></iframe>
-  </div>
-  <div class="lcd-nav">
-    <button class="lcd-dot active" onclick="setLcdSlide(0)"></button>
-    <button class="lcd-dot" onclick="setLcdSlide(1)"></button>
-    <button class="lcd-dot" onclick="setLcdSlide(2)"></button>
-    <button class="lcd-dot" onclick="setLcdSlide(3)"></button>
   </div>
 </div>
 </div>
@@ -137,12 +201,19 @@ header a{color:#b7c1d4;text-decoration:none}.brand{font-weight:900;background:li
     <input id="assistantInput" type="text" placeholder="আপনার message লিখুন..." onkeydown="if(event.key==='Enter')sendAssistantMessage()">
     <button onclick="sendAssistantMessage()">Send</button>
   </div>
-  <div class="assistant-reply" id="assistantReply"></div>
+  <div class="quick-actions">
+<button onclick="assistantQuick('project')">Project Status</button>
+<button onclick="assistantQuick('meeting')">Book Meeting</button>
+<button onclick="assistantQuick('price')">Price Query</button>
+<button onclick="assistantQuick('support')">Support</button>
+</div>
+<div class="assistant-reply" id="assistantReply"></div>
 </div>
 </div>
 </div></div>
 <div class="hud hint">Mouse drag করে room ঘোরান • LCD, chair, bell এবং notepad-এ click করুন</div>
-<div class="hud controls"><button onclick="sit()">🪑 বসুন</button><button onclick="nextLcdSlide()">🖥️ Next Demo</button><button onclick="ringBell()">🔔 Bell</button><button onclick="show('note')">📝 প্রশ্ন</button><button onclick="show('desk')">📁 Client Desk</button><button onclick="resetView()">🏠 Full Room</button></div>
+<div class="hud controls"><button onclick="sit()">🪑 বসুন</button><button onclick="nextLcdSlide()">🖥️ Next Demo</button><button onclick="ringBell()">🔔 Bell</button><button onclick="show('note')">📝 প্রশ্ন</button><button onclick="show('desk')">📁 Client Desk</button><button onclick="show('meeting')">📅 Meeting</button><button onclick="startTour()">🎬 Tour</button><button onclick="resetView()">🏠 Full Room</button></div>
+<div id="notify" class="notification"></div>
 </section>
 
 <div class="modal" id="lcd"><div class="card"><div class="cardtop"><h2>🖥️ Demo Project LCD</h2><button class="close" onclick="hide('lcd')">×</button></div><div class="grid">
@@ -153,6 +224,23 @@ header a{color:#b7c1d4;text-decoration:none}.brand{font-weight:900;background:li
 </div></div></div>
 
 <div class="modal" id="note"><div class="card"><div class="cardtop"><h2>📝 Client Notepad</h2><button class="close" onclick="hide('note')">×</button></div><select class="field" id="projectSelect"><option value="">General Question</option></select><textarea class="field" rows="6" id="requestText" placeholder="আপনার প্রশ্ন বা feature request লিখুন..."></textarea><button class="send" onclick="submitRequest()">Request পাঠান</button><div id="requests"></div></div></div>
+
+
+<div class="modal" id="meeting"><div class="card">
+<div class="cardtop"><h2>📅 Meeting Booking</h2><button class="close" onclick="hide('meeting')">×</button></div>
+<div class="meeting-grid">
+<input id="meetingDate" class="field" type="date">
+<input id="meetingTime" class="field" type="time">
+</div>
+<select id="meetingType" class="field">
+<option>Video Meeting</option>
+<option>Phone Call</option>
+<option>Office Visit</option>
+</select>
+<textarea id="meetingNote" class="field" rows="4" placeholder="Meeting-এর বিষয় লিখুন..."></textarea>
+<button class="send" onclick="bookMeeting()">Meeting Request পাঠান</button>
+<div id="meetingResult" class="project" style="display:none;margin-top:12px"></div>
+</div></div>
 
 <div class="modal" id="desk"><div class="card"><div class="cardtop"><div><h2 id="clientName">📁 Client Desk</h2><small class="muted" id="clientCode"></small></div><button class="close" onclick="hide('desk')">×</button></div><div id="projects" style="margin-top:15px"></div></div></div>
 
@@ -225,7 +313,9 @@ function openWorld(){
  $('world').style.display='block';
  $('exit').classList.remove('hide');
  renderDesk();
- setLcdSlide(0);
+ buildDemoThumbnails();
+ renderDemoPlayer();
+ startDemoPlayer();
  setTimeout(()=>speakThreeLanguages(
   `${client.client_name}, ডিজিটাল এজেন্সি বাই চন্দন দাসের থ্রি ডি ক্লায়েন্ট রুমে আপনাকে স্বাগতম। অনুগ্রহ করে চেয়ারে বসুন।`,
   `${client.client_name}, डिजिटल एजेंसी बाय चंदन दास के थ्री डी क्लाइंट रूम में आपका स्वागत है। कृपया कुर्सी पर बैठें।`,
@@ -254,44 +344,7 @@ function ringBell(){
 }
 function bell(){let A=new(window.AudioContext||window.webkitAudioContext),o=A.createOscillator(),g=A.createGain();o.frequency.value=900;g.gain.setValueAtTime(.18,A.currentTime);g.gain.exponentialRampToValueAtTime(.001,A.currentTime+.55);o.connect(g).connect(A.destination);o.start();o.stop(A.currentTime+.55)}
 
-let lcdIndex=0,lcdTimer=null;
-function setLcdSlide(i){
- const slides=[...document.querySelectorAll('.lcd-slide')];
- const dots=[...document.querySelectorAll('.lcd-dot')];
- if(!slides.length)return;
- lcdIndex=(i+slides.length)%slides.length;
- slides.forEach((s,n)=>s.classList.toggle('active',n===lcdIndex));
- dots.forEach((d,n)=>d.classList.toggle('active',n===lcdIndex));
- const c=document.getElementById('lcdCounter'); if(c)c.textContent=`${lcdIndex+1} / ${slides.length}`;
- clearInterval(lcdTimer); lcdTimer=setInterval(()=>setLcdSlide(lcdIndex+1),5000);
-}
-function nextLcdSlide(){
- closeLcdPreview();
- setLcdSlide(lcdIndex+1);
- speakThreeLanguages(
-  'এল সি ডি পর্দায় পরবর্তী ডেমো প্রজেক্ট দেখানো হচ্ছে।',
-  'एल सी डी स्क्रीन पर अगला डेमो प्रोजेक्ट दिखाया जा रहा है।',
-  'The next demo project is now shown on the LCD screen.'
- );
-}
-function openDemoInLcd(url,title){
- const frame=document.getElementById('lcdFrame');
- const browser=document.getElementById('lcdBrowser');
- document.getElementById('lcdUrl').textContent=title+' — '+url;
- frame.src=url;
- frame.setAttribute('scrolling','yes');
- browser.classList.add('on');
- setTimeout(()=>{try{frame.focus()}catch(e){}},500);
- speakThreeLanguages(
-  'ডেমো ওয়েবসাইটটি এখন এল সি ডি পর্দায় দেখানো হচ্ছে।',
-  'डेमो वेबसाइट अब एल सी डी स्क्रीन पर दिखाई जा रही है।',
-  'The demo website is now displayed on the LCD screen.'
- );
-}
-function closeLcdPreview(){
- document.getElementById('lcdBrowser').classList.remove('on');
- document.getElementById('lcdFrame').src='about:blank';
-}
+
 function reloadLcdPreview(){
  const f=document.getElementById('lcdFrame');
  try{f.contentWindow.location.reload()}catch(e){f.src=f.src}
@@ -328,6 +381,198 @@ function sendAssistantMessage(){
  }
 }
 
+
+function notifyUser(message){
+ const n=document.getElementById('notify');
+ n.textContent=message;
+ n.classList.add('show');
+ clearTimeout(window.__notifyTimer);
+ window.__notifyTimer=setTimeout(()=>n.classList.remove('show'),2600);
+}
+
+function toggleLcdFullscreen(e){
+ if(e)e.stopPropagation();
+ document.body.classList.toggle('fullscreen-lcd');
+ const btn=document.getElementById('lcdExpand');
+ btn.textContent=document.body.classList.contains('fullscreen-lcd')?'✕ Close':'⛶ Full Screen';
+}
+
+
+
+function assistantQuick(type){
+ const input=document.getElementById('assistantInput');
+ if(type==='project'){
+   input.value='আমার project status দেখান';
+   show('desk');
+   notifyUser('Client Desk খোলা হয়েছে');
+ }else if(type==='meeting'){
+   input.value='আমি meeting book করতে চাই';
+   show('meeting');
+ }else if(type==='price'){
+   input.value='Project-এর আনুমানিক দাম জানতে চাই';
+   sendAssistantMessage();
+ }else{
+   input.value='আমার technical support দরকার';
+   sendAssistantMessage();
+ }
+}
+
+function bookMeeting(){
+ const date=document.getElementById('meetingDate').value;
+ const time=document.getElementById('meetingTime').value;
+ const type=document.getElementById('meetingType').value;
+ const note=document.getElementById('meetingNote').value.trim();
+ const result=document.getElementById('meetingResult');
+ if(!date||!time){
+   alert('Date এবং time select করুন।');
+   return;
+ }
+ const message=`Meeting Request: ${date} ${time} | ${type} | ${note||'No note'}`;
+ result.style.display='block';
+ result.textContent='✅ Meeting request পাঠানো হয়েছে: '+date+' '+time;
+ notifyUser('Meeting request গ্রহণ করা হয়েছে');
+ speakThreeLanguages(
+  'আপনার মিটিং অনুরোধ গ্রহণ করা হয়েছে।',
+  'आपका मीटिंग अनुरोध प्राप्त हो गया है।',
+  'Your meeting request has been received.'
+ );
+ if(client && client.id!=='demo' && typeof sb!=='undefined'){
+   sb.from('room_feature_requests').insert({
+     client_id:client.id,
+     project_id:null,
+     request_text:message
+   });
+ }
+}
+
+function startTour(){
+ resetView();
+ notifyUser('Virtual room tour শুরু হচ্ছে');
+ setTimeout(()=>sit(),700);
+ setTimeout(()=>nextLcdSlide(),2600);
+ setTimeout(()=>ringBell(),5000);
+ setTimeout(()=>show('desk'),7600);
+}
+
+
+
+const demoProjects=[
+ {title:'Marketplace App',icon:'🛍️',desc:'Customer, seller, product, cart এবং local shop-এর modern marketplace project.',cost:'₹30,000+',time:'30–45 Days',rating:'⭐ 4.9',url:'demo-marketplace.html',bg:'linear-gradient(135deg,#312e81,#0891b2)'},
+ {title:'Business Website',icon:'🏢',desc:'Professional company profile, service showcase, lead generation এবং contact website.',cost:'₹15,000+',time:'15–25 Days',rating:'⭐ 4.8',url:'demo-business.html',bg:'linear-gradient(135deg,#7c2d12,#c2410c)'},
+ {title:'Billing Software',icon:'🧾',desc:'Invoice, product, sales report, customer এবং inventory management dashboard.',cost:'₹25,000+',time:'25–40 Days',rating:'⭐ 4.9',url:'demo-billing.html',bg:'linear-gradient(135deg,#14532d,#0f766e)'},
+ {title:'Mobile App UI',icon:'📱',desc:'Android এবং iOS-এর জন্য responsive modern mobile application interface.',cost:'₹35,000+',time:'35–60 Days',rating:'⭐ 4.9',url:'demo-app.html',bg:'linear-gradient(135deg,#4c1d95,#be185d)'},
+ {title:'Admin Dashboard',icon:'📊',desc:'Orders, users, vendors, analytics এবং settings control করার smart admin panel.',cost:'₹20,000+',time:'20–35 Days',rating:'⭐ 4.8',url:'demo-admin.html',bg:'linear-gradient(135deg,#0f172a,#1d4ed8)'}
+];
+
+let demoIndex=0;
+let demoPlaying=true;
+let demoMuted=false;
+let demoElapsed=0;
+const demoDuration=8;
+let demoTimer=null;
+
+function formatPlayerTime(sec){
+ const s=Math.max(0,Math.floor(sec));
+ return `00:${String(s).padStart(2,'0')}`;
+}
+function renderDemoPlayer(){
+ const p=demoProjects[demoIndex];
+ document.getElementById('demoBadge').textContent=`PROJECT ${String(demoIndex+1).padStart(2,'0')}`;
+ document.getElementById('demoIconBig').textContent=p.icon;
+ document.getElementById('demoTitle').textContent=p.title;
+ document.getElementById('demoDescription').textContent=p.desc;
+ document.getElementById('demoCost').textContent=p.cost;
+ document.getElementById('demoTime').textContent=p.time;
+ document.getElementById('demoRating').textContent=p.rating;
+ document.getElementById('demoBg').style.background=p.bg;
+ document.getElementById('playerProgress').style.width=(demoElapsed/demoDuration*100)+'%';
+ document.getElementById('playerTime').textContent=`${formatPlayerTime(demoElapsed)} / 00:${String(demoDuration).padStart(2,'0')}`;
+ document.querySelectorAll('.demo-thumb').forEach((b,i)=>b.classList.toggle('active',i===demoIndex));
+}
+function buildDemoThumbnails(){
+ const box=document.getElementById('demoThumbnails');
+ box.innerHTML=demoProjects.map((p,i)=>`<button class="demo-thumb ${i===0?'active':''}" onclick="selectDemo(${i})">${p.icon} ${p.title}</button>`).join('');
+}
+function startDemoPlayer(){
+ clearInterval(demoTimer);
+ demoTimer=setInterval(()=>{
+  if(!demoPlaying)return;
+  demoElapsed+=.1;
+  if(demoElapsed>=demoDuration){
+    demoElapsed=0;
+    demoIndex=(demoIndex+1)%demoProjects.length;
+    if(!demoMuted){
+      speakThreeLanguages(
+       `${demoProjects[demoIndex].title} প্রজেক্টটি এখন দেখানো হচ্ছে।`,
+       `${demoProjects[demoIndex].title} प्रोजेक्ट अब दिखाया जा रहा है।`,
+       `${demoProjects[demoIndex].title} project is now playing.`
+      );
+    }
+  }
+  renderDemoPlayer();
+ },100);
+}
+function toggleDemoPlayback(){
+ demoPlaying=!demoPlaying;
+ document.getElementById('playPauseBtn').textContent=demoPlaying?'⏸':'▶';
+ notifyUser(demoPlaying?'Demo presentation চলছে':'Demo presentation paused');
+}
+function nextDemo(){
+ demoIndex=(demoIndex+1)%demoProjects.length;
+ demoElapsed=0;
+ renderDemoPlayer();
+}
+function previousDemo(){
+ demoIndex=(demoIndex-1+demoProjects.length)%demoProjects.length;
+ demoElapsed=0;
+ renderDemoPlayer();
+}
+function selectDemo(i){
+ demoIndex=i;
+ demoElapsed=0;
+ renderDemoPlayer();
+}
+function seekDemo(e){
+ const r=e.currentTarget.getBoundingClientRect();
+ const ratio=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width));
+ demoElapsed=ratio*demoDuration;
+ renderDemoPlayer();
+}
+function toggleDemoVolume(){
+ demoMuted=!demoMuted;
+ document.getElementById('volumeBtn').textContent=demoMuted?'🔇':'🔊';
+ notifyUser(demoMuted?'Demo voice muted':'Demo voice enabled');
+}
+function openCurrentDemo(){
+ const p=demoProjects[demoIndex];
+ openDemoInLcd(p.url,p.title);
+}
+function openDemoInLcd(url,title){
+ const frame=document.getElementById('lcdFrame');
+ document.getElementById('lcdUrl').textContent=title+' — '+url;
+ frame.src=url;
+ frame.setAttribute('scrolling','yes');
+ document.getElementById('lcdBrowser').classList.add('on');
+ demoPlaying=false;
+ document.getElementById('playPauseBtn').textContent='▶';
+ speakThreeLanguages(
+  'ডেমো ওয়েবসাইটটি এখন এল সি ডি পর্দায় দেখানো হচ্ছে।',
+  'डेमो वेबसाइट अब एल सी डी स्क्रीन पर दिखाई जा रही है।',
+  'The demo website is now displayed on the LCD screen.'
+ );
+}
+function closeLcdPreview(){
+ document.getElementById('lcdBrowser').classList.remove('on');
+ document.getElementById('lcdFrame').src='about:blank';
+ demoPlaying=true;
+ document.getElementById('playPauseBtn').textContent='⏸';
+}
+function reloadLcdPreview(){
+ const f=document.getElementById('lcdFrame');
+ try{f.contentWindow.location.reload()}catch(e){f.src=f.src}
+}
+function nextLcdSlide(){nextDemo()}
+
 function renderDesk(){$('clientName').textContent='📁 স্বাগতম, '+client.client_name;$('clientCode').textContent='Client Code: '+client.client_code;
 $('projects').innerHTML=projects.length?projects.map(p=>`<div class="project"><b>${esc(p.project_name)}</b><span style="float:right">${esc(p.status||'')}</span><p class="muted">${esc(p.current_stage||'')}</p><div class="progress"><b style="width:${Math.min(100,p.progress_percent||0)}%"></b></div><small>${p.progress_percent||0}% Complete</small></div>`).join(''):'<p class="muted">কোনো project পাওয়া যায়নি।</p>';
 $('projectSelect').innerHTML='<option value="">General Question</option>'+projects.map(p=>`<option value="${p.id}">${esc(p.project_name)}</option>`).join('')}
@@ -335,6 +580,10 @@ async function submitRequest(){let t=$('requestText').value.trim();if(!t)return 
 try{let r=await sb.from('room_feature_requests').insert({client_id:client.id,project_id:$('projectSelect').value||null,request_text:t});if(r.error)throw r.error;$('requestText').value='';alert('Request পাঠানো হয়েছে।')}catch(e){alert('Request পাঠানো যায়নি।')}}
 const scene=$('scene');document.addEventListener('pointerdown',e=>{if(e.target.closest('.modal,button,.lcd,.chair,.bell,.notepad,.assistant'))return;drag=true;lastX=e.clientX});document.addEventListener('pointermove',e=>{if(!drag)return;ry+=(e.clientX-lastX)*.18;lastX=e.clientX;scene.style.transform=`translate(-50%,-50%) rotateX(-7deg) rotateY(${ry}deg) scale(.92)`});document.addEventListener('pointerup',()=>drag=false);
 $('code').addEventListener('keydown',e=>e.key==='Enter'&&enterRoom());
+window.addEventListener('load',()=>{
+ const d=document.getElementById('meetingDate');
+ if(d)d.min=new Date().toISOString().split('T')[0];
+});
 </script>
 </body>
 </html>

@@ -1,13 +1,26 @@
-CLEAN RESTORE VERSION
+VIDEO-STYLE LCD UPDATE
 
-1. শুধু client-room.html replace করুন।
-2. কোনো audio folder লাগবে না।
-3. Voice sequence: Bengali → Hindi → English.
-4. Gate button click করার পরে voice শুরু হবে।
-5. LCD-এর ভিতরে demo website open ও scroll হবে।
-6. Virtual Assistant box-এ message লিখে Enter/Send করা যাবে।
-7. Preview code: DEMO-3D.
+Replace only:
+- client-room.html
 
-Browser settings:
-- Site sound Allow থাকতে হবে।
-- Voice button Muted থাকলে একবার চাপুন।
+Changes:
+- Smart Room Panel completely removed
+- LCD now works like a video presentation player
+- Auto-play project demos
+- Play / Pause
+- Previous / Next
+- Progress bar and seek
+- Volume toggle
+- Full screen
+- Project thumbnails
+- Price, development time, rating
+- Live Demo opens inside LCD and can scroll
+- Bengali → Hindi → English voice
+- Preview code: DEMO-3D
+
+Optional local pages:
+demo-marketplace.html
+demo-business.html
+demo-billing.html
+demo-app.html
+demo-admin.html
