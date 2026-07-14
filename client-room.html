@@ -1,276 +1,117 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="bn">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Real 3D Client Room | Digital Agency by Chandan Das</title>
-<meta name="robots" content="noindex,follow">
+<title>3D Client Room | Digital Agency by Chandan Das</title>
 <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 <script src="supabase-client.js"></script>
 <style>
-:root{--bg:#050914;--glass:rgba(7,12,25,.86);--line:rgba(255,255,255,.12);--violet:#7c3aed;--cyan:#06b6d4}
-*{box-sizing:border-box;margin:0;padding:0;font-family:Segoe UI,Tahoma,sans-serif}
-body{background:#030611;color:#fff;overflow-x:hidden}
-button,input,textarea,select{font:inherit}
-button{cursor:pointer}
-header{height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;background:rgba(3,6,17,.92);border-bottom:1px solid var(--line);position:fixed;inset:0 0 auto 0;z-index:60;backdrop-filter:blur(14px)}
-header a{color:#aab5c8;text-decoration:none}
-.brand{font-weight:900;background:linear-gradient(90deg,#a78bfa,#22d3ee);-webkit-background-clip:text;color:transparent}
-.top-actions{display:flex;gap:8px}
-.pill{border:1px solid var(--line);background:rgba(255,255,255,.06);color:#fff;border-radius:999px;padding:8px 13px}
-#login{min-height:100vh;padding:86px 18px 35px;display:grid;place-items:center;background:radial-gradient(circle at 20% 20%,rgba(124,58,237,.22),transparent 35%),radial-gradient(circle at 80% 70%,rgba(6,182,212,.18),transparent 40%)}
-.login-card{width:min(470px,100%);padding:28px;border:1px solid var(--line);border-radius:28px;background:rgba(8,13,27,.82);box-shadow:0 30px 90px #000;backdrop-filter:blur(18px);text-align:center}
-.login-card h1{font-size:clamp(28px,6vw,44px);margin-bottom:9px}.login-card p{color:#9ba9bf;line-height:1.6}
-.door-preview{height:240px;margin:22px 0;border-radius:22px;overflow:hidden;position:relative;background:linear-gradient(#11192a,#050813);perspective:900px;border:1px solid rgba(255,255,255,.08)}
-.door-preview:before,.door-preview:after{content:"";position:absolute;top:8px;bottom:8px;width:48%;background:linear-gradient(145deg,#202a42,#080c18);border:1px solid rgba(147,116,255,.28);transition:1.1s cubic-bezier(.7,0,.2,1)}
-.door-preview:before{left:1.5%;transform-origin:left}.door-preview:after{right:1.5%;transform-origin:right}
-.door-preview.open:before{transform:rotateY(-100deg)}.door-preview.open:after{transform:rotateY(100deg)}
-.door-preview .glow{position:absolute;inset:0;background:radial-gradient(circle,#29d9ff55,transparent 58%);opacity:.2}
-.code{width:100%;padding:15px 17px;border:1px solid var(--line);border-radius:14px;background:#050916;color:#fff;text-align:center;letter-spacing:2px;font-weight:800;margin-bottom:12px}
-.primary{width:100%;border:0;border-radius:999px;padding:14px;background:linear-gradient(100deg,var(--violet),var(--cyan));color:#fff;font-weight:900}
-.help{display:block;margin-top:12px;color:#708099;font-size:12px}
-#error{margin-top:12px;color:#fb7185;min-height:20px}
-#experience{display:none;position:relative;height:100vh;overflow:hidden;background:#02040a}
-#scene{position:absolute;inset:58px 0 0}
-#scene canvas{display:block;width:100%;height:100%}
-.hud{position:absolute;z-index:20;pointer-events:none}
-.hud button,.hud .panel,.hud input,.hud textarea,.hud select{pointer-events:auto}
-#instructions{left:16px;top:74px;padding:12px 14px;border-radius:16px;background:var(--glass);border:1px solid var(--line);font-size:13px;color:#d6deeb;max-width:330px;line-height:1.5;backdrop-filter:blur(14px)}
-#crosshair{left:50%;top:50%;width:22px;height:22px;transform:translate(-50%,-50%)}
-#crosshair:before,#crosshair:after{content:"";position:absolute;background:#fff;box-shadow:0 0 8px #22d3ee}
-#crosshair:before{width:22px;height:2px;top:10px}#crosshair:after{height:22px;width:2px;left:10px}
-#hotbar{left:50%;bottom:18px;transform:translateX(-50%);display:flex;gap:8px;flex-wrap:wrap;justify-content:center;width:min(96%,700px)}
-.hot{border:1px solid var(--line);background:rgba(4,8,18,.82);color:#fff;padding:10px 13px;border-radius:999px;backdrop-filter:blur(10px)}
-.hot:hover{background:rgba(124,58,237,.45)}
-#toast{left:50%;top:82px;transform:translateX(-50%);padding:10px 16px;border-radius:999px;background:rgba(2,6,18,.9);border:1px solid var(--line);opacity:0;transition:.25s}
-#toast.show{opacity:1}
-.modal{position:fixed;z-index:100;inset:0;background:rgba(0,0,0,.72);display:none;place-items:center;padding:18px}
-.modal.open{display:grid}
-.modal-card{width:min(760px,100%);max-height:86vh;overflow:auto;border:1px solid var(--line);background:#091020;border-radius:24px;padding:22px;box-shadow:0 30px 100px #000}
-.modal-head{display:flex;justify-content:space-between;gap:15px;align-items:center;margin-bottom:18px}
-.close{border:1px solid var(--line);background:#141b2b;color:#fff;width:38px;height:38px;border-radius:50%}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
-.demo{padding:16px;border:1px solid var(--line);background:rgba(255,255,255,.04);border-radius:17px}
-.demo h3{font-size:16px;margin-bottom:7px}.demo p{color:#91a0b7;font-size:13px;line-height:1.5}
-.demo a{display:inline-block;margin-top:12px;color:#22d3ee;text-decoration:none;font-weight:800}
-.field{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:#040816;color:#fff;margin-bottom:10px}
-.action{border:0;border-radius:999px;background:linear-gradient(90deg,var(--violet),var(--cyan));color:#fff;padding:12px 17px;font-weight:800}
-.project-card{border:1px solid var(--line);border-radius:16px;padding:15px;margin-bottom:11px;background:rgba(255,255,255,.035)}
-.progress{height:9px;background:#1a2234;border-radius:99px;overflow:hidden;margin-top:10px}.progress i{display:block;height:100%;background:linear-gradient(90deg,var(--violet),var(--cyan))}
-#loading3d{position:absolute;inset:0;z-index:50;display:grid;place-items:center;background:#02040b;color:#cbd5e1}
-.spinner{width:42px;height:42px;border:4px solid #ffffff22;border-top-color:#22d3ee;border-radius:50%;animation:spin 1s linear infinite;margin:auto auto 12px}
-@keyframes spin{to{transform:rotate(360deg)}}
-@media(max-width:650px){#instructions{font-size:11px;max-width:260px}.hot{padding:9px 10px;font-size:12px}header{padding:0 10px}.brand{font-size:13px}}
+*{box-sizing:border-box}html,body{margin:0;height:100%;overflow:hidden;background:#030712;color:#fff;font-family:Segoe UI,Tahoma,sans-serif}
+button,input,textarea,select{font:inherit}.hide{display:none!important}
+header{position:fixed;z-index:90;inset:0 0 auto;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;background:#030712ed;border-bottom:1px solid #ffffff1c}
+header a{color:#b7c1d4;text-decoration:none}.brand{font-weight:900;background:linear-gradient(90deg,#a78bfa,#22d3ee);background-clip:text;color:transparent}
+.hbtn{border:1px solid #ffffff1c;background:#ffffff0d;color:white;border-radius:999px;padding:8px 13px;cursor:pointer}
+#login{height:100%;padding-top:56px;display:grid;place-items:center;background:radial-gradient(circle at 20% 20%,#6d28d933,transparent 35%),radial-gradient(circle at 80% 70%,#0891b233,transparent 40%)}
+.loginbox{width:min(460px,92%);padding:25px;border-radius:26px;background:#081020e8;border:1px solid #ffffff18;box-shadow:0 35px 100px #000;text-align:center}
+.loginbox h1{margin:0 0 8px;font-size:38px}.loginbox p{color:#94a3b8}
+.gate{height:230px;margin:20px 0;perspective:900px;position:relative;overflow:hidden;border-radius:20px;background:linear-gradient(#0b1324,#02050d);border:1px solid #ffffff12}
+.gate:before,.gate:after{content:"";position:absolute;top:7px;bottom:7px;width:48.5%;background:linear-gradient(135deg,#273251,#090e1c);border:1px solid #8b5cf64d;transition:1s}
+.gate:before{left:1%;transform-origin:left}.gate:after{right:1%;transform-origin:right}.gate.open:before{transform:rotateY(-105deg)}.gate.open:after{transform:rotateY(105deg)}
+.gate i{position:absolute;inset:0;background:radial-gradient(circle,#22d3ee44,transparent 60%)}
+.code{width:100%;padding:14px;border-radius:13px;border:1px solid #ffffff1c;background:#030712;color:#fff;text-align:center;font-weight:800;letter-spacing:2px}
+.enter{width:100%;margin-top:12px;border:0;border-radius:999px;padding:14px;color:#fff;font-weight:900;cursor:pointer;background:linear-gradient(90deg,#7c3aed,#06b6d4)}
+#error{color:#fb7185;min-height:22px;margin-top:10px}
+#world{display:none;position:absolute;inset:56px 0 0;background:#050816;perspective:1000px;overflow:hidden}
+.scene{position:absolute;left:50%;top:50%;width:1000px;height:620px;transform-style:preserve-3d;transform:translate(-50%,-50%) rotateX(-7deg) rotateY(0deg) scale(.92);transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+.room{position:absolute;inset:0;transform-style:preserve-3d}
+.floor{position:absolute;width:900px;height:850px;left:50px;top:160px;transform:rotateX(90deg) translateZ(-200px);background:repeating-linear-gradient(90deg,#1c2940 0 80px,#172238 80px 160px);box-shadow:inset 0 0 140px #000}
+.back{position:absolute;width:900px;height:500px;left:50px;top:30px;transform:translateZ(-420px);background:linear-gradient(#17233a,#0b1221);border:12px solid #08101f}
+.leftwall,.rightwall{position:absolute;width:850px;height:500px;top:30px;background:linear-gradient(90deg,#10192a,#18233a)}
+.leftwall{left:-375px;transform:rotateY(90deg) translateZ(0)}.rightwall{right:-375px;transform:rotateY(-90deg)}
+.ceiling{position:absolute;width:900px;height:850px;left:50px;top:-390px;transform:rotateX(90deg);background:#070c16}
+.logo{position:absolute;left:255px;top:62px;width:490px;padding:17px;text-align:center;font-size:27px;font-weight:900;background:#111b35;border:2px solid #6d5ce7;box-shadow:0 0 35px #6d5ce766;transform:translateZ(-400px)}
+.light{position:absolute;width:180px;height:16px;top:-40px;background:#dff6ff;box-shadow:0 0 45px #8be5ff}.l1{left:150px}.l2{left:410px}.l3{left:670px}
+.lcd{position:absolute;left:240px;top:135px;width:520px;height:285px;padding:12px;background:#030712;border:10px solid #111827;box-shadow:0 0 40px #22d3ee55;transform:translateZ(-370px);cursor:pointer}
+.lcdscreen{height:100%;display:grid;place-items:center;text-align:center;background:radial-gradient(circle,#0e749066,#071426 60%);border:1px solid #22d3ee66}
+.lcdscreen strong{font-size:32px}.lcdscreen small{color:#7dd3fc}
+.desk{position:absolute;left:205px;top:390px;width:590px;height:155px;background:linear-gradient(#74452d,#402317);transform:translateZ(-90px) rotateX(4deg);box-shadow:0 30px 45px #000}
+.desk:before,.desk:after{content:"";position:absolute;top:130px;width:32px;height:140px;background:#25324a}.desk:before{left:45px}.desk:after{right:45px}
+.bell{position:absolute;right:65px;top:-34px;width:55px;height:40px;border-radius:50% 50% 15% 15%;background:linear-gradient(#fde047,#a16207);box-shadow:0 0 18px #facc15;cursor:pointer}
+.notepad{position:absolute;left:55px;top:25px;width:150px;height:95px;transform:rotate(-6deg);background:#f8fafc;color:#334155;padding:12px;font-weight:800;cursor:pointer;box-shadow:0 10px 20px #0008}
+.chair{position:absolute;left:410px;top:475px;width:180px;height:110px;background:#332653;border-radius:20px;transform:translateZ(155px);cursor:pointer;box-shadow:0 25px 35px #000}
+.chair:before{content:"";position:absolute;left:10px;right:10px;bottom:75px;height:170px;background:linear-gradient(#4c3b75,#241d3d);border-radius:26px 26px 10px 10px}
+.chair:after{content:"🪑 বসুন";position:absolute;left:0;right:0;text-align:center;top:38px;font-weight:900}
+.plant{position:absolute;bottom:55px;width:90px;height:120px;background:#693c24;border-radius:10px 10px 25px 25px;transform:translateZ(-330px)}.plant:before{content:"🌿";position:absolute;font-size:100px;top:-85px;left:-8px}.p1{left:85px}.p2{right:85px}
+.assistant{position:absolute;left:90px;top:260px;width:72px;height:190px;transform:translateZ(-310px);transition:transform 2.8s ease,left 2.8s ease,top 2.8s ease;cursor:pointer}
+.assistant.come{left:245px;top:335px;transform:translateZ(20px)}
+.head{position:absolute;left:15px;width:44px;height:44px;border-radius:50%;background:#d5a178;border:8px solid #1b1b25}
+.body{position:absolute;top:42px;width:72px;height:95px;border-radius:28px 28px 14px 14px;background:linear-gradient(#2563eb,#1e3a8a)}
+.legs:before,.legs:after{content:"";position:absolute;top:130px;width:19px;height:60px;background:#111827;border-radius:10px}.legs:before{left:13px}.legs:after{right:13px}
+.speech{display:none;position:absolute;width:200px;left:80px;top:-5px;padding:12px;border-radius:15px;background:white;color:#111827;font-weight:700}.assistant.come .speech{display:block}
+.hud{position:fixed;z-index:50}.hint{left:15px;top:70px;background:#07101ee8;border:1px solid #ffffff18;border-radius:14px;padding:10px 13px;color:#cbd5e1;font-size:12px}
+.controls{left:50%;bottom:15px;transform:translateX(-50%);display:flex;flex-wrap:wrap;justify-content:center;gap:8px;width:96%}.controls button{border:1px solid #ffffff1c;background:#07101ee8;color:white;border-radius:999px;padding:10px 13px;cursor:pointer}
+.modal{display:none;position:fixed;z-index:100;inset:0;background:#000c;place-items:center;padding:16px}.modal.on{display:grid}
+.card{width:min(760px,100%);max-height:88vh;overflow:auto;background:#081120;border:1px solid #ffffff1c;border-radius:24px;padding:20px}
+.cardtop{display:flex;align-items:center;justify-content:space-between}.close{width:38px;height:38px;border-radius:50%;background:#172033;border:1px solid #ffffff1c;color:white}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:11px;margin-top:15px}.demo,.project{padding:15px;border-radius:15px;background:#ffffff0a;border:1px solid #ffffff12}.demo p,.muted{color:#94a3b8}.demo a{color:#22d3ee;text-decoration:none;font-weight:800}
+.field{width:100%;padding:12px;margin-top:10px;border-radius:12px;border:1px solid #ffffff1c;background:#030712;color:white}.send{margin-top:10px;padding:11px 17px;border:0;border-radius:999px;background:linear-gradient(90deg,#7c3aed,#06b6d4);color:white;font-weight:800}
+.progress{height:8px;background:#ffffff12;border-radius:10px;overflow:hidden;margin:10px 0}.progress b{display:block;height:100%;background:linear-gradient(90deg,#7c3aed,#22d3ee)}
+@media(max-width:700px){.scene{transform:translate(-50%,-50%) rotateX(-7deg) scale(.58)}.loginbox h1{font-size:29px}.hint{max-width:230px}.brand{font-size:12px}}
 </style>
 </head>
 <body>
-<header>
-<a href="index.html">← হোম</a>
-<div class="brand">Digital Agency by Chandan Das</div>
-<div class="top-actions">
-<button id="soundBtn" class="pill" onclick="toggleSound()">🔊 Voice</button>
-<button id="exitBtn" class="pill" style="display:none" onclick="logoutRoom()">Exit</button>
-</div>
-</header>
+<header><a href="index.html">← হোম</a><div class="brand">Digital Agency by Chandan Das</div><div><button class="hbtn" onclick="toggleVoice()" id="voice">🔊 Voice</button> <button class="hbtn hide" id="exit" onclick="location.reload()">Exit</button></div></header>
+<section id="login"><div class="loginbox"><h1>3D Client Room</h1><p>Unique Code দিয়ে virtual office-এ প্রবেশ করুন</p><div class="gate" id="gate"><i></i></div><input class="code" id="code" placeholder="CR-2026-KKB01"><button class="enter" onclick="enterRoom()">🔑 Gate খুলুন</button><small class="muted">Preview: <b>DEMO-3D</b></small><div id="error"></div></div></section>
 
-<section id="login">
-<div class="login-card">
-<h1>Real 3D <span style="color:#38bdf8">Client Room</span></h1>
-<p>Unique Code দিয়ে gate খুলুন এবং virtual office-এর ভিতরে প্রবেশ করুন।</p>
-<div id="doorPreview" class="door-preview"><div class="glow"></div></div>
-<input id="codeInput" class="code" placeholder="CR-2026-KKB01" value="">
-<button id="enterBtn" class="primary" onclick="enterRoom()">🔑 Gate খুলুন</button>
-<span class="help">Preview দেখার জন্য <b>DEMO-3D</b> লিখুন</span>
-<div id="error"></div>
-</div>
+<section id="world">
+<div class="scene" id="scene"><div class="room">
+<div class="floor"></div><div class="back"></div><div class="leftwall"></div><div class="rightwall"></div><div class="ceiling"></div>
+<div class="logo">Digital Agency by Chandan Das</div><div class="light l1"></div><div class="light l2"></div><div class="light l3"></div>
+<div class="lcd" onclick="show('lcd')"><div class="lcdscreen"><div><strong>CLIENT DEMO LCD</strong><br><small>Click to open projects</small></div></div></div>
+<div class="desk"><div class="notepad" onclick="show('note')">CLIENT<br>NOTEPAD ✍️</div><div class="bell" onclick="ringBell()"></div></div>
+<div class="chair" onclick="sit()"></div><div class="plant p1"></div><div class="plant p2"></div>
+<div class="assistant" id="assistant" onclick="show('note')"><div class="head"></div><div class="body"></div><div class="legs"></div><div class="speech">Hello Sir/Madam! কীভাবে সাহায্য করতে পারি?</div></div>
+</div></div>
+<div class="hud hint">Mouse drag করে room ঘোরান • LCD, chair, bell এবং notepad-এ click করুন</div>
+<div class="hud controls"><button onclick="sit()">🪑 বসুন</button><button onclick="show('lcd')">🖥️ LCD</button><button onclick="ringBell()">🔔 Bell</button><button onclick="show('note')">📝 প্রশ্ন</button><button onclick="show('desk')">📁 Client Desk</button><button onclick="resetView()">🏠 Full Room</button></div>
 </section>
 
-<section id="experience">
-<div id="loading3d"><div><div class="spinner"></div>3D Office তৈরি হচ্ছে...</div></div>
-<div id="scene"></div>
-<div id="instructions" class="hud">🖱️ Mouse drag করে room দেখুন • Scroll করে zoom করুন • LCD, chair, bell ও assistant-এ click করুন।<br>📱 Mobile-এ finger drag/pinch ব্যবহার করুন।</div>
-<div id="crosshair" class="hud"></div>
-<div id="toast" class="hud"></div>
-<div id="hotbar" class="hud">
-<button class="hot" onclick="focusObject('chair')">🪑 বসুন</button>
-<button class="hot" onclick="focusObject('screen')">🖥️ Demo LCD</button>
-<button class="hot" onclick="ringBell()">🔔 Bell</button>
-<button class="hot" onclick="openModal('notepadModal')">📝 প্রশ্ন লিখুন</button>
-<button class="hot" onclick="openModal('deskModal')">📁 Client Desk</button>
-<button class="hot" onclick="resetView()">🏠 Full Room</button>
-</div>
-</section>
-
-<div id="lcdModal" class="modal"><div class="modal-card">
-<div class="modal-head"><div><h2>🖥️ Demo Project LCD</h2><small style="color:#8492a8">LCD panel থেকে demo project দেখুন</small></div><button class="close" onclick="closeModal('lcdModal')">×</button></div>
-<div class="grid">
-<div class="demo"><h3>Marketplace App</h3><p>Customer, seller, cart এবং local shop demo.</p><a href="demo-marketplace.html" target="_blank">Demo খুলুন →</a></div>
-<div class="demo"><h3>Business Website</h3><p>Modern business service website presentation.</p><a href="demo-business.html" target="_blank">Demo খুলুন →</a></div>
-<div class="demo"><h3>Billing Software</h3><p>Invoice, products এবং sales management demo.</p><a href="demo-billing.html" target="_blank">Demo খুলুন →</a></div>
-<div class="demo"><h3>Mobile App UI</h3><p>Responsive application interface demonstration.</p><a href="demo-app.html" target="_blank">Demo খুলুন →</a></div>
+<div class="modal" id="lcd"><div class="card"><div class="cardtop"><h2>🖥️ Demo Project LCD</h2><button class="close" onclick="hide('lcd')">×</button></div><div class="grid">
+<div class="demo"><h3>Marketplace</h3><p>Local commerce project demo</p><a target="_blank" href="demo-marketplace.html">Demo খুলুন →</a></div>
+<div class="demo"><h3>Business Website</h3><p>Professional company website</p><a target="_blank" href="demo-business.html">Demo খুলুন →</a></div>
+<div class="demo"><h3>Billing Software</h3><p>Invoice and sales dashboard</p><a target="_blank" href="demo-billing.html">Demo খুলুন →</a></div>
+<div class="demo"><h3>Mobile App UI</h3><p>Responsive app interface</p><a target="_blank" href="demo-app.html">Demo খুলুন →</a></div>
 </div></div></div>
 
-<div id="notepadModal" class="modal"><div class="modal-card">
-<div class="modal-head"><h2>📝 টেবিলের Client Notepad</h2><button class="close" onclick="closeModal('notepadModal')">×</button></div>
-<select id="requestProjectSelect" class="field"></select>
-<textarea id="requestText" class="field" rows="6" placeholder="আপনার প্রশ্ন বা নতুন feature লিখুন..."></textarea>
-<button id="requestBtn" class="action" onclick="submitRequest()">Request পাঠান</button>
-<div id="requestsList" style="margin-top:15px"></div>
-</div></div>
+<div class="modal" id="note"><div class="card"><div class="cardtop"><h2>📝 Client Notepad</h2><button class="close" onclick="hide('note')">×</button></div><select class="field" id="projectSelect"><option value="">General Question</option></select><textarea class="field" rows="6" id="requestText" placeholder="আপনার প্রশ্ন বা feature request লিখুন..."></textarea><button class="send" onclick="submitRequest()">Request পাঠান</button><div id="requests"></div></div></div>
 
-<div id="deskModal" class="modal"><div class="modal-card">
-<div class="modal-head"><div><h2 id="welcomeName">📁 Client Desk</h2><small id="welcomeCode" style="color:#8492a8"></small></div><button class="close" onclick="closeModal('deskModal')">×</button></div>
-<div id="projectsList"></div>
-<hr style="border-color:#ffffff18;margin:18px 0">
-<h3 style="margin-bottom:12px">📎 ফাইল ও ডকুমেন্ট</h3>
-<select id="fileProjectSelect" class="field"></select>
-<input id="fileInput" class="field" type="file">
-<button id="uploadBtn" class="action" onclick="uploadFile()">ফাইল আপলোড করুন</button>
-<div id="filesList" style="margin-top:15px"></div>
-</div></div>
+<div class="modal" id="desk"><div class="card"><div class="cardtop"><div><h2 id="clientName">📁 Client Desk</h2><small class="muted" id="clientCode"></small></div><button class="close" onclick="hide('desk')">×</button></div><div id="projects" style="margin-top:15px"></div></div></div>
 
-<script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
-<script src="https://unpkg.com/three@0.160.0/examples/js/controls/OrbitControls.js"></script>
 <script>
-let voiceEnabled=true,currentClient=null,currentProjects=[],scene,camera,renderer,controls,assistant,assistantTargetZ=1.2;
-const clickable=[],clock=new THREE.Clock();
-const statusMap={'Enquiry':'📝','Advance Paid':'💰','In Progress':'⚙️','Testing':'🧪','Delivered':'✅','On Hold':'⏸️'};
-
-function speak(t){if(!voiceEnabled||!('speechSynthesis'in window))return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.rate=.92;u.pitch=1;u.volume=1;speechSynthesis.speak(u)}
-function toggleSound(){voiceEnabled=!voiceEnabled;document.getElementById('soundBtn').textContent=voiceEnabled?'🔊 Voice':'🔇 Muted';if(!voiceEnabled)speechSynthesis.cancel()}
-function toast(t){const e=document.getElementById('toast');e.textContent=t;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),2300)}
-function openModal(id){document.getElementById(id).classList.add('open')}
-function closeModal(id){document.getElementById(id).classList.remove('open')}
-function logoutRoom(){sessionStorage.removeItem('roomClientCode');location.reload()}
-
-async function enterRoom(){
- const code=document.getElementById('codeInput').value.trim().toUpperCase(),err=document.getElementById('error'),btn=document.getElementById('enterBtn');
- if(!code){err.textContent='Unique Code লিখুন।';return}
- err.textContent='';btn.disabled=true;btn.textContent='Checking...';
- try{
-  if(code==='DEMO-3D'){
-   currentClient={id:'demo',client_code:code,client_name:'Demo Client'};
-   currentProjects=[{id:'demo1',project_name:'ConnectBiz Marketplace',status:'In Progress',progress_percent:68,current_stage:'Frontend & 3D Client Room',notes:'Demo project preview'}];
-  }else{
-   if(typeof sb==='undefined')throw new Error('Supabase connection not found');
-   const {data,error}=await sb.from('room_clients').select('*').eq('client_code',code).limit(1);
-   if(error||!data||!data.length)throw new Error('এই code দিয়ে Client Room পাওয়া যায়নি।');
-   currentClient=data[0];
-   const p=await sb.from('room_projects').select('*').eq('client_id',currentClient.id).order('created_at',{ascending:false});
-   currentProjects=p.data||[];
-  }
-  sessionStorage.setItem('roomClientCode',code);
-  document.getElementById('doorPreview').classList.add('open');
-  setTimeout(startExperience,1050);
- }catch(e){err.textContent=e.message||'কিছু সমস্যা হয়েছে।';btn.disabled=false;btn.textContent='🔑 Gate খুলুন'}
-}
-function startExperience(){
- document.getElementById('login').style.display='none';document.getElementById('experience').style.display='block';document.getElementById('exitBtn').style.display='inline-block';
- populateProjectSelects();renderProjects();loadFeatureRequests();loadFiles();init3D();
- setTimeout(()=>speak(`Welcome ${currentClient.client_name}. Digital Agency by Chandan Das এর virtual client room এ আপনাকে স্বাগতম। Please have a seat.`),900);
-}
-function mat(c,rough=.65,metal=.1){return new THREE.MeshStandardMaterial({color:c,roughness:rough,metalness:metal})}
-function box(n,s,p,c,rot=[0,0,0]){const m=new THREE.Mesh(new THREE.BoxGeometry(...s),mat(c));m.name=n;m.position.set(...p);m.rotation.set(...rot);m.castShadow=m.receiveShadow=true;scene.add(m);return m}
-function cyl(n,r,h,p,c){const m=new THREE.Mesh(new THREE.CylinderGeometry(r,r,h,32),mat(c));m.name=n;m.position.set(...p);m.castShadow=m.receiveShadow=true;scene.add(m);return m}
-function init3D(){
- scene=new THREE.Scene();scene.background=new THREE.Color(0x030712);scene.fog=new THREE.Fog(0x030712,16,34);
- camera=new THREE.PerspectiveCamera(58,innerWidth/(innerHeight-58),.1,100);camera.position.set(0,5.1,12);
- renderer=new THREE.WebGLRenderer({antialias:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setSize(innerWidth,innerHeight-58);renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.15;
- document.getElementById('scene').appendChild(renderer.domElement);
- controls=new THREE.OrbitControls(camera,renderer.domElement);controls.target.set(0,2.6,0);controls.enableDamping=true;controls.maxPolarAngle=Math.PI/2.03;controls.minDistance=3;controls.maxDistance=17;
- scene.add(new THREE.HemisphereLight(0x9cc7ff,0x17110b,1.35));
- const key=new THREE.SpotLight(0x8b5cf6,65,25,.65,.5,1);key.position.set(-5,8,7);key.castShadow=true;scene.add(key);
- const fill=new THREE.SpotLight(0x22d3ee,55,25,.65,.45,1);fill.position.set(6,7,4);fill.castShadow=true;scene.add(fill);
- // architecture
- box('floor',[16,.25,15],[0,-.12,0],0x172033);
- box('backwall',[16,8,.25],[0,4,-7],0x101827);
- box('leftwall',[.25,8,15],[-8,4,0],0x111a2b);
- box('rightwall',[.25,8,15],[8,4,0],0x111a2b);
- box('ceiling',[16,.2,15],[0,8,0],0x0b1020);
- // wall panels and agency logo
- for(let x=-6;x<=6;x+=3)box('panel',[2.55,5,.12],[x,4,-6.82],x===0?0x1d2550:0x182238);
- box('logo',[6.2,.9,.18],[0,6.5,-6.62],0x242b56);
- // table
- box('tabletop',[7,.32,2.6],[0,2.35,-1.35],0x4b2d20);
- box('tableleg',[.45,2.4,.45],[-2.7,1.12,-1.7],0x1e293b);box('tableleg',[.45,2.4,.45],[2.7,1.12,-1.7],0x1e293b);
- // lcd
- box('screenFrame',[6.6,3.75,.28],[0,4.45,-5.65],0x05070d);
- const screen=box('screen',[6.15,3.3,.1],[0,4.45,-5.46],0x071d34);screen.material=new THREE.MeshStandardMaterial({color:0x071d34,emissive:0x082f49,emissiveIntensity:2});screen.userData.action='screen';clickable.push(screen);
- // chair
- box('chairSeat',[2.2,.35,2],[0,1.35,2.65],0x2d254d);box('chairBack',[2.2,2.7,.35],[0,2.65,3.45],0x2d254d);
- const chairHit=box('chair',[2.5,3,2.6],[0,2.1,2.85],0x2d254d);chairHit.material.transparent=true;chairHit.material.opacity=.02;chairHit.userData.action='chair';clickable.push(chairHit);
- // bell
- const bell=cyl('bell',.28,.22,[2.35,2.72,-.55],0xeab308);bell.userData.action='bell';clickable.push(bell);
- cyl('bellTop',.08,.18,[2.35,2.91,-.55],0xfacc15);
- // plants
- for(const x of [-6.5,6.5]){cyl('pot',.65,1,[x,.55,-5.7],0x643b27);const crown=new THREE.Mesh(new THREE.SphereGeometry(.85,18,18),mat(0x166534));crown.position.set(x,1.6,-5.7);crown.castShadow=true;scene.add(crown)}
- // ceiling lights
- for(const x of [-5,0,5]){const l=box('light',[2.1,.08,.7],[x,7.82,-1],0xffffff);l.material=new THREE.MeshStandardMaterial({color:0xffffff,emissive:0xbad7ff,emissiveIntensity:3})}
- createAssistant();
- renderer.domElement.addEventListener('pointerdown',onPick);
- addEventListener('resize',onResize);
- document.getElementById('loading3d').style.display='none';
- animate();
-}
-function createAssistant(){
- assistant=new THREE.Group();assistant.name='assistant';
- const body=new THREE.Mesh(new THREE.CapsuleGeometry(.42,1.35,8,16),mat(0x2563eb));body.position.y=2.1;body.castShadow=true;assistant.add(body);
- const head=new THREE.Mesh(new THREE.SphereGeometry(.42,24,24),mat(0xd6a676));head.position.y=3.25;head.castShadow=true;assistant.add(head);
- const hair=new THREE.Mesh(new THREE.SphereGeometry(.44,24,12,0,Math.PI*2,0,Math.PI*.5),mat(0x171717));hair.position.y=3.39;assistant.add(hair);
- [-.62,.62].forEach(x=>{const arm=new THREE.Mesh(new THREE.CapsuleGeometry(.13,.9,5,10),mat(0xd6a676));arm.position.set(x,2.1,0);assistant.add(arm)});
- [-.25,.25].forEach(x=>{const leg=new THREE.Mesh(new THREE.CapsuleGeometry(.16,1.05,5,10),mat(0x111827));leg.position.set(x,.75,0);assistant.add(leg)});
- assistant.position.set(-5,0,-4.8);assistant.userData.action='assistant';scene.add(assistant);clickable.push(...assistant.children.map(o=>(o.userData.action='assistant',o)));
-}
-function onPick(e){
- const r=renderer.domElement.getBoundingClientRect(),m=new THREE.Vector2((e.clientX-r.left)/r.width*2-1,-((e.clientY-r.top)/r.height)*2+1),ray=new THREE.Raycaster();ray.setFromCamera(m,camera);
- const hit=ray.intersectObjects(clickable,true)[0];if(!hit)return;const a=hit.object.userData.action||hit.object.parent?.userData.action;
- if(a==='screen')focusObject('screen');if(a==='chair')focusObject('chair');if(a==='bell')ringBell();if(a==='assistant'){speak('Hello Sir or Madam. How may I help you?');openModal('notepadModal')}
-}
-function focusObject(type){
- if(type==='chair'){moveCamera(new THREE.Vector3(0,3.15,3.25),new THREE.Vector3(0,3.7,-4.5),1300);toast('আপনি chair-এ বসেছেন');speak('Please have a seat. সামনে LCD panel এ আপনার demo project দেখতে পারবেন।')}
- if(type==='screen'){moveCamera(new THREE.Vector3(0,3.35,2.3),new THREE.Vector3(0,4.35,-5.5),1100);setTimeout(()=>openModal('lcdModal'),850)}
-}
-function resetView(){moveCamera(new THREE.Vector3(0,5.1,12),new THREE.Vector3(0,2.6,0),1000)}
-function moveCamera(to,target,d=1000){const from=camera.position.clone(),ft=controls.target.clone(),st=performance.now();function f(t){let k=Math.min(1,(t-st)/d);k=1-Math.pow(1-k,3);camera.position.lerpVectors(from,to,k);controls.target.lerpVectors(ft,target,k);if(k<1)requestAnimationFrame(f)}requestAnimationFrame(f)}
-function ringBell(){assistantTargetZ=1.0;toast('Bell বাজানো হয়েছে—Assistant আসছে');beep();speak('One moment please. Our assistant is coming.')}
-function beep(){const a=new (window.AudioContext||window.webkitAudioContext)(),o=a.createOscillator(),g=a.createGain();o.frequency.setValueAtTime(880,a.currentTime);o.frequency.exponentialRampToValueAtTime(440,a.currentTime+.45);g.gain.setValueAtTime(.22,a.currentTime);g.gain.exponentialRampToValueAtTime(.001,a.currentTime+.55);o.connect(g).connect(a.destination);o.start();o.stop(a.currentTime+.55)}
-function animate(){
- requestAnimationFrame(animate);const dt=Math.min(clock.getDelta(),.04);
- if(assistant&&assistant.position.z<assistantTargetZ){assistant.position.z+=dt*2.25;assistant.position.x+=dt*.78;assistant.rotation.y=.12;assistant.children.forEach((c,i)=>{if(i>2)c.rotation.x=Math.sin(performance.now()*.008+i)*.28});if(assistant.position.z>=assistantTargetZ){speak('Hello Sir or Madam. How may I help you?');toast('Assistant: কীভাবে সাহায্য করতে পারি?')}}
- controls.update();renderer.render(scene,camera)
-}
-function onResize(){camera.aspect=innerWidth/(innerHeight-58);camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight-58)}
-function escapeHtml(v){const d=document.createElement('div');d.textContent=v??'';return d.innerHTML}
-function populateProjectSelects(){const o=currentProjects.map(p=>`<option value="${p.id}">${escapeHtml(p.project_name)}</option>`).join('');document.getElementById('requestProjectSelect').innerHTML='<option value="">General</option>'+o;document.getElementById('fileProjectSelect').innerHTML=o||'<option value="">No project</option>'}
-function renderProjects(){
- document.getElementById('welcomeName').textContent=`📁 স্বাগতম, ${currentClient.client_name}`;
- document.getElementById('welcomeCode').textContent=`Client Code: ${currentClient.client_code}`;
- document.getElementById('projectsList').innerHTML=currentProjects.length?currentProjects.map(p=>`<div class="project-card"><b>${escapeHtml(p.project_name)}</b><span style="float:right">${statusMap[p.status]||'ℹ️'} ${escapeHtml(p.status||'')}</span><div style="clear:both;color:#94a3b8;margin-top:7px">${escapeHtml(p.current_stage||'')}</div><div class="progress"><i style="width:${Math.max(0,Math.min(100,p.progress_percent||0))}%"></i></div><small>${p.progress_percent||0}% complete</small>${p.notes?`<p style="margin-top:9px;color:#b8c2d1">${escapeHtml(p.notes)}</p>`:''}</div>`).join(''):'<p style="color:#94a3b8">এখনও কোনো project যোগ করা হয়নি।</p>'
-}
-async function submitRequest(){
- const text=document.getElementById('requestText').value.trim();if(!text)return alert('প্রশ্ন লিখুন।');
- if(currentClient.id==='demo'){document.getElementById('requestsList').innerHTML=`<div class="project-card">🆕 ${escapeHtml(text)}</div>`;document.getElementById('requestText').value='';return}
- try{const {error}=await sb.from('room_feature_requests').insert({client_id:currentClient.id,project_id:document.getElementById('requestProjectSelect').value||null,request_text:text});if(error)throw error;document.getElementById('requestText').value='';loadFeatureRequests();toast('Request পাঠানো হয়েছে')}catch(e){alert('Request পাঠানো যায়নি।')}
-}
-async function loadFeatureRequests(){
- if(!currentClient||currentClient.id==='demo'){document.getElementById('requestsList').innerHTML='';return}
- const {data}=await sb.from('room_feature_requests').select('*').eq('client_id',currentClient.id).order('created_at',{ascending:false});
- document.getElementById('requestsList').innerHTML=(data||[]).map(r=>`<div class="project-card">${escapeHtml(r.request_text)} <small style="float:right">${escapeHtml(r.status||'New')}</small></div>`).join('')
-}
-async function uploadFile(){
- if(currentClient.id==='demo')return alert('Demo mode-এ upload বন্ধ আছে।');
- const input=document.getElementById('fileInput'),projectId=document.getElementById('fileProjectSelect').value;if(!projectId||!input.files.length)return alert('Project ও file select করুন।');
- const f=input.files[0];if(f.size>20*1024*1024)return alert('Maximum 20MB');
- try{const path=`${currentClient.client_code}/${Date.now()}_${f.name.replace(/[^a-zA-Z0-9._-]/g,'_')}`;let u=await sb.storage.from('client-room-files').upload(path,f);if(u.error)throw u.error;const url=sb.storage.from('client-room-files').getPublicUrl(path).data.publicUrl;let q=await sb.from('room_files').insert({project_id:projectId,file_name:f.name,file_url:url,storage_path:path,uploaded_by:'client'});if(q.error)throw q.error;input.value='';loadFiles();toast('File upload হয়েছে')}catch(e){alert('Upload failed')}
-}
-async function loadFiles(){
- if(!currentClient||currentClient.id==='demo'){document.getElementById('filesList').innerHTML='';return}
- const ids=currentProjects.map(p=>p.id);if(!ids.length)return;
- const {data}=await sb.from('room_files').select('*').in('project_id',ids).order('created_at',{ascending:false});
- document.getElementById('filesList').innerHTML=(data||[]).map(f=>`<div class="project-card">📎 ${escapeHtml(f.file_name)} <a style="float:right;color:#22d3ee" href="${f.file_url}" target="_blank">Download</a></div>`).join('')
-}
-document.getElementById('codeInput').addEventListener('keydown',e=>{if(e.key==='Enter')enterRoom()});
-window.addEventListener('load',()=>{const c=sessionStorage.getItem('roomClientCode');if(c){document.getElementById('codeInput').value=c}});
+let voiceOn=true,client=null,projects=[],drag=false,lastX=0,ry=0;
+const $=id=>document.getElementById(id), esc=s=>{let d=document.createElement('div');d.textContent=s??'';return d.innerHTML};
+function speak(t){if(!voiceOn||!speechSynthesis)return;speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(t);u.rate=.9;speechSynthesis.speak(u)}
+function toggleVoice(){voiceOn=!voiceOn;$('voice').textContent=voiceOn?'🔊 Voice':'🔇 Muted';if(!voiceOn)speechSynthesis.cancel()}
+async function enterRoom(){let c=$('code').value.trim().toUpperCase();$('error').textContent='';if(!c)return $('error').textContent='Unique Code লিখুন।';
+try{
+ if(c==='DEMO-3D'){client={id:'demo',client_code:c,client_name:'Demo Client'};projects=[{id:'p1',project_name:'ConnectBiz Marketplace',status:'In Progress',progress_percent:72,current_stage:'Frontend Development'}]}
+ else{if(typeof sb==='undefined')throw Error('Supabase connection পাওয়া যায়নি।');let r=await sb.from('room_clients').select('*').eq('client_code',c).limit(1);if(r.error||!r.data?.length)throw Error('Code সঠিক নয়।');client=r.data[0];let p=await sb.from('room_projects').select('*').eq('client_id',client.id).order('created_at',{ascending:false});projects=p.data||[]}
+ $('gate').classList.add('open');setTimeout(openWorld,900)
+}catch(e){$('error').textContent=e.message}}
+function openWorld(){$('login').classList.add('hide');$('world').style.display='block';$('exit').classList.remove('hide');renderDesk();setTimeout(()=>speak(`Welcome ${client.client_name}. Digital Agency by Chandan Das এর 3D Client Room এ আপনাকে স্বাগতম। Please have a seat.`),400)}
+function show(id){$(id).classList.add('on')}function hide(id){$(id).classList.remove('on')}
+function sit(){$('scene').style.transform='translate(-50%,-50%) rotateX(-4deg) rotateY(0deg) scale(1.32) translateY(-70px)';speak('Please have a seat. সামনে LCD panel এ demo project দেখতে পারবেন।')}
+function resetView(){$('scene').style.transform=`translate(-50%,-50%) rotateX(-7deg) rotateY(${ry}deg) scale(.92)`}
+function ringBell(){let a=$('assistant');a.classList.add('come');bell();setTimeout(()=>speak('Hello Sir or Madam. How may I help you?'),1700)}
+function bell(){let A=new(window.AudioContext||window.webkitAudioContext),o=A.createOscillator(),g=A.createGain();o.frequency.value=900;g.gain.setValueAtTime(.18,A.currentTime);g.gain.exponentialRampToValueAtTime(.001,A.currentTime+.55);o.connect(g).connect(A.destination);o.start();o.stop(A.currentTime+.55)}
+function renderDesk(){$('clientName').textContent='📁 স্বাগতম, '+client.client_name;$('clientCode').textContent='Client Code: '+client.client_code;
+$('projects').innerHTML=projects.length?projects.map(p=>`<div class="project"><b>${esc(p.project_name)}</b><span style="float:right">${esc(p.status||'')}</span><p class="muted">${esc(p.current_stage||'')}</p><div class="progress"><b style="width:${Math.min(100,p.progress_percent||0)}%"></b></div><small>${p.progress_percent||0}% Complete</small></div>`).join(''):'<p class="muted">কোনো project পাওয়া যায়নি।</p>';
+$('projectSelect').innerHTML='<option value="">General Question</option>'+projects.map(p=>`<option value="${p.id}">${esc(p.project_name)}</option>`).join('')}
+async function submitRequest(){let t=$('requestText').value.trim();if(!t)return alert('প্রশ্ন লিখুন।');if(client.id==='demo'){$('requests').innerHTML=`<div class="project" style="margin-top:12px">✅ ${esc(t)}</div>`;$('requestText').value='';return}
+try{let r=await sb.from('room_feature_requests').insert({client_id:client.id,project_id:$('projectSelect').value||null,request_text:t});if(r.error)throw r.error;$('requestText').value='';alert('Request পাঠানো হয়েছে।')}catch(e){alert('Request পাঠানো যায়নি।')}}
+const scene=$('scene');document.addEventListener('pointerdown',e=>{if(e.target.closest('.modal,button,.lcd,.chair,.bell,.notepad,.assistant'))return;drag=true;lastX=e.clientX});document.addEventListener('pointermove',e=>{if(!drag)return;ry+=(e.clientX-lastX)*.18;lastX=e.clientX;scene.style.transform=`translate(-50%,-50%) rotateX(-7deg) rotateY(${ry}deg) scale(.92)`});document.addEventListener('pointerup',()=>drag=false);
+$('code').addEventListener('keydown',e=>e.key==='Enter'&&enterRoom());
 </script>
 </body>
 </html>
