@@ -217,6 +217,37 @@
 
   footer { text-align:center; color:#64748b; font-size:12px; padding:20px; }
   footer a { color:#4ade80; text-decoration:none; }
+
+
+  /* Immersive virtual office */
+  .wrap.room-active{max-width:1180px;padding-top:18px}
+  .virtual-office{position:relative;height:min(720px,78vh);min-height:560px;overflow:hidden;border-radius:28px;border:1px solid rgba(255,255,255,.13);background:linear-gradient(#1b2540 0 58%,#16111b 58%);perspective:1100px;box-shadow:0 35px 100px rgba(0,0,0,.55)}
+  .virtual-office:before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px);background-size:60px 60px;opacity:.55}
+  .ceiling{position:absolute;left:8%;right:8%;top:-2px;height:13%;background:linear-gradient(180deg,#080c17,#202941);clip-path:polygon(0 0,100% 0,90% 100%,10% 100%);box-shadow:0 20px 50px rgba(0,0,0,.3)}
+  .ceiling-light{position:absolute;top:4%;left:50%;transform:translateX(-50%);width:36%;height:16px;border-radius:50%;background:#e8fbff;box-shadow:0 0 30px #8be9ff,0 0 100px rgba(139,233,255,.45)}
+  .back-wall{position:absolute;left:8%;right:8%;top:12%;bottom:31%;background:linear-gradient(145deg,#27304b,#131a2c);border:1px solid rgba(255,255,255,.06);box-shadow:inset 0 0 90px rgba(0,0,0,.48)}
+  .side-wall.left{position:absolute;left:0;top:0;bottom:0;width:18%;background:linear-gradient(100deg,#090d18,#202941);clip-path:polygon(0 0,100% 12%,100% 69%,0 100%)}
+  .side-wall.right{position:absolute;right:0;top:0;bottom:0;width:18%;background:linear-gradient(260deg,#090d18,#202941);clip-path:polygon(0 12%,100% 0,100% 100%,0 69%)}
+  .floor{position:absolute;left:0;right:0;bottom:0;height:42%;background:repeating-linear-gradient(90deg,transparent 0 90px,rgba(255,255,255,.06) 91px 93px),repeating-linear-gradient(0deg,#251a22 0 72px,#3a2730 73px 76px);transform-origin:bottom;transform:perspective(580px) rotateX(58deg) scale(1.25);box-shadow:inset 0 60px 90px rgba(0,0,0,.7)}
+  .agency-sign{position:absolute;top:16%;left:50%;transform:translateX(-50%);text-align:center;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:white;text-shadow:0 0 18px rgba(34,211,238,.6);z-index:2}.agency-sign small{display:block;color:#22d3ee;font-size:10px;letter-spacing:.28em;margin-top:5px}
+  .lcd{position:absolute;left:50%;top:25%;transform:translateX(-50%);width:min(52%,620px);height:36%;border:12px solid #080b12;border-radius:12px;background:#07101d;box-shadow:0 15px 35px rgba(0,0,0,.6),0 0 0 2px #394057,0 0 32px rgba(34,211,238,.25);z-index:4;overflow:hidden}
+  .lcd-screen{height:100%;padding:20px;background:radial-gradient(circle at 75% 20%,rgba(34,211,238,.22),transparent 36%),linear-gradient(145deg,#0d1630,#060912);display:flex;flex-direction:column;justify-content:center;text-align:center}.lcd-screen h3{font-size:clamp(18px,2vw,30px);margin-bottom:7px}.lcd-screen p{color:#9fb0c7;font-size:12px;margin-bottom:15px}.lcd-actions{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}.screen-btn{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.07);color:#fff;padding:9px 13px;border-radius:999px;cursor:pointer;font-size:12px}.screen-btn.primary{background:linear-gradient(135deg,#7c3aed,#06b6d4);border:0}
+  .lcd-stand{position:absolute;top:61%;left:50%;transform:translateX(-50%);width:12px;height:8%;background:#090c13;z-index:3}.lcd-stand:after{content:'';position:absolute;bottom:-5px;left:50%;transform:translateX(-50%);width:100px;height:8px;border-radius:50%;background:#090c13}
+  .desk{position:absolute;z-index:7;left:50%;bottom:11%;transform:translateX(-50%);width:min(72%,720px);height:20%;background:linear-gradient(180deg,#925c32 0 17%,#422519 18% 100%);clip-path:polygon(5% 0,95% 0,100% 100%,0 100%);box-shadow:0 26px 38px rgba(0,0,0,.6)}
+  .desk:before{content:'';position:absolute;left:4%;right:4%;top:0;height:15%;background:linear-gradient(90deg,#6d3b22,#c58a52,#6d3b22);border-radius:5px}
+  .notepad{position:absolute;z-index:9;left:37%;bottom:26%;width:112px;height:64px;background:#f6efd9;color:#222;transform:rotate(-4deg);border-radius:4px;padding:8px;font-size:10px;box-shadow:0 5px 12px rgba(0,0,0,.4);cursor:pointer}.notepad b{display:block;margin-bottom:4px}.pen{position:absolute;z-index:10;left:47%;bottom:25%;width:72px;height:7px;border-radius:9px;background:linear-gradient(90deg,#111 0 18%,#22d3ee 19% 85%,#d8eef4 86%);transform:rotate(16deg)}
+  .bell{position:absolute;z-index:10;right:34%;bottom:26%;width:52px;height:42px;border:0;background:transparent;cursor:pointer}.bell:before{content:'🔔';font-size:39px;filter:drop-shadow(0 5px 5px rgba(0,0,0,.55))}.bell:hover{transform:scale(1.1)}.bell.ring{animation:ring .55s ease}@keyframes ring{20%,60%{transform:rotate(12deg)}40%,80%{transform:rotate(-12deg)}}
+  .chair{position:absolute;z-index:8;left:50%;bottom:-2%;transform:translateX(-50%);width:170px;height:190px;cursor:pointer;transition:.65s}.chair-back{position:absolute;left:20px;right:20px;top:0;height:132px;border-radius:42px 42px 20px 20px;background:linear-gradient(120deg,#171923,#3a3f51,#11131b);border:2px solid #52586a;box-shadow:inset 0 0 30px #050608,0 20px 25px rgba(0,0,0,.4)}.chair-seat{position:absolute;left:12px;right:12px;top:112px;height:55px;border-radius:24px;background:linear-gradient(#3c4152,#12141c);border:2px solid #4f5669}.chair-leg{position:absolute;left:80px;top:160px;width:10px;height:30px;background:#737b8d}.chair-leg:after{content:'';position:absolute;bottom:0;left:-45px;width:100px;height:7px;background:#737b8d;border-radius:50%}
+  .chair:hover{transform:translateX(-50%) translateY(-8px)}
+  .assistant{position:absolute;z-index:6;left:-140px;bottom:22%;width:100px;height:220px;transition:1.4s cubic-bezier(.4,0,.2,1)}.assistant.arrive{left:10%}.assistant-head{position:absolute;top:0;left:28px;width:46px;height:52px;border-radius:48% 48% 44% 44%;background:#c98963}.assistant-hair{position:absolute;top:-4px;left:24px;width:54px;height:30px;border-radius:50% 50% 20% 20%;background:#171318}.assistant-body{position:absolute;top:48px;left:15px;width:72px;height:105px;border-radius:22px 22px 8px 8px;background:linear-gradient(120deg,#6d28d9,#0891b2)}.assistant-leg{position:absolute;top:145px;width:22px;height:72px;background:#151827}.assistant-leg.l{left:25px}.assistant-leg.r{left:56px}.assistant-arm{position:absolute;top:58px;width:18px;height:86px;background:#c98963;border-radius:12px}.assistant-arm.l{left:5px;transform:rotate(9deg)}.assistant-arm.r{right:4px;transform:rotate(-9deg)}
+  .speech{position:absolute;z-index:15;left:19%;bottom:48%;max-width:220px;padding:12px 15px;border-radius:16px 16px 16px 4px;background:white;color:#182033;font-size:13px;font-weight:700;opacity:0;transform:translateY(12px);transition:.35s;pointer-events:none}.speech.show{opacity:1;transform:none}
+  .room-controls{position:absolute;right:16px;top:16px;z-index:20;display:flex;gap:8px}.round-control{width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.13);background:rgba(5,10,20,.7);color:white;cursor:pointer;backdrop-filter:blur(8px)}
+  .office-hint{position:absolute;left:50%;bottom:10px;transform:translateX(-50%);z-index:22;background:rgba(0,0,0,.58);padding:7px 13px;border-radius:999px;font-size:11px;color:#cbd5e1;white-space:nowrap}
+  .dashboard-drawer{margin-top:18px}.dashboard-toggle{display:flex;justify-content:space-between;align-items:center;width:100%;padding:15px 18px;border-radius:16px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.045);color:#fff;font-weight:800;cursor:pointer}.dashboard-content{display:none;padding-top:8px}.dashboard-content.open{display:block;animation:fadeIn .35s ease}
+  .question-modal{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.72);display:none;align-items:center;justify-content:center;padding:18px}.question-modal.show{display:flex}.question-box{width:min(480px,100%);background:#10192c;border:1px solid rgba(255,255,255,.13);border-radius:22px;padding:22px}.question-box h3{margin-bottom:6px}.question-box p{color:#8fa0b7;font-size:13px;margin-bottom:14px}.question-box textarea{width:100%;min-height:120px;background:#080e1a;border:1px solid rgba(255,255,255,.13);border-radius:13px;color:#fff;padding:13px;resize:vertical;margin-bottom:12px}.modal-actions{display:flex;gap:10px}.modal-actions .btn{flex:1}
+  .seated .chair{transform:translateX(-50%) translateY(180px);opacity:0}.seated .desk{transform:translateX(-50%) scale(1.18);bottom:2%}.seated .lcd{width:min(68%,760px);height:46%;top:17%}
+  @media(max-width:700px){.virtual-office{min-height:540px;height:72vh}.lcd{width:72%;height:31%;top:25%;border-width:8px}.lcd-screen{padding:10px}.lcd-screen p{display:none}.desk{width:88%;bottom:12%}.notepad{left:23%;bottom:27%;transform:scale(.8) rotate(-4deg)}.pen{left:42%;bottom:26%}.bell{right:22%;bottom:27%}.assistant.arrive{left:2%}.speech{left:18%;bottom:51%}.agency-sign{font-size:12px}.chair{transform:translateX(-50%) scale(.8);transform-origin:bottom}.office-hint{font-size:9px}.seated .lcd{width:88%;height:42%;top:18%}}
+
 </style>
 </head>
 <body>
@@ -257,6 +288,25 @@
 
   <!-- ROOM SCREEN -->
   <div id="roomScreen">
+    <div class="virtual-office" id="virtualOffice">
+      <div class="ceiling"></div><div class="ceiling-light"></div>
+      <div class="side-wall left"></div><div class="side-wall right"></div><div class="back-wall"></div><div class="floor"></div>
+      <div class="agency-sign">Digital Agency <small>BY CHANDAN DAS</small></div>
+      <div class="lcd" id="lcdPanel"><div class="lcd-screen" id="lcdScreen">
+        <h3>Welcome to Your Client Room</h3><p>আপনার demo project, progress ও agency presentation এখানে দেখুন</p>
+        <div class="lcd-actions"><button class="screen-btn primary" onclick="startPresentation()">▶ Start Presentation</button><button class="screen-btn" onclick="showProjectOnLCD()">💻 My Project</button><button class="screen-btn" onclick="openDashboard()">📊 Project Status</button></div>
+      </div></div><div class="lcd-stand"></div>
+      <div class="desk"></div><button class="notepad" onclick="openQuestionPad()"><b>CLIENT NOTE</b>Click to write</button><span class="pen"></span><button class="bell" id="callBell" onclick="callAssistant()" aria-label="Call assistant"></button>
+      <div class="chair" onclick="sitDown()" title="Click to sit"><div class="chair-back"></div><div class="chair-seat"></div><div class="chair-leg"></div></div>
+      <div class="assistant" id="assistant"><div class="assistant-head"></div><div class="assistant-hair"></div><div class="assistant-body"></div><div class="assistant-arm l"></div><div class="assistant-arm r"></div><div class="assistant-leg l"></div><div class="assistant-leg r"></div></div>
+      <div class="speech" id="assistantSpeech">আপনাকে কীভাবে সাহায্য করতে পারি?</div>
+      <div class="room-controls"><button class="round-control" onclick="toggleVoice()" id="voiceBtn" title="Voice">🔊</button><button class="round-control" onclick="standUp()" title="Stand up">↩</button></div>
+      <div class="office-hint">চেয়ারে বসুন • LCD দেখুন • Bell চাপুন • Notepad-এ লিখুন</div>
+    </div>
+
+    <div class="dashboard-drawer">
+      <button class="dashboard-toggle" onclick="toggleDashboard()"><span>📂 Client Dashboard</span><span id="dashArrow">▼</span></button>
+      <div class="dashboard-content" id="dashboardContent">
     <div class="welcome-bar">
       <h2 id="welcomeName">স্বাগতম!</h2>
       <p id="welcomeCode"></p>
@@ -280,8 +330,18 @@
       <button class="btn btn-outline btn-full" id="uploadBtn" onclick="uploadFile()">⬆️ ফাইল আপলোড করুন</button>
     </div>
     <div id="filesList"></div>
+      </div>
+    </div>
   </div>
 
+</div>
+
+<div class="question-modal" id="questionModal">
+  <div class="question-box">
+    <h3>✍️ আপনার প্রশ্ন লিখুন</h3><p>এই প্রশ্ন Feature Request হিসেবে আপনার Client Dashboard-এ জমা হবে।</p>
+    <textarea id="roomQuestion" placeholder="আপনি কী জানতে বা পরিবর্তন করতে চান লিখুন..."></textarea>
+    <div class="modal-actions"><button class="btn btn-outline" onclick="closeQuestionPad()">বন্ধ করুন</button><button class="btn" onclick="sendRoomQuestion()">📩 পাঠান</button></div>
+  </div>
 </div>
 
 <footer>
@@ -343,6 +403,7 @@ function shakeKeypad() {
 function revealRoom() {
   document.getElementById('loginScreen').style.display = 'none';
   document.getElementById('roomScreen').style.display = 'block';
+  document.querySelector('.wrap').classList.add('room-active');
   document.getElementById('logoutBtn').style.display = 'inline-block';
   document.getElementById('welcomeName').textContent = `👋 স্বাগতম, ${currentClient.client_name}`;
   document.getElementById('welcomeCode').textContent = `Client Code: ${currentClient.client_code}`;
@@ -350,6 +411,7 @@ function revealRoom() {
   populateProjectSelects();
   loadFeatureRequests();
   loadFiles();
+  setTimeout(() => speakWelcome(), 450);
 }
 
 async function enterRoom(skipAnimation) {
@@ -592,6 +654,69 @@ async function loadFiles() {
     container.innerHTML = `<div class="empty-msg">ফাইল লোড করা যায়নি।</div>`;
   }
 }
+
+
+let voiceEnabled = true;
+let presentationTimer = null;
+function speak(text) {
+  if (!voiceEnabled || !('speechSynthesis' in window)) return;
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'en-IN'; u.rate = .9; u.pitch = 1;
+  speechSynthesis.speak(u);
+}
+function speakWelcome(){
+  const name=(currentClient&&currentClient.client_name)||'Client';
+  speak(`Welcome ${name}, to Digital Agency by Chandan Das. Please have a seat and view your project on the LCD panel.`);
+}
+function toggleVoice(){
+  voiceEnabled=!voiceEnabled;
+  document.getElementById('voiceBtn').textContent=voiceEnabled?'🔊':'🔇';
+  if(!voiceEnabled && 'speechSynthesis' in window) speechSynthesis.cancel();
+  else speak('Voice assistant enabled.');
+}
+function sitDown(){
+  document.getElementById('virtualOffice').classList.add('seated');
+  speak('Please be seated. Your project presentation is ready on the LCD screen.');
+  setTimeout(showProjectOnLCD,500);
+}
+function standUp(){ document.getElementById('virtualOffice').classList.remove('seated'); }
+function setLCD(title,text,buttons=''){
+  document.getElementById('lcdScreen').innerHTML=`<h3>${title}</h3><p>${text}</p><div class="lcd-actions">${buttons}</div>`;
+}
+function showProjectOnLCD(){
+  if(!currentProjects.length){setLCD('No Project Yet','আপনার project যোগ হলে এখানে live progress দেখা যাবে','<button class="screen-btn" onclick="openDashboard()">Open Dashboard</button>');return;}
+  const p=currentProjects[0], progress=Math.max(0,Math.min(100,p.progress_percent||0));
+  setLCD(escapeHtml(p.project_name),`${escapeHtml(p.status||'In Progress')} • ${progress}% Complete${p.current_stage?' • '+escapeHtml(p.current_stage):''}`,`<button class="screen-btn primary" onclick="openDashboard()">View Full Status</button><button class="screen-btn" onclick="startPresentation()">Agency Demos</button>`);
+}
+function startPresentation(){
+  if(presentationTimer) clearInterval(presentationTimer);
+  const slides=[
+    ['Website Development','Modern responsive business websites, e-commerce and portals.'],
+    ['Mobile App UI','Customer app, seller panel and admin dashboard design.'],
+    ['Digital Marketing','SEO, social media branding and local business growth.'],
+    ['Your Client Room','Track projects, send requests and share files securely.']
+  ];
+  let i=0;
+  const draw=()=>{const x=slides[i];setLCD(x[0],x[1],`<button class="screen-btn" onclick="showProjectOnLCD()">My Project</button><button class="screen-btn primary" onclick="openDashboard()">Open Dashboard</button>`);speak(i===0?'Welcome to our agency presentation. '+x[1]:x[1]);i=(i+1)%slides.length};
+  draw(); presentationTimer=setInterval(draw,4200);
+}
+function callAssistant(){
+  const bell=document.getElementById('callBell'),a=document.getElementById('assistant'),b=document.getElementById('assistantSpeech');
+  bell.classList.remove('ring');void bell.offsetWidth;bell.classList.add('ring');
+  a.classList.add('arrive');setTimeout(()=>{b.classList.add('show');speak('Hello Sir or Madam. How may I help you?');},900);
+  setTimeout(()=>b.classList.remove('show'),5200);
+}
+function toggleDashboard(){const d=document.getElementById('dashboardContent');d.classList.toggle('open');document.getElementById('dashArrow').textContent=d.classList.contains('open')?'▲':'▼';}
+function openDashboard(){document.getElementById('dashboardContent').classList.add('open');document.getElementById('dashArrow').textContent='▲';document.getElementById('dashboardContent').scrollIntoView({behavior:'smooth',block:'start'});}
+function openQuestionPad(){document.getElementById('questionModal').classList.add('show');setTimeout(()=>document.getElementById('roomQuestion').focus(),100)}
+function closeQuestionPad(){document.getElementById('questionModal').classList.remove('show')}
+async function sendRoomQuestion(){
+  const q=document.getElementById('roomQuestion').value.trim();if(!q){alert('আপনার প্রশ্ন লিখুন।');return}
+  document.getElementById('requestText').value=q;closeQuestionPad();openDashboard();await submitRequest();document.getElementById('roomQuestion').value='';
+  const b=document.getElementById('assistantSpeech');b.textContent='আপনার প্রশ্ন সফলভাবে পাঠানো হয়েছে।';b.classList.add('show');speak('Your question has been submitted successfully.');setTimeout(()=>b.classList.remove('show'),3500)
+}
+document.getElementById('questionModal').addEventListener('click',e=>{if(e.target.id==='questionModal')closeQuestionPad()});
 
 document.getElementById('codeInput').addEventListener('keydown', function(e) {
   if (e.key === 'Enter') enterRoom();
