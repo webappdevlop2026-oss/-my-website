@@ -4,8 +4,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Agency Control 2026 | Digital Agency by Chandan Das</title>
-<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-<script src="supabase-client.js"></script>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#07101d;color:#fff;font-family:Segoe UI,Tahoma,sans-serif}
 header{padding:18px 24px;background:#0b1323;border-bottom:1px solid #ffffff18;display:flex;justify-content:space-between;align-items:center}
@@ -27,6 +25,11 @@ button{border:0;border-radius:10px;padding:10px 13px;background:#7c3aed;color:#f
 .dash span{display:block;color:#94a3b8;font-size:12px;margin-bottom:8px}.dash b{font-size:24px}
 @media(max-width:800px){.grid{grid-template-columns:1fr}.dashboard-cards{grid-template-columns:repeat(2,1fr)}}
 </style>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-storage-compat.js"></script>
+<script src="firebase-client.js"></script>
 </head>
 <body>
 <header>
@@ -125,25 +128,34 @@ const $=id=>document.getElementById(id);
 
 async function refreshDashboardTotals(){
  try{
-   const [p,r]=await Promise.all([
-     sb.from('room_projects').select('id',{count:'exact',head:true}),
-     sb.from('room_feature_requests').select('id',{count:'exact',head:true}).eq('status','New')
+   const [pSnap,rSnap]=await Promise.all([
+     db.collection('room_projects').get(),
+     db.collection('room_feature_requests').where('status','==','New').get()
    ]);
-   $('totalProjects').textContent=p.count||0;
-   $('newCorrections').textContent=r.count||0;
+   $('totalProjects').textContent=pSnap.size;
+   $('newCorrections').textContent=rSnap.size;
  }catch(e){console.warn(e)}
 }
 
-async function checkSession(){
- const {data}=await sb.auth.getSession();
- if(data.session){$('login').style.display='none';$('app').style.display='block';loadClients()}
+function checkSession(){
+ auth.onAuthStateChanged(user=>{
+   if(user){
+     $('login').style.display='none';
+     $('app').style.display='block';
+     loadClients();
+   }else{
+     $('login').style.display='block';
+     $('app').style.display='none';
+   }
+ });
 }
 async function login(){
- const {error}=await sb.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});
- $('loginMsg').textContent=error?error.message:'';
- if(!error){$('login').style.display='none';$('app').style.display='block';loadClients()}
+ try{
+   await auth.signInWithEmailAndPassword($('email').value.trim(),$('password').value);
+   $('loginMsg').textContent='';
+ }catch(e){$('loginMsg').textContent=e.message}
 }
-async function logout(){await sb.auth.signOut();location.reload()}
+async function logout(){await auth.signOut();location.reload()}
 function generateCode(){
  const n=Math.random().toString(36).slice(2,7).toUpperCase();
  $('clientCode').value='CR-'+new Date().getFullYear()+'-'+n;
@@ -151,14 +163,29 @@ function generateCode(){
 async function saveClient(){
  const name=$('clientName').value.trim(),code=$('clientCode').value.trim().toUpperCase();
  if(!name||!code)return alert('Client name ও pass code দিন');
- const {error}=await sb.from('room_clients').insert({client_name:name,client_phone:$('clientPhone').value.trim(),client_code:code});
- if(error)return alert(error.message);
- $('clientName').value='';$('clientPhone').value='';$('clientCode').value='';loadClients();
+ try{
+   const existing=await db.collection('room_clients').where('client_code','==',code).limit(1).get();
+   if(!existing.empty)return alert('এই pass code আগে থেকেই আছে');
+   await db.collection('room_clients').add({
+     client_name:name,
+     client_phone:$('clientPhone').value.trim(),
+     client_code:code,
+     is_active:true,
+     created_at:firebase.firestore.FieldValue.serverTimestamp(),
+     updated_at:firebase.firestore.FieldValue.serverTimestamp()
+   });
+   $('clientName').value='';$('clientPhone').value='';$('clientCode').value='';
+   loadClients();
+ }catch(e){alert(e.message)}
 }
 async function loadClients(){
- const {data,error}=await sb.from('room_clients').select('*').order('created_at',{ascending:false});
- if(error)return alert(error.message);
- clients=data||[];$('totalClients').textContent=clients.length;renderClients();refreshDashboardTotals();
+ try{
+   const snap=await db.collection('room_clients').get();
+   clients=snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.created_at?.seconds||0)-(a.created_at?.seconds||0));
+   $('totalClients').textContent=clients.length;
+   renderClients();
+   refreshDashboardTotals();
+ }catch(e){alert(e.message)}
 }
 function renderClients(){
  const q=$('clientSearch').value.toLowerCase();
@@ -176,9 +203,11 @@ function selectClient(c){
  $('projectForm').style.display='block';loadProjects();loadCorrectionRequests();refreshDashboardTotals();
 }
 async function loadProjects(){
- const {data,error}=await sb.from('room_projects').select('*').eq('client_id',selectedClient.id).order('created_at',{ascending:false});
- if(error)return alert(error.message);
- projectRows=data||[];renderProjects();
+ try{
+   const snap=await db.collection('room_projects').where('client_id','==',selectedClient.id).get();
+   projectRows=snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.created_at?.seconds||0)-(a.created_at?.seconds||0));
+   renderProjects();
+ }catch(e){alert(e.message)}
 }
 function renderProjects(){
  $('projects').innerHTML='';
@@ -202,21 +231,37 @@ function editProject(p){
 function clearProjectForm(){['projectId','projectName','projectStage','projectNotes','projectPreview','projectVideo','projectCost','projectDelivery'].forEach(id=>$(id).value='');$('projectProgress').value=0}
 async function saveProject(){
  if(!selectedClient)return;
- const payload={client_id:selectedClient.id,project_name:$('projectName').value.trim(),project_type:$('projectType').value,status:$('projectStatus').value,
- progress_percent:Number($('projectProgress').value||0),current_stage:$('projectStage').value.trim(),notes:$('projectNotes').value.trim(),
- preview_url:$('projectPreview').value.trim()||null,video_url:$('projectVideo').value.trim()||null,project_cost:$('projectCost').value.trim()||null,
- expected_delivery:$('projectDelivery').value||null};
+ const payload={
+   client_id:selectedClient.id,
+   project_name:$('projectName').value.trim(),
+   project_type:$('projectType').value,
+   status:$('projectStatus').value,
+   progress_percent:Number($('projectProgress').value||0),
+   current_stage:$('projectStage').value.trim(),
+   notes:$('projectNotes').value.trim(),
+   preview_url:$('projectPreview').value.trim()||null,
+   video_url:$('projectVideo').value.trim()||null,
+   project_cost:$('projectCost').value.trim()||null,
+   expected_delivery:$('projectDelivery').value||null,
+   updated_at:firebase.firestore.FieldValue.serverTimestamp()
+ };
  if(!payload.project_name)return alert('Project name দিন');
- let result;
- if($('projectId').value) result=await sb.from('room_projects').update(payload).eq('id',$('projectId').value);
- else result=await sb.from('room_projects').insert(payload);
- if(result.error)return alert(result.error.message);
- clearProjectForm();loadProjects();alert('Project update save হয়েছে। Client LCD সর্বোচ্চ 8 সেকেন্ডের মধ্যে refresh হবে।');
+ try{
+   if($('projectId').value){
+     await db.collection('room_projects').doc($('projectId').value).update(payload);
+   }else{
+     payload.created_at=firebase.firestore.FieldValue.serverTimestamp();
+     await db.collection('room_projects').add(payload);
+   }
+   clearProjectForm();
+   loadProjects();
+   alert('Project update save হয়েছে। Client LCD live refresh হবে।');
+ }catch(e){alert(e.message)}
 }
 async function deleteProject(id){
  if(!confirm('Project delete করবেন?'))return;
- const {error}=await sb.from('room_projects').delete().eq('id',id);
- if(error)return alert(error.message);loadProjects();
+ try{await db.collection('room_projects').doc(id).delete();loadProjects()}
+ catch(e){alert(e.message)}
 }
 
 async function loadCorrectionRequests(){
@@ -224,33 +269,36 @@ async function loadCorrectionRequests(){
    $('correctionRequests').innerHTML='<div class="muted">Client select করুন</div>';
    return;
  }
- const {data,error}=await sb.from('room_feature_requests')
-   .select('*, room_projects(project_name)')
-   .eq('client_id',selectedClient.id)
-   .order('created_at',{ascending:false});
- if(error){
-   $('correctionRequests').innerHTML='<div class="muted">'+escapeHtml(error.message)+'</div>';
-   return;
+ try{
+   const snap=await db.collection('room_feature_requests').where('client_id','==',selectedClient.id).get();
+   const rows=snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.created_at?.seconds||0)-(a.created_at?.seconds||0));
+   const projectMap=Object.fromEntries(projectRows.map(p=>[p.id,p.project_name]));
+   $('correctionRequests').innerHTML=rows.length?rows.map(r=>`
+   <div class="request-card">
+     <b>${escapeHtml(projectMap[r.project_id]||'General Request')}</b>
+     <span class="live-badge">${escapeHtml(r.status||'New')}</span>
+     <p>${escapeHtml(r.request_text||'')}</p>
+     <div class="muted">${r.created_at?.toDate?r.created_at.toDate().toLocaleString():''}</div>
+     <div class="request-actions">
+       <button class="secondary" onclick="updateRequestStatus('${r.id}','Checking')">Checking</button>
+       <button class="success" onclick="updateRequestStatus('${r.id}','Fixed')">Fixed</button>
+       <button onclick="updateRequestStatus('${r.id}','Completed')">Completed</button>
+     </div>
+   </div>`).join(''):'<div class="muted">কোনো correction request নেই</div>';
+ }catch(e){
+   $('correctionRequests').innerHTML='<div class="muted">'+escapeHtml(e.message)+'</div>';
  }
- const rows=data||[];
- $('correctionRequests').innerHTML=rows.length?rows.map(r=>`
- <div class="request-card">
-   <b>${escapeHtml(r.room_projects?.project_name||'General Request')}</b>
-   <span class="live-badge">${escapeHtml(r.status||'New')}</span>
-   <p>${escapeHtml(r.request_text||'')}</p>
-   <div class="muted">${new Date(r.created_at).toLocaleString()}</div>
-   <div class="request-actions">
-     <button class="secondary" onclick="updateRequestStatus('${r.id}','Checking')">Checking</button>
-     <button class="success" onclick="updateRequestStatus('${r.id}','Fixed')">Fixed</button>
-     <button onclick="updateRequestStatus('${r.id}','Completed')">Completed</button>
-   </div>
- </div>`).join(''):'<div class="muted">কোনো correction request নেই</div>';
 }
 
 async function updateRequestStatus(id,status){
- const {error}=await sb.from('room_feature_requests').update({status}).eq('id',id);
- if(error)return alert(error.message);
- loadCorrectionRequests();
+ try{
+   await db.collection('room_feature_requests').doc(id).update({
+     status,
+     updated_at:firebase.firestore.FieldValue.serverTimestamp()
+   });
+   loadCorrectionRequests();
+   refreshDashboardTotals();
+ }catch(e){alert(e.message)}
 }
 
 function escapeHtml(v){const d=document.createElement('div');d.textContent=v??'';return d.innerHTML}

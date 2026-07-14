@@ -4,8 +4,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>3D Client Room | Digital Agency by Chandan Das</title>
-<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-<script src="supabase-client.js"></script>
 <style>
 *{box-sizing:border-box}html,body{margin:0;height:100%;overflow:hidden;background:#030712;color:#fff;font-family:Segoe UI,Tahoma,sans-serif}
 button,input,textarea,select{font:inherit}.hide{display:none!important}
@@ -225,6 +223,11 @@ header a{color:#b7c1d4;text-decoration:none}.brand{font-weight:900;background:li
 }
 
 </style>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-storage-compat.js"></script>
+<script src="firebase-client.js"></script>
 </head>
 <body>
 <header><a href="index.html">← হোম</a><div class="brand">Digital Agency by Chandan Das</div><div><button class="hbtn" onclick="toggleVoice()" id="voice">🔊 3 Language Voice</button> <button class="hbtn hide" id="exit" onclick="location.reload()">Exit</button></div></header>
@@ -435,12 +438,29 @@ function toggleVoice(){
   if(!voiceOn && 'speechSynthesis' in window) window.speechSynthesis.cancel();
 }
 
-async function enterRoom(){let c=$('code').value.trim().toUpperCase();$('error').textContent='';if(!c)return $('error').textContent='Unique Code লিখুন।';
-try{
- if(c==='DEMO-3D'){client={id:'demo',client_code:c,client_name:'Demo Client'};projects=[{id:'p1',project_name:'ConnectBiz Marketplace',status:'In Progress',progress_percent:72,current_stage:'Frontend Development'}]}
- else{if(typeof sb==='undefined')throw Error('Supabase connection পাওয়া যায়নি।');let r=await sb.from('room_clients').select('*').eq('client_code',c).limit(1);if(r.error||!r.data?.length)throw Error('Code সঠিক নয়।');client=r.data[0];let p=await sb.from('room_projects').select('*').eq('client_id',client.id).order('created_at',{ascending:false});projects=p.data||[]}
- $('gate').classList.add('open');setTimeout(openWorld,900)
-}catch(e){$('error').textContent=e.message}}
+async function enterRoom(){
+ const c=$('code').value.trim().toUpperCase();
+ $('error').textContent='';
+ if(!c)return $('error').textContent='Unique Code লিখুন।';
+ try{
+   if(c==='DEMO-3D'){
+     client={id:'demo',client_code:c,client_name:'Demo Client'};
+     projects=[{id:'p1',project_name:'Demo Project',status:'In Progress',progress_percent:72,current_stage:'Frontend Development',preview_url:'index.html'}];
+   }else{
+     const snap=await db.collection('room_clients').where('client_code','==',c).where('is_active','==',true).limit(1).get();
+     if(snap.empty)throw new Error('Code সঠিক নয়।');
+     const doc=snap.docs[0];
+     client={id:doc.id,...doc.data()};
+     const pSnap=await db.collection('room_projects').where('client_id','==',client.id).get();
+     projects=pSnap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.created_at?.seconds||0)-(a.created_at?.seconds||0));
+   }
+   $('gate').classList.add('open');
+   setTimeout(openWorld,900);
+ }catch(e){
+   console.error(e);
+   $('error').textContent=e.message||'কিছু সমস্যা হয়েছে।';
+ }
+}
 function openWorld(){
  $('login').classList.add('hide');
  $('world').style.display='block';
@@ -510,17 +530,18 @@ function sendAssistantMessage(){
    'आपका संदेश प्राप्त हो गया है। हमारी टीम जल्द ही आपकी सहायता करेगी।',
    'Your message has been received. Our team will assist you shortly.'
  );
- if(client && client.id!=='demo' && typeof sb!=='undefined'){
-   sb.from('room_feature_requests').insert({
+ if(client && client.id!=='demo'){
+   db.collection('room_feature_requests').add({
      client_id:client.id,
      project_id:null,
-     request_text:'Virtual Assistant: '+message
-   }).then(({error})=>{
-     if(error){
-       reply.textContent='Message save করা যায়নি। আবার চেষ্টা করুন।';
-     }else{
-       reply.textContent='✅ Message পাঠানো হয়েছে।';setTimeout(returnAssistant,2500);
-     }
+     request_text:'Virtual Assistant: '+message,
+     status:'New',
+     created_at:firebase.firestore.FieldValue.serverTimestamp(),
+     updated_at:firebase.firestore.FieldValue.serverTimestamp()
+   }).then(()=>{
+     reply.textContent='✅ Message পাঠানো হয়েছে.';setTimeout(returnAssistant,2500);
+   }).catch(()=>{
+     reply.textContent='Message save করা যায়নি। আবার চেষ্টা করুন।';
    });
  }else{
    reply.textContent='✅ Demo mode: Message গ্রহণ করা হয়েছে।';setTimeout(returnAssistant,2500);
@@ -582,11 +603,14 @@ function bookMeeting(){
   'आपका मीटिंग अनुरोध प्राप्त हो गया है।',
   'Your meeting request has been received.'
  );
- if(client && client.id!=='demo' && typeof sb!=='undefined'){
-   sb.from('room_feature_requests').insert({
+ if(client && client.id!=='demo'){
+   db.collection('room_feature_requests').add({
      client_id:client.id,
      project_id:null,
-     request_text:message
+     request_text:message,
+     status:'New',
+     created_at:firebase.firestore.FieldValue.serverTimestamp(),
+     updated_at:firebase.firestore.FieldValue.serverTimestamp()
    });
  }
 }
@@ -826,13 +850,12 @@ function projectSnapshot(list){
 async function refreshClientProjects(showNotice=true){
  if(!client || client.id==='demo') return;
  try{
-   const {data,error}=await sb.from('room_projects').select('*').eq('client_id',client.id).order('created_at',{ascending:false});
-   if(error) throw error;
-   const next=data||[];
-   const snap=projectSnapshot(next);
-   const changed=lastProjectSnapshot && snap!==lastProjectSnapshot;
+   const snap=await db.collection('room_projects').where('client_id','==',client.id).get();
+   const next=snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.created_at?.seconds||0)-(a.created_at?.seconds||0));
+   const snapText=projectSnapshot(next);
+   const changed=lastProjectSnapshot && snapText!==lastProjectSnapshot;
    projects=next;
-   lastProjectSnapshot=snap;
+   lastProjectSnapshot=snapText;
    renderDesk();
    populateReviewProjects();
    if(lcdMode==='client'){
@@ -854,9 +877,7 @@ async function refreshClientProjects(showNotice=true){
    }else if(showNotice){
      notifyUser('Project latest version load হয়েছে');
    }
- }catch(e){
-   console.error(e);
- }
+ }catch(e){console.error(e)}
 }
 
 function startLiveProjectSync(){
@@ -907,8 +928,8 @@ async function submitProjectReview(){
  const message=document.getElementById('reviewMessage').value.trim();
  const pageUrl=document.getElementById('reviewPageUrl').value.trim();
  if(!projectId || !message) return alert('Project এবং correction message লিখুন।');
-
  const fullMessage=`[${area}] ${message}${pageUrl?` | Page/Section: ${pageUrl}`:''}`;
+
  if(client.id==='demo'){
    document.getElementById('reviewMessage').value='';
    document.getElementById('reviewPageUrl').value='';
@@ -917,18 +938,22 @@ async function submitProjectReview(){
    return;
  }
 
- const {error}=await sb.from('room_feature_requests').insert({
-   client_id:client.id,
-   project_id:projectId,
-   request_text:fullMessage,
-   status:'New'
- });
- if(error) return alert('Correction পাঠানো যায়নি: '+error.message);
-
- document.getElementById('reviewMessage').value='';
- document.getElementById('reviewPageUrl').value='';
- notifyUser('Correction request Admin Panel-এ পাঠানো হয়েছে');
- loadReviewHistory();
+ try{
+   await db.collection('room_feature_requests').add({
+     client_id:client.id,
+     project_id:projectId,
+     request_text:fullMessage,
+     status:'New',
+     created_at:firebase.firestore.FieldValue.serverTimestamp(),
+     updated_at:firebase.firestore.FieldValue.serverTimestamp()
+   });
+   document.getElementById('reviewMessage').value='';
+   document.getElementById('reviewPageUrl').value='';
+   notifyUser('Correction request Admin Panel-এ পাঠানো হয়েছে');
+   loadReviewHistory();
+ }catch(e){
+   alert('Correction পাঠানো যায়নি: '+e.message);
+ }
 }
 
 async function loadReviewHistory(isDemo=false,demoText=''){
@@ -939,19 +964,52 @@ async function loadReviewHistory(isDemo=false,demoText=''){
    return;
  }
  if(!client || client.id==='demo'){box.innerHTML='';return}
- const {data}=await sb.from('room_feature_requests').select('*').eq('client_id',client.id).order('created_at',{ascending:false}).limit(10);
- box.innerHTML=(data||[]).map(r=>`<div class="review-history-item">
-   <b>${escapeHtml(r.request_text)}</b><br>
-   <small>Status: ${escapeHtml(r.status||'New')} • ${new Date(r.created_at).toLocaleString()}</small>
- </div>`).join('') || '<div class="muted">এখনও কোনো correction পাঠানো হয়নি।</div>';
+ try{
+   const snap=await db.collection('room_feature_requests').where('client_id','==',client.id).get();
+   const rows=snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.created_at?.seconds||0)-(a.created_at?.seconds||0)).slice(0,10);
+   box.innerHTML=rows.map(r=>`<div class="review-history-item">
+     <b>${escapeHtml(r.request_text)}</b><br>
+     <small>Status: ${escapeHtml(r.status||'New')} • ${r.created_at?.toDate?r.created_at.toDate().toLocaleString():''}</small>
+   </div>`).join('') || '<div class="muted">এখনও কোনো correction পাঠানো হয়নি।</div>';
+ }catch(e){box.innerHTML='<div class="muted">'+escapeHtml(e.message)+'</div>'}
 }
 
 function renderDesk(){$('clientName').textContent='📁 স্বাগতম, '+client.client_name;$('clientCode').textContent='Client Code: '+client.client_code;
 $('projects').innerHTML=projects.length?projects.map(p=>`<div class="project"><b>${esc(p.project_name)}</b><span style="float:right">${esc(p.status||'')}</span><p class="muted">${esc(p.current_stage||'')}</p><div class="progress"><b style="width:${Math.min(100,p.progress_percent||0)}%"></b></div><small>${p.progress_percent||0}% Complete</small></div>`).join(''):'<p class="muted">কোনো project পাওয়া যায়নি।</p>';
 $('projectSelect').innerHTML='<option value="">General Question</option>'+projects.map(p=>`<option value="${p.id}">${esc(p.project_name)}</option>`).join('')}
-async function submitRequest(){let t=$('requestText').value.trim();if(!t)return alert('প্রশ্ন লিখুন।');if(client.id==='demo'){$('requests').innerHTML=`<div class="project" style="margin-top:12px">✅ ${esc(t)}</div>`;$('requestText').value='';return}
-try{let r=await sb.from('room_feature_requests').insert({client_id:client.id,project_id:$('projectSelect').value||null,request_text:t});if(r.error)throw r.error;$('requestText').value='';alert('Request পাঠানো হয়েছে।')}catch(e){alert('Request পাঠানো যায়নি।')}}
-const scene=$('scene');document.addEventListener('pointerdown',e=>{if(e.target.closest('.modal,button,.lcd,.chair,.bell,.notepad,.assistant'))return;drag=true;lastX=e.clientX});document.addEventListener('pointermove',e=>{if(!drag)return;ry+=(e.clientX-lastX)*.18;lastX=e.clientX;scene.style.transform=`translate(-50%,-50%) rotateX(-7deg) rotateY(${ry}deg) scale(.92)`});document.addEventListener('pointerup',()=>drag=false);
+async function submitRequest(){
+ const t=$('requestText').value.trim();
+ if(!t)return alert('প্রশ্ন লিখুন।');
+ if(client.id==='demo'){
+   $('requests').innerHTML=`<div class="project" style="margin-top:12px">✅ ${esc(t)}</div>`;
+   $('requestText').value='';
+   return;
+ }
+ try{
+   await db.collection('room_feature_requests').add({
+     client_id:client.id,
+     project_id:$('projectSelect').value||null,
+     request_text:t,
+     status:'New',
+     created_at:firebase.firestore.FieldValue.serverTimestamp(),
+     updated_at:firebase.firestore.FieldValue.serverTimestamp()
+   });
+   $('requestText').value='';
+   alert('Request পাঠানো হয়েছে।');
+ }catch(e){alert('Request পাঠানো যায়নি: '+e.message)}
+}
+const scene=$('scene');
+document.addEventListener('pointerdown',e=>{
+ if(e.target.closest('.modal,button,.lcd,.chair,.bell,.notepad,.assistant,.project-play-box,.review-box'))return;
+ drag=true;lastX=e.clientX;
+});
+document.addEventListener('pointermove',e=>{
+ if(!drag)return;
+ ry+=(e.clientX-lastX)*.18;
+ lastX=e.clientX;
+ scene.style.transform=`translate(-50%,-50%) rotateX(-7deg) rotateY(${ry}deg) scale(.92)`;
+});
+document.addEventListener('pointerup',()=>drag=false);
 $('code').addEventListener('keydown',e=>e.key==='Enter'&&enterRoom());
 window.addEventListener('load',()=>{
  const d=document.getElementById('meetingDate');

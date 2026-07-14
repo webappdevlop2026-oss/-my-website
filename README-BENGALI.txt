@@ -1,18 +1,44 @@
-ERROR:
-Could not find the table public.room_clients in the schema cache
+FIREBASE CONNECTED CLIENT ROOM SYSTEM
 
-কারণ:
-Supabase database-এ room_clients table তৈরি হয়নি।
+Upload/replace these files:
+1. firebase-client.js
+2. client-room.html
+3. agency-control-2026.html
 
-সমাধান:
-1. Supabase Dashboard খুলুন।
-2. SQL Editor → New query।
-3. complete-client-room-setup.sql-এর পুরো code paste করুন।
-4. Run চাপুন।
-5. Success দেখালে website refresh করুন।
-6. Admin Panel থেকে Client Add করুন।
+Firebase Console setup:
 
-গুরুত্বপূর্ণ:
-- Supabase Authentication → Users থেকে admin email/password user তৈরি করতে হবে।
-- SQL Run হওয়ার পর 10–20 সেকেন্ড অপেক্ষা করে Admin Panel refresh করুন।
-- এখনও error থাকলে Supabase Project URL/Anon Key সঠিক কিনা supabase-client.js-এ পরীক্ষা করুন।
+A) Firestore Database
+- Firestore → Create database
+- Start in Production mode
+- Region choose nearest available
+- Firestore → Rules
+- Paste firestore.rules and Publish
+
+B) Authentication
+- Authentication → Get started
+- Sign-in method → Email/Password → Enable
+- Users → Add user
+- এই email/password দিয়ে Admin Panel login করবেন
+
+C) Storage (optional for future uploads)
+- Storage → Get started
+- Rules-এ storage.rules paste করে Publish
+
+Admin URL:
+https://digitalagencybychandandas.in/agency-control-2026.html
+
+Client Room URL:
+https://digitalagencybychandandas.in/client-room.html
+
+Flow:
+- Admin Client তৈরি করবে
+- Pass Code generate করবে
+- Client-এর আলাদা project add/update করবে
+- Client pass code দিয়ে ঢুকে নিজের project দেখবে
+- Client correction পাঠাবে
+- Admin correction status update করবে
+- Firestore থেকে live refresh হবে
+
+Supabase files আর লাগবে না:
+- supabase-client.js
+- Supabase SQL files
