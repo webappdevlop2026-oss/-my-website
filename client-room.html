@@ -83,7 +83,7 @@ header a{color:#b7c1d4;text-decoration:none}.brand{font-weight:900;background:li
 </style>
 </head>
 <body>
-<header><a href="index.html">← হোম</a><div class="brand">Digital Agency by Chandan Das</div><div><button class="hbtn" onclick="toggleVoice()" id="voice">🔊 Voice</button> <button class="hbtn hide" id="exit" onclick="location.reload()">Exit</button></div></header>
+<header><a href="index.html">← হোম</a><div class="brand">Digital Agency by Chandan Das</div><div><button class="hbtn" onclick="toggleVoice()" id="voice">🔊 বাংলা Voice</button> <button class="hbtn hide" id="exit" onclick="location.reload()">Exit</button></div></header>
 <section id="login"><div class="loginbox"><h1>3D Client Room</h1><p>Unique Code দিয়ে virtual office-এ প্রবেশ করুন</p><div class="gate" id="gate"><i></i></div><input class="code" id="code" placeholder="CR-2026-KKB01"><button class="enter" onclick="enterRoom()">🔑 Gate খুলুন</button><small class="muted">Preview: <b>DEMO-3D</b></small><div id="error"></div></div></section>
 
 <section id="world">
@@ -156,46 +156,50 @@ header a{color:#b7c1d4;text-decoration:none}.brand{font-weight:900;background:li
 
 <div class="modal" id="desk"><div class="card"><div class="cardtop"><div><h2 id="clientName">📁 Client Desk</h2><small class="muted" id="clientCode"></small></div><button class="close" onclick="hide('desk')">×</button></div><div id="projects" style="margin-top:15px"></div></div></div>
 
+
+<audio id="audioWelcome" preload="auto" src="audio/welcome.wav"></audio>
+<audio id="audioSit" preload="auto" src="audio/sit.wav"></audio>
+<audio id="audioAssistant" preload="auto" src="audio/assistant.wav"></audio>
+<audio id="audioNextDemo" preload="auto" src="audio/next-demo.wav"></audio>
+<audio id="audioDemoOpen" preload="auto" src="audio/demo-open.wav"></audio>
+<audio id="audioMessage" preload="auto" src="audio/message.wav"></audio>
+
 <script>
 let voiceOn=true,client=null,projects=[],drag=false,lastX=0,ry=0;
 const $=id=>document.getElementById(id), esc=s=>{let d=document.createElement('div');d.textContent=s??'';return d.innerHTML};
-let availableVoices=[];
-function loadVoices(){availableVoices=speechSynthesis.getVoices()}
-if('speechSynthesis' in window){loadVoices();speechSynthesis.onvoiceschanged=loadVoices}
-function speak(t){
- if(!voiceOn||!('speechSynthesis' in window))return;
- speechSynthesis.cancel();
- let u=new SpeechSynthesisUtterance(t);
- u.lang='bn-BD'; u.rate=.88; u.pitch=1; u.volume=1;
- let bnVoice=availableVoices.find(v=>/^bn[-_]/i.test(v.lang)) ||
-             availableVoices.find(v=>/Bengali|Bangla/i.test(v.name));
- if(bnVoice)u.voice=bnVoice;
- speechSynthesis.speak(u);
+function stopAllVoice(){
+ ['audioWelcome','audioSit','audioAssistant','audioNextDemo','audioDemoOpen','audioMessage'].forEach(id=>{
+   const a=document.getElementById(id);
+   if(a){a.pause();a.currentTime=0}
+ });
 }
-function toggleVoice(){voiceOn=!voiceOn;$('voice').textContent=voiceOn?'🔊 Voice':'🔇 Muted';if(!voiceOn)speechSynthesis.cancel()}
+function playVoice(id){
+ if(!voiceOn)return;
+ stopAllVoice();
+ const a=document.getElementById(id);
+ if(!a)return;
+ a.currentTime=0;
+ const p=a.play();
+ if(p&&p.catch)p.catch(()=>{document.getElementById('voice').textContent='🔊 বাংলা Voice চালু করুন';});
+}
+function speak(t){}
+function toggleVoice(){
+ voiceOn=!voiceOn;
+ $('voice').textContent=voiceOn?'🔊 বাংলা Voice':'🔇 Muted';
+ if(!voiceOn)stopAllVoice();
+ else playVoice('audioWelcome');
+}
 async function enterRoom(){let c=$('code').value.trim().toUpperCase();$('error').textContent='';if(!c)return $('error').textContent='Unique Code লিখুন।';
 try{
  if(c==='DEMO-3D'){client={id:'demo',client_code:c,client_name:'Demo Client'};projects=[{id:'p1',project_name:'ConnectBiz Marketplace',status:'In Progress',progress_percent:72,current_stage:'Frontend Development'}]}
  else{if(typeof sb==='undefined')throw Error('Supabase connection পাওয়া যায়নি।');let r=await sb.from('room_clients').select('*').eq('client_code',c).limit(1);if(r.error||!r.data?.length)throw Error('Code সঠিক নয়।');client=r.data[0];let p=await sb.from('room_projects').select('*').eq('client_id',client.id).order('created_at',{ascending:false});projects=p.data||[]}
  $('gate').classList.add('open');setTimeout(openWorld,900)
 }catch(e){$('error').textContent=e.message}}
-function openWorld(){$('login').classList.add('hide');$('world').style.display='block';$('exit').classList.remove('hide');renderDesk();setLcdSlide(0);setTimeout(()=>speakThreeLanguages(
- `${client.client_name}, ডিজিটাল এজেন্সি বাই চন্দন দাসের থ্রি ডি ক্লায়েন্ট রুমে আপনাকে স্বাগতম। অনুগ্রহ করে চেয়ারে বসুন।`,
- `${client.client_name}, डिजिटल एजेंसी बाय चंदन दास के थ्री डी क्लाइंट रूम में आपका स्वागत है। कृपया कुर्सी पर बैठें।`,
- `Welcome ${client.client_name} to the 3D Client Room of Digital Agency by Chandan Das. Please have a seat.`
-),400)}
+function openWorld(){$('login').classList.add('hide');$('world').style.display='block';$('exit').classList.remove('hide');renderDesk();setLcdSlide(0);setTimeout(()=>playVoice('audioWelcome'),400)}
 function show(id){$(id).classList.add('on')}function hide(id){$(id).classList.remove('on')}
-function sit(){$('scene').style.transform='translate(-50%,-50%) rotateX(-4deg) rotateY(0deg) scale(1.32) translateY(-70px)';speakThreeLanguages(
- 'অনুগ্রহ করে বসুন। আপনার সামনে থাকা এল সি ডি পর্দায় আমাদের ডেমো প্রজেক্টগুলো দেখতে পারবেন।',
- 'कृपया बैठें। सामने की एल सी डी स्क्रीन पर हमारे डेमो प्रोजेक्ट देख सकते हैं।',
- 'Please have a seat. You can view our demo projects on the LCD screen in front of you.'
-)}
+function sit(){$('scene').style.transform='translate(-50%,-50%) rotateX(-4deg) rotateY(0deg) scale(1.32) translateY(-70px)';playVoice('audioSit')}
 function resetView(){$('scene').style.transform=`translate(-50%,-50%) rotateX(-7deg) rotateY(${ry}deg) scale(.92)`}
-function ringBell(){let a=$('assistant');a.classList.add('come');bell();setTimeout(()=>speakThreeLanguages(
- 'নমস্কার। আমি আপনার ভার্চুয়াল সহকারী। আপনাকে কীভাবে সাহায্য করতে পারি?',
- 'नमस्कार। मैं आपका वर्चुअल सहायक हूँ। मैं आपकी कैसे मदद कर सकता हूँ?',
- 'Hello. I am your virtual assistant. How may I help you?'
-),1700)}
+function ringBell(){let a=$('assistant');a.classList.add('come');bell();setTimeout(()=>playVoice('audioAssistant'),1700)}
 function bell(){let A=new(window.AudioContext||window.webkitAudioContext),o=A.createOscillator(),g=A.createGain();o.frequency.value=900;g.gain.setValueAtTime(.18,A.currentTime);g.gain.exponentialRampToValueAtTime(.001,A.currentTime+.55);o.connect(g).connect(A.destination);o.start();o.stop(A.currentTime+.55)}
 
 let lcdIndex=0,lcdTimer=null;
@@ -212,32 +216,9 @@ function setLcdSlide(i){
 function nextLcdSlide(){
  closeLcdPreview();
  setLcdSlide(lcdIndex+1);
- speakThreeLanguages(
-  'এল সি ডি পর্দায় পরবর্তী ডেমো প্রজেক্ট দেখানো হচ্ছে।',
-  'एल सी डी स्क्रीन पर अगला डेमो प्रोजेक्ट दिखाया जा रहा है।',
-  'The next demo project is now shown on the LCD screen.'
- );
+ playVoice('audioNextDemo');
 }
-function speakThreeLanguages(bn,hi,en){
-  // এখন শুধু বাংলা voice ব্যবহার হবে
-  speak(bn);
-}
-function speakSequence(items){
- if(!voiceOn||!('speechSynthesis' in window))return;
- speechSynthesis.cancel();
- let i=0;
- const next=()=>{
-   if(i>=items.length)return;
-   const item=items[i++];
-   const u=new SpeechSynthesisUtterance(item.text);
-   u.lang=item.lang; u.rate=.88; u.pitch=1; u.volume=1;
-   const voice=availableVoices.find(v=>v.lang.toLowerCase().startsWith(item.lang.split('-')[0].toLowerCase()));
-   if(voice)u.voice=voice;
-   u.onend=next;
-   speechSynthesis.speak(u);
- };
- next();
-}
+function speakThreeLanguages(){ }
 function openDemoInLcd(url,title){
  const frame=document.getElementById('lcdFrame');
  const browser=document.getElementById('lcdBrowser');
@@ -246,11 +227,7 @@ function openDemoInLcd(url,title){
  frame.setAttribute('scrolling','yes');
  browser.classList.add('on');
  setTimeout(()=>{try{frame.focus()}catch(e){}},500);
- speakThreeLanguages(
-   'ডেমো ওয়েবসাইটটি এখন এল সি ডি পর্দায় দেখানো হচ্ছে।',
-   'डेमो वेबसाइट अब एल सी डी स्क्रीन पर दिखाई जा रही है।',
-   'The demo website is now displayed on the LCD screen.'
- );
+ playVoice('audioDemoOpen');
 }
 function closeLcdPreview(){
  document.getElementById('lcdBrowser').classList.remove('on');
@@ -270,11 +247,7 @@ function sendAssistantMessage(){
  input.value='';
  reply.style.display='block';
  reply.textContent='আপনার message গ্রহণ করা হয়েছে। অনুগ্রহ করে একটু অপেক্ষা করুন।';
- speakThreeLanguages(
-   'আপনার বার্তা গ্রহণ করা হয়েছে। আমাদের টিম শীঘ্রই আপনাকে সাহায্য করবে।',
-   'आपका संदेश प्राप्त हो गया है। हमारी टीम जल्द ही आपकी सहायता करेगी।',
-   'Your message has been received. Our team will assist you shortly.'
- );
+ playVoice('audioMessage');
  if(client && client.id!=='demo' && typeof sb!=='undefined'){
    sb.from('room_feature_requests').insert({
      client_id:client.id,
