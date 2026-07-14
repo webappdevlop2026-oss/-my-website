@@ -105,7 +105,7 @@ header a{color:#b7c1d4;text-decoration:none}.brand{font-weight:900;background:li
 .demo-bg:before{width:240px;height:240px;background:#7c3aed;left:-60px;top:-50px}
 .demo-bg:after{width:210px;height:210px;background:#06b6d4;right:-45px;bottom:-55px;animation-delay:-3s}
 @keyframes floatGlow{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(25px,-18px) scale(1.12)}}
-.demo-overlay{position:absolute;inset:0;background:linear-gradient(90deg,#020617e8 0%,#02061799 50%,#02061755 100%)}
+.project-video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000;display:none;z-index:3}.project-video.on{display:block}.demo-overlay{position:absolute;inset:0;background:linear-gradient(90deg,#020617e8 0%,#02061799 50%,#02061755 100%)}
 .demo-brand{position:absolute;left:18px;top:15px;font-size:12px;font-weight:900;color:#bfdbfe;letter-spacing:.5px}
 .demo-content{position:absolute;left:30px;right:28px;top:52%;transform:translateY(-50%);z-index:2;text-align:left}
 .demo-badge{display:inline-block;padding:5px 9px;border-radius:999px;background:#ffffff1a;border:1px solid #ffffff24;font-size:10px;font-weight:900;letter-spacing:1px}
@@ -146,7 +146,7 @@ header a{color:#b7c1d4;text-decoration:none}.brand{font-weight:900;background:li
 
   <div class="demo-player" id="demoPlayer">
     <div class="demo-stage" id="demoStage">
-      <div class="demo-bg" id="demoBg"></div>
+      <div class="demo-bg" id="demoBg"></div><video id="projectVideo" class="project-video" muted playsinline controls></video>
       <div class="demo-overlay"></div>
       <div class="demo-brand">Digital Agency by Chandan Das</div>
       <div class="demo-content">
@@ -159,7 +159,7 @@ header a{color:#b7c1d4;text-decoration:none}.brand{font-weight:900;background:li
           <span id="demoTime">30–45 Days</span>
           <span id="demoRating">⭐ 4.9</span>
         </div>
-        <button class="demo-open-btn" onclick="openCurrentDemo()">Live Demo খুলুন</button>
+        <button class="demo-open-btn" onclick="openCurrentDemo()">Project খুলুন</button>
       </div>
     </div>
 
@@ -313,6 +313,7 @@ function openWorld(){
  $('world').style.display='block';
  $('exit').classList.remove('hide');
  renderDesk();
+ buildClientDemoProjects();
  buildDemoThumbnails();
  renderDemoPlayer();
  startDemoPlayer();
@@ -456,13 +457,39 @@ function startTour(){
 
 
 
-const demoProjects=[
- {title:'Marketplace App',icon:'🛍️',desc:'Customer, seller, product, cart এবং local shop-এর modern marketplace project.',cost:'₹30,000+',time:'30–45 Days',rating:'⭐ 4.9',url:'demo-marketplace.html',bg:'linear-gradient(135deg,#312e81,#0891b2)'},
- {title:'Business Website',icon:'🏢',desc:'Professional company profile, service showcase, lead generation এবং contact website.',cost:'₹15,000+',time:'15–25 Days',rating:'⭐ 4.8',url:'demo-business.html',bg:'linear-gradient(135deg,#7c2d12,#c2410c)'},
- {title:'Billing Software',icon:'🧾',desc:'Invoice, product, sales report, customer এবং inventory management dashboard.',cost:'₹25,000+',time:'25–40 Days',rating:'⭐ 4.9',url:'demo-billing.html',bg:'linear-gradient(135deg,#14532d,#0f766e)'},
- {title:'Mobile App UI',icon:'📱',desc:'Android এবং iOS-এর জন্য responsive modern mobile application interface.',cost:'₹35,000+',time:'35–60 Days',rating:'⭐ 4.9',url:'demo-app.html',bg:'linear-gradient(135deg,#4c1d95,#be185d)'},
- {title:'Admin Dashboard',icon:'📊',desc:'Orders, users, vendors, analytics এবং settings control করার smart admin panel.',cost:'₹20,000+',time:'20–35 Days',rating:'⭐ 4.8',url:'demo-admin.html',bg:'linear-gradient(135deg,#0f172a,#1d4ed8)'}
-];
+let demoProjects=[];
+
+function buildClientDemoProjects(){
+  demoProjects=(projects||[]).map((p,i)=>({
+    id:p.id,
+    title:p.project_name || `Project ${i+1}`,
+    icon:p.project_type==='Mobile App'?'📱':p.project_type==='Admin Panel'?'📊':p.project_type==='Software'?'💻':'🌐',
+    desc:p.notes || p.current_stage || 'আপনার project-এর latest preview.',
+    cost:p.project_cost || '',
+    time:p.expected_delivery ? `Delivery: ${p.expected_delivery}` : '',
+    rating:p.status || 'In Progress',
+    url:p.preview_url || '',
+    video:p.video_url || '',
+    bg:i%4===0?'linear-gradient(135deg,#312e81,#0891b2)':
+       i%4===1?'linear-gradient(135deg,#7c2d12,#c2410c)':
+       i%4===2?'linear-gradient(135deg,#14532d,#0f766e)':
+       'linear-gradient(135deg,#4c1d95,#be185d)'
+  }));
+
+  if(!demoProjects.length){
+    demoProjects=[{
+      title:'Project এখনও যোগ করা হয়নি',
+      icon:'🛠️',
+      desc:'Admin আপনার project যোগ করলে এখানে দেখা যাবে।',
+      cost:'',
+      time:'',
+      rating:'Waiting',
+      url:'',
+      video:'',
+      bg:'linear-gradient(135deg,#0f172a,#334155)'
+    }];
+  }
+}
 
 let demoIndex=0;
 let demoPlaying=true;
@@ -481,17 +508,42 @@ function renderDemoPlayer(){
  document.getElementById('demoIconBig').textContent=p.icon;
  document.getElementById('demoTitle').textContent=p.title;
  document.getElementById('demoDescription').textContent=p.desc;
- document.getElementById('demoCost').textContent=p.cost;
- document.getElementById('demoTime').textContent=p.time;
- document.getElementById('demoRating').textContent=p.rating;
+ document.getElementById('demoCost').textContent=p.cost || '';
+ document.getElementById('demoTime').textContent=p.time || '';
+ document.getElementById('demoRating').textContent=p.rating || '';
  document.getElementById('demoBg').style.background=p.bg;
  document.getElementById('playerProgress').style.width=(demoElapsed/demoDuration*100)+'%';
  document.getElementById('playerTime').textContent=`${formatPlayerTime(demoElapsed)} / 00:${String(demoDuration).padStart(2,'0')}`;
  document.querySelectorAll('.demo-thumb').forEach((b,i)=>b.classList.toggle('active',i===demoIndex));
+
+ const openBtn=document.querySelector('.demo-open-btn');
+ openBtn.style.display=p.url?'inline-block':'none';
+
+ const video=document.getElementById('projectVideo');
+ if(p.video){
+   video.src=p.video;
+   video.classList.add('on');
+   document.querySelector('.demo-content').style.display='none';
+   document.querySelector('.demo-overlay').style.display='none';
+ }else{
+   video.pause();
+   video.removeAttribute('src');
+   video.load();
+   video.classList.remove('on');
+   document.querySelector('.demo-content').style.display='block';
+   document.querySelector('.demo-overlay').style.display='block';
+ }
 }
 function buildDemoThumbnails(){
  const box=document.getElementById('demoThumbnails');
- box.innerHTML=demoProjects.map((p,i)=>`<button class="demo-thumb ${i===0?'active':''}" onclick="selectDemo(${i})">${p.icon} ${p.title}</button>`).join('');
+ box.innerHTML='';
+ demoProjects.forEach((p,i)=>{
+   const b=document.createElement('button');
+   b.className='demo-thumb'+(i===0?' active':'');
+   b.textContent=`${p.icon} ${p.title}`;
+   b.onclick=()=>selectDemo(i);
+   box.appendChild(b);
+ });
 }
 function startDemoPlayer(){
  clearInterval(demoTimer);
@@ -501,13 +553,7 @@ function startDemoPlayer(){
   if(demoElapsed>=demoDuration){
     demoElapsed=0;
     demoIndex=(demoIndex+1)%demoProjects.length;
-    if(!demoMuted){
-      speakThreeLanguages(
-       `${demoProjects[demoIndex].title} প্রজেক্টটি এখন দেখানো হচ্ছে।`,
-       `${demoProjects[demoIndex].title} प्रोजेक्ट अब दिखाया जा रहा है।`,
-       `${demoProjects[demoIndex].title} project is now playing.`
-      );
-    }
+    
   }
   renderDemoPlayer();
  },100);
@@ -518,16 +564,19 @@ function toggleDemoPlayback(){
  notifyUser(demoPlaying?'Demo presentation চলছে':'Demo presentation paused');
 }
 function nextDemo(){
+ const v=document.getElementById('projectVideo'); if(v)v.pause();
  demoIndex=(demoIndex+1)%demoProjects.length;
  demoElapsed=0;
  renderDemoPlayer();
 }
 function previousDemo(){
+ const v=document.getElementById('projectVideo'); if(v)v.pause();
  demoIndex=(demoIndex-1+demoProjects.length)%demoProjects.length;
  demoElapsed=0;
  renderDemoPlayer();
 }
 function selectDemo(i){
+ const v=document.getElementById('projectVideo'); if(v)v.pause();
  demoIndex=i;
  demoElapsed=0;
  renderDemoPlayer();
@@ -545,6 +594,7 @@ function toggleDemoVolume(){
 }
 function openCurrentDemo(){
  const p=demoProjects[demoIndex];
+ if(!p.url){notifyUser('এই project-এর preview URL এখনও যোগ করা হয়নি');return}
  openDemoInLcd(p.url,p.title);
 }
 function openDemoInLcd(url,title){
