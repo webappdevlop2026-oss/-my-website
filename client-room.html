@@ -219,11 +219,8 @@ function nextLcdSlide(){
  );
 }
 function speakThreeLanguages(bn,hi,en){
- speakSequence([
-   {text:bn,lang:'bn-BD'},
-   {text:hi,lang:'hi-IN'},
-   {text:en,lang:'en-US'}
- ]);
+  // এখন শুধু বাংলা voice ব্যবহার হবে
+  speak(bn);
 }
 function speakSequence(items){
  if(!voiceOn||!('speechSynthesis' in window))return;
