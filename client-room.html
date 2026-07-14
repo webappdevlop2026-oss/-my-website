@@ -42,6 +42,12 @@ header a{color:#b7c1d4;text-decoration:none}.brand{font-weight:900;background:li
 .lcd-icon{min-width:115px;height:115px;border-radius:24px;display:grid;place-items:center;font-size:58px;background:linear-gradient(145deg,#7c3aed55,#06b6d455);border:1px solid #ffffff22;box-shadow:0 0 30px #22d3ee33}
 .lcd-copy{text-align:left}.lcd-copy h3{font-size:27px;margin:0 0 8px}.lcd-copy p{margin:0;color:#b9c6d8;line-height:1.5;font-size:14px}.lcd-copy button{margin-top:14px;border:0;border-radius:999px;padding:9px 15px;background:linear-gradient(90deg,#7c3aed,#06b6d4);color:#fff;font-weight:800}
 .lcd-nav{height:36px;display:flex;align-items:center;justify-content:center;gap:9px;background:#020617cc;border-top:1px solid #ffffff12}
+.lcd-browser{position:absolute;inset:42px 0 36px;background:#020617;display:none;z-index:8}
+.lcd-browser.on{display:block}
+.lcd-browserbar{height:38px;display:flex;align-items:center;gap:8px;padding:0 10px;background:#111827;border-bottom:1px solid #ffffff1c}
+.lcd-browserbar button{border:0;border-radius:8px;padding:6px 10px;background:#263247;color:#fff;font-weight:700}
+.lcd-url{flex:1;padding:6px 10px;border-radius:8px;background:#020617;color:#94a3b8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:12px}
+.lcd-browser iframe{width:100%;height:calc(100% - 38px);border:0;background:white}
 .lcd-dot{width:9px;height:9px;border-radius:50%;border:0;background:#64748b;cursor:pointer}.lcd-dot.active{background:#22d3ee;box-shadow:0 0 12px #22d3ee}
 .desk{position:absolute;left:205px;top:390px;width:590px;height:155px;background:linear-gradient(#74452d,#402317);transform:translateZ(-90px) rotateX(4deg);box-shadow:0 30px 45px #000}
 .desk:before,.desk:after{content:"";position:absolute;top:130px;width:32px;height:140px;background:#25324a}.desk:before{left:45px}.desk:after{right:45px}
@@ -82,20 +88,28 @@ header a{color:#b7c1d4;text-decoration:none}.brand{font-weight:900;background:li
   <div class="lcd-stage">
     <div class="lcd-slide active">
       <div class="lcd-icon">🛍️</div>
-      <div class="lcd-copy"><h3>Marketplace App</h3><p>Customer, seller, product, cart এবং local shop-এর সম্পূর্ণ modern marketplace demo.</p><button onclick="openDemo('demo-marketplace.html')">Demo খুলুন</button></div>
+      <div class="lcd-copy"><h3>Marketplace App</h3><p>Customer, seller, product, cart এবং local shop-এর সম্পূর্ণ modern marketplace demo.</p><button onclick="openDemoInLcd('demo-marketplace.html','Marketplace App')">Demo খুলুন</button></div>
     </div>
     <div class="lcd-slide">
       <div class="lcd-icon">🏢</div>
-      <div class="lcd-copy"><h3>Business Website</h3><p>Professional company profile, services, contact এবং lead generation website.</p><button onclick="openDemo('demo-business.html')">Demo খুলুন</button></div>
+      <div class="lcd-copy"><h3>Business Website</h3><p>Professional company profile, services, contact এবং lead generation website.</p><button onclick="openDemoInLcd('demo-business.html','Business Website')">Demo খুলুন</button></div>
     </div>
     <div class="lcd-slide">
       <div class="lcd-icon">🧾</div>
-      <div class="lcd-copy"><h3>Billing Software</h3><p>Invoice, products, sales report এবং customer management dashboard.</p><button onclick="openDemo('demo-billing.html')">Demo খুলুন</button></div>
+      <div class="lcd-copy"><h3>Billing Software</h3><p>Invoice, products, sales report এবং customer management dashboard.</p><button onclick="openDemoInLcd('demo-billing.html','Billing Software')">Demo খুলুন</button></div>
     </div>
     <div class="lcd-slide">
       <div class="lcd-icon">📱</div>
-      <div class="lcd-copy"><h3>Mobile App UI</h3><p>Android এবং iOS-এর জন্য responsive modern mobile application interface.</p><button onclick="openDemo('demo-app.html')">Demo খুলুন</button></div>
+      <div class="lcd-copy"><h3>Mobile App UI</h3><p>Android এবং iOS-এর জন্য responsive modern mobile application interface.</p><button onclick="openDemoInLcd('demo-app.html','Mobile App UI')">Demo খুলুন</button></div>
     </div>
+  </div>
+  <div class="lcd-browser" id="lcdBrowser">
+    <div class="lcd-browserbar">
+      <button onclick="closeLcdPreview()">← Back</button>
+      <div class="lcd-url" id="lcdUrl">Website Preview</div>
+      <button onclick="reloadLcdPreview()">↻</button>
+    </div>
+    <iframe id="lcdFrame" title="Website Demo Preview"></iframe>
   </div>
   <div class="lcd-nav">
     <button class="lcd-dot active" onclick="setLcdSlide(0)"></button>
@@ -147,11 +161,23 @@ try{
  else{if(typeof sb==='undefined')throw Error('Supabase connection পাওয়া যায়নি।');let r=await sb.from('room_clients').select('*').eq('client_code',c).limit(1);if(r.error||!r.data?.length)throw Error('Code সঠিক নয়।');client=r.data[0];let p=await sb.from('room_projects').select('*').eq('client_id',client.id).order('created_at',{ascending:false});projects=p.data||[]}
  $('gate').classList.add('open');setTimeout(openWorld,900)
 }catch(e){$('error').textContent=e.message}}
-function openWorld(){$('login').classList.add('hide');$('world').style.display='block';$('exit').classList.remove('hide');renderDesk();setLcdSlide(0);setTimeout(()=>speak(`${client.client_name}, ডিজিটাল এজেন্সি বাই চন্দন দাসের থ্রি ডি ক্লায়েন্ট রুমে আপনাকে স্বাগতম। অনুগ্রহ করে চেয়ারে বসুন।`),400)}
+function openWorld(){$('login').classList.add('hide');$('world').style.display='block';$('exit').classList.remove('hide');renderDesk();setLcdSlide(0);setTimeout(()=>speakThreeLanguages(
+ `${client.client_name}, ডিজিটাল এজেন্সি বাই চন্দন দাসের থ্রি ডি ক্লায়েন্ট রুমে আপনাকে স্বাগতম। অনুগ্রহ করে চেয়ারে বসুন।`,
+ `${client.client_name}, डिजिटल एजेंसी बाय चंदन दास के थ्री डी क्लाइंट रूम में आपका स्वागत है। कृपया कुर्सी पर बैठें।`,
+ `Welcome ${client.client_name} to the 3D Client Room of Digital Agency by Chandan Das. Please have a seat.`
+),400)}
 function show(id){$(id).classList.add('on')}function hide(id){$(id).classList.remove('on')}
-function sit(){$('scene').style.transform='translate(-50%,-50%) rotateX(-4deg) rotateY(0deg) scale(1.32) translateY(-70px)';speak('অনুগ্রহ করে বসুন। আপনার সামনে থাকা এল সি ডি পর্দায় আমাদের ডেমো প্রজেক্টগুলো দেখতে পারবেন।')}
+function sit(){$('scene').style.transform='translate(-50%,-50%) rotateX(-4deg) rotateY(0deg) scale(1.32) translateY(-70px)';speakThreeLanguages(
+ 'অনুগ্রহ করে বসুন। আপনার সামনে থাকা এল সি ডি পর্দায় আমাদের ডেমো প্রজেক্টগুলো দেখতে পারবেন।',
+ 'कृपया बैठें। सामने की एल सी डी स्क्रीन पर हमारे डेमो प्रोजेक्ट देख सकते हैं।',
+ 'Please have a seat. You can view our demo projects on the LCD screen in front of you.'
+)}
 function resetView(){$('scene').style.transform=`translate(-50%,-50%) rotateX(-7deg) rotateY(${ry}deg) scale(.92)`}
-function ringBell(){let a=$('assistant');a.classList.add('come');bell();setTimeout(()=>speak('নমস্কার। আমি আপনার ভার্চুয়াল সহকারী। আপনাকে কীভাবে সাহায্য করতে পারি?'),1700)}
+function ringBell(){let a=$('assistant');a.classList.add('come');bell();setTimeout(()=>speakThreeLanguages(
+ 'নমস্কার। আমি আপনার ভার্চুয়াল সহকারী। আপনাকে কীভাবে সাহায্য করতে পারি?',
+ 'नमस्कार। मैं आपका वर्चुअल सहायक हूँ। मैं आपकी कैसे मदद कर सकता हूँ?',
+ 'Hello. I am your virtual assistant. How may I help you?'
+),1700)}
 function bell(){let A=new(window.AudioContext||window.webkitAudioContext),o=A.createOscillator(),g=A.createGain();o.frequency.value=900;g.gain.setValueAtTime(.18,A.currentTime);g.gain.exponentialRampToValueAtTime(.001,A.currentTime+.55);o.connect(g).connect(A.destination);o.start();o.stop(A.currentTime+.55)}
 
 let lcdIndex=0,lcdTimer=null;
@@ -165,10 +191,57 @@ function setLcdSlide(i){
  const c=document.getElementById('lcdCounter'); if(c)c.textContent=`${lcdIndex+1} / ${slides.length}`;
  clearInterval(lcdTimer); lcdTimer=setInterval(()=>setLcdSlide(lcdIndex+1),5000);
 }
-function nextLcdSlide(){setLcdSlide(lcdIndex+1);speak('এল সি ডি পর্দায় পরবর্তী ডেমো প্রজেক্ট দেখানো হচ্ছে।')}
-function openDemo(url){
- speak('ডেমো প্রজেক্টটি নতুন পাতায় খোলা হচ্ছে।');
- window.open(url,'_blank');
+function nextLcdSlide(){
+ closeLcdPreview();
+ setLcdSlide(lcdIndex+1);
+ speakThreeLanguages(
+  'এল সি ডি পর্দায় পরবর্তী ডেমো প্রজেক্ট দেখানো হচ্ছে।',
+  'एल सी डी स्क्रीन पर अगला डेमो प्रोजेक्ट दिखाया जा रहा है।',
+  'The next demo project is now shown on the LCD screen.'
+ );
+}
+function speakThreeLanguages(bn,hi,en){
+ speakSequence([
+   {text:bn,lang:'bn-BD'},
+   {text:hi,lang:'hi-IN'},
+   {text:en,lang:'en-US'}
+ ]);
+}
+function speakSequence(items){
+ if(!voiceOn||!('speechSynthesis' in window))return;
+ speechSynthesis.cancel();
+ let i=0;
+ const next=()=>{
+   if(i>=items.length)return;
+   const item=items[i++];
+   const u=new SpeechSynthesisUtterance(item.text);
+   u.lang=item.lang; u.rate=.88; u.pitch=1; u.volume=1;
+   const voice=availableVoices.find(v=>v.lang.toLowerCase().startsWith(item.lang.split('-')[0].toLowerCase()));
+   if(voice)u.voice=voice;
+   u.onend=next;
+   speechSynthesis.speak(u);
+ };
+ next();
+}
+function openDemoInLcd(url,title){
+ const frame=document.getElementById('lcdFrame');
+ const browser=document.getElementById('lcdBrowser');
+ document.getElementById('lcdUrl').textContent=title+' — '+url;
+ frame.src=url;
+ browser.classList.add('on');
+ speakThreeLanguages(
+   'ডেমো ওয়েবসাইটটি এখন এল সি ডি পর্দায় দেখানো হচ্ছে।',
+   'डेमो वेबसाइट अब एल सी डी स्क्रीन पर दिखाई जा रही है।',
+   'The demo website is now displayed on the LCD screen.'
+ );
+}
+function closeLcdPreview(){
+ document.getElementById('lcdBrowser').classList.remove('on');
+ document.getElementById('lcdFrame').src='about:blank';
+}
+function reloadLcdPreview(){
+ const f=document.getElementById('lcdFrame');
+ try{f.contentWindow.location.reload()}catch(e){f.src=f.src}
 }
 
 function renderDesk(){$('clientName').textContent='📁 স্বাগতম, '+client.client_name;$('clientCode').textContent='Client Code: '+client.client_code;

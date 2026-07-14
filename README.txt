@@ -1,10 +1,14 @@
 শুধু client-room.html replace করুন।
 
-পরিবর্তন:
-- LCD size বড়
-- Chair size ছোট
-- Demo projects LCD screen-এর ভিতরে auto slideshow
-- LCD-এর dot বা Next Demo button দিয়ে project পরিবর্তন
-- Bengali voice selection
-- Bengali welcome, sitting এবং assistant message
-- Preview Code: DEMO-3D
+নতুন পরিবর্তন:
+- Demo খুলুন click করলে preview LCD-এর ভেতরে iframe-এ খুলবে
+- Back button দিয়ে slideshow-এ ফেরা যাবে
+- Reload button আছে
+- Voice বাংলা, হিন্দি ও ইংরেজিতে ধারাবাহিকভাবে বলবে
+- Welcome, Chair, Assistant, Next Demo এবং Demo Open message তিন ভাষায়
+- Preview code: DEMO-3D
+
+নোট:
+demo-marketplace.html, demo-business.html, demo-billing.html এবং demo-app.html
+ফাইলগুলো website root folder-এ থাকতে হবে।
+কোনো বাইরের website iframe block করলে সেটি LCD-তে নাও খুলতে পারে; নিজের local demo page ঠিকভাবে খুলবে।
