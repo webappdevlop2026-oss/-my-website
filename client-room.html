@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Client Room | Digital Agency by Chandan Das</title>
+<meta name="description" content="Your personal client room - check project status, request new features, and share files with Digital Agency by Chandan Das.">
+<meta name="robots" content="noindex, follow">
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<script src="supabase-client.js"></script>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', Tahoma, sans-serif; }
+  body {
+    background:#0a1223;
+    background-image: radial-gradient(circle at 20% 20%, rgba(139,92,246,0.15), transparent 40%),
+                       radial-gradient(circle at 80% 60%, rgba(6,182,212,0.15), transparent 40%);
+    color:#e5e7eb;
+    min-height:100vh;
+  }
+  .gradient-text {
+    background:linear-gradient(135deg,#a78bfa,#22d3ee);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  header {
+    background:rgba(10,18,35,.92);
+    backdrop-filter:blur(16px);
+    border-bottom:1px solid rgba(255,255,255,.08);
+    padding:14px 20px;
+    display:flex; justify-content:space-between; align-items:center;
+    position:sticky; top:0; z-index:20;
+  }
+  header a.back { color:#94a3b8; text-decoration:none; font-size:14px; }
+  header .brand { font-weight:800; font-size:1.1rem; }
+  #logoutBtn { display:none; background:rgba(248,113,113,.12); color:#f87171; border:1px solid rgba(248,113,113,.3); padding:6px 14px; border-radius:999px; font-size:12px; font-weight:700; cursor:pointer; }
+
+  .wrap { max-width:720px; margin:0 auto; padding:40px 18px 70px; }
+
+  /* Login screen */
+  .hero { text-align:center; margin-bottom:30px; }
+  .hero h1 { font-size:1.9rem; font-weight:800; margin-bottom:8px; }
+  .hero p { color:#94a3b8; font-size:.95rem; }
+  .card {
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:20px;
+    padding:22px;
+    margin-bottom:20px;
+  }
+  .card input, .card textarea, .card select {
+    width:100%;
+    background:rgba(0,0,0,.25);
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:12px;
+    padding:13px 15px;
+    color:white;
+    font-size:15px;
+    outline:none;
+    margin-bottom:12px;
+    font-family:inherit;
+  }
+  .card input:focus, .card textarea:focus, .card select:focus { border-color:#a78bfa; }
+  .card small { display:block; color:#64748b; font-size:12px; margin-bottom:14px; }
+  .btn {
+    background:linear-gradient(135deg,#7c3aed,#06b6d4);
+    border:none; color:white; font-weight:700; padding:13px 20px;
+    border-radius:999px; font-size:14.5px; cursor:pointer; transition:.2s;
+  }
+  .btn:hover { transform:scale(1.02); }
+  .btn:disabled { opacity:.6; cursor:not-allowed; }
+  .btn-full { width:100%; }
+  .btn-outline {
+    background:transparent; border:1px solid rgba(255,255,255,.15); color:#e5e7eb;
+  }
+
+  .loader { display:none; text-align:center; padding:20px; color:#94a3b8; font-size:14px; }
+  .spin { width:26px; height:26px; border:3px solid rgba(255,255,255,.2); border-top-color:#a78bfa; border-radius:50%; margin:0 auto 10px; animation:spin 1s linear infinite; }
+  @keyframes spin { to { transform:rotate(360deg); } }
+  .fadein { animation:fadeIn .3s ease; }
+  @keyframes fadeIn { from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
+
+  /* Room screen */
+  #roomScreen { display:none; }
+  .welcome-bar { margin-bottom:26px; }
+  .welcome-bar h2 { font-size:1.4rem; font-weight:800; }
+  .welcome-bar p { color:#64748b; font-size:13px; }
+
+  .section-title { font-size:1.05rem; font-weight:800; margin:30px 0 14px; display:flex; align-items:center; gap:8px; }
+  .section-title:first-of-type { margin-top:0; }
+
+  .status-badge { display:inline-block; padding:5px 14px; border-radius:999px; font-size:12px; font-weight:700; white-space:nowrap; }
+  .status-enquiry { background:rgba(148,163,184,.15); color:#cbd5e1; }
+  .status-advance { background:rgba(250,204,21,.15); color:#facc15; }
+  .status-progress { background:rgba(34,211,238,.15); color:#22d3ee; }
+  .status-testing { background:rgba(167,139,250,.15); color:#a78bfa; }
+  .status-delivered { background:rgba(74,222,128,.15); color:#4ade80; }
+  .status-hold { background:rgba(248,113,113,.15); color:#f87171; }
+  .status-new { background:rgba(148,163,184,.15); color:#cbd5e1; }
+  .status-reviewing { background:rgba(250,204,21,.15); color:#facc15; }
+  .status-approved { background:rgba(34,211,238,.15); color:#22d3ee; }
+  .status-done { background:rgba(74,222,128,.15); color:#4ade80; }
+  .status-rejected { background:rgba(248,113,113,.15); color:#f87171; }
+
+  .project-card { margin-bottom:16px; }
+  .result-top { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:6px; gap:10px; }
+  .result-top h3 { font-size:1.1rem; font-weight:800; }
+  .progress-wrap { margin:16px 0 12px; }
+  .progress-label { display:flex; justify-content:space-between; font-size:12px; color:#94a3b8; margin-bottom:6px; }
+  .progress-bar-bg { background:rgba(255,255,255,.08); border-radius:999px; height:10px; overflow:hidden; }
+  .progress-bar-fill { height:100%; background:linear-gradient(90deg,#7c3aed,#22d3ee); border-radius:999px; transition:width .6s ease; }
+  .info-row { display:flex; gap:10px; padding:8px 0; border-top:1px solid rgba(255,255,255,.06); font-size:13.5px; }
+  .info-row .label { color:#64748b; min-width:120px; }
+  .note-box { margin-top:14px; background:rgba(139,92,246,.08); border:1px solid rgba(139,92,246,.2); border-radius:12px; padding:12px 14px; font-size:13px; color:#d1d5db; line-height:1.5; }
+
+  .request-item, .file-item {
+    display:flex; justify-content:space-between; align-items:center; gap:10px;
+    padding:12px 14px; background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.06);
+    border-radius:12px; margin-bottom:8px; font-size:13.5px;
+  }
+  .request-item .txt, .file-item .txt { flex:1; }
+  .request-item .meta, .file-item .meta { color:#64748b; font-size:11.5px; margin-top:3px; }
+  .file-item a { color:#22d3ee; text-decoration:none; font-weight:700; font-size:13px; }
+
+  .empty-msg { color:#64748b; font-size:13.5px; text-align:center; padding:16px 0; }
+
+  footer { text-align:center; color:#64748b; font-size:12px; padding:20px; }
+  footer a { color:#4ade80; text-decoration:none; }
+</style>
+</head>
+<body>
+
+<header>
+  <a class="back" href="index.html">← হোমে ফিরুন</a>
+  <div class="brand gradient-text">Digital Agency</div>
+  <button id="logoutBtn" onclick="logoutRoom()">🚪 Exit Room</button>
+</header>
+
+<div class="wrap">
+
+  <!-- LOGIN SCREEN -->
+  <div id="loginScreen">
+    <div class="hero">
+      <h1>আপনার <span class="gradient-text">Client Room</span></h1>
+      <p>আপনার Invite Card এ দেওয়া Unique Code দিয়ে আপনার পার্সোনাল রুমে ঢুকুন</p>
+    </div>
+    <div class="card">
+      <input id="codeInput" type="text" placeholder="যেমন CR-2026-KKB01" autocomplete="off" style="text-transform:uppercase;">
+      <small>এই কোডটা আপনার Invite Card এ দেওয়া আছে। হারিয়ে ফেললে নিচে থেকে যোগাযোগ করুন।</small>
+      <button class="btn btn-full" id="loginBtn" onclick="enterRoom()">🔑 Enter Room</button>
+    </div>
+    <div class="loader" id="loginLoader"><div class="spin"></div>খোঁজা হচ্ছে...</div>
+    <div id="loginError"></div>
+  </div>
+
+  <!-- ROOM SCREEN -->
+  <div id="roomScreen">
+    <div class="welcome-bar">
+      <h2 id="welcomeName">স্বাগতম!</h2>
+      <p id="welcomeCode"></p>
+    </div>
+
+    <div class="section-title">📁 আপনার প্রজেক্ট</div>
+    <div id="projectsList"></div>
+
+    <div class="section-title">💡 নতুন ফিচার / আপডেট রিকোয়েস্ট করুন</div>
+    <div class="card">
+      <select id="requestProjectSelect"></select>
+      <textarea id="requestText" rows="3" placeholder="আপনি কী চান লিখুন... (যেমন: নতুন পেমেন্ট অপশন যোগ করতে চাই)"></textarea>
+      <button class="btn btn-full" id="requestBtn" onclick="submitRequest()">📩 Request পাঠান</button>
+    </div>
+    <div id="requestsList"></div>
+
+    <div class="section-title">📎 ফাইল ও ডকুমেন্ট</div>
+    <div class="card">
+      <select id="fileProjectSelect"></select>
+      <input id="fileInput" type="file">
+      <button class="btn btn-outline btn-full" id="uploadBtn" onclick="uploadFile()">⬆️ ফাইল আপলোড করুন</button>
+    </div>
+    <div id="filesList"></div>
+  </div>
+
+</div>
+
+<footer>
+  কোনো সমস্যা হলে <a href="https://wa.me/917549459770?text=Client Room niye samossa hocche">WhatsApp করুন</a> — 7549459770
+</footer>
+
+<script>
+const statusMap = {
+  'Enquiry': { cls:'status-enquiry', emoji:'📝' },
+  'Advance Paid': { cls:'status-advance', emoji:'💰' },
+  'In Progress': { cls:'status-progress', emoji:'⚙️' },
+  'Testing': { cls:'status-testing', emoji:'🧪' },
+  'Delivered': { cls:'status-delivered', emoji:'✅' },
+  'On Hold': { cls:'status-hold', emoji:'⏸️' }
+};
+const reqStatusMap = {
+  'New': { cls:'status-new', emoji:'🆕' },
+  'Reviewing': { cls:'status-reviewing', emoji:'👀' },
+  'Approved': { cls:'status-approved', emoji:'👍' },
+  'In Progress': { cls:'status-progress', emoji:'⚙️' },
+  'Done': { cls:'status-done', emoji:'✅' },
+  'Rejected': { cls:'status-rejected', emoji:'❌' }
+};
+
+let currentClient = null;
+let currentProjects = [];
+
+function escapeHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = str == null ? '' : String(str);
+  return div.innerHTML;
+}
+function formatDate(d) {
+  if (!d) return '—';
+  return new Date(d).toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' });
+}
+function formatDateTime(d) {
+  if (!d) return '—';
+  return new Date(d).toLocaleString('en-IN', { day:'numeric', month:'short', hour:'2-digit', minute:'2-digit' });
+}
+
+// Restore session if code already saved
+window.addEventListener('load', function() {
+  const savedCode = sessionStorage.getItem('roomClientCode');
+  if (savedCode) {
+    document.getElementById('codeInput').value = savedCode;
+    enterRoom();
+  }
+});
+
+async function enterRoom() {
+  const code = document.getElementById('codeInput').value.trim().toUpperCase();
+  const loginError = document.getElementById('loginError');
+  const loader = document.getElementById('loginLoader');
+  const btn = document.getElementById('loginBtn');
+  loginError.innerHTML = '';
+
+  if (!code) { alert('একটা Unique Code লিখুন।'); return; }
+
+  loader.style.display = 'block';
+  btn.disabled = true;
+
+  try {
+    const { data: clientData, error: clientErr } = await sb
+      .from('room_clients')
+      .select('*')
+      .eq('client_code', code)
+      .limit(1);
+
+    if (clientErr || !clientData || clientData.length === 0) {
+      loader.style.display = 'none';
+      btn.disabled = false;
+      loginError.innerHTML = `
+        <div class="card fadein" style="text-align:center;">
+          <p style="color:#94a3b8;font-size:14px;margin-bottom:14px;">😕 এই কোড দিয়ে কোনো Client Room পাওয়া যায়নি। বানান চেক করুন।</p>
+          <a class="btn" style="background:#22c55e;text-decoration:none;display:inline-block;" href="https://wa.me/917549459770?text=Client Room code khuje pacchi na: ${encodeURIComponent(code)}" target="_blank">💬 WhatsApp করুন</a>
+        </div>`;
+      return;
+    }
+
+    currentClient = clientData[0];
+    sessionStorage.setItem('roomClientCode', code);
+
+    const { data: projectsData } = await sb
+      .from('room_projects')
+      .select('*')
+      .eq('client_id', currentClient.id)
+      .order('created_at', { ascending: false });
+
+    currentProjects = projectsData || [];
+
+    loader.style.display = 'none';
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('roomScreen').style.display = 'block';
+    document.getElementById('logoutBtn').style.display = 'inline-block';
+
+    document.getElementById('welcomeName').textContent = `👋 স্বাগতম, ${currentClient.client_name}`;
+    document.getElementById('welcomeCode').textContent = `Client Code: ${currentClient.client_code}`;
+
+    renderProjects();
+    populateProjectSelects();
+    loadFeatureRequests();
+    loadFiles();
+  } catch (e) {
+    console.error('Room login failed:', e);
+    loader.style.display = 'none';
+    btn.disabled = false;
+    loginError.innerHTML = `<div class="card"><p style="color:#f87171;font-size:13px;">কিছু একটা সমস্যা হয়েছে, আবার চেষ্টা করুন।</p></div>`;
+  }
+}
+
+function logoutRoom() {
+  sessionStorage.removeItem('roomClientCode');
+  location.reload();
+}
+
+function renderProjects() {
+  const container = document.getElementById('projectsList');
+  if (currentProjects.length === 0) {
+    container.innerHTML = `<div class="card empty-msg">এখনও কোনো প্রজেক্ট যোগ করা হয়নি।</div>`;
+    return;
+  }
+  container.innerHTML = currentProjects.map(p => {
+    const s = statusMap[p.status] || { cls:'status-progress', emoji:'ℹ️' };
+    const progress = Math.max(0, Math.min(100, p.progress_percent || 0));
+    return `
+      <div class="card project-card fadein">
+        <div class="result-top">
+          <h3>${escapeHtml(p.project_name)}</h3>
+          <span class="status-badge ${s.cls}">${s.emoji} ${escapeHtml(p.status)}</span>
+        </div>
+        <div class="progress-wrap">
+          <div class="progress-label"><span>Progress</span><span>${progress}%</span></div>
+          <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:${progress}%"></div></div>
+        </div>
+        ${p.current_stage ? `<div class="info-row"><div class="label">Current Stage</div><div>${escapeHtml(p.current_stage)}</div></div>` : ''}
+        ${p.expected_delivery ? `<div class="info-row"><div class="label">Expected Delivery</div><div>${formatDate(p.expected_delivery)}</div></div>` : ''}
+        <div class="info-row"><div class="label">Last Updated</div><div>${formatDateTime(p.updated_at)}</div></div>
+        ${p.notes ? `<div class="note-box">💬 ${escapeHtml(p.notes)}</div>` : ''}
+      </div>`;
+  }).join('');
+}
+
+function populateProjectSelects() {
+  const options = currentProjects.map(p => `<option value="${p.id}">${escapeHtml(p.project_name)}</option>`).join('');
+  const fallback = `<option value="">General (কোনো নির্দিষ্ট প্রজেক্ট নয়)</option>`;
+  document.getElementById('requestProjectSelect').innerHTML = fallback + options;
+  document.getElementById('fileProjectSelect').innerHTML = options || `<option value="">প্রথমে একটা প্রজেক্ট থাকতে হবে</option>`;
+}
+
+async function submitRequest() {
+  const text = document.getElementById('requestText').value.trim();
+  const projectId = document.getElementById('requestProjectSelect').value || null;
+  const btn = document.getElementById('requestBtn');
+
+  if (!text) { alert('আপনার রিকোয়েস্ট লিখুন।'); return; }
+
+  btn.disabled = true;
+  btn.textContent = 'পাঠানো হচ্ছে...';
+
+  try {
+    const { error } = await sb.from('room_feature_requests').insert({
+      client_id: currentClient.id,
+      project_id: projectId,
+      request_text: text
+    });
+    if (error) throw error;
+    document.getElementById('requestText').value = '';
+    await loadFeatureRequests();
+  } catch (e) {
+    console.error('Request submit failed:', e);
+    alert('রিকোয়েস্ট পাঠাতে সমস্যা হয়েছে, আবার চেষ্টা করুন।');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '📩 Request পাঠান';
+  }
+}
+
+async function loadFeatureRequests() {
+  const container = document.getElementById('requestsList');
+  try {
+    const { data } = await sb
+      .from('room_feature_requests')
+      .select('*')
+      .eq('client_id', currentClient.id)
+      .order('created_at', { ascending: false });
+
+    if (!data || data.length === 0) {
+      container.innerHTML = `<div class="empty-msg">এখনও কোনো রিকোয়েস্ট পাঠানো হয়নি।</div>`;
+      return;
+    }
+    container.innerHTML = data.map(r => {
+      const s = reqStatusMap[r.status] || { cls:'status-new', emoji:'🆕' };
+      const proj = currentProjects.find(p => p.id === r.project_id);
+      return `
+        <div class="request-item fadein">
+          <div class="txt">
+            ${escapeHtml(r.request_text)}
+            <div class="meta">${proj ? escapeHtml(proj.project_name) + ' • ' : ''}${formatDateTime(r.created_at)}</div>
+          </div>
+          <span class="status-badge ${s.cls}">${s.emoji} ${escapeHtml(r.status)}</span>
+        </div>`;
+    }).join('');
+  } catch (e) {
+    console.error('Load requests failed:', e);
+    container.innerHTML = `<div class="empty-msg">রিকোয়েস্ট লোড করা যায়নি।</div>`;
+  }
+}
+
+async function uploadFile() {
+  const fileInput = document.getElementById('fileInput');
+  const projectId = document.getElementById('fileProjectSelect').value;
+  const btn = document.getElementById('uploadBtn');
+
+  if (!projectId) { alert('আপলোড করার আগে একটা প্রজেক্ট সিলেক্ট করুন।'); return; }
+  if (!fileInput.files || fileInput.files.length === 0) { alert('একটা ফাইল বেছে নিন।'); return; }
+
+  const file = fileInput.files[0];
+  if (file.size > 20 * 1024 * 1024) { alert('ফাইল সাইজ ২০MB এর মধ্যে রাখুন।'); return; }
+
+  btn.disabled = true;
+  btn.textContent = 'আপলোড হচ্ছে...';
+
+  try {
+    const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+    const path = `${currentClient.client_code}/${Date.now()}_${safeName}`;
+
+    const { error: uploadErr } = await sb.storage.from('client-room-files').upload(path, file);
+    if (uploadErr) throw uploadErr;
+
+    const { data: urlData } = sb.storage.from('client-room-files').getPublicUrl(path);
+
+    const { error: dbErr } = await sb.from('room_files').insert({
+      project_id: projectId,
+      file_name: file.name,
+      file_url: urlData.publicUrl,
+      storage_path: path,
+      uploaded_by: 'client'
+    });
+    if (dbErr) throw dbErr;
+
+    fileInput.value = '';
+    await loadFiles();
+  } catch (e) {
+    console.error('File upload failed:', e);
+    alert('ফাইল আপলোড করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '⬆️ ফাইল আপলোড করুন';
+  }
+}
+
+async function loadFiles() {
+  const container = document.getElementById('filesList');
+  if (currentProjects.length === 0) {
+    container.innerHTML = `<div class="empty-msg">প্রথমে একটা প্রজেক্ট থাকতে হবে।</div>`;
+    return;
+  }
+  try {
+    const projectIds = currentProjects.map(p => p.id);
+    const { data } = await sb
+      .from('room_files')
+      .select('*')
+      .in('project_id', projectIds)
+      .order('created_at', { ascending: false });
+
+    if (!data || data.length === 0) {
+      container.innerHTML = `<div class="empty-msg">এখনও কোনো ফাইল শেয়ার করা হয়নি।</div>`;
+      return;
+    }
+    container.innerHTML = data.map(f => {
+      const proj = currentProjects.find(p => p.id === f.project_id);
+      const icon = f.uploaded_by === 'admin' ? '🗂️' : '📤';
+      return `
+        <div class="file-item fadein">
+          <div class="txt">
+            ${icon} ${escapeHtml(f.file_name)}
+            <div class="meta">${proj ? escapeHtml(proj.project_name) + ' • ' : ''}${f.uploaded_by === 'admin' ? 'Agency থেকে পাঠানো' : 'আপনি পাঠিয়েছেন'} • ${formatDateTime(f.created_at)}</div>
+          </div>
+          <a href="${f.file_url}" target="_blank" rel="noopener">⬇️ Download</a>
+        </div>`;
+    }).join('');
+  } catch (e) {
+    console.error('Load files failed:', e);
+    container.innerHTML = `<div class="empty-msg">ফাইল লোড করা যায়নি।</div>`;
+  }
+}
+
+document.getElementById('codeInput').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') enterRoom();
+});
+</script>
+
+</body>
+</html>
