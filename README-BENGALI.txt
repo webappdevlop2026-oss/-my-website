@@ -1,15 +1,17 @@
-LIVE ADMIN → CLIENT LCD SYSTEM
+আগের agency-control-2026.html একটি SVG ছবি ছিল, working Admin Panel ছিল না।
 
-Upload/replace:
-1. client-room.html
-2. client-room-admin.html
-3. live-project-review.sql Supabase SQL Editor-এ একবার Run করুন
+ইনস্টল:
+1. agency-control-2026.html ফাইলটি website root folder-এর পুরনো একই নামের ফাইল দিয়ে Replace করুন।
+2. agency-control-client-room-update.sql Supabase SQL Editor-এ একবার Run করুন।
+3. Supabase Dashboard → Authentication → Users থেকে Admin email/password user তৈরি করুন।
+4. তারপর খুলুন:
+   https://digitalagencybychandandas.in/agency-control-2026.html
 
-Features:
-- Admin Panel থেকে project update save করলে Client LCD প্রতি 8 সেকেন্ডে check করবে
-- নতুন URL, video, progress, status বা note LCD-তে live refresh হবে
-- Client “Correction বলুন” box-এ click করে project select করবে
-- Client page/section ও correction message পাঠাতে পারবে
-- Correction Admin Panel-এর “Client Correction Requests” section-এ দেখা যাবে
-- Admin status দিতে পারবে: Checking / Fixed / Completed
-- Client নিজের review history ও status দেখতে পারবে
+Admin Panel থেকে:
+- Client তৈরি
+- Pass Code Generate
+- Client-এর আলাদা Project Add/Update
+- Preview URL / Video URL
+- Progress / Status / Delivery
+- Client Correction Requests দেখা
+- Checking / Fixed / Completed status দেওয়া

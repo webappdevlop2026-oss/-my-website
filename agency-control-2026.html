@@ -1,10 +1,260 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="900" height="560" viewBox="0 0 900 560">
-<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#9333ea"/><stop offset="1" stop-color="#ec4899"/></linearGradient><filter id="s"><feDropShadow dx="0" dy="16" stdDeviation="20" flood-opacity=".25"/></filter></defs>
-<rect width="900" height="560" fill="#0b1020"/><rect x="30" y="30" width="840" height="500" rx="34" fill="url(#g)" opacity=".95"/>
-<g filter="url(#s)"><rect x="95" y="95" width="710" height="395" rx="20" fill="#f8fafc"/><rect x="95" y="95" width="710" height="54" rx="20" fill="#0f172a"/><circle cx="128" cy="122" r="8" fill="#ef4444"/><circle cx="154" cy="122" r="8" fill="#f59e0b"/><circle cx="180" cy="122" r="8" fill="#22c55e"/></g>
-<rect x="130" y="176" width="290" height="36" rx="10" fill="#111827" opacity=".9"/><rect x="130" y="228" width="210" height="14" rx="7" fill="#64748b"/><rect x="130" y="254" width="250" height="14" rx="7" fill="#94a3b8"/><rect x="130" y="286" width="120" height="36" rx="18" fill="#9333ea"/>
-<rect x="475" y="176" width="285" height="146" rx="18" fill="#e2e8f0"/><rect x="495" y="198" width="245" height="20" rx="10" fill="#ec4899" opacity=".75"/><rect x="495" y="238" width="110" height="64" rx="14" fill="#9333ea" opacity=".70"/><rect x="625" y="238" width="115" height="64" rx="14" fill="#94a3b8" opacity=".65"/>
-<rect x="130" y="360" width="180" height="84" rx="16" fill="#e2e8f0"/><rect x="340" y="360" width="180" height="84" rx="16" fill="#e2e8f0"/><rect x="550" y="360" width="180" height="84" rx="16" fill="#e2e8f0"/>
-<text x="130" y="206" font-family="Arial, sans-serif" font-size="26" font-weight="800" fill="#fff">Marketplace</text>
-<text x="130" y="472" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#0f172a">Seller • Product • Order</text>
-</svg>
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Agency Control 2026 | Digital Agency by Chandan Das</title>
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<script src="supabase-client.js"></script>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#07101d;color:#fff;font-family:Segoe UI,Tahoma,sans-serif}
+header{padding:18px 24px;background:#0b1323;border-bottom:1px solid #ffffff18;display:flex;justify-content:space-between;align-items:center}
+main{max-width:1200px;margin:auto;padding:20px}.grid{display:grid;grid-template-columns:360px 1fr;gap:18px}
+.card{background:#0d1728;border:1px solid #ffffff16;border-radius:18px;padding:18px;margin-bottom:16px}
+h2,h3{margin-top:0}.field{width:100%;padding:11px 12px;margin:6px 0;border:1px solid #ffffff1c;border-radius:10px;background:#050b16;color:#fff}
+button{border:0;border-radius:10px;padding:10px 13px;background:#7c3aed;color:#fff;font-weight:800;cursor:pointer}
+.secondary{background:#1e293b}.danger{background:#be123c}.success{background:#0f766e}
+.client{padding:12px;border:1px solid #ffffff14;border-radius:12px;margin:8px 0;cursor:pointer}.client.active{border-color:#22d3ee;background:#0e749033}
+.row{display:flex;gap:8px;flex-wrap:wrap}.row>*{flex:1}.project{padding:14px;border:1px solid #ffffff14;border-radius:14px;margin:10px 0;background:#ffffff08}
+.badge{display:inline-block;padding:4px 8px;border-radius:999px;background:#164e63;font-size:11px}
+.request-card{padding:13px;border:1px solid #ffffff14;border-radius:13px;margin:9px 0;background:#ffffff08}
+.request-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}
+.request-actions button{padding:7px 10px;font-size:12px}
+.live-badge{display:inline-block;padding:4px 8px;border-radius:999px;background:#166534;color:#dcfce7;font-size:11px;margin-left:6px}
+.muted{color:#94a3b8;font-size:13px}#login{max-width:420px;margin:80px auto}
+.dashboard-cards{max-width:1200px;margin:0 auto 18px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.dash{padding:16px;border-radius:16px;background:linear-gradient(145deg,#111c30,#0b1323);border:1px solid #ffffff16}
+.dash span{display:block;color:#94a3b8;font-size:12px;margin-bottom:8px}.dash b{font-size:24px}
+@media(max-width:800px){.grid{grid-template-columns:1fr}.dashboard-cards{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<header>
+<div>
+  <b style="font-size:18px">Digital Agency by Chandan Das</b>
+  <div class="muted">Agency Control 2026 — Client Room Management</div>
+</div>
+<div class="row" style="flex:0 0 auto">
+  <a href="client-room.html" target="_blank" style="text-decoration:none"><button class="secondary">Client Room দেখুন</button></a>
+  <button class="secondary" onclick="logout()">Logout</button>
+</div>
+</header>
+
+<section id="login" class="card">
+<h2>Admin Login</h2>
+<input id="email" class="field" type="email" placeholder="Admin email">
+<input id="password" class="field" type="password" placeholder="Password">
+<button onclick="login()">Login</button>
+<div id="loginMsg" class="muted"></div>
+</section>
+
+<main id="app" style="display:none">
+<div class="dashboard-cards">
+  <div class="dash"><span>Total Clients</span><b id="totalClients">0</b></div>
+  <div class="dash"><span>Total Projects</span><b id="totalProjects">0</b></div>
+  <div class="dash"><span>New Corrections</span><b id="newCorrections">0</b></div>
+  <div class="dash"><span>Live Sync</span><b style="color:#4ade80">ON</b></div>
+</div>
+<div class="grid">
+<section>
+<div class="card">
+<h3>নতুন Client</h3>
+<input id="clientName" class="field" placeholder="Client name">
+<input id="clientPhone" class="field" placeholder="Mobile number">
+<input id="clientCode" class="field" placeholder="Pass code">
+<div class="row"><button class="secondary" onclick="generateCode()">Generate Code</button><button onclick="saveClient()">Client Add</button></div>
+</div>
+<div class="card">
+<h3>Clients</h3>
+<input id="clientSearch" class="field" placeholder="Search..." oninput="renderClients()">
+<div id="clients"></div>
+</div>
+</section>
+
+<section>
+<div class="card">
+<h2 id="selectedTitle">Client select করুন</h2>
+<div id="selectedInfo" class="muted"></div>
+</div>
+
+<div id="projectForm" class="card" style="display:none">
+<h3>Project Add / Update</h3>
+<input id="projectId" type="hidden">
+<div class="row">
+<input id="projectName" class="field" placeholder="Project name">
+<select id="projectType" class="field">
+<option>Website</option><option>Mobile App</option><option>Admin Panel</option><option>Software</option><option>Other</option>
+</select>
+</div>
+<div class="row">
+<select id="projectStatus" class="field">
+<option>Enquiry</option><option>Advance Paid</option><option selected>In Progress</option><option>Testing</option><option>Delivered</option><option>On Hold</option>
+</select>
+<input id="projectProgress" class="field" type="number" min="0" max="100" placeholder="Progress %">
+</div>
+<input id="projectStage" class="field" placeholder="Current stage">
+<textarea id="projectNotes" class="field" rows="3" placeholder="Client-এর জন্য update note"></textarea>
+<div class="row">
+<input id="projectPreview" class="field" placeholder="Website/preview URL">
+<input id="projectVideo" class="field" placeholder="Project video URL">
+</div>
+<div class="row">
+<input id="projectCost" class="field" placeholder="Project cost">
+<input id="projectDelivery" class="field" type="date">
+</div>
+<div class="row"><button onclick="saveProject()">Save Project</button><button class="secondary" onclick="clearProjectForm()">Clear</button></div>
+</div>
+
+<div class="card">
+<h3>Client Projects</h3>
+<div id="projects"></div>
+</div>
+
+<div class="card">
+<h3>Client Correction Requests</h3>
+<button class="secondary" onclick="loadCorrectionRequests()">Refresh Requests</button>
+<div id="correctionRequests" style="margin-top:12px"></div>
+</div>
+</section>
+</div>
+</main>
+
+<script>
+let clients=[],selectedClient=null,projectRows=[];
+const $=id=>document.getElementById(id);
+
+async function refreshDashboardTotals(){
+ try{
+   const [p,r]=await Promise.all([
+     sb.from('room_projects').select('id',{count:'exact',head:true}),
+     sb.from('room_feature_requests').select('id',{count:'exact',head:true}).eq('status','New')
+   ]);
+   $('totalProjects').textContent=p.count||0;
+   $('newCorrections').textContent=r.count||0;
+ }catch(e){console.warn(e)}
+}
+
+async function checkSession(){
+ const {data}=await sb.auth.getSession();
+ if(data.session){$('login').style.display='none';$('app').style.display='block';loadClients()}
+}
+async function login(){
+ const {error}=await sb.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});
+ $('loginMsg').textContent=error?error.message:'';
+ if(!error){$('login').style.display='none';$('app').style.display='block';loadClients()}
+}
+async function logout(){await sb.auth.signOut();location.reload()}
+function generateCode(){
+ const n=Math.random().toString(36).slice(2,7).toUpperCase();
+ $('clientCode').value='CR-'+new Date().getFullYear()+'-'+n;
+}
+async function saveClient(){
+ const name=$('clientName').value.trim(),code=$('clientCode').value.trim().toUpperCase();
+ if(!name||!code)return alert('Client name ও pass code দিন');
+ const {error}=await sb.from('room_clients').insert({client_name:name,client_phone:$('clientPhone').value.trim(),client_code:code});
+ if(error)return alert(error.message);
+ $('clientName').value='';$('clientPhone').value='';$('clientCode').value='';loadClients();
+}
+async function loadClients(){
+ const {data,error}=await sb.from('room_clients').select('*').order('created_at',{ascending:false});
+ if(error)return alert(error.message);
+ clients=data||[];$('totalClients').textContent=clients.length;renderClients();refreshDashboardTotals();
+}
+function renderClients(){
+ const q=$('clientSearch').value.toLowerCase();
+ $('clients').innerHTML='';
+ clients.filter(c=>(c.client_name+' '+c.client_code+' '+(c.client_phone||'')).toLowerCase().includes(q)).forEach(c=>{
+   const d=document.createElement('div');d.className='client'+(selectedClient?.id===c.id?' active':'');
+   d.innerHTML=`<b>${escapeHtml(c.client_name)}</b><div class="muted">${escapeHtml(c.client_code)} • ${escapeHtml(c.client_phone||'')}</div>`;
+   d.onclick=()=>selectClient(c);$('clients').appendChild(d);
+ });
+}
+function selectClient(c){
+ selectedClient=c;renderClients();
+ $('selectedTitle').textContent=c.client_name;
+ $('selectedInfo').innerHTML=`Pass Code: <b>${escapeHtml(c.client_code)}</b> &nbsp; Mobile: ${escapeHtml(c.client_phone||'-')}`;
+ $('projectForm').style.display='block';loadProjects();loadCorrectionRequests();refreshDashboardTotals();
+}
+async function loadProjects(){
+ const {data,error}=await sb.from('room_projects').select('*').eq('client_id',selectedClient.id).order('created_at',{ascending:false});
+ if(error)return alert(error.message);
+ projectRows=data||[];renderProjects();
+}
+function renderProjects(){
+ $('projects').innerHTML='';
+ if(!projectRows.length){$('projects').innerHTML='<div class="muted">কোনো project নেই</div>';return}
+ projectRows.forEach(p=>{
+   const d=document.createElement('div');d.className='project';
+   d.innerHTML=`<b>${escapeHtml(p.project_name)}</b> <span class="badge">${escapeHtml(p.status||'')}</span>
+   <div class="muted">${escapeHtml(p.current_stage||'')} • ${p.progress_percent||0}%</div>
+   <div class="row" style="margin-top:10px"><button class="secondary">Edit</button><button class="danger">Delete</button></div>`;
+   const btns=d.querySelectorAll('button');btns[0].onclick=()=>editProject(p);btns[1].onclick=()=>deleteProject(p.id);
+   $('projects').appendChild(d);
+ });
+}
+function editProject(p){
+ $('projectId').value=p.id;$('projectName').value=p.project_name||'';$('projectType').value=p.project_type||'Website';
+ $('projectStatus').value=p.status||'In Progress';$('projectProgress').value=p.progress_percent||0;$('projectStage').value=p.current_stage||'';
+ $('projectNotes').value=p.notes||'';$('projectPreview').value=p.preview_url||'';$('projectVideo').value=p.video_url||'';
+ $('projectCost').value=p.project_cost||'';$('projectDelivery').value=p.expected_delivery||'';
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+function clearProjectForm(){['projectId','projectName','projectStage','projectNotes','projectPreview','projectVideo','projectCost','projectDelivery'].forEach(id=>$(id).value='');$('projectProgress').value=0}
+async function saveProject(){
+ if(!selectedClient)return;
+ const payload={client_id:selectedClient.id,project_name:$('projectName').value.trim(),project_type:$('projectType').value,status:$('projectStatus').value,
+ progress_percent:Number($('projectProgress').value||0),current_stage:$('projectStage').value.trim(),notes:$('projectNotes').value.trim(),
+ preview_url:$('projectPreview').value.trim()||null,video_url:$('projectVideo').value.trim()||null,project_cost:$('projectCost').value.trim()||null,
+ expected_delivery:$('projectDelivery').value||null};
+ if(!payload.project_name)return alert('Project name দিন');
+ let result;
+ if($('projectId').value) result=await sb.from('room_projects').update(payload).eq('id',$('projectId').value);
+ else result=await sb.from('room_projects').insert(payload);
+ if(result.error)return alert(result.error.message);
+ clearProjectForm();loadProjects();alert('Project update save হয়েছে। Client LCD সর্বোচ্চ 8 সেকেন্ডের মধ্যে refresh হবে।');
+}
+async function deleteProject(id){
+ if(!confirm('Project delete করবেন?'))return;
+ const {error}=await sb.from('room_projects').delete().eq('id',id);
+ if(error)return alert(error.message);loadProjects();
+}
+
+async function loadCorrectionRequests(){
+ if(!selectedClient){
+   $('correctionRequests').innerHTML='<div class="muted">Client select করুন</div>';
+   return;
+ }
+ const {data,error}=await sb.from('room_feature_requests')
+   .select('*, room_projects(project_name)')
+   .eq('client_id',selectedClient.id)
+   .order('created_at',{ascending:false});
+ if(error){
+   $('correctionRequests').innerHTML='<div class="muted">'+escapeHtml(error.message)+'</div>';
+   return;
+ }
+ const rows=data||[];
+ $('correctionRequests').innerHTML=rows.length?rows.map(r=>`
+ <div class="request-card">
+   <b>${escapeHtml(r.room_projects?.project_name||'General Request')}</b>
+   <span class="live-badge">${escapeHtml(r.status||'New')}</span>
+   <p>${escapeHtml(r.request_text||'')}</p>
+   <div class="muted">${new Date(r.created_at).toLocaleString()}</div>
+   <div class="request-actions">
+     <button class="secondary" onclick="updateRequestStatus('${r.id}','Checking')">Checking</button>
+     <button class="success" onclick="updateRequestStatus('${r.id}','Fixed')">Fixed</button>
+     <button onclick="updateRequestStatus('${r.id}','Completed')">Completed</button>
+   </div>
+ </div>`).join(''):'<div class="muted">কোনো correction request নেই</div>';
+}
+
+async function updateRequestStatus(id,status){
+ const {error}=await sb.from('room_feature_requests').update({status}).eq('id',id);
+ if(error)return alert(error.message);
+ loadCorrectionRequests();
+}
+
+function escapeHtml(v){const d=document.createElement('div');d.textContent=v??'';return d.innerHTML}
+checkSession();
+</script>
+</body>
+</html>
