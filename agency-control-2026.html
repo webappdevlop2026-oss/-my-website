@@ -3,7 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Agency Control 2026 | Digital Agency by Chandan Das</title>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>Agency Control 2026 Firebase v2 | Digital Agency by Chandan Das</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#07101d;color:#fff;font-family:Segoe UI,Tahoma,sans-serif}
 header{padding:18px 24px;background:#0b1323;border-bottom:1px solid #ffffff18;display:flex;justify-content:space-between;align-items:center}
@@ -29,13 +32,29 @@ button{border:0;border-radius:10px;padding:10px 13px;background:#7c3aed;color:#f
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-storage-compat.js"></script>
-<script src="firebase-client.js"></script>
+
+<script>
+const firebaseConfig = {
+  "apiKey": "AIzaSyAPX-F-CpUVmyn_RlF8My6pzY_QGM4XunU",
+  "authDomain": "digital-agency-by-chandan-das.firebaseapp.com",
+  "projectId": "digital-agency-by-chandan-das",
+  "storageBucket": "digital-agency-by-chandan-das.firebasestorage.app",
+  "messagingSenderId": "576373782793",
+  "appId": "1:576373782793:web:7ddd852c3c90d78acd7bd8",
+  "measurementId": "G-E35HVVTKBG"
+};
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+const storage = firebase.storage();
+console.log('FIREBASE ADMIN PANEL v2 ACTIVE');
+</script>
 </head>
 <body>
 <header>
 <div>
   <b style="font-size:18px">Digital Agency by Chandan Das</b>
-  <div class="muted">Agency Control 2026 — Client Room Management</div>
+  <div class="muted">Agency Control 2026 — Client Room Management <span style="color:#4ade80;font-weight:800">● FIREBASE CONNECTED</span></div>
 </div>
 <div class="row" style="flex:0 0 auto">
   <a href="client-room.html" target="_blank" style="text-decoration:none"><button class="secondary">Client Room দেখুন</button></a>

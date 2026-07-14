@@ -1,44 +1,14 @@
-FIREBASE CONNECTED CLIENT ROOM SYSTEM
+এটি standalone Firebase Admin Panel।
 
-Upload/replace these files:
-1. firebase-client.js
-2. client-room.html
-3. agency-control-2026.html
+করতে হবে:
+1. website root-এর পুরনো agency-control-2026.html DELETE করুন।
+2. এই ZIP-এর agency-control-2026.html upload করুন।
+3. Hostinger File Manager-এ file size/date বদলেছে কিনা দেখুন।
+4. URL খুলুন:
+   https://digitalagencybychandandas.in/agency-control-2026.html?v=2
+5. Ctrl + Shift + R চাপুন।
 
-Firebase Console setup:
+সঠিক file চললে header-এ সবুজ লেখা দেখাবে:
+● FIREBASE CONNECTED
 
-A) Firestore Database
-- Firestore → Create database
-- Start in Production mode
-- Region choose nearest available
-- Firestore → Rules
-- Paste firestore.rules and Publish
-
-B) Authentication
-- Authentication → Get started
-- Sign-in method → Email/Password → Enable
-- Users → Add user
-- এই email/password দিয়ে Admin Panel login করবেন
-
-C) Storage (optional for future uploads)
-- Storage → Get started
-- Rules-এ storage.rules paste করে Publish
-
-Admin URL:
-https://digitalagencybychandandas.in/agency-control-2026.html
-
-Client Room URL:
-https://digitalagencybychandandas.in/client-room.html
-
-Flow:
-- Admin Client তৈরি করবে
-- Pass Code generate করবে
-- Client-এর আলাদা project add/update করবে
-- Client pass code দিয়ে ঢুকে নিজের project দেখবে
-- Client correction পাঠাবে
-- Admin correction status update করবে
-- Firestore থেকে live refresh হবে
-
-Supabase files আর লাগবে না:
-- supabase-client.js
-- Supabase SQL files
+এখনও Supabase schema cache error দেখালে hosting-এ পুরনো file replace হয়নি বা CDN/cache পুরনো copy দেখাচ্ছে।
