@@ -1,28 +1,26 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-
-    function isAdmin() {
-      return request.auth != null;
-    }
-
+    function isAdmin() { return request.auth != null; }
     match /room_clients/{clientId} {
       allow read: if true;
       allow create, update, delete: if isAdmin();
     }
-
     match /room_projects/{projectId} {
       allow read: if true;
       allow create, update, delete: if isAdmin();
     }
-
     match /room_feature_requests/{requestId} {
       allow read: if true;
       allow create: if true;
       allow update, delete: if isAdmin();
     }
-
     match /room_files/{fileId} {
+      allow read: if true;
+      allow create: if true;
+      allow update, delete: if isAdmin();
+    }
+    match /room_chats/{chatId} {
       allow read: if true;
       allow create: if true;
       allow update, delete: if isAdmin();

@@ -19,15 +19,20 @@ button{border:0;border-radius:10px;padding:10px 13px;background:#7c3aed;color:#f
 .request-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}
 .request-actions button{padding:7px 10px;font-size:12px}
 .live-badge{display:inline-block;padding:4px 8px;border-radius:999px;background:#166534;color:#dcfce7;font-size:11px;margin-left:6px}
-.video-upload-box{margin-top:12px;padding:14px;border:1px dashed #334155;border-radius:14px;background:#07101d}
-.upload-progress-wrap{height:9px;background:#1e293b;border-radius:999px;overflow:hidden;margin-top:12px}
-.upload-progress{height:100%;width:0;background:linear-gradient(90deg,#7c3aed,#22d3ee);transition:width .2s}
-.video-upload-box input[type=file]::file-selector-button{border:0;border-radius:8px;padding:8px 11px;background:#263247;color:#fff;font-weight:700;margin-right:10px;cursor:pointer}
 .muted{color:#94a3b8;font-size:13px}#login{max-width:420px;margin:80px auto}
 .dashboard-cards{max-width:1200px;margin:0 auto 18px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
 .dash{padding:16px;border-radius:16px;background:linear-gradient(145deg,#111c30,#0b1323);border:1px solid #ffffff16}
 .dash span{display:block;color:#94a3b8;font-size:12px;margin-bottom:8px}.dash b{font-size:24px}
 @media(max-width:800px){.grid{grid-template-columns:1fr}.dashboard-cards{grid-template-columns:repeat(2,1fr)}}
+.cardtop{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.admin-chat-messages{height:360px;overflow-y:auto;padding:12px;background:#050b16;border:1px solid #ffffff14;border-radius:12px;display:flex;flex-direction:column;gap:9px}
+.admin-chat-msg{max-width:78%;padding:10px 12px;border-radius:13px;line-height:1.4}
+.admin-chat-msg.admin{align-self:flex-end;background:linear-gradient(90deg,#7c3aed,#2563eb)}
+.admin-chat-msg.client{align-self:flex-start;background:#172033;border:1px solid #ffffff12}
+.admin-chat-msg small{display:block;margin-top:5px;color:#cbd5e1;font-size:10px}
+.admin-chat-compose{display:flex;gap:8px;margin-top:10px}
+.admin-chat-compose textarea{flex:1;resize:none;border:1px solid #ffffff1c;border-radius:10px;background:#050b16;color:#fff;padding:10px}
+.admin-chat-compose button{border:0;border-radius:10px;padding:0 18px;background:#0f766e;color:#fff;font-weight:900}
 </style>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
@@ -105,20 +110,6 @@ button{border:0;border-radius:10px;padding:10px 13px;background:#7c3aed;color:#f
 <input id="projectPreview" class="field" placeholder="Website/preview URL">
 <input id="projectVideo" class="field" placeholder="Project video URL">
 </div>
-
-<div class="video-upload-box">
-  <label for="projectVideoFile"><b>🎥 Project Video Upload</b></label>
-  <input id="projectVideoFile" class="field" type="file" accept="video/mp4,video/webm,video/ogg">
-  <div class="row">
-    <button type="button" class="success" onclick="uploadProjectVideo()">Upload Video</button>
-    <button type="button" class="secondary" onclick="clearUploadedVideo()">Remove Video</button>
-  </div>
-  <div class="upload-progress-wrap">
-    <div id="videoUploadProgress" class="upload-progress"></div>
-  </div>
-  <div id="videoUploadText" class="muted">MP4/WebM/OGG video upload করুন।</div>
-  <video id="adminVideoPreview" controls playsinline style="display:none;width:100%;max-height:280px;margin-top:12px;border-radius:12px;background:#000"></video>
-</div>
 <div class="row">
 <input id="projectCost" class="field" placeholder="Project cost">
 <input id="projectDelivery" class="field" type="date">
@@ -135,6 +126,11 @@ button{border:0;border-radius:10px;padding:10px 13px;background:#7c3aed;color:#f
 <h3>Client Correction Requests</h3>
 <button class="secondary" onclick="loadCorrectionRequests()">Refresh Requests</button>
 <div id="correctionRequests" style="margin-top:12px"></div>
+</div>
+<div class="card">
+<div class="cardtop"><h3>💬 Client Live Chat</h3><span id="adminChatStatus" class="muted">Client select করুন</span></div>
+<div id="adminChatMessages" class="admin-chat-messages"></div>
+<div class="admin-chat-compose"><textarea id="adminChatInput" rows="2" placeholder="Client-কে reply লিখুন..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendAdminChat()}"></textarea><button onclick="sendAdminChat()">Send</button></div>
 </div>
 </section>
 </div>
@@ -218,7 +214,7 @@ function selectClient(c){
  selectedClient=c;renderClients();
  $('selectedTitle').textContent=c.client_name;
  $('selectedInfo').innerHTML=`Pass Code: <b>${escapeHtml(c.client_code)}</b> &nbsp; Mobile: ${escapeHtml(c.client_phone||'-')}`;
- $('projectForm').style.display='block';loadProjects();loadCorrectionRequests();refreshDashboardTotals();
+ $('projectForm').style.display='block';loadProjects();loadCorrectionRequests();subscribeAdminChat();refreshDashboardTotals();
 }
 async function loadProjects(){
  try{
@@ -243,115 +239,10 @@ function editProject(p){
  $('projectId').value=p.id;$('projectName').value=p.project_name||'';$('projectType').value=p.project_type||'Website';
  $('projectStatus').value=p.status||'In Progress';$('projectProgress').value=p.progress_percent||0;$('projectStage').value=p.current_stage||'';
  $('projectNotes').value=p.notes||'';$('projectPreview').value=p.preview_url||'';$('projectVideo').value=p.video_url||'';
- $('projectCost').value=p.project_cost||'';$('projectDelivery').value=p.expected_delivery||'';updateAdminVideoPreview();
+ $('projectCost').value=p.project_cost||'';$('projectDelivery').value=p.expected_delivery||'';
  window.scrollTo({top:0,behavior:'smooth'});
 }
-function clearProjectForm(){
- ['projectId','projectName','projectStage','projectNotes','projectPreview','projectVideo','projectCost','projectDelivery'].forEach(id=>$(id).value='');
- $('projectProgress').value=0;
- $('projectVideoFile').value='';
- $('videoUploadProgress').style.width='0%';
- $('videoUploadText').textContent='MP4/WebM/OGG video upload করুন।';
- const preview=$('adminVideoPreview');
- preview.pause();
- preview.removeAttribute('src');
- preview.style.display='none';
- currentVideoStoragePath='';
-}
-
-let currentVideoStoragePath='';
-
-function safeFileName(name){
- return name.replace(/[^a-zA-Z0-9._-]/g,'_');
-}
-
-async function uploadProjectVideo(){
- if(!selectedClient)return alert('আগে Client select করুন।');
-
- const fileInput=$('projectVideoFile');
- const file=fileInput.files[0];
- if(!file)return alert('Video file select করুন।');
-
- const allowed=['video/mp4','video/webm','video/ogg'];
- if(!allowed.includes(file.type)){
-   return alert('শুধু MP4, WebM অথবা OGG video upload করুন।');
- }
-
- const maxSize=200*1024*1024;
- if(file.size>maxSize){
-   return alert('Video size সর্বোচ্চ 200MB রাখুন।');
- }
-
- const projectName=($('projectName').value.trim()||'project').replace(/[^a-zA-Z0-9_-]/g,'_');
- const path=`client-room/${selectedClient.id}/${projectName}/${Date.now()}_${safeFileName(file.name)}`;
- const ref=storage.ref().child(path);
- const task=ref.put(file);
-
- $('videoUploadText').textContent='Video upload হচ্ছে...';
- $('videoUploadProgress').style.width='0%';
-
- task.on('state_changed',
-   snapshot=>{
-     const percent=(snapshot.bytesTransferred/snapshot.totalBytes)*100;
-     $('videoUploadProgress').style.width=percent.toFixed(1)+'%';
-     $('videoUploadText').textContent=`Uploading: ${percent.toFixed(0)}%`;
-   },
-   error=>{
-     console.error(error);
-     $('videoUploadText').textContent='Upload failed: '+error.message;
-     alert('Video upload হয়নি। Firebase Storage Rules পরীক্ষা করুন।');
-   },
-   async ()=>{
-     const url=await task.snapshot.ref.getDownloadURL();
-     currentVideoStoragePath=path;
-     $('projectVideo').value=url;
-     $('videoUploadProgress').style.width='100%';
-     $('videoUploadText').textContent='✅ Video upload complete। এখন Save Project চাপুন।';
-
-     const preview=$('adminVideoPreview');
-     preview.src=url;
-     preview.style.display='block';
-     preview.load();
-   }
- );
-}
-
-async function clearUploadedVideo(){
- const url=$('projectVideo').value.trim();
-
- if(currentVideoStoragePath){
-   try{
-     await storage.ref().child(currentVideoStoragePath).delete();
-   }catch(e){
-     console.warn('Storage delete skipped:',e);
-   }
- }
-
- currentVideoStoragePath='';
- $('projectVideo').value='';
- $('projectVideoFile').value='';
- $('videoUploadProgress').style.width='0%';
- $('videoUploadText').textContent='Video remove করা হয়েছে।';
- const preview=$('adminVideoPreview');
- preview.pause();
- preview.removeAttribute('src');
- preview.style.display='none';
-}
-
-function updateAdminVideoPreview(){
- const url=$('projectVideo').value.trim();
- const preview=$('adminVideoPreview');
- if(url){
-   preview.src=url;
-   preview.style.display='block';
-   preview.load();
- }else{
-   preview.pause();
-   preview.removeAttribute('src');
-   preview.style.display='none';
- }
-}
-
+function clearProjectForm(){['projectId','projectName','projectStage','projectNotes','projectPreview','projectVideo','projectCost','projectDelivery'].forEach(id=>$(id).value='');$('projectProgress').value=0}
 async function saveProject(){
  if(!selectedClient)return;
  const payload={
@@ -424,8 +315,30 @@ async function updateRequestStatus(id,status){
  }catch(e){alert(e.message)}
 }
 
+
+let adminChatUnsub=null;
+function subscribeAdminChat(){
+ const box=$('adminChatMessages'),status=$('adminChatStatus');
+ if(adminChatUnsub){adminChatUnsub();adminChatUnsub=null}
+ if(!selectedClient){status.textContent='Client select করুন';box.innerHTML='<div class="muted">Client select করলে live chat দেখা যাবে।</div>';return}
+ status.textContent='Live connected: '+selectedClient.client_name;
+ adminChatUnsub=db.collection('room_chats').where('client_id','==',selectedClient.id).orderBy('created_at','asc').onSnapshot(async snap=>{
+   const rows=snap.docs.map(d=>({id:d.id,...d.data()}));
+   box.innerHTML=rows.map(m=>`<div class="admin-chat-msg ${m.sender==='admin'?'admin':'client'}">${escapeHtml(m.message||'')}<small>${m.sender==='admin'?'Admin':escapeHtml(selectedClient.client_name)} • ${m.created_at?.toDate?m.created_at.toDate().toLocaleString():''}</small></div>`).join('')||'<div class="muted">এখনও কোনো message নেই।</div>';
+   box.scrollTop=box.scrollHeight;
+   for(const d of snap.docs){const x=d.data();if(x.sender==='client'&&x.read_by_admin!==true)await d.ref.update({read_by_admin:true})}
+ },e=>{status.textContent='Chat error';box.innerHTML='<div class="muted">'+escapeHtml(e.message)+'</div>'});
+}
+async function sendAdminChat(){
+ if(!selectedClient)return alert('Client select করুন');
+ const input=$('adminChatInput'),message=input.value.trim();
+ if(!message)return; input.value='';
+ try{
+   await db.collection('room_chats').add({client_id:selectedClient.id,client_name:selectedClient.client_name||'Client',sender:'admin',message,created_at:firebase.firestore.FieldValue.serverTimestamp(),read_by_admin:true,read_by_client:false});
+ }catch(e){alert('Reply পাঠানো যায়নি: '+e.message)}
+}
+
 function escapeHtml(v){const d=document.createElement('div');d.textContent=v??'';return d.innerHTML}
-$('projectVideo').addEventListener('change',updateAdminVideoPreview);
 checkSession();
 </script>
 </body>

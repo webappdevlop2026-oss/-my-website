@@ -1,26 +1,13 @@
-VIDEO UPLOAD UPDATE
-
 Replace:
+- client-room.html
 - agency-control-2026.html
 
-Firebase Storage:
-1. Firebase Console → Storage → Get started
-2. Storage Rules খুলুন
-3. storage.rules paste করে Publish করুন
+Firestore → Rules-এ firestore.rules paste করে Publish করুন।
 
-ব্যবহার:
-1. Client select করুন
-2. Project name লিখুন
-3. Video file select করুন
-4. Upload Video চাপুন
-5. Upload 100% হলে Save Project চাপুন
-6. Client Room-এ “Client Project Play” click করলে LCD-তে video চলবে
+Features:
+- Client ↔ Admin real-time chat
+- Enter বা Send দিয়ে message
+- Client select করলে Admin chat দেখবে
+- Firestore room_chats collection auto তৈরি হবে
 
-Supported:
-- MP4
-- WebM
-- OGG
-- Maximum 200MB
-
-নতুন Admin URL cache bypass:
-https://digitalagencybychandandas.in/agency-control-2026.html?v=video3
+যদি index error আসে, Firebase Console-এর error link থেকে index create করুন।

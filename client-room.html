@@ -222,6 +222,15 @@ header a{color:#b7c1d4;text-decoration:none}.brand{font-weight:900;background:li
   .lcd-browser{top:52px;height:calc(100% - 52px)}
 }
 
+.chat-card{width:min(760px,96vw)}
+.chat-messages{height:420px;overflow-y:auto;padding:14px;background:#020617;border:1px solid #ffffff14;border-radius:14px;display:flex;flex-direction:column;gap:10px}
+.chat-msg{max-width:78%;padding:10px 12px;border-radius:14px;line-height:1.45;font-size:14px}
+.chat-msg.client{align-self:flex-end;background:linear-gradient(90deg,#7c3aed,#2563eb)}
+.chat-msg.admin{align-self:flex-start;background:#172033;border:1px solid #ffffff12}
+.chat-msg small{display:block;margin-top:5px;color:#cbd5e1;font-size:10px}
+.chat-compose{display:flex;gap:9px;margin-top:12px}
+.chat-compose textarea{flex:1;resize:none;border:1px solid #ffffff1c;border-radius:12px;background:#030712;color:#fff;padding:11px}
+.chat-compose button{border:0;border-radius:12px;padding:0 18px;background:linear-gradient(90deg,#7c3aed,#06b6d4);color:#fff;font-weight:900}
 </style>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
@@ -328,7 +337,7 @@ header a{color:#b7c1d4;text-decoration:none}.brand{font-weight:900;background:li
 </div>
 </div></div>
 <div class="hud hint">Mouse drag করে room ঘোরান • LCD, chair, bell এবং notepad-এ click করুন</div>
-<div class="hud controls"><button onclick="sit()">🪑 বসুন</button><button onclick="nextLcdSlide()">🖥️ Next Demo</button><button onclick="ringBell()">🔔 Bell</button><button onclick="show('note')">📝 প্রশ্ন</button><button onclick="show('desk')">📁 Client Desk</button><button onclick="show('meeting')">📅 Meeting</button><button onclick="loadAgencyMarketing()">📢 Agency Marketing</button><button onclick="startTour()">🎬 Tour</button><button onclick="resetView()">🏠 Full Room</button></div>
+<div class="hud controls"><button onclick="sit()">🪑 বসুন</button><button onclick="nextLcdSlide()">🖥️ Next Demo</button><button onclick="ringBell()">🔔 Bell</button><button onclick="show('note')">📝 প্রশ্ন</button><button onclick="show('desk')">📁 Client Desk</button><button onclick="show('meeting')">📅 Meeting</button><button onclick="openLiveChat()">💬 Live Chat</button><button onclick="loadAgencyMarketing()">📢 Agency Marketing</button><button onclick="startTour()">🎬 Tour</button><button onclick="resetView()">🏠 Full Room</button></div>
 <div id="notify" class="notification"></div>
 </section>
 
@@ -342,6 +351,12 @@ header a{color:#b7c1d4;text-decoration:none}.brand{font-weight:900;background:li
 <div class="modal" id="note"><div class="card"><div class="cardtop"><h2>📝 Client Notepad</h2><button class="close" onclick="hide('note')">×</button></div><select class="field" id="projectSelect"><option value="">General Question</option></select><textarea class="field" rows="6" id="requestText" placeholder="আপনার প্রশ্ন বা feature request লিখুন..."></textarea><button class="send" onclick="submitRequest()">Request পাঠান</button><div id="requests"></div></div></div>
 
 
+
+<div class="modal" id="liveChat"><div class="card chat-card">
+<div class="cardtop"><div><h2>💬 Admin-এর সাথে Live Chat</h2><small id="chatStatus" class="muted">Connecting...</small></div><button class="close" onclick="closeLiveChat()">×</button></div>
+<div id="clientChatMessages" class="chat-messages"></div>
+<div class="chat-compose"><textarea id="clientChatInput" rows="2" placeholder="আপনার message লিখুন..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendClientChat()}"></textarea><button onclick="sendClientChat()">Send</button></div>
+</div></div>
 
 <div class="modal" id="projectReview"><div class="card">
 <div class="cardtop"><h2>✍️ Project Correction Request</h2><button class="close" onclick="hide('projectReview')">×</button></div>
@@ -972,6 +987,31 @@ async function loadReviewHistory(isDemo=false,demoText=''){
      <small>Status: ${escapeHtml(r.status||'New')} • ${r.created_at?.toDate?r.created_at.toDate().toLocaleString():''}</small>
    </div>`).join('') || '<div class="muted">এখনও কোনো correction পাঠানো হয়নি।</div>';
  }catch(e){box.innerHTML='<div class="muted">'+escapeHtml(e.message)+'</div>'}
+}
+
+
+let clientChatUnsub=null;
+function openLiveChat(){
+ if(!client||!client.id){notifyUser('আগে Client Room-এ প্রবেশ করুন');return}
+ show('liveChat');subscribeClientChat();
+}
+function closeLiveChat(){hide('liveChat');if(clientChatUnsub){clientChatUnsub();clientChatUnsub=null}}
+function subscribeClientChat(){
+ const box=document.getElementById('clientChatMessages'),status=document.getElementById('chatStatus');
+ if(clientChatUnsub)clientChatUnsub();
+ status.textContent='Live connected';
+ clientChatUnsub=db.collection('room_chats').where('client_id','==',client.id).orderBy('created_at','asc').onSnapshot(snap=>{
+   const rows=snap.docs.map(d=>({id:d.id,...d.data()}));
+   box.innerHTML=rows.map(m=>`<div class="chat-msg ${m.sender==='client'?'client':'admin'}">${escapeHtml(m.message||'')}<small>${m.sender==='client'?'আপনি':'Admin'} • ${m.created_at?.toDate?m.created_at.toDate().toLocaleString():''}</small></div>`).join('')||'<div class="muted">এখনও কোনো message নেই।</div>';
+   box.scrollTop=box.scrollHeight;
+ },e=>{status.textContent='Chat error';box.innerHTML='<div class="muted">'+escapeHtml(e.message)+'</div>'});
+}
+async function sendClientChat(){
+ const input=document.getElementById('clientChatInput'),message=input.value.trim();
+ if(!message)return; input.value='';
+ try{
+   await db.collection('room_chats').add({client_id:client.id,client_name:client.client_name||'Client',sender:'client',message,created_at:firebase.firestore.FieldValue.serverTimestamp(),read_by_admin:false,read_by_client:true});
+ }catch(e){alert('Message পাঠানো যায়নি: '+e.message)}
 }
 
 function renderDesk(){$('clientName').textContent='📁 স্বাগতম, '+client.client_name;$('clientCode').textContent='Client Code: '+client.client_code;
