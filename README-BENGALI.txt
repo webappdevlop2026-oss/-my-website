@@ -1,13 +1,9 @@
 Replace:
 - client-room.html
-- agency-control-2026.html
 
-Firestore → Rules-এ firestore.rules paste করে Publish করুন।
-
-Features:
-- Client ↔ Admin real-time chat
-- Enter বা Send দিয়ে message
-- Client select করলে Admin chat দেখবে
-- Firestore room_chats collection auto তৈরি হবে
-
-যদি index error আসে, Firebase Console-এর error link থেকে index create করুন।
+New features:
+- Client table-এর ওপর laptop
+- Laptop click করলে live chat খুলবে
+- Chat messages একই সঙ্গে LCD-তে live দেখাবে
+- Admin reply laptop chat এবং LCD—দুটোতেই দেখা যাবে
+- LCD chat close button আছে
