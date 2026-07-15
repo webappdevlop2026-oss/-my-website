@@ -63,7 +63,9 @@ header a{color:#b7c1d4;text-decoration:none}.brand{font-weight:900;background:li
 .review-box strong{font-size:13px}.review-box small{font-size:10px;color:#ccfbf1;margin-top:5px}
 .review-box:hover{transform:translateY(-2px)}
 .laptop{position:absolute;left:255px;top:-6px;width:120px;height:78px;transform:perspective(500px) rotateX(-8deg);cursor:pointer;z-index:12}
-.laptop-screen{height:60px;border:5px solid #111827;border-radius:8px 8px 4px 4px;background:linear-gradient(145deg,#0f172a,#0e7490);display:grid;place-items:center;color:#fff;font-size:12px;font-weight:900;box-shadow:0 0 18px #22d3ee55}
+.laptop-screen{height:60px;border:5px solid #111827;border-radius:8px 8px 4px 4px;background:linear-gradient(145deg,#0f172a,#0e7490);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:900;box-shadow:0 0 18px #22d3ee55;transition:.3s}
+.laptop-screen small{font-size:8px;color:#bae6fd;margin-top:3px;font-weight:700}
+.laptop.open .laptop-screen{transform:rotateX(-3deg) scale(1.03);box-shadow:0 0 34px #22d3ee}
 .laptop-base{width:138px;height:12px;margin-left:-9px;background:linear-gradient(#64748b,#1f2937);border-radius:2px 2px 10px 10px}
 .laptop:hover .laptop-screen{box-shadow:0 0 28px #22d3ee}
 .lcd-chat-overlay{position:absolute;inset:58px 0 76px;background:#020617;z-index:25;display:none;flex-direction:column}
@@ -75,6 +77,9 @@ header a{color:#b7c1d4;text-decoration:none}.brand{font-weight:900;background:li
 .lcd-chat-msg.client{align-self:flex-end;background:linear-gradient(90deg,#7c3aed,#2563eb)}
 .lcd-chat-msg.admin{align-self:flex-start;background:#172033;border:1px solid #ffffff12}
 .lcd-chat-msg small{display:block;margin-top:4px;color:#cbd5e1;font-size:8px}
+.typing-indicator{display:none;color:#7dd3fc;font-size:11px;margin-top:6px}
+.typing-indicator.on{display:block}
+.delivery{font-size:9px;color:#cbd5e1;margin-left:5px}
 
 .live-update-banner{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;border-radius:12px;background:#052e2b;border:1px solid #0f766e;color:#ccfbf1;margin-bottom:12px;font-size:12px}
 .review-project-preview{padding:12px;border-radius:12px;background:#020617;border:1px solid #ffffff14;margin:10px 0}
@@ -308,7 +313,7 @@ header a{color:#b7c1d4;text-decoration:none}.brand{font-weight:900;background:li
     <span>💬 Client ↔ Admin Live Chat</span>
     <button onclick="closeLcdChat()">✕</button>
   </div>
-  <div class="lcd-chat-body" id="lcdChatMessages"></div>
+  <div class="lcd-chat-body" id="lcdChatMessages"></div><div id="lcdTyping" class="typing-indicator" style="padding:0 10px 8px">Admin is typing...</div>
 </div>
 
 <div class="lcd-browser" id="lcdBrowser">
@@ -325,7 +330,7 @@ header a{color:#b7c1d4;text-decoration:none}.brand{font-weight:900;background:li
 <div class="desk">
 <div class="notepad" onclick="show('note')">CLIENT<br>NOTEPAD ✍️</div>
 <div class="laptop" onclick="openLaptopChat()">
-  <div class="laptop-screen">💬 LIVE CHAT</div>
+  <div class="laptop-screen"><div>💻 ENTER CHAT</div><small>Click to Start</small></div>
   <div class="laptop-base"></div>
 </div>
 <div class="project-play-box" onclick="playClientProjects()">
@@ -380,8 +385,8 @@ header a{color:#b7c1d4;text-decoration:none}.brand{font-weight:900;background:li
 
 <div class="modal" id="liveChat"><div class="card chat-card">
 <div class="cardtop"><div><h2>💬 Admin-এর সাথে Live Chat</h2><small id="chatStatus" class="muted">Connecting...</small></div><button class="close" onclick="closeLiveChat()">×</button></div>
-<div id="clientChatMessages" class="chat-messages"></div>
-<div class="chat-compose"><textarea id="clientChatInput" rows="2" placeholder="আপনার message লিখুন..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendClientChat()}"></textarea><button onclick="sendClientChat()">Send</button></div>
+<div id="clientChatMessages" class="chat-messages"></div><div id="clientTyping" class="typing-indicator">Admin is typing...</div>
+<div class="chat-compose"><textarea id="clientChatInput" rows="2" placeholder="আপনার message লিখুন..." oninput="setClientTyping()" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendClientChat()}"></textarea><button onclick="sendClientChat()">Send</button></div>
 </div></div>
 
 <div class="modal" id="projectReview"><div class="card">
@@ -1022,10 +1027,14 @@ function openLiveChat(){
  show('liveChat');
  document.getElementById('lcdChatOverlay').classList.add('on');
  subscribeClientChat();
+ subscribeTypingStatus();
 }
 function openLaptopChat(){
+ const laptop=document.querySelector('.laptop');
+ laptop.classList.add('open');
  openLiveChat();
  notifyUser('Laptop chat চালু হয়েছে');
+ setTimeout(()=>laptop.classList.remove('open'),900);
 }
 function closeLcdChat(){
  document.getElementById('lcdChatOverlay').classList.remove('on');
@@ -1037,18 +1046,56 @@ function subscribeClientChat(){
  status.textContent='Live connected';
  clientChatUnsub=db.collection('room_chats').where('client_id','==',client.id).orderBy('created_at','asc').onSnapshot(snap=>{
    const rows=snap.docs.map(d=>({id:d.id,...d.data()}));
-   box.innerHTML=rows.map(m=>`<div class="chat-msg ${m.sender==='client'?'client':'admin'}">${escapeHtml(m.message||'')}<small>${m.sender==='client'?'আপনি':'Admin'} • ${m.created_at?.toDate?m.created_at.toDate().toLocaleString():''}</small></div>`).join('')||'<div class="muted">এখনও কোনো message নেই।</div>';
+   box.innerHTML=rows.map(m=>`<div class="chat-msg ${m.sender==='client'?'client':'admin'}">${escapeHtml(m.message||'')}<small>${m.sender==='client'?'আপনি':'Admin'} • ${m.created_at?.toDate?m.created_at.toDate().toLocaleString():''}${m.sender==='client'?` <span class="delivery">${m.read_by_admin?'✔✔ Seen':'✔ Delivered'}</span>`:''}</small></div>`).join('')||'<div class="muted">এখনও কোনো message নেই।</div>';
    box.scrollTop=box.scrollHeight;
    const lcdBox=document.getElementById('lcdChatMessages');
    if(lcdBox){
-     lcdBox.innerHTML=rows.map(m=>`<div class="lcd-chat-msg ${m.sender==='client'?'client':'admin'}">${escapeHtml(m.message||'')}<small>${m.sender==='client'?'Client':'Admin'}</small></div>`).join('')||'<div class="muted">No messages</div>';
+     lcdBox.innerHTML=rows.map(m=>`<div class="lcd-chat-msg ${m.sender==='client'?'client':'admin'}">${escapeHtml(m.message||'')}<small>${m.sender==='client'?'Client':'Admin'}${m.sender==='client'?` • ${m.read_by_admin?'✔✔ Seen':'✔ Delivered'}`:''}</small></div>`).join('')||'<div class="muted">No messages</div>';
      lcdBox.scrollTop=lcdBox.scrollHeight;
    }
  },e=>{status.textContent='Chat error';box.innerHTML='<div class="muted">'+escapeHtml(e.message)+'</div>'});
 }
+
+let clientTypingTimer=null;
+async function setClientTyping(){
+ if(!client||!client.id)return;
+ clearTimeout(clientTypingTimer);
+ try{
+   await db.collection('room_chat_status').doc(client.id).set({
+     client_typing:true,
+     updated_at:firebase.firestore.FieldValue.serverTimestamp()
+   },{merge:true});
+ }catch(e){}
+ clientTypingTimer=setTimeout(async()=>{
+   try{
+     await db.collection('room_chat_status').doc(client.id).set({
+       client_typing:false,
+       updated_at:firebase.firestore.FieldValue.serverTimestamp()
+     },{merge:true});
+   }catch(e){}
+ },1200);
+}
+
+let adminTypingUnsub=null;
+function subscribeTypingStatus(){
+ if(adminTypingUnsub)adminTypingUnsub();
+ adminTypingUnsub=db.collection('room_chat_status').doc(client.id).onSnapshot(doc=>{
+   const data=doc.exists?doc.data():{};
+   const on=data.admin_typing===true;
+   document.getElementById('clientTyping')?.classList.toggle('on',on);
+   document.getElementById('lcdTyping')?.classList.toggle('on',on);
+ });
+}
+
 async function sendClientChat(){
  const input=document.getElementById('clientChatInput'),message=input.value.trim();
  if(!message)return; input.value='';
+ try{
+   await db.collection('room_chat_status').doc(client.id).set({
+     client_typing:false,
+     updated_at:firebase.firestore.FieldValue.serverTimestamp()
+   },{merge:true});
+ }catch(e){}
  try{
    await db.collection('room_chats').add({client_id:client.id,client_name:client.client_name||'Client',sender:'client',message,created_at:firebase.firestore.FieldValue.serverTimestamp(),read_by_admin:false,read_by_client:true});
  }catch(e){alert('Message পাঠানো যায়নি: '+e.message)}
