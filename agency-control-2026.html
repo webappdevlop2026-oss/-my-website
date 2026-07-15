@@ -3,10 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
-<title>Agency Control 2026 Firebase v2 | Digital Agency by Chandan Das</title>
+<title>Agency Control 2026 | Digital Agency by Chandan Das</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#07101d;color:#fff;font-family:Segoe UI,Tahoma,sans-serif}
 header{padding:18px 24px;background:#0b1323;border-bottom:1px solid #ffffff18;display:flex;justify-content:space-between;align-items:center}
@@ -22,6 +19,10 @@ button{border:0;border-radius:10px;padding:10px 13px;background:#7c3aed;color:#f
 .request-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}
 .request-actions button{padding:7px 10px;font-size:12px}
 .live-badge{display:inline-block;padding:4px 8px;border-radius:999px;background:#166534;color:#dcfce7;font-size:11px;margin-left:6px}
+.video-upload-box{margin-top:12px;padding:14px;border:1px dashed #334155;border-radius:14px;background:#07101d}
+.upload-progress-wrap{height:9px;background:#1e293b;border-radius:999px;overflow:hidden;margin-top:12px}
+.upload-progress{height:100%;width:0;background:linear-gradient(90deg,#7c3aed,#22d3ee);transition:width .2s}
+.video-upload-box input[type=file]::file-selector-button{border:0;border-radius:8px;padding:8px 11px;background:#263247;color:#fff;font-weight:700;margin-right:10px;cursor:pointer}
 .muted{color:#94a3b8;font-size:13px}#login{max-width:420px;margin:80px auto}
 .dashboard-cards{max-width:1200px;margin:0 auto 18px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
 .dash{padding:16px;border-radius:16px;background:linear-gradient(145deg,#111c30,#0b1323);border:1px solid #ffffff16}
@@ -32,29 +33,13 @@ button{border:0;border-radius:10px;padding:10px 13px;background:#7c3aed;color:#f
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-storage-compat.js"></script>
-
-<script>
-const firebaseConfig = {
-  "apiKey": "AIzaSyAPX-F-CpUVmyn_RlF8My6pzY_QGM4XunU",
-  "authDomain": "digital-agency-by-chandan-das.firebaseapp.com",
-  "projectId": "digital-agency-by-chandan-das",
-  "storageBucket": "digital-agency-by-chandan-das.firebasestorage.app",
-  "messagingSenderId": "576373782793",
-  "appId": "1:576373782793:web:7ddd852c3c90d78acd7bd8",
-  "measurementId": "G-E35HVVTKBG"
-};
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db = firebase.firestore();
-const storage = firebase.storage();
-console.log('FIREBASE ADMIN PANEL v2 ACTIVE');
-</script>
+<script src="firebase-client.js"></script>
 </head>
 <body>
 <header>
 <div>
   <b style="font-size:18px">Digital Agency by Chandan Das</b>
-  <div class="muted">Agency Control 2026 — Client Room Management <span style="color:#4ade80;font-weight:800">● FIREBASE CONNECTED</span></div>
+  <div class="muted">Agency Control 2026 — Client Room Management</div>
 </div>
 <div class="row" style="flex:0 0 auto">
   <a href="client-room.html" target="_blank" style="text-decoration:none"><button class="secondary">Client Room দেখুন</button></a>
@@ -119,6 +104,20 @@ console.log('FIREBASE ADMIN PANEL v2 ACTIVE');
 <div class="row">
 <input id="projectPreview" class="field" placeholder="Website/preview URL">
 <input id="projectVideo" class="field" placeholder="Project video URL">
+</div>
+
+<div class="video-upload-box">
+  <label for="projectVideoFile"><b>🎥 Project Video Upload</b></label>
+  <input id="projectVideoFile" class="field" type="file" accept="video/mp4,video/webm,video/ogg">
+  <div class="row">
+    <button type="button" class="success" onclick="uploadProjectVideo()">Upload Video</button>
+    <button type="button" class="secondary" onclick="clearUploadedVideo()">Remove Video</button>
+  </div>
+  <div class="upload-progress-wrap">
+    <div id="videoUploadProgress" class="upload-progress"></div>
+  </div>
+  <div id="videoUploadText" class="muted">MP4/WebM/OGG video upload করুন।</div>
+  <video id="adminVideoPreview" controls playsinline style="display:none;width:100%;max-height:280px;margin-top:12px;border-radius:12px;background:#000"></video>
 </div>
 <div class="row">
 <input id="projectCost" class="field" placeholder="Project cost">
@@ -244,10 +243,115 @@ function editProject(p){
  $('projectId').value=p.id;$('projectName').value=p.project_name||'';$('projectType').value=p.project_type||'Website';
  $('projectStatus').value=p.status||'In Progress';$('projectProgress').value=p.progress_percent||0;$('projectStage').value=p.current_stage||'';
  $('projectNotes').value=p.notes||'';$('projectPreview').value=p.preview_url||'';$('projectVideo').value=p.video_url||'';
- $('projectCost').value=p.project_cost||'';$('projectDelivery').value=p.expected_delivery||'';
+ $('projectCost').value=p.project_cost||'';$('projectDelivery').value=p.expected_delivery||'';updateAdminVideoPreview();
  window.scrollTo({top:0,behavior:'smooth'});
 }
-function clearProjectForm(){['projectId','projectName','projectStage','projectNotes','projectPreview','projectVideo','projectCost','projectDelivery'].forEach(id=>$(id).value='');$('projectProgress').value=0}
+function clearProjectForm(){
+ ['projectId','projectName','projectStage','projectNotes','projectPreview','projectVideo','projectCost','projectDelivery'].forEach(id=>$(id).value='');
+ $('projectProgress').value=0;
+ $('projectVideoFile').value='';
+ $('videoUploadProgress').style.width='0%';
+ $('videoUploadText').textContent='MP4/WebM/OGG video upload করুন।';
+ const preview=$('adminVideoPreview');
+ preview.pause();
+ preview.removeAttribute('src');
+ preview.style.display='none';
+ currentVideoStoragePath='';
+}
+
+let currentVideoStoragePath='';
+
+function safeFileName(name){
+ return name.replace(/[^a-zA-Z0-9._-]/g,'_');
+}
+
+async function uploadProjectVideo(){
+ if(!selectedClient)return alert('আগে Client select করুন।');
+
+ const fileInput=$('projectVideoFile');
+ const file=fileInput.files[0];
+ if(!file)return alert('Video file select করুন।');
+
+ const allowed=['video/mp4','video/webm','video/ogg'];
+ if(!allowed.includes(file.type)){
+   return alert('শুধু MP4, WebM অথবা OGG video upload করুন।');
+ }
+
+ const maxSize=200*1024*1024;
+ if(file.size>maxSize){
+   return alert('Video size সর্বোচ্চ 200MB রাখুন।');
+ }
+
+ const projectName=($('projectName').value.trim()||'project').replace(/[^a-zA-Z0-9_-]/g,'_');
+ const path=`client-room/${selectedClient.id}/${projectName}/${Date.now()}_${safeFileName(file.name)}`;
+ const ref=storage.ref().child(path);
+ const task=ref.put(file);
+
+ $('videoUploadText').textContent='Video upload হচ্ছে...';
+ $('videoUploadProgress').style.width='0%';
+
+ task.on('state_changed',
+   snapshot=>{
+     const percent=(snapshot.bytesTransferred/snapshot.totalBytes)*100;
+     $('videoUploadProgress').style.width=percent.toFixed(1)+'%';
+     $('videoUploadText').textContent=`Uploading: ${percent.toFixed(0)}%`;
+   },
+   error=>{
+     console.error(error);
+     $('videoUploadText').textContent='Upload failed: '+error.message;
+     alert('Video upload হয়নি। Firebase Storage Rules পরীক্ষা করুন।');
+   },
+   async ()=>{
+     const url=await task.snapshot.ref.getDownloadURL();
+     currentVideoStoragePath=path;
+     $('projectVideo').value=url;
+     $('videoUploadProgress').style.width='100%';
+     $('videoUploadText').textContent='✅ Video upload complete। এখন Save Project চাপুন।';
+
+     const preview=$('adminVideoPreview');
+     preview.src=url;
+     preview.style.display='block';
+     preview.load();
+   }
+ );
+}
+
+async function clearUploadedVideo(){
+ const url=$('projectVideo').value.trim();
+
+ if(currentVideoStoragePath){
+   try{
+     await storage.ref().child(currentVideoStoragePath).delete();
+   }catch(e){
+     console.warn('Storage delete skipped:',e);
+   }
+ }
+
+ currentVideoStoragePath='';
+ $('projectVideo').value='';
+ $('projectVideoFile').value='';
+ $('videoUploadProgress').style.width='0%';
+ $('videoUploadText').textContent='Video remove করা হয়েছে।';
+ const preview=$('adminVideoPreview');
+ preview.pause();
+ preview.removeAttribute('src');
+ preview.style.display='none';
+}
+
+function updateAdminVideoPreview(){
+ const url=$('projectVideo').value.trim();
+ const preview=$('adminVideoPreview');
+ if(url){
+   preview.src=url;
+   preview.style.display='block';
+   preview.load();
+ }else{
+   preview.pause();
+   preview.removeAttribute('src');
+   preview.style.display='none';
+ }
+}
+
 async function saveProject(){
  if(!selectedClient)return;
  const payload={
@@ -321,6 +425,7 @@ async function updateRequestStatus(id,status){
 }
 
 function escapeHtml(v){const d=document.createElement('div');d.textContent=v??'';return d.innerHTML}
+$('projectVideo').addEventListener('change',updateAdminVideoPreview);
 checkSession();
 </script>
 </body>

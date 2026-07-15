@@ -1,14 +1,26 @@
-এটি standalone Firebase Admin Panel।
+VIDEO UPLOAD UPDATE
 
-করতে হবে:
-1. website root-এর পুরনো agency-control-2026.html DELETE করুন।
-2. এই ZIP-এর agency-control-2026.html upload করুন।
-3. Hostinger File Manager-এ file size/date বদলেছে কিনা দেখুন।
-4. URL খুলুন:
-   https://digitalagencybychandandas.in/agency-control-2026.html?v=2
-5. Ctrl + Shift + R চাপুন।
+Replace:
+- agency-control-2026.html
 
-সঠিক file চললে header-এ সবুজ লেখা দেখাবে:
-● FIREBASE CONNECTED
+Firebase Storage:
+1. Firebase Console → Storage → Get started
+2. Storage Rules খুলুন
+3. storage.rules paste করে Publish করুন
 
-এখনও Supabase schema cache error দেখালে hosting-এ পুরনো file replace হয়নি বা CDN/cache পুরনো copy দেখাচ্ছে।
+ব্যবহার:
+1. Client select করুন
+2. Project name লিখুন
+3. Video file select করুন
+4. Upload Video চাপুন
+5. Upload 100% হলে Save Project চাপুন
+6. Client Room-এ “Client Project Play” click করলে LCD-তে video চলবে
+
+Supported:
+- MP4
+- WebM
+- OGG
+- Maximum 200MB
+
+নতুন Admin URL cache bypass:
+https://digitalagencybychandandas.in/agency-control-2026.html?v=video3
