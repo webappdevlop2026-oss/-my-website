@@ -2,6 +2,7 @@
   const REQUESTS_KEY = "dac_client_requests_google_demo_v1";
   const MAX_FILES = 3;
   const MAX_FILE_BYTES = 2 * 1024 * 1024;
+  const PROXY_URL = "/api/google-sheet";
 
   let liveMode = false;
   let webAppUrl = "";
@@ -84,9 +85,7 @@
 
   async function prepareFiles(fileList) {
     const files = Array.from(fileList || []);
-    if (files.length > MAX_FILES) {
-      throw new Error(`Maximum ${MAX_FILES} files are allowed.`);
-    }
+    if (files.length > MAX_FILES) throw new Error(`Maximum ${MAX_FILES} files are allowed.`);
 
     const allowed = new Set([
       "image/png", "image/jpeg", "image/webp", "application/pdf",
@@ -97,12 +96,8 @@
 
     const prepared = [];
     for (const file of files) {
-      if (file.size > MAX_FILE_BYTES) {
-        throw new Error(`${file.name} is larger than 2 MB.`);
-      }
-      if (file.type && !allowed.has(file.type)) {
-        throw new Error(`${file.name} is not an allowed file type.`);
-      }
+      if (file.size > MAX_FILE_BYTES) throw new Error(`${file.name} is larger than 2 MB.`);
+      if (file.type && !allowed.has(file.type)) throw new Error(`${file.name} is not an allowed file type.`);
       prepared.push({
         name: file.name,
         type: file.type || "application/octet-stream",
@@ -113,21 +108,28 @@
     return prepared;
   }
 
-  async function postToAppsScript(action, payload) {
-    const body = new URLSearchParams();
-    body.set("action", action);
-    body.set("payload", JSON.stringify(payload));
-
-    /*
-     * Apps Script web apps are on another Google domain.
-     * no-cors sends the request without exposing the response to this page.
-     */
-    await fetch(webAppUrl, {
+  async function proxyPost(action, payload, adminKey = "") {
+    const response = await fetch(PROXY_URL, {
       method: "POST",
-      mode: "no-cors",
-      headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
-      body
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        mode: "post",
+        webAppUrl,
+        action,
+        payload,
+        adminKey
+      })
     });
+
+    const data = await response.json().catch(() => ({
+      success: false,
+      error: "Invalid response from website backend."
+    }));
+
+    if (!response.ok || !data.success) {
+      throw new Error(data.error || "Unable to save request to Google Sheet.");
+    }
+    return data;
   }
 
   async function createRequest(payload, fileList) {
@@ -149,8 +151,7 @@
     };
 
     if (liveMode) {
-      await postToAppsScript("create", request);
-      await delay(400);
+      await proxyPost("create", request);
     } else {
       const items = readLocalRequests();
       items.unshift({

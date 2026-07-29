@@ -1,6 +1,7 @@
 (function () {
   const REQUESTS_KEY = "dac_client_requests_google_demo_v1";
   const SESSION_KEY = "dac_google_admin_session_v1";
+  const PROXY_URL = "/api/google-sheet";
 
   let liveMode = false;
   let webAppUrl = "";
@@ -75,45 +76,22 @@
     sessionStorage.setItem(SESSION_KEY, JSON.stringify(session));
   }
 
-  function jsonp(params) {
-    return new Promise((resolve, reject) => {
-      const callbackName = `dacCallback_${Date.now()}_${Math.floor(Math.random() * 100000)}`;
-      const timeout = setTimeout(() => cleanup(new Error("Google Sheet backend timed out.")), 15000);
-      const script = document.createElement("script");
-
-      function cleanup(error, data) {
-        clearTimeout(timeout);
-        delete window[callbackName];
-        script.remove();
-        if (error) reject(error);
-        else resolve(data);
-      }
-
-      window[callbackName] = data => cleanup(null, data);
-
-      const url = new URL(webAppUrl);
-      Object.entries({ ...params, callback: callbackName, _: Date.now() }).forEach(([key, value]) => {
-        url.searchParams.set(key, String(value ?? ""));
-      });
-      script.src = url.toString();
-      script.onerror = () => cleanup(new Error("Unable to connect to Google Sheet backend."));
-      document.head.appendChild(script);
-    });
-  }
-
-  async function postToAppsScript(action, payload, adminKey) {
-    const body = new URLSearchParams();
-    body.set("action", action);
-    body.set("payload", JSON.stringify(payload || {}));
-    body.set("adminKey", adminKey || "");
-
-    await fetch(webAppUrl, {
+  async function callProxy(payload) {
+    const response = await fetch(PROXY_URL, {
       method: "POST",
-      mode: "no-cors",
-      headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
-      body
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ webAppUrl, ...payload })
     });
-    await delay(650);
+
+    const data = await response.json().catch(() => ({
+      success: false,
+      error: "Invalid response from website backend."
+    }));
+
+    if (!response.ok || !data.success) {
+      throw new Error(data.error || "Unable to connect to Google Sheet backend.");
+    }
+    return data;
   }
 
   async function login(email, password) {
@@ -132,8 +110,11 @@
       throw new Error("This email is not allowed.");
     }
 
-    const result = await jsonp({ route: "ping", adminKey: password });
-    if (!result?.success) throw new Error(result?.error || "Incorrect admin password.");
+    await callProxy({
+      mode: "get",
+      route: "ping",
+      adminKey: password
+    });
 
     const session = { email, adminKey: password, demo: false, loggedAt: new Date().toISOString() };
     setSession(session);
@@ -156,8 +137,13 @@
 
     const session = getSession();
     if (!session?.adminKey) throw new Error("Please sign in again.");
-    const result = await jsonp({ route: "list", adminKey: session.adminKey });
-    if (!result?.success) throw new Error(result?.error || "Unable to load requests.");
+
+    const result = await callProxy({
+      mode: "get",
+      route: "list",
+      adminKey: session.adminKey
+    });
+
     return Array.isArray(result.requests) ? result.requests : [];
   }
 
@@ -173,7 +159,14 @@
 
     const session = getSession();
     if (!session?.adminKey) throw new Error("Please sign in again.");
-    await postToAppsScript("update", { id, patch }, session.adminKey);
+
+    await callProxy({
+      mode: "post",
+      action: "update",
+      payload: { id, patch },
+      adminKey: session.adminKey
+    });
+
     return { id, ...patch };
   }
 
@@ -185,7 +178,13 @@
 
     const session = getSession();
     if (!session?.adminKey) throw new Error("Please sign in again.");
-    await postToAppsScript("delete", { id }, session.adminKey);
+
+    await callProxy({
+      mode: "post",
+      action: "delete",
+      payload: { id },
+      adminKey: session.adminKey
+    });
   }
 
   window.DataService = {
