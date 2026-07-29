@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Admin Panel</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="admin-body">
+  <div class="login-overlay" id="loginOverlay">
+    <form class="login-card" id="loginForm">
+      <div class="brand-row">
+        <div class="brand-mark">DA</div>
+        <div class="brand-copy">
+          <strong data-agency-name>Digital Agency by Chandan Das</strong>
+          <small>Secure Admin Panel</small>
+        </div>
+      </div>
+
+      <h2>Welcome back</h2>
+      <p>Enter your admin email and the private ADMIN_KEY set in Google Apps Script.</p>
+
+      <div class="field">
+        <label for="adminEmail">Admin email</label>
+        <input id="adminEmail" type="email" required autocomplete="username">
+      </div>
+      <div class="field">
+        <label for="adminPassword">Admin password / key</label>
+        <input id="adminPassword" type="password" required autocomplete="current-password">
+      </div>
+      <button class="btn btn-primary" type="submit" id="loginBtn">Sign In</button>
+
+      <div class="demo-credential" id="demoCredential">
+        Demo login:<br>
+        Email: <strong id="demoEmail"></strong><br>
+        Password: <strong id="demoPassword"></strong>
+      </div>
+    </form>
+  </div>
+
+  <div class="admin-layout">
+    <aside class="sidebar">
+      <div class="brand-row">
+        <div class="brand-mark">DA</div>
+        <div class="brand-copy">
+          <strong data-agency-name>Digital Agency</strong>
+          <small>Project Admin</small>
+        </div>
+      </div>
+
+      <nav class="nav-list">
+        <a class="nav-link active" href="#dashboard">
+          <svg class="icon"><use href="#icon-grid"></use></svg>
+          Dashboard
+        </a>
+        <a class="nav-link" href="#requests">
+          <svg class="icon"><use href="#icon-inbox"></use></svg>
+          Client Requests
+        </a>
+</nav>
+
+      <div class="sidebar-bottom">
+        <div class="live-note" id="modeNote">Loading system mode…</div>
+        <button class="btn btn-secondary" type="button" id="desktopLogoutBtn">
+          <svg class="icon"><use href="#icon-logout"></use></svg>
+          Logout
+        </button>
+      </div>
+    </aside>
+
+    <main class="admin-main">
+      <header class="admin-topbar">
+        <div class="admin-title">
+          <h1>Project Dashboard</h1>
+          <p id="todayLabel"></p>
+        </div>
+
+        <div class="admin-actions">
+          <button class="btn btn-icon btn-secondary" id="refreshBtn" aria-label="Refresh">
+            <svg class="icon"><use href="#icon-refresh"></use></svg>
+          </button>
+          <div class="profile-pill">
+            <div class="profile-avatar">AD</div>
+            <span id="profileEmail">Admin</span>
+          </div>
+        </div>
+      </header>
+
+      <section class="stats-grid" id="dashboard">
+        <article class="stat-card">
+          <div class="stat-top">
+            <small>Total Requests</small>
+            <div class="stat-icon"><svg class="icon"><use href="#icon-inbox"></use></svg></div>
+          </div>
+          <strong id="totalCount">0</strong>
+          <small>All project enquiries</small>
+        </article>
+
+        <article class="stat-card">
+          <div class="stat-top">
+            <small>New Requests</small>
+            <div class="stat-icon"><svg class="icon"><use href="#icon-spark"></use></svg></div>
+          </div>
+          <strong id="newCount">0</strong>
+          <small>Waiting for first contact</small>
+        </article>
+
+        <article class="stat-card">
+          <div class="stat-top">
+            <small>Active Projects</small>
+            <div class="stat-icon"><svg class="icon"><use href="#icon-work"></use></svg></div>
+          </div>
+          <strong id="activeCount">0</strong>
+          <small>In progress or testing</small>
+        </article>
+
+        <article class="stat-card">
+          <div class="stat-top">
+            <small>Completed</small>
+            <div class="stat-icon"><svg class="icon"><use href="#icon-check"></use></svg></div>
+          </div>
+          <strong id="completedCount">0</strong>
+          <small>Successfully delivered</small>
+        </article>
+      </section>
+
+      <section class="panel" id="requests">
+        <div class="panel-head">
+          <h2>Client Requests</h2>
+
+          <div class="toolbar">
+            <input id="searchInput" type="search" placeholder="Search name, mobile, project or ID">
+            <select id="statusFilter">
+              <option value="">All Status</option>
+              <option>New Request</option>
+              <option>Contacted</option>
+              <option>Requirement Confirmed</option>
+              <option>Quotation Sent</option>
+              <option>Advance Pending</option>
+              <option>Advance Paid</option>
+              <option>Development Started</option>
+              <option>Testing</option>
+              <option>Completed</option>
+              <option>Rejected</option>
+            </select>
+            <select id="typeFilter">
+              <option value="">All Types</option>
+              <option>Android App</option>
+              <option>iOS App</option>
+              <option>Website</option>
+              <option>Web App</option>
+              <option>Admin Panel</option>
+              <option>Complete System</option>
+            </select>
+            <button class="btn btn-secondary export-btn" id="exportBtn">
+              <svg class="icon"><use href="#icon-download"></use></svg>
+              Export CSV
+            </button>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table class="requests-table">
+            <thead>
+              <tr>
+                <th>Request ID</th>
+                <th>Client</th>
+                <th>Project</th>
+                <th>Budget</th>
+                <th>Status</th>
+                <th>Received</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="requestTableBody"></tbody>
+          </table>
+        </div>
+
+        <div class="mobile-request-list" id="mobileRequestList"></div>
+        <div class="empty-state hidden" id="emptyState">No matching project requests found.</div>
+      </section>
+    </main>
+
+    <nav class="bottom-nav">
+      <button class="active" type="button" data-mobile-nav="dashboard">
+        <svg class="icon"><use href="#icon-grid"></use></svg>
+        Home
+      </button>
+      <button type="button" data-mobile-nav="requests">
+        <svg class="icon"><use href="#icon-inbox"></use></svg>
+        Requests
+      </button>
+      <button type="button" id="mobileRefreshBtn">
+        <svg class="icon"><use href="#icon-refresh"></use></svg>
+        Refresh
+      </button>
+      <button type="button" id="mobileLogoutBtn">
+        <svg class="icon"><use href="#icon-logout"></use></svg>
+        Logout
+      </button>
+    </nav>
+  </div>
+
+  <div class="modal-backdrop" id="detailBackdrop">
+    <section class="detail-modal" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
+      <header class="modal-head">
+        <div>
+          <h3 id="detailTitle">Request Details</h3>
+          <small class="muted" id="detailId"></small>
+        </div>
+        <button class="btn btn-icon btn-secondary" id="closeDetailBtn" aria-label="Close">
+          <svg class="icon"><use href="#icon-close"></use></svg>
+        </button>
+      </header>
+
+      <div class="modal-body" id="detailBody"></div>
+
+      <footer class="modal-footer">
+        <button class="btn btn-secondary" id="printBtn">
+          <svg class="icon"><use href="#icon-print"></use></svg>
+          Print / PDF
+        </button>
+        <button class="btn btn-primary" id="saveDetailBtn">
+          <svg class="icon"><use href="#icon-check"></use></svg>
+          Save Changes
+        </button>
+      </footer>
+    </section>
+  </div>
+
+  <div class="toast-wrap" id="toastWrap"></div>
+
+  <svg width="0" height="0" style="position:absolute">
+    <symbol id="icon-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></symbol>
+    <symbol id="icon-inbox" viewBox="0 0 24 24"><path d="M4 4h16v13H4z"/><path d="M4 13h4l2 3h4l2-3h4"/></symbol>
+    <symbol id="icon-form" viewBox="0 0 24 24"><path d="M6 3h9l3 3v15H6z"/><path d="M9 11h6M9 15h6"/></symbol>
+    <symbol id="icon-logout" viewBox="0 0 24 24"><path d="M10 5H5v14h5"/><path d="m14 8 4 4-4 4"/><path d="M8 12h10"/></symbol>
+    <symbol id="icon-refresh" viewBox="0 0 24 24"><path d="M20 6v5h-5"/><path d="M4 18v-5h5"/><path d="M18 9a7 7 0 0 0-12-2l-2 4"/><path d="M6 15a7 7 0 0 0 12 2l2-4"/></symbol>
+    <symbol id="icon-spark" viewBox="0 0 24 24"><path d="m12 3 1.4 4.1L18 9l-4.6 1.9L12 15l-1.4-4.1L6 9l4.6-1.9Z"/></symbol>
+    <symbol id="icon-work" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="12" rx="2"/><path d="M9 7V5h6v2M3 12h18"/></symbol>
+    <symbol id="icon-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="icon-download" viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></symbol>
+    <symbol id="icon-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+    <symbol id="icon-print" viewBox="0 0 24 24"><path d="M7 8V3h10v5"/><path d="M7 17H5a2 2 0 0 1-2-2v-5h18v5a2 2 0 0 1-2 2h-2"/><path d="M7 14h10v7H7z"/></symbol>
+    <symbol id="icon-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"/><circle cx="12" cy="12" r="2.5"/></symbol>
+    <symbol id="icon-phone" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.7 19.7 0 0 1-8.6-3.1 19.4 19.4 0 0 1-6-6A19.7 19.7 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2Z"/></symbol>
+    <symbol id="icon-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M7 7l1 14h8l1-14"/></symbol>
+  </svg>
+  <script src="app-config.js"></script>
+  <script src="firebase-helper.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>
