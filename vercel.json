@@ -122,7 +122,7 @@
       ]
     },
     {
-      "source": "/client-room-photo-exact-v6.png",
+      "source": "/client-room-clean-v7.png",
       "headers": [
         {
           "key": "Cache-Control",
@@ -132,6 +132,19 @@
     },
     {
       "source": "/client-room-admin.html",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-store, no-cache, must-revalidate, max-age=0"
+        }
+      ]
+    },
+    {
+      "source": "/agency-control-2026.html",
       "headers": [
         {
           "key": "X-Robots-Tag",

@@ -29,12 +29,13 @@
   X-Robots-Tag: noindex, nofollow
   Cache-Control: no-store, no-cache, must-revalidate, max-age=0
 
-/client-room-photo-exact-v6.png
+/client-room-clean-v7.png
   Cache-Control: no-store, no-cache, must-revalidate, max-age=0
 
 /client-room-admin.html
   X-Robots-Tag: noindex, nofollow
   Cache-Control: no-store, no-cache, must-revalidate, max-age=0
 
-/sw.js
-  Cache-Control: public, max-age=0, must-revalidate
+/agency-control-2026.html
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-store, no-cache, must-revalidate, max-age=0

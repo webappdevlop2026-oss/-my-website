@@ -1,51 +1,6 @@
-/* v6.0.0 build:2026-07-31-client-room-safe-align */
-const CACHE_NAME = 'digital-agency-chandan-v600-client-room-safe-align';
-const CORE = [
-  '/',
-  '/index.html',
-  '/manifest.json',
-  '/slide-free-offer-main.webp',
-  '/slide-client-room.webp',
-  '/slide-beginner-help.webp',
-  '/slide-free-tools.webp'
-];
-
-self.addEventListener('install', event => {
-  event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(CORE)));
-  self.skipWaiting();
-});
-
-self.addEventListener('activate', event => {
-  event.waitUntil(caches.keys().then(names => Promise.all(names.filter(name => name !== CACHE_NAME).map(name => caches.delete(name)))));
-  self.clients.claim();
-});
-
-self.addEventListener('fetch', event => {
-  const request = event.request;
-  if (request.method !== 'GET') return;
-  const url = new URL(request.url);
-  const path = url.pathname;
-
-  // Always go to network for client room assets so latest fix appears instantly.
-  if (path === '/client-room.html' || path === '/client-room-photo-exact-v6.png' || path === '/client-room-admin.html' || path.startsWith('/client-room-photo-exact-')) {
-    event.respondWith(fetch(request, {cache:'no-store'}).catch(() => caches.match(request)));
-    return;
-  }
-
-  if (request.mode === 'navigate') {
-    event.respondWith(fetch(request).then(response => {
-      const clone = response.clone();
-      caches.open(CACHE_NAME).then(cache => cache.put(request, clone));
-      return response;
-    }).catch(() => caches.match(request).then(r => r || caches.match('/index.html'))));
-    return;
-  }
-
-  event.respondWith(caches.match(request).then(cached => cached || fetch(request).then(response => {
-    if (response && response.status === 200) {
-      const clone = response.clone();
-      caches.open(CACHE_NAME).then(cache => cache.put(request, clone));
-    }
-    return response;
-  })));
-});
+/* v7.0.0 build:2026-07-31-clean-photo-room */
+const CACHE_NAME='digital-agency-chandan-v700-clean-photo-room';
+const CORE=['/','/index.html','/manifest.json','/slide-free-offer-main.webp','/slide-client-room.webp','/slide-beginner-help.webp','/slide-free-tools.webp'];
+self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE_NAME).then(c=>c.addAll(CORE)));self.skipWaiting()});
+self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ns=>Promise.all(ns.filter(n=>n!==CACHE_NAME).map(n=>caches.delete(n)))));self.clients.claim()});
+self.addEventListener('fetch',e=>{const r=e.request;if(r.method!=='GET')return;const p=new URL(r.url).pathname;if(p==='/client-room.html'||p==='/client-room-clean-v7.png'||p==='/client-room-admin.html'||p==='/agency-control-2026.html'){e.respondWith(fetch(r,{cache:'no-store'}));return}if(r.mode==='navigate'){e.respondWith(fetch(r).then(x=>{const y=x.clone();caches.open(CACHE_NAME).then(c=>c.put(r,y));return x}).catch(()=>caches.match(r).then(x=>x||caches.match('/index.html'))));return}e.respondWith(caches.match(r).then(x=>x||fetch(r).then(y=>{if(y&&y.status===200){const z=y.clone();caches.open(CACHE_NAME).then(c=>c.put(r,z))}return y})))})
