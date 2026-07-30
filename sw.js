@@ -1,5 +1,5 @@
-/* v5.0.0 build:2026-07-31-client-room-v2 */
-const CACHE_NAME = 'digital-agency-chandan-v500';
+/* v4.2.0 build:2026-07-31-client-room-real-office */
+const CACHE_NAME = 'digital-agency-chandan-v420';
 const CORE = [
   '/',
   '/index.html',

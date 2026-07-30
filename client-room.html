@@ -252,41 +252,211 @@ header a{color:#b7c1d4;text-decoration:none}.brand{font-weight:900;background:li
 .chat-compose button{border:0;border-radius:12px;padding:0 18px;background:linear-gradient(90deg,#7c3aed,#06b6d4);color:#fff;font-weight:900}
 
 
-/* ===== CLIENT ROOM V2: REAL OFFICE + SMART DASHBOARD ===== */
-:root{--v2-cyan:#22d3ee;--v2-purple:#7c3aed;--v2-gold:#fbbf24;--v2-bg:#06101f;--v2-card:#0c1728}
-.v2-view-toggle{display:none}.v2-view-toggle.ready{display:inline-flex;align-items:center;gap:7px}
-.real-window{position:absolute;left:75px;top:105px;width:165px;height:220px;transform:translateZ(-395px);border:12px solid #101827;border-radius:4px;background:linear-gradient(#051b36 0 54%,#18314d 54% 58%,#071422 58%);box-shadow:inset 0 0 45px #000,0 0 25px #38bdf833;overflow:hidden}
-.real-window:before{content:"";position:absolute;inset:0;background:linear-gradient(155deg,transparent 0 42%,#ffffff12 43% 46%,transparent 47%),radial-gradient(circle at 68% 18%,#fef3c7 0 8px,#fde68a66 9px 30px,transparent 31px)}
-.real-window:after{content:"";position:absolute;left:0;right:0;bottom:0;height:68px;background:linear-gradient(150deg,transparent 0 35%,#0f2e40 36% 44%,transparent 45%),linear-gradient(30deg,#091827 0 38%,#123047 39% 50%,#091827 51%)}
-.wall-shelf{position:absolute;right:76px;top:120px;width:142px;height:128px;transform:translateZ(-390px);border-bottom:12px solid #8b5a35;filter:drop-shadow(0 14px 12px #0008)}
-.wall-shelf:before{content:"🏆  📚  🏅";position:absolute;left:4px;right:4px;bottom:12px;padding:11px 6px;text-align:center;font-size:28px;background:#111b2d;border:1px solid #ffffff14;border-radius:8px}
-.wall-clock{position:absolute;right:120px;top:65px;width:60px;height:60px;transform:translateZ(-385px);border-radius:50%;background:#f8fafc;border:7px solid #1e293b;box-shadow:0 8px 20px #0009;color:#0f172a}
-.wall-clock:before,.wall-clock:after{content:"";position:absolute;left:50%;top:50%;width:2px;background:#0f172a;transform-origin:bottom}.wall-clock:before{height:17px;transform:translate(-50%,-100%) rotate(35deg)}.wall-clock:after{height:13px;transform:translate(-50%,-100%) rotate(125deg)}
-.room-rug{position:absolute;left:315px;top:440px;width:370px;height:255px;transform:rotateX(90deg) translateZ(50px);border-radius:50%;background:radial-gradient(ellipse,#7c3aed55 0 40%,#0e749055 41% 70%,transparent 71%);box-shadow:0 0 45px #22d3ee33}
-.room-sofa{position:absolute;right:45px;top:360px;width:175px;height:105px;transform:translateZ(-250px);border-radius:18px 18px 8px 8px;background:linear-gradient(#334155,#172033);box-shadow:0 22px 30px #0009;border:1px solid #ffffff12}
-.room-sofa:before{content:"";position:absolute;left:10px;right:10px;top:-40px;height:65px;border-radius:24px 24px 8px 8px;background:linear-gradient(#475569,#1e293b)}
-.room-sofa:after{content:"";position:absolute;left:18px;right:18px;bottom:14px;height:45px;border-radius:10px;background:linear-gradient(90deg,#273449 0 49%,#52627a 50% 51%,#273449 52%)}
-.office-sign{position:absolute;left:62px;top:340px;width:130px;padding:12px 8px;transform:translateZ(-375px);border-radius:12px;text-align:center;font-size:12px;font-weight:900;color:#fde68a;background:linear-gradient(145deg,#111827,#172554);border:1px solid #fbbf2455;box-shadow:0 0 22px #fbbf2422}
-.office-sign small{display:block;color:#bae6fd;font-size:9px;margin-top:5px}
-.v2-room-dock{position:fixed;right:14px;top:50%;z-index:72;transform:translateY(-50%);display:flex;flex-direction:column;gap:8px;padding:9px;border-radius:18px;background:#07101eea;border:1px solid #ffffff18;box-shadow:0 18px 48px #0009;backdrop-filter:blur(14px)}
-.v2-room-dock button{width:48px;height:48px;border:1px solid #ffffff17;border-radius:13px;background:#ffffff0a;color:#fff;font-size:20px;cursor:pointer;transition:.2s;position:relative}.v2-room-dock button:hover{transform:translateX(-3px);background:linear-gradient(145deg,#7c3aed88,#0891b288)}
-.v2-room-dock button span{display:none;position:absolute;right:58px;top:8px;white-space:nowrap;padding:8px 10px;border-radius:9px;background:#020617;color:#fff;font-size:11px;border:1px solid #ffffff18}.v2-room-dock button:hover span{display:block}
-#dashboardView{display:none;position:absolute;inset:0;overflow:auto;padding:24px;background:radial-gradient(circle at 15% 5%,#7c3aed22,transparent 32%),radial-gradient(circle at 90% 18%,#0891b222,transparent 34%),#050b16}
-#world.dashboard-mode #dashboardView{display:block}#world.dashboard-mode .scene,#world.dashboard-mode .hud,#world.dashboard-mode .v2-room-dock{display:none!important}
-.v2-dashboard{max-width:1240px;margin:auto;padding-bottom:35px}.v2-welcome{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:22px;border-radius:24px;background:linear-gradient(135deg,#111c31,#0b1730 65%,#0e749033);border:1px solid #ffffff18;box-shadow:0 24px 70px #0007}.v2-welcome h1{margin:0;font-size:clamp(24px,4vw,42px)}.v2-welcome p{margin:7px 0 0;color:#aab8cd}.v2-live-pill{padding:9px 13px;border-radius:999px;background:#052e2b;border:1px solid #22c55e55;color:#bbf7d0;font-weight:800;font-size:12px;white-space:nowrap}
-.v2-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}.v2-stat{padding:17px;border-radius:18px;background:#0d1728;border:1px solid #ffffff14;box-shadow:0 12px 34px #0005}.v2-stat small{display:block;color:#94a3b8;margin-bottom:8px}.v2-stat b{font-size:26px}.v2-stat i{font-style:normal;float:right;font-size:24px}
-.v2-grid{display:grid;grid-template-columns:1.45fr .8fr;gap:16px}.v2-panel{background:#0d1728;border:1px solid #ffffff14;border-radius:22px;padding:18px;box-shadow:0 16px 42px #0005}.v2-panel-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:13px}.v2-panel h2{font-size:19px;margin:0}.v2-link-btn{border:0;border-radius:10px;padding:8px 11px;background:#1e293b;color:#fff;font-weight:800;cursor:pointer}
-.v2-project-card{padding:15px;border-radius:16px;background:linear-gradient(145deg,#101c30,#08111f);border:1px solid #ffffff12;margin-top:10px}.v2-project-top{display:flex;align-items:center;justify-content:space-between;gap:10px}.v2-project-top b{font-size:16px}.v2-status{padding:5px 9px;border-radius:999px;background:#164e63;color:#cffafe;font-size:10px;font-weight:900}.v2-progress{height:8px;border-radius:999px;background:#ffffff10;overflow:hidden;margin:12px 0 7px}.v2-progress span{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#7c3aed,#22d3ee)}.v2-project-meta{display:flex;justify-content:space-between;gap:10px;color:#9fb0c7;font-size:11px}.v2-project-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.v2-project-actions button{border:1px solid #ffffff15;background:#172033;color:#fff;border-radius:9px;padding:7px 10px;font-size:11px;font-weight:800;cursor:pointer}
-.v2-action-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.v2-action{min-height:92px;padding:14px;border-radius:16px;text-align:left;border:1px solid #ffffff14;color:#fff;background:linear-gradient(145deg,#121f34,#0a1322);cursor:pointer;transition:.2s}.v2-action:hover{transform:translateY(-3px);border-color:#22d3ee77}.v2-action strong{display:block;font-size:14px;margin-top:8px}.v2-action small{color:#94a3b8}.v2-action .ico{font-size:25px}
-.v2-feed{display:flex;flex-direction:column;gap:9px}.v2-feed-item{padding:11px 12px;border-radius:13px;background:#091321;border:1px solid #ffffff10}.v2-feed-item b{font-size:13px}.v2-feed-item p{margin:5px 0 0;color:#9fb0c7;font-size:11px;line-height:1.45}.v2-empty{padding:20px;text-align:center;color:#94a3b8;border:1px dashed #ffffff1c;border-radius:14px}
-.v2-list{display:flex;flex-direction:column;gap:10px;margin-top:12px}.v2-list-item{padding:14px;border-radius:15px;background:#0b1627;border:1px solid #ffffff12}.v2-list-top{display:flex;justify-content:space-between;gap:10px;align-items:center}.v2-list-item p{color:#a7b4c8;margin:7px 0 0;line-height:1.45;font-size:13px}.v2-download{display:inline-flex;margin-top:10px;text-decoration:none;color:#fff;font-weight:800;font-size:12px;padding:8px 11px;border-radius:9px;background:linear-gradient(90deg,#7c3aed,#0891b2)}
-.v2-money{font-size:22px;color:#fde68a}.v2-paid{background:#14532d;color:#dcfce7}.v2-due{background:#7c2d12;color:#ffedd5}.v2-modal-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}.v2-modal-actions button,.v2-modal-actions a{border:0;border-radius:10px;padding:10px 13px;color:#fff;text-decoration:none;background:#1e293b;font-weight:900;cursor:pointer}.v2-modal-actions .primary{background:linear-gradient(90deg,#7c3aed,#0891b2)}
-.v2-approve-choice{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}.v2-approve-choice button{padding:15px;border:1px solid #ffffff18;border-radius:14px;color:#fff;font-weight:900;cursor:pointer}.v2-approve{background:#166534}.v2-change{background:#9f1239}
-.v2-badge-count{min-width:18px;height:18px;padding:0 5px;border-radius:999px;display:inline-grid;place-items:center;background:#e11d48;color:#fff;font-size:9px;font-weight:900}
-@media(max-width:900px){
- html,body{overflow:auto}#world{position:fixed;overflow:hidden}.v2-room-dock{display:none}.v2-stats{grid-template-columns:repeat(2,1fr)}.v2-grid{grid-template-columns:1fr}.v2-welcome{align-items:flex-start;flex-direction:column}.v2-action-grid{grid-template-columns:repeat(2,1fr)}#dashboardView{padding:14px}.hint,.controls{display:none!important}.v2-view-toggle{display:none!important}
+/* ===== Client Room Real Office V2 polish ===== */
+:root{
+  --office-wall:#e8edf5;
+  --office-wall-dark:#d9e2ef;
+  --office-accent:#1d4ed8;
+  --office-accent-2:#06b6d4;
+  --office-wood:#835735;
+  --office-wood-dark:#53341f;
+  --office-shadow:0 22px 60px rgba(0,0,0,.35);
 }
-@media(max-width:520px){.v2-stats{grid-template-columns:1fr 1fr;gap:8px}.v2-stat{padding:13px}.v2-stat b{font-size:20px}.v2-action-grid{grid-template-columns:1fr 1fr}.v2-panel{padding:14px}.v2-project-meta{flex-direction:column}.v2-approve-choice{grid-template-columns:1fr}.brand{max-width:145px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}}
+#world{
+  background:
+    radial-gradient(circle at 50% 10%, rgba(96,165,250,.14), transparent 28%),
+    linear-gradient(180deg,#0b1220 0%,#0a1223 38%,#09111e 100%);
+}
+.scene{
+  width:1120px;
+  height:720px;
+  transform:translate(-50%,-50%) rotateX(-7deg) rotateY(0deg) scale(.88);
+}
+.floor{
+  width:980px;
+  height:980px;
+  left:70px;
+  top:195px;
+  transform:rotateX(90deg) translateZ(-235px);
+  background:
+    linear-gradient(rgba(0,0,0,.18),rgba(0,0,0,.18)),
+    repeating-linear-gradient(90deg,#a16c43 0 78px,#8c5f3b 78px 156px),
+    repeating-linear-gradient(0deg,rgba(255,255,255,.04) 0 2px, transparent 2px 84px);
+  box-shadow:inset 0 0 170px rgba(0,0,0,.42), 0 0 80px rgba(0,0,0,.25);
+}
+.back{
+  width:980px;
+  height:540px;
+  left:70px;
+  top:20px;
+  transform:translateZ(-455px);
+  background:
+    linear-gradient(180deg,var(--office-wall) 0%,var(--office-wall-dark) 100%);
+  border:14px solid #cfd8e3;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.8), inset 0 -30px 60px rgba(2,6,23,.06);
+}
+.leftwall,.rightwall{
+  width:980px;
+  height:540px;
+  top:20px;
+  background:linear-gradient(180deg,#eef2f8 0%,#dce6f2 100%);
+}
+.leftwall{left:-420px}
+.rightwall{right:-420px}
+.ceiling{
+  width:980px;
+  height:980px;
+  left:70px;
+  top:-440px;
+  transform:rotateX(90deg);
+  background:linear-gradient(180deg,#f8fafc,#dde6f2);
+}
+.logo{
+  left:335px;
+  top:60px;
+  width:450px;
+  padding:14px 18px;
+  color:#0f172a;
+  font-size:26px;
+  letter-spacing:.3px;
+  background:linear-gradient(180deg,#ffffff,#e8eef7);
+  border:1px solid #c7d2e2;
+  box-shadow:0 14px 35px rgba(15,23,42,.14);
+  transform:translateZ(-440px);
+  border-radius:14px;
+}
+.logo:after{
+  content:'CLIENT EXPERIENCE ROOM';
+  display:block;
+  margin-top:5px;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:2.8px;
+  color:#475569;
+}
+.light{
+  width:190px;
+  height:24px;
+  top:-62px;
+  border-radius:999px;
+  background:linear-gradient(180deg,#ffffff,#dbeafe);
+  box-shadow:0 0 50px rgba(255,255,255,.8), 0 10px 20px rgba(59,130,246,.12);
+}
+.ambient-glow{
+  position:absolute; inset:40px 90px auto; height:430px;
+  transform:translateZ(-448px);
+  background:radial-gradient(circle at 50% 18%, rgba(96,165,250,.22), transparent 46%);
+  pointer-events:none;
+}
+.window{
+  position:absolute;
+  top:125px;
+  width:170px;
+  height:170px;
+  border-radius:16px;
+  background:
+    linear-gradient(180deg,#b9e6ff 0%,#dff5ff 42%,#f8fbff 100%);
+  border:10px solid #ffffff;
+  box-shadow:0 14px 30px rgba(15,23,42,.12), inset 0 0 0 1px rgba(125,211,252,.7);
+  transform:translateZ(-448px);
+  overflow:hidden;
+}
+.window:before,.window:after{
+  content:''; position:absolute; background:rgba(255,255,255,.82);
+}
+.window:before{left:50%; top:0; bottom:0; width:6px; transform:translateX(-50%)}
+.window:after{left:0; right:0; top:50%; height:6px; transform:translateY(-50%)}
+.window span{
+  position:absolute; left:18px; right:18px; bottom:16px; height:52px;
+  background:
+    linear-gradient(180deg,transparent 0 18px,#77a95a 18px 100%),
+    repeating-linear-gradient(90deg,#6b7280 0 10px, transparent 10px 18px);
+  opacity:.7;
+  border-radius:0 0 10px 10px;
+}
+.window-left{left:110px}
+.window-right{right:110px}
+.wall-panel{
+  position:absolute; top:320px; width:190px; height:110px; padding:14px;
+  background:linear-gradient(180deg,#fff,#edf2f7);
+  border-radius:18px; border:1px solid #d5dee8; color:#0f172a;
+  box-shadow:0 14px 25px rgba(15,23,42,.08); transform:translateZ(-448px);
+}
+.wall-panel strong{display:block; font-size:15px; margin-bottom:8px}
+.wall-panel small{display:block; color:#475569; line-height:1.45}
+.wp1{left:120px}
+.wp2{right:120px}
+.office-badge{
+  position:absolute; left:420px; top:450px; transform:translateZ(-448px);
+  padding:8px 18px; border-radius:999px; background:#0f172a; color:#e2e8f0;
+  border:1px solid rgba(255,255,255,.1); font-size:12px; font-weight:800; letter-spacing:1.6px;
+}
+.cabinet{
+  position:absolute; left:120px; top:380px; width:120px; height:150px;
+  transform:translateZ(-270px); border-radius:16px; background:linear-gradient(180deg,#fff,#edf2f7);
+  border:1px solid #d5dee8; box-shadow:0 16px 30px rgba(15,23,42,.15);
+}
+.cabinet:before{content:''; position:absolute; left:18px; right:18px; top:42px; height:1px; background:#cbd5e1; box-shadow:0 32px 0 #cbd5e1, 0 64px 0 #cbd5e1}
+.cabinet:after{content:''; position:absolute; right:18px; top:18px; width:34px; height:18px; border-radius:999px; background:linear-gradient(90deg,#1d4ed8,#06b6d4)}
+.sofa{
+  position:absolute; right:120px; top:405px; width:215px; height:110px;
+  transform:translateZ(-250px); border-radius:22px; background:linear-gradient(180deg,#2b3f56,#172538);
+  box-shadow:0 20px 35px rgba(0,0,0,.25);
+}
+.sofa:before{content:''; position:absolute; left:14px; right:14px; top:-52px; height:72px; border-radius:22px 22px 12px 12px; background:linear-gradient(180deg,#37506b,#213248)}
+.sofa:after{content:''; position:absolute; left:22px; right:22px; top:18px; bottom:18px; border-radius:18px; background:repeating-linear-gradient(90deg,#364f6b 0 55px,#2d425a 55px 110px)}
+.rug{
+  position:absolute; left:285px; top:458px; width:480px; height:170px;
+  transform:rotateX(90deg) translateZ(-198px);
+  background:radial-gradient(circle at 30% 40%, rgba(255,255,255,.14), transparent 40%), linear-gradient(145deg,#11263f,#213c5a);
+  border-radius:28px; box-shadow:0 0 50px rgba(0,0,0,.22);
+}
+.desk{
+  left:270px;
+  top:420px;
+  width:500px;
+  height:150px;
+  background:linear-gradient(180deg,#96653e,#5d3a24);
+  border-radius:12px;
+  transform:translateZ(-8px) rotateX(3deg);
+  box-shadow:0 30px 50px rgba(0,0,0,.35), inset 0 2px 0 rgba(255,255,255,.18);
+}
+.desk:before,.desk:after{
+  top:122px; width:24px; height:155px; border-radius:8px;
+  background:linear-gradient(180deg,#334155,#0f172a);
+}
+.notepad{
+  left:36px; top:18px; width:136px; height:86px; transform:rotate(-5deg);
+  border-radius:12px; box-shadow:0 12px 20px rgba(0,0,0,.28);
+}
+.laptop{left:196px; top:-10px}
+.project-play-box{left:330px; top:16px; width:150px; height:96px}
+.review-box{left:492px; top:16px; width:120px; height:96px}
+.bell{right:30px; top:8px; width:44px; height:34px; box-shadow:0 0 12px rgba(250,204,21,.5)}
+.chair{
+  left:448px; top:542px; width:118px; height:70px; transform:translateZ(180px);
+  background:#1e293b; border-radius:20px; box-shadow:0 22px 35px rgba(0,0,0,.3);
+}
+.chair:before{left:14px; right:14px; bottom:48px; height:110px; background:linear-gradient(180deg,#334155,#0f172a); border-radius:20px 20px 10px 10px}
+.chair:after{content:'Executive Chair'; top:24px; font-size:11px; color:#dbeafe; letter-spacing:.5px}
+.plant{
+  bottom:82px; width:72px; height:82px; transform:translateZ(-325px);
+  background:linear-gradient(180deg,#7c4a2d,#5a3119); border-radius:14px 14px 22px 22px;
+}
+.plant:before{
+  content:''; position:absolute; left:-10px; top:-92px; width:92px; height:108px;
+  background:
+    radial-gradient(circle at 50% 20%, #86efac 0 18px, transparent 18px),
+    radial-gradient(circle at 22% 48%, #4ade80 0 20px, transparent 20px),
+    radial-gradient(circle at 76% 44%, #4ade80 0 20px, transparent 20px),
+    radial-gradient(circle at 35% 74%, #22c55e 0 20px, transparent 20px),
+    radial-gradient(circle at 68% 76%, #16a34a 0 20px, transparent 20px);
+}
+.hint{background:#07111fe8; border-color:#ffffff18; border-radius:16px; box-shadow:0 12px 25px rgba(0,0,0,.16)}
+.controls button{background:#0b1730eb; border-color:#1e3a8a55; box-shadow:0 8px 20px rgba(0,0,0,.14)}
+@media(max-width:700px){
+  .scene{transform:translate(-50%,-50%) rotateX(-7deg) scale(.52)}
+}
 
 </style>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
@@ -296,13 +466,22 @@ header a{color:#b7c1d4;text-decoration:none}.brand{font-weight:900;background:li
 <script src="firebase-client.js"></script>
 </head>
 <body>
-<header><a href="index.html">← হোম</a><div class="brand">Digital Agency by Chandan Das</div><div><button class="hbtn v2-view-toggle" id="viewToggle" onclick="toggleClientView()">📊 Dashboard</button> <button class="hbtn" onclick="toggleVoice()" id="voice">🔊 Voice</button> <button class="hbtn hide" id="exit" onclick="location.reload()">Exit</button></div></header>
-<section id="login"><div class="loginbox"><h1>3D Client Room</h1><p>Unique Code দিয়ে virtual office-এ প্রবেশ করুন</p><div class="gate" id="gate"><i></i></div><input class="code" id="code" placeholder="CR-2026-KKB01"><button class="enter" onclick="enterRoom()">🔑 Gate খুলুন</button><small class="muted">Preview: <b>DEMO-3D</b></small><div id="error"></div></div></section>
+<header><a href="index.html">← হোম</a><div class="brand">Digital Agency by Chandan Das</div><div><button class="hbtn" onclick="toggleVoice()" id="voice">🔊 3 Language Voice</button> <button class="hbtn hide" id="exit" onclick="location.reload()">Exit</button></div></header>
+<section id="login"><div class="loginbox"><h1>Client Room V2</h1><p>Unique Code দিয়ে realistic digital office-এ প্রবেশ করুন</p><div class="gate" id="gate"><i></i></div><input class="code" id="code" placeholder="CR-2026-KKB01"><button class="enter" onclick="enterRoom()">🔑 Gate খুলুন</button><small class="muted">Preview: <b>DEMO-3D</b></small><div id="error"></div></div></section>
 
 <section id="world">
 <div class="scene" id="scene"><div class="room">
 <div class="floor"></div><div class="back"></div><div class="leftwall"></div><div class="rightwall"></div><div class="ceiling"></div>
-<div class="real-window"></div><div class="wall-shelf"></div><div class="wall-clock"></div><div class="room-rug"></div><div class="room-sofa"></div><div class="office-sign">CLIENT EXPERIENCE ROOM<small>Digital Agency By Chandan Das</small></div>
+<div class="ambient-glow"></div>
+<div class="window window-left"><span></span></div>
+<div class="window window-right"><span></span></div>
+<div class="wall-panel wp1"><strong>Meeting Zone</strong><small>Client discussion, idea sharing and live project review.</small></div>
+<div class="wall-panel wp2"><strong>Work Flow</strong><small>Design, Development, Review, Delivery — সবকিছু organised ভাবে.</small></div>
+<div class="office-badge">PREMIUM CLIENT OFFICE</div>
+<div class="cabinet"></div>
+<div class="sofa"></div>
+<div class="rug"></div>
+
 <div class="logo">Digital Agency by Chandan Das</div><div class="light l1"></div><div class="light l2"></div><div class="light l3"></div>
 <div class="lcd" onclick="event.stopPropagation()">
 <div class="lcdscreen">
@@ -406,59 +585,11 @@ header a{color:#b7c1d4;text-decoration:none}.brand{font-weight:900;background:li
 </div>
 </div>
 </div></div>
-<div class="v2-room-dock" aria-label="Client Room shortcuts">
-  <button onclick="toggleClientView()">📊<span>Smart Dashboard</span></button>
-  <button onclick="show('desk')">📁<span>Project Status</span></button>
-  <button onclick="openV2Files()">📥<span>Files & Downloads</span></button>
-  <button onclick="openV2Billing()">🧾<span>Invoice & Payment</span></button>
-  <button onclick="openV2Notifications()">🔔<span>Notifications</span></button>
-  <button onclick="openV2Approval()">✅<span>Approve / Changes</span></button>
-  <button onclick="openLiveChat()">💬<span>Live Chat</span></button>
-  <button onclick="show('meeting')">📅<span>Book Meeting</span></button>
-</div>
-<section id="dashboardView">
-  <div class="v2-dashboard">
-    <div class="v2-welcome">
-      <div><div class="v2-live-pill">● LIVE CLIENT PORTAL V2</div><h1 id="v2WelcomeName">স্বাগতম</h1><p id="v2WelcomeSub">আপনার project, files, invoice, support এবং updates—সব এক জায়গায়।</p></div>
-      <button class="v2-link-btn" onclick="toggleClientView()">🏢 Real Room দেখুন</button>
-    </div>
-    <div class="v2-stats">
-      <div class="v2-stat"><i>🚀</i><small>Total Projects</small><b id="v2ProjectCount">0</b></div>
-      <div class="v2-stat"><i>📈</i><small>Average Progress</small><b id="v2AvgProgress">0%</b></div>
-      <div class="v2-stat"><i>📥</i><small>Available Files</small><b id="v2FileCount">0</b></div>
-      <div class="v2-stat"><i>🧾</i><small>Payment Due</small><b id="v2DueCount">0</b></div>
-    </div>
-    <div class="v2-grid">
-      <div>
-        <div class="v2-panel"><div class="v2-panel-head"><h2>আপনার Project Status</h2><button class="v2-link-btn" onclick="refreshClientProjects()">↻ Refresh</button></div><div id="v2Projects"></div></div>
-        <div class="v2-panel" style="margin-top:16px"><div class="v2-panel-head"><h2>Latest Updates</h2><button class="v2-link-btn" onclick="openV2Notifications()">সব দেখুন</button></div><div id="v2UpdateFeed" class="v2-feed"></div></div>
-      </div>
-      <div>
-        <div class="v2-panel"><div class="v2-panel-head"><h2>Quick Actions</h2><span id="v2NotifyBadge" class="v2-badge-count">0</span></div>
-          <div class="v2-action-grid">
-            <button class="v2-action" onclick="playClientProjects();toggleClientView('room')"><span class="ico">🖥️</span><strong>Live Preview</strong><small>LCD-তে project দেখুন</small></button>
-            <button class="v2-action" onclick="openV2Files()"><span class="ico">📥</span><strong>Files</strong><small>APK, PDF, ZIP download</small></button>
-            <button class="v2-action" onclick="openV2Billing()"><span class="ico">🧾</span><strong>Invoice</strong><small>Payment status দেখুন</small></button>
-            <button class="v2-action" onclick="openV2Approval()"><span class="ico">✅</span><strong>Approval</strong><small>Approve বা changes বলুন</small></button>
-            <button class="v2-action" onclick="openLiveChat()"><span class="ico">💬</span><strong>Live Chat</strong><small>Admin-এর সাথে কথা বলুন</small></button>
-            <button class="v2-action" onclick="show('meeting')"><span class="ico">📅</span><strong>Meeting</strong><small>Call/Video meeting book</small></button>
-          </div>
-        </div>
-        <div class="v2-panel" style="margin-top:16px"><div class="v2-panel-head"><h2>Support</h2></div><div class="v2-feed"><div class="v2-feed-item"><b>WhatsApp Support</b><p>7549459770</p></div><div class="v2-feed-item"><b>Call Support</b><p>9735474770</p></div><div class="v2-feed-item"><b>Secure Client Code</b><p id="v2ClientCode">—</p></div></div></div>
-      </div>
-    </div>
-  </div>
-</section>
-<div class="hud hint">Mouse drag করে room ঘোরান • LCD, chair, bell এবং notepad-এ click করুন</div>
-<div class="hud controls"><button onclick="toggleClientView()">📊 Dashboard</button><button onclick="sit()">🪑 বসুন</button><button onclick="playClientProjects()">🖥️ Client Project</button><button onclick="openV2Files()">📥 Files</button><button onclick="openV2Billing()">🧾 Invoice</button><button onclick="openV2Approval()">✅ Approval</button><button onclick="openLiveChat()">💬 Chat</button><button onclick="show('meeting')">📅 Meeting</button><button onclick="ringBell()">🔔 Assistant</button><button onclick="resetView()">🏠 Full Room</button></div>
+<div class="hud hint">Mouse drag করে room ঘোরান • LCD screen, chat laptop, note pad, bell এবং chair-এ click করুন</div>
+<div class="hud controls"><button onclick="sit()">🪑 বসুন</button><button onclick="nextLcdSlide()">🖥️ Next Demo</button><button onclick="ringBell()">🔔 Bell</button><button onclick="show('note')">📝 প্রশ্ন</button><button onclick="show('desk')">📁 Client Desk</button><button onclick="show('meeting')">📅 Meeting</button><button onclick="openLiveChat()">💬 Live Chat</button><button onclick="loadAgencyMarketing()">📢 Agency Marketing</button><button onclick="startTour()">🎬 Tour</button><button onclick="resetView()">🏠 Full Room</button></div>
 <div id="notify" class="notification"></div>
 </section>
 
-
-<div class="modal" id="v2FilesModal"><div class="card"><div class="cardtop"><div><h2>📥 Project Files & Downloads</h2><small class="muted">Admin upload করা APK, PDF, ZIP, image ও documents</small></div><button class="close" onclick="hide('v2FilesModal')">×</button></div><div id="v2FilesList" class="v2-list"></div></div></div>
-<div class="modal" id="v2BillingModal"><div class="card"><div class="cardtop"><div><h2>🧾 Invoice & Payment Status</h2><small class="muted">Project cost, invoice এবং payment update</small></div><button class="close" onclick="hide('v2BillingModal')">×</button></div><div id="v2BillingList" class="v2-list"></div></div></div>
-<div class="modal" id="v2NotificationsModal"><div class="card"><div class="cardtop"><div><h2>🔔 Notifications & Latest Updates</h2><small class="muted">Agency থেকে আপনার জন্য গুরুত্বপূর্ণ message</small></div><button class="close" onclick="hide('v2NotificationsModal')">×</button></div><div id="v2NotificationsList" class="v2-list"></div></div></div>
-<div class="modal" id="v2ApprovalModal"><div class="card"><div class="cardtop"><div><h2>✅ Project Approval / Changes</h2><small class="muted">Preview approve করুন অথবা correction লিখুন</small></div><button class="close" onclick="hide('v2ApprovalModal')">×</button></div><select id="v2ApprovalProject" class="field"></select><textarea id="v2ApprovalMessage" class="field" rows="4" placeholder="Approve message বা প্রয়োজনীয় changes লিখুন..."></textarea><div class="v2-approve-choice"><button class="v2-approve" onclick="submitV2Approval('Approved')">✅ Project Approve</button><button class="v2-change" onclick="submitV2Approval('Changes Requested')">✍️ Changes Request</button></div><div id="v2ApprovalHistory" class="v2-list"></div></div></div>
 <div class="modal" id="lcd"><div class="card"><div class="cardtop"><h2>🖥️ Demo Project LCD</h2><button class="close" onclick="hide('lcd')">×</button></div><div class="grid">
 <div class="demo"><h3>Marketplace</h3><p>Local commerce project demo</p><a target="_blank" href="demo-marketplace.html">Demo খুলুন →</a></div>
 <div class="demo"><h3>Business Website</h3><p>Professional company website</p><a target="_blank" href="demo-business.html">Demo খুলুন →</a></div>
@@ -603,7 +734,6 @@ function openWorld(){
  startDemoPlayer();
  populateReviewProjects();
  startLiveProjectSync();
- initClientRoomV2();
  setTimeout(()=>speakThreeLanguages(
   `${client.client_name}, ডিজিটাল এজেন্সি বাই চন্দন দাসের থ্রি ডি ক্লায়েন্ট রুমে আপনাকে স্বাগতম। অনুগ্রহ করে চেয়ারে বসুন।`,
   `${client.client_name}, डिजिटल एजेंसी बाय चंदन दास के थ्री डी क्लाइंट रूम में आपका स्वागत है। कृपया कुर्सी पर बैठें।`,
@@ -665,10 +795,6 @@ function sendAssistantMessage(){
    'Your message has been received. Our team will assist you shortly.'
  );
  if(client && client.id!=='demo'){
-   db.collection('room_meetings').add({
-     client_id:client.id,client_name:client.client_name||'Client',meeting_date:date,meeting_time:time,
-     meeting_type:type,note:note||'',status:'Requested',created_at:firebase.firestore.FieldValue.serverTimestamp(),updated_at:firebase.firestore.FieldValue.serverTimestamp()
-   }).catch(console.warn);
    db.collection('room_feature_requests').add({
      client_id:client.id,
      project_id:null,
@@ -1195,7 +1321,7 @@ async function sendClientChat(){
 
 function renderDesk(){$('clientName').textContent='📁 স্বাগতম, '+client.client_name;$('clientCode').textContent='Client Code: '+client.client_code;
 $('projects').innerHTML=projects.length?projects.map(p=>`<div class="project"><b>${esc(p.project_name)}</b><span style="float:right">${esc(p.status||'')}</span><p class="muted">${esc(p.current_stage||'')}</p><div class="progress"><b style="width:${Math.min(100,p.progress_percent||0)}%"></b></div><small>${p.progress_percent||0}% Complete</small></div>`).join(''):'<p class="muted">কোনো project পাওয়া যায়নি।</p>';
-$('projectSelect').innerHTML='<option value="">General Question</option>'+projects.map(p=>`<option value="${p.id}">${esc(p.project_name)}</option>`).join('');renderV2Dashboard()}
+$('projectSelect').innerHTML='<option value="">General Question</option>'+projects.map(p=>`<option value="${p.id}">${esc(p.project_name)}</option>`).join('')}
 async function submitRequest(){
  const t=$('requestText').value.trim();
  if(!t)return alert('প্রশ্ন লিখুন।');
@@ -1217,76 +1343,6 @@ async function submitRequest(){
    alert('Request পাঠানো হয়েছে।');
  }catch(e){alert('Request পাঠানো যায়নি: '+e.message)}
 }
-
-
-// ===== CLIENT ROOM V2 DATA & UI =====
-let v2Files=[],v2Invoices=[],v2Notifications=[],v2Approvals=[],v2Meetings=[];
-let clientViewMode='room';
-function v2Date(v){try{if(!v)return '';const d=v.toDate?v.toDate():new Date(v);return isNaN(d)?'':d.toLocaleString()}catch(e){return ''}}
-function toggleClientView(force){
- const world=$('world');
- if(force==='room')clientViewMode='room';else if(force==='dashboard')clientViewMode='dashboard';else clientViewMode=clientViewMode==='room'?'dashboard':'room';
- world.classList.toggle('dashboard-mode',clientViewMode==='dashboard');
- const btn=$('viewToggle');if(btn)btn.textContent=clientViewMode==='dashboard'?'🏢 Real Room':'📊 Dashboard';
- if(clientViewMode==='dashboard')renderV2Dashboard();
-}
-function initClientRoomV2(){
- $('viewToggle')?.classList.add('ready');
- if(window.matchMedia('(max-width:900px)').matches)toggleClientView('dashboard');
- loadClientRoomV2Data();
-}
-async function loadClientRoomV2Data(){
- if(!client)return;
- if(client.id==='demo'){
-   v2Files=[{file_name:'Demo-App.apk',file_url:'#',file_type:'APK',created_at:new Date()}];
-   v2Invoices=[{invoice_no:'INV-DEMO-01',amount:'₹12,000',status:'Partially Paid',due_date:'2026-08-15',note:'Demo invoice'}];
-   v2Notifications=[{title:'Client Room V2 Ready',message:'আপনার নতুন dashboard, files, invoice ও approval system চালু হয়েছে।',type:'Update',created_at:new Date()}];
-   v2Approvals=[];v2Meetings=[];renderV2Dashboard();return;
- }
- const safe=async(name)=>{try{const s=await db.collection(name).where('client_id','==',client.id).get();return s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.created_at?.seconds||0)-(a.created_at?.seconds||0))}catch(e){console.warn(name,e);return []}};
- [v2Files,v2Invoices,v2Notifications,v2Approvals,v2Meetings]=await Promise.all([safe('room_files'),safe('room_invoices'),safe('room_notifications'),safe('room_approvals'),safe('room_meetings')]);
- renderV2Dashboard();
-}
-function renderV2Dashboard(){
- if(!client)return;
- $('v2WelcomeName').textContent=`স্বাগতম, ${client.client_name||'Client'}`;
- $('v2WelcomeSub').textContent=`Client Code: ${client.client_code||'-'} • আপনার সব project update এখন live sync হচ্ছে।`;
- $('v2ClientCode').textContent=client.client_code||'-';
- $('v2ProjectCount').textContent=projects.length;
- const avg=projects.length?Math.round(projects.reduce((s,p)=>s+Number(p.progress_percent||0),0)/projects.length):0;
- $('v2AvgProgress').textContent=avg+'%';$('v2FileCount').textContent=v2Files.length;
- const due=v2Invoices.filter(i=>!['Paid','Completed'].includes(i.status)).length;$('v2DueCount').textContent=due;
- $('v2NotifyBadge').textContent=v2Notifications.length;
- const pbox=$('v2Projects');
- pbox.innerHTML=projects.length?projects.map(p=>`<div class="v2-project-card"><div class="v2-project-top"><b>${esc(p.project_name)}</b><span class="v2-status">${esc(p.status||'In Progress')}</span></div><div class="v2-progress"><span style="width:${Math.min(100,Number(p.progress_percent||0))}%"></span></div><div class="v2-project-meta"><span>${Number(p.progress_percent||0)}% Complete</span><span>${esc(p.current_stage||'Update pending')}</span></div>${p.notes?`<p class="muted">${esc(p.notes)}</p>`:''}<div class="v2-project-actions">${p.preview_url?`<button onclick="openDemoInLcd('${String(p.preview_url).replace(/'/g,"\\'")}','${String(p.project_name).replace(/'/g,"\\'")}');toggleClientView('room')">Live Preview</button>`:''}<button onclick="openV2Approval('${p.id}')">Approve / Changes</button><button onclick="openLiveChat()">Chat</button></div></div>`).join(''):'<div class="v2-empty">Admin project যোগ করলে এখানে live status দেখা যাবে।</div>';
- const feed=[...v2Notifications.slice(0,4),...projects.slice(0,2).map(p=>({title:p.project_name,message:`${p.current_stage||p.status||'Project updated'} • ${p.progress_percent||0}%`,created_at:p.updated_at||p.created_at}))].sort((a,b)=>((b.created_at?.seconds||new Date(b.created_at||0).getTime()/1000)-(a.created_at?.seconds||new Date(a.created_at||0).getTime()/1000))).slice(0,5);
- $('v2UpdateFeed').innerHTML=feed.length?feed.map(n=>`<div class="v2-feed-item"><b>${esc(n.title||'Update')}</b><p>${esc(n.message||'')} ${v2Date(n.created_at)?`<br><small>${esc(v2Date(n.created_at))}</small>`:''}</p></div>`).join(''):'<div class="v2-empty">নতুন update এলে এখানে দেখা যাবে।</div>';
- populateV2ApprovalProjects();
-}
-async function openV2Files(){show('v2FilesModal');if(client?.id!=='demo')await loadClientRoomV2Data();renderV2Files()}
-function renderV2Files(){
- $('v2FilesList').innerHTML=v2Files.length?v2Files.map(f=>`<div class="v2-list-item"><div class="v2-list-top"><b>📄 ${esc(f.file_name||'Project File')}</b><span class="v2-status">${esc(f.file_type||'FILE')}</span></div><p>${esc(f.note||'Client download file')} ${v2Date(f.created_at)?`• ${esc(v2Date(f.created_at))}`:''}</p>${f.file_url?`<a class="v2-download" href="${esc(f.file_url)}" target="_blank" rel="noopener">Download / Open →</a>`:''}</div>`).join(''):'<div class="v2-empty">Admin এখনও কোনো file upload করেনি।</div>';
-}
-async function openV2Billing(){show('v2BillingModal');if(client?.id!=='demo')await loadClientRoomV2Data();renderV2Billing()}
-function renderV2Billing(){
- $('v2BillingList').innerHTML=v2Invoices.length?v2Invoices.map(i=>`<div class="v2-list-item"><div class="v2-list-top"><div><b>${esc(i.invoice_no||'Invoice')}</b><div class="v2-money">${esc(i.amount||'-')}</div></div><span class="v2-status ${i.status==='Paid'?'v2-paid':'v2-due'}">${esc(i.status||'Due')}</span></div><p>Due: ${esc(i.due_date||'-')}<br>${esc(i.note||'')}</p><div class="v2-modal-actions">${i.invoice_url?`<a href="${esc(i.invoice_url)}" target="_blank">Invoice দেখুন</a>`:''}${i.payment_url?`<a class="primary" href="${esc(i.payment_url)}" target="_blank">Pay Now</a>`:`<a class="primary" href="https://wa.me/917549459770?text=${encodeURIComponent('Invoice '+(i.invoice_no||'')+' সম্পর্কে জানতে চাই')}">WhatsApp</a>`}</div></div>`).join(''):'<div class="v2-empty">কোনো invoice পাওয়া যায়নি।</div>';
-}
-async function openV2Notifications(){show('v2NotificationsModal');if(client?.id!=='demo')await loadClientRoomV2Data();renderV2Notifications()}
-function renderV2Notifications(){
- $('v2NotificationsList').innerHTML=v2Notifications.length?v2Notifications.map(n=>`<div class="v2-list-item"><div class="v2-list-top"><b>🔔 ${esc(n.title||'Notification')}</b><span class="v2-status">${esc(n.type||'Update')}</span></div><p>${esc(n.message||'')}<br><small>${esc(v2Date(n.created_at))}</small></p></div>`).join(''):'<div class="v2-empty">নতুন notification নেই।</div>';
-}
-function populateV2ApprovalProjects(selected){const s=$('v2ApprovalProject');if(!s)return;s.innerHTML=projects.map(p=>`<option value="${p.id}">${esc(p.project_name)}</option>`).join('')||'<option value="">No Project</option>';if(selected)s.value=selected}
-async function openV2Approval(projectId){show('v2ApprovalModal');if(client?.id!=='demo')await loadClientRoomV2Data();populateV2ApprovalProjects(projectId);renderV2Approvals()}
-function renderV2Approvals(){
- $('v2ApprovalHistory').innerHTML=v2Approvals.length?v2Approvals.slice(0,8).map(a=>`<div class="v2-list-item"><div class="v2-list-top"><b>${esc(a.action||'Request')}</b><span class="v2-status">${esc(a.status||'Submitted')}</span></div><p>${esc(a.message||'')}<br><small>${esc(v2Date(a.created_at))}</small></p></div>`).join(''):'<div class="v2-empty">এখনও কোনো approval/request পাঠানো হয়নি।</div>';
-}
-async function submitV2Approval(action){
- const projectId=$('v2ApprovalProject').value,message=$('v2ApprovalMessage').value.trim();if(!projectId)return alert('Project select করুন।');if(action==='Changes Requested'&&!message)return alert('কী changes দরকার লিখুন।');
- const row={client_id:client.id,client_name:client.client_name||'Client',project_id:projectId,action,message:message||'Client approved this project.',status:'Submitted',created_at:firebase.firestore.FieldValue.serverTimestamp(),updated_at:firebase.firestore.FieldValue.serverTimestamp()};
- if(client.id==='demo'){v2Approvals.unshift({...row,created_at:new Date()});$('v2ApprovalMessage').value='';renderV2Approvals();notifyUser('Demo response save হয়েছে');return}
- try{await db.collection('room_approvals').add(row);await db.collection('room_feature_requests').add({client_id:client.id,project_id,request_text:`${action}: ${message||'Approved'}`,status:'New',created_at:firebase.firestore.FieldValue.serverTimestamp(),updated_at:firebase.firestore.FieldValue.serverTimestamp()});$('v2ApprovalMessage').value='';notifyUser(action==='Approved'?'Project approval পাঠানো হয়েছে':'Changes request পাঠানো হয়েছে');await loadClientRoomV2Data();renderV2Approvals()}catch(e){alert('Submit করা যায়নি: '+e.message)}
-}
-
 const scene=$('scene');
 document.addEventListener('pointerdown',e=>{
  if(e.target.closest('.modal,button,.lcd,.chair,.bell,.notepad,.assistant,.project-play-box,.review-box,.laptop'))return;
