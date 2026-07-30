@@ -1,10 +1,10 @@
-/* v5.1.0 build:2026-07-31-exact-client-room-photo */
-const CACHE_NAME = 'digital-agency-chandan-v510-exact-room';
+/* v5.1.2 build:2026-07-31-lcd-title-removed-v4 */
+const CACHE_NAME = 'digital-agency-chandan-v512-lcd-title-removed-v4';
 const CORE = [
   '/',
   '/index.html',
   '/client-room.html',
-  '/client-room-photo-exact-v3.webp',
+  '/client-room-photo-exact-v4.webp',
   '/manifest.json',
   '/slide-free-offer-main.webp',
   '/slide-client-room.webp',
