@@ -893,6 +893,42 @@ body.photo-seat .scene{transform:translate(-50%,-50%) scale(1.08)!important}
 .real-office-actions{bottom:8.5%;}
 @media(max-width:900px){.lcd{left:28.35%;top:26.45%;width:45.2%;height:38.5%;}.real-office-actions{bottom:6.5%;}}
 
+
+
+/* ===== polish fix: better fit and cleaner HUD ===== */
+.scene{width:min(94vw,calc((100vh - 72px) * 1.48));top:51%;}
+.hint{
+  left:12px!important;
+  top:66px!important;
+  max-width:430px;
+  padding:8px 12px;
+  font-size:11px;
+  line-height:1.45;
+  border-radius:13px;
+}
+.controls{
+  bottom:18px!important;
+  width:min(96%,1240px);
+  padding:0 6px;
+  gap:8px;
+}
+.controls button{
+  font-size:12px;
+  padding:10px 13px;
+}
+@media(max-width:900px){
+  .scene{width:100vw;top:48%}
+  .hint{max-width:250px;font-size:10px;top:64px!important}
+  .controls{bottom:12px!important;gap:6px}
+  .controls button{font-size:10px;padding:8px 10px}
+}
+@media(max-width:600px){
+  .scene{top:45%}
+  .hint{left:8px!important;right:8px;max-width:none;font-size:9px;padding:7px 9px}
+  .controls{bottom:8px!important;width:98%}
+  .controls button{font-size:9px;padding:7px 8px}
+}
+
 </style>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
@@ -1022,7 +1058,7 @@ body.photo-seat .scene{transform:translate(-50%,-50%) scale(1.08)!important}
 </div>
 </div>
 </div></div>
-<div class="hud hint">Real office view • LCD-তে project দেখুন • নিচের button দিয়ে chat, correction ও client desk ব্যবহার করুন</div>
+<div class="hud hint">LCD-তে project দেখুন • নিচের button দিয়ে chat, correction ও client desk ব্যবহার করুন</div>
 <div class="hud controls"><button onclick="sit()">🪑 বসুন</button><button onclick="nextLcdSlide()">🖥️ Next Demo</button><button onclick="ringBell()">🔔 Bell</button><button onclick="show('note')">📝 প্রশ্ন</button><button onclick="show('desk')">📁 Client Desk</button><button onclick="show('meeting')">📅 Meeting</button><button onclick="openLiveChat()">💬 Live Chat</button><button onclick="loadAgencyMarketing()">📢 Agency Marketing</button><button onclick="startTour()">🎬 Tour</button><button onclick="resetView()">🏠 Full Room</button></div>
 <div id="notify" class="notification"></div>
 </section>
