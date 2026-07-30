@@ -959,7 +959,7 @@ body.photo-seat .scene{transform:none!important;}
   transform:none!important;
   background:#111!important;
 }
-.room-photo{
+.room-photo-bg{
   position:absolute!important;
   inset:0!important;
   width:100%!important;
@@ -967,16 +967,31 @@ body.photo-seat .scene{transform:none!important;}
   object-fit:cover!important;
   object-position:center!important;
   display:block!important;
+  z-index:0!important;
+  user-select:none!important;
+  pointer-events:none!important;
+  filter:blur(28px) brightness(.55) saturate(1.1)!important;
+  transform:scale(1.12)!important;
+}
+.room-photo{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  display:block!important;
   z-index:1!important;
   user-select:none!important;
   pointer-events:none!important;
 }
-.room > *:not(.room-photo):not(.lcd){display:none!important;}
+.room > *:not(.room-photo):not(.room-photo-bg):not(.lcd){display:none!important;}
 .lcd{
   position:absolute!important;
   /* left/top/width/height are calculated and set live in JS (positionLcdOnPhoto)
-     to exactly track the object-fit:cover crop, so it always lines up with the
-     TV screen in the photo no matter the browser's aspect ratio or window size */
+     to exactly track the object-fit:contain letterbox math, so it always lines up
+     with the TV screen in the photo — and the photo itself is NEVER cropped,
+     so no face or logo can ever get cut off, at any window size. */
   padding:0!important;
   margin:0!important;
   transform:none!important;
@@ -1168,6 +1183,7 @@ body.photo-seat .scene{transform:none!important;}
 
 <section id="world">
 <div class="scene" id="scene"><div class="room">
+<img class="room-photo-bg" src="client-room-real-office.webp" alt="" aria-hidden="true">
 <img class="room-photo" src="client-room-real-office.webp" alt="Digital Agency By Chandan Das Client Meeting Room">
 <div class="floor"></div><div class="back"></div><div class="leftwall"></div><div class="rightwall"></div><div class="ceiling"></div><div class="ceiling-strip cs-left"></div><div class="ceiling-strip cs-right"></div>
 <div class="ambient-glow"></div>
@@ -1548,11 +1564,11 @@ function positionLcdOnPhoto(){
  if(!world||!lcd||world.style.display==='none')return;
  const cw=world.clientWidth,ch=world.clientHeight;
  if(!cw||!ch)return;
- const scale=Math.max(cw/LCD_PHOTO_NATURAL.w,ch/LCD_PHOTO_NATURAL.h); // object-fit:cover scale
+ const scale=Math.min(cw/LCD_PHOTO_NATURAL.w,ch/LCD_PHOTO_NATURAL.h); // object-fit:contain scale — photo is never cropped
  const dispW=LCD_PHOTO_NATURAL.w*scale,dispH=LCD_PHOTO_NATURAL.h*scale;
- const offsetX=(dispW-cw)/2,offsetY=(dispH-ch)/2;
- const left=LCD_SCREEN_RECT.left*scale-offsetX;
- const top=LCD_SCREEN_RECT.top*scale-offsetY;
+ const offsetX=(cw-dispW)/2,offsetY=(ch-dispH)/2; // letterbox padding on each side
+ const left=LCD_SCREEN_RECT.left*scale+offsetX;
+ const top=LCD_SCREEN_RECT.top*scale+offsetY;
  const width=(LCD_SCREEN_RECT.right-LCD_SCREEN_RECT.left)*scale;
  const height=(LCD_SCREEN_RECT.bottom-LCD_SCREEN_RECT.top)*scale;
  lcd.style.setProperty('left',left+'px','important');
