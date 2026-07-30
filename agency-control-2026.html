@@ -33,6 +33,10 @@ button{border:0;border-radius:10px;padding:10px 13px;background:#7c3aed;color:#f
 .admin-chat-compose{display:flex;gap:8px;margin-top:10px}
 .admin-chat-compose textarea{flex:1;resize:none;border:1px solid #ffffff1c;border-radius:10px;background:#050b16;color:#fff;padding:10px}
 .admin-chat-compose button{border:0;border-radius:10px;padding:0 18px;background:#0f766e;color:#fff;font-weight:900}
+
+.admin-feature-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.admin-feature-grid .card{margin-bottom:0}.file-row,.admin-data-row{padding:12px;border-radius:12px;background:#07111f;border:1px solid #ffffff12;margin-top:8px}.tiny{font-size:11px;color:#94a3b8}.upload-progress{height:8px;border-radius:999px;background:#ffffff12;overflow:hidden;margin-top:8px}.upload-progress b{display:block;height:100%;width:0;background:linear-gradient(90deg,#7c3aed,#22d3ee)}
+@media(max-width:900px){.admin-feature-grid{grid-template-columns:1fr}}
+
 </style>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
@@ -127,6 +131,14 @@ button{border:0;border-radius:10px;padding:10px 13px;background:#7c3aed;color:#f
 <button class="secondary" onclick="loadCorrectionRequests()">Refresh Requests</button>
 <div id="correctionRequests" style="margin-top:12px"></div>
 </div>
+
+<div class="admin-feature-grid" id="v2AdminFeatures" style="display:none">
+  <div class="card"><h3>📥 Client File Upload</h3><select id="adminFileProject" class="field"></select><input id="adminFileInput" class="field" type="file"><input id="adminFileNote" class="field" placeholder="File note / version"><button onclick="uploadClientFile()">Upload File</button><div class="upload-progress"><b id="fileUploadBar"></b></div><div id="adminFiles"></div></div>
+  <div class="card"><h3>🧾 Invoice / Payment</h3><select id="invoiceProject" class="field"></select><div class="row"><input id="invoiceNo" class="field" placeholder="Invoice No"><input id="invoiceAmount" class="field" placeholder="Amount e.g. ₹12,000"></div><div class="row"><select id="invoiceStatus" class="field"><option>Due</option><option>Partially Paid</option><option>Paid</option><option>Cancelled</option></select><input id="invoiceDue" class="field" type="date"></div><input id="invoiceUrl" class="field" placeholder="Invoice PDF URL (optional)"><input id="paymentUrl" class="field" placeholder="Payment URL (optional)"><textarea id="invoiceNote" class="field" rows="2" placeholder="Payment note"></textarea><button onclick="saveInvoice()">Save Invoice</button><div id="adminInvoices"></div></div>
+  <div class="card"><h3>🔔 Send Notification</h3><input id="notificationTitle" class="field" placeholder="Notification title"><select id="notificationType" class="field"><option>Update</option><option>Important</option><option>Payment</option><option>Delivery</option><option>Meeting</option></select><textarea id="notificationMessage" class="field" rows="3" placeholder="Client message"></textarea><button onclick="sendNotification()">Send Notification</button><div id="adminNotifications"></div></div>
+  <div class="card"><h3>📅 Meetings & ✅ Approvals</h3><button class="secondary" onclick="loadMeetingsApprovals()">Refresh</button><h4>Meeting Requests</h4><div id="adminMeetings"></div><h4 style="margin-top:14px">Project Approvals</h4><div id="adminApprovals"></div></div>
+</div>
+
 <div class="card">
 <div class="cardtop"><h3>💬 Client Live Chat</h3><span id="adminChatStatus" class="muted">Client select করুন</span></div>
 <div id="adminChatMessages" class="admin-chat-messages"></div>
@@ -214,7 +226,7 @@ function selectClient(c){
  selectedClient=c;renderClients();
  $('selectedTitle').textContent=c.client_name;
  $('selectedInfo').innerHTML=`Pass Code: <b>${escapeHtml(c.client_code)}</b> &nbsp; Mobile: ${escapeHtml(c.client_phone||'-')}`;
- $('projectForm').style.display='block';loadProjects();loadCorrectionRequests();subscribeAdminChat();refreshDashboardTotals();
+ $('projectForm').style.display='block';$('v2AdminFeatures').style.display='grid';loadProjects();loadCorrectionRequests();subscribeAdminChat();refreshDashboardTotals();loadAdminV2Data();
 }
 async function loadProjects(){
  try{
@@ -225,7 +237,7 @@ async function loadProjects(){
 }
 function renderProjects(){
  $('projects').innerHTML='';
- if(!projectRows.length){$('projects').innerHTML='<div class="muted">কোনো project নেই</div>';return}
+ if(!projectRows.length){$('projects').innerHTML='<div class="muted">কোনো project নেই</div>';populateAdminProjectSelects();return}
  projectRows.forEach(p=>{
    const d=document.createElement('div');d.className='project';
    d.innerHTML=`<b>${escapeHtml(p.project_name)}</b> <span class="badge">${escapeHtml(p.status||'')}</span>
@@ -234,6 +246,11 @@ function renderProjects(){
    const btns=d.querySelectorAll('button');btns[0].onclick=()=>editProject(p);btns[1].onclick=()=>deleteProject(p.id);
    $('projects').appendChild(d);
  });
+  populateAdminProjectSelects();
+}
+function populateAdminProjectSelects(){
+ const opts=projectRows.map(p=>`<option value="${p.id}">${escapeHtml(p.project_name)}</option>`).join('')||'<option value="">No Project</option>';
+ ['adminFileProject','invoiceProject'].forEach(id=>{const el=$(id);if(el)el.innerHTML=opts});
 }
 function editProject(p){
  $('projectId').value=p.id;$('projectName').value=p.project_name||'';$('projectType').value=p.project_type||'Website';
@@ -337,6 +354,30 @@ async function sendAdminChat(){
    await db.collection('room_chats').add({client_id:selectedClient.id,client_name:selectedClient.client_name||'Client',sender:'admin',message,created_at:firebase.firestore.FieldValue.serverTimestamp(),read_by_admin:true,read_by_client:false});
  }catch(e){alert('Reply পাঠানো যায়নি: '+e.message)}
 }
+
+
+
+// ===== CLIENT ROOM V2 ADMIN FEATURES =====
+let adminFiles=[],adminInvoices=[],adminNotifications=[],adminMeetings=[],adminApprovals=[];
+function adminDate(v){try{return v?.toDate?v.toDate().toLocaleString():v?new Date(v).toLocaleString():''}catch(e){return ''}}
+async function adminCollection(name){if(!selectedClient)return[];const s=await db.collection(name).where('client_id','==',selectedClient.id).get();return s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.created_at?.seconds||0)-(a.created_at?.seconds||0))}
+async function loadAdminV2Data(){if(!selectedClient)return;try{[adminFiles,adminInvoices,adminNotifications,adminMeetings,adminApprovals]=await Promise.all(['room_files','room_invoices','room_notifications','room_meetings','room_approvals'].map(adminCollection));renderAdminFiles();renderAdminInvoices();renderAdminNotifications();renderMeetingsApprovals()}catch(e){console.warn(e)}}
+async function uploadClientFile(){
+ if(!selectedClient)return alert('Client select করুন');const file=$('adminFileInput').files[0],projectId=$('adminFileProject').value;if(!file||!projectId)return alert('Project ও file select করুন');
+ const clean=file.name.replace(/[^a-zA-Z0-9._-]/g,'-'),path=`client-room/${selectedClient.id}/${projectId}/${Date.now()}-${clean}`;const ref=storage.ref(path),task=ref.put(file,{contentType:file.type||'application/octet-stream'});
+ task.on('state_changed',s=>{$('fileUploadBar').style.width=Math.round(s.bytesTransferred/s.totalBytes*100)+'%'},e=>alert(e.message),async()=>{const url=await task.snapshot.ref.getDownloadURL();await db.collection('room_files').add({client_id:selectedClient.id,project_id:projectId,file_name:file.name,file_type:(file.name.split('.').pop()||'FILE').toUpperCase(),file_url:url,storage_path:path,note:$('adminFileNote').value.trim(),created_at:firebase.firestore.FieldValue.serverTimestamp()});$('adminFileInput').value='';$('adminFileNote').value='';$('fileUploadBar').style.width='0';loadAdminV2Data();alert('File upload হয়েছে')});
+}
+function renderAdminFiles(){$('adminFiles').innerHTML=adminFiles.slice(0,8).map(f=>`<div class="file-row"><b>${escapeHtml(f.file_name)}</b><div class="tiny">${escapeHtml(f.note||'')} • ${adminDate(f.created_at)}</div><div class="row" style="margin-top:7px"><a href="${escapeHtml(f.file_url)}" target="_blank"><button class="secondary">Open</button></a><button class="danger" onclick="deleteAdminFile('${f.id}','${String(f.storage_path||'').replace(/'/g,"\\'")}')">Delete</button></div></div>`).join('')||'<div class="muted">No files</div>'}
+async function deleteAdminFile(id,path){if(!confirm('File delete করবেন?'))return;try{if(path)await storage.ref(path).delete().catch(()=>{});await db.collection('room_files').doc(id).delete();loadAdminV2Data()}catch(e){alert(e.message)}}
+async function saveInvoice(){if(!selectedClient)return;const projectId=$('invoiceProject').value,invoiceNo=$('invoiceNo').value.trim(),amount=$('invoiceAmount').value.trim();if(!invoiceNo||!amount)return alert('Invoice no ও amount দিন');await db.collection('room_invoices').add({client_id:selectedClient.id,project_id:projectId,invoice_no:invoiceNo,amount,status:$('invoiceStatus').value,due_date:$('invoiceDue').value||'',invoice_url:$('invoiceUrl').value.trim(),payment_url:$('paymentUrl').value.trim(),note:$('invoiceNote').value.trim(),created_at:firebase.firestore.FieldValue.serverTimestamp(),updated_at:firebase.firestore.FieldValue.serverTimestamp()});['invoiceNo','invoiceAmount','invoiceDue','invoiceUrl','paymentUrl','invoiceNote'].forEach(id=>$(id).value='');loadAdminV2Data();alert('Invoice save হয়েছে')}
+function renderAdminInvoices(){$('adminInvoices').innerHTML=adminInvoices.slice(0,8).map(i=>`<div class="admin-data-row"><b>${escapeHtml(i.invoice_no)} — ${escapeHtml(i.amount)}</b><div class="tiny">${escapeHtml(i.status||'Due')} • Due ${escapeHtml(i.due_date||'-')}</div><div class="row" style="margin-top:7px"><button class="success" onclick="updateInvoiceStatus('${i.id}','Paid')">Paid</button><button class="secondary" onclick="updateInvoiceStatus('${i.id}','Due')">Due</button><button class="danger" onclick="deleteV2Doc('room_invoices','${i.id}')">Delete</button></div></div>`).join('')||'<div class="muted">No invoices</div>'}
+async function updateInvoiceStatus(id,status){await db.collection('room_invoices').doc(id).update({status,updated_at:firebase.firestore.FieldValue.serverTimestamp()});loadAdminV2Data()}
+async function sendNotification(){if(!selectedClient)return;const title=$('notificationTitle').value.trim(),message=$('notificationMessage').value.trim();if(!title||!message)return alert('Title ও message দিন');await db.collection('room_notifications').add({client_id:selectedClient.id,title,message,type:$('notificationType').value,created_at:firebase.firestore.FieldValue.serverTimestamp()});$('notificationTitle').value='';$('notificationMessage').value='';loadAdminV2Data();alert('Notification পাঠানো হয়েছে')}
+function renderAdminNotifications(){$('adminNotifications').innerHTML=adminNotifications.slice(0,6).map(n=>`<div class="admin-data-row"><b>${escapeHtml(n.title)}</b><div class="tiny">${escapeHtml(n.message)} • ${adminDate(n.created_at)}</div><button class="danger" style="margin-top:7px" onclick="deleteV2Doc('room_notifications','${n.id}')">Delete</button></div>`).join('')||'<div class="muted">No notifications</div>'}
+async function loadMeetingsApprovals(){adminMeetings=await adminCollection('room_meetings');adminApprovals=await adminCollection('room_approvals');renderMeetingsApprovals()}
+function renderMeetingsApprovals(){$('adminMeetings').innerHTML=adminMeetings.map(m=>`<div class="admin-data-row"><b>${escapeHtml(m.meeting_date||'')} ${escapeHtml(m.meeting_time||'')} — ${escapeHtml(m.meeting_type||'Meeting')}</b><div class="tiny">${escapeHtml(m.note||'')} • ${escapeHtml(m.status||'Requested')}</div><div class="row" style="margin-top:7px"><button class="success" onclick="updateV2Status('room_meetings','${m.id}','Confirmed')">Confirm</button><button class="secondary" onclick="updateV2Status('room_meetings','${m.id}','Completed')">Complete</button></div></div>`).join('')||'<div class="muted">No meeting requests</div>';$('adminApprovals').innerHTML=adminApprovals.map(x=>`<div class="admin-data-row"><b>${escapeHtml(x.action||'Approval')}</b><div>${escapeHtml(x.message||'')}</div><div class="tiny">${escapeHtml(x.status||'Submitted')} • ${adminDate(x.created_at)}</div><div class="row" style="margin-top:7px"><button class="success" onclick="updateV2Status('room_approvals','${x.id}','Acknowledged')">Acknowledge</button><button class="secondary" onclick="updateV2Status('room_approvals','${x.id}','Completed')">Complete</button></div></div>`).join('')||'<div class="muted">No approvals</div>'}
+async function updateV2Status(col,id,status){await db.collection(col).doc(id).update({status,updated_at:firebase.firestore.FieldValue.serverTimestamp()});loadAdminV2Data()}
+async function deleteV2Doc(col,id){if(!confirm('Delete করবেন?'))return;await db.collection(col).doc(id).delete();loadAdminV2Data()}
 
 function escapeHtml(v){const d=document.createElement('div');d.textContent=v??'';return d.innerHTML}
 checkSession();
