@@ -1,5 +1,5 @@
-/* v4.0.4 build:2026-07-31-remove-services-cards */
-const CACHE_NAME = 'digital-agency-chandan-v404';
+/* v4.0.5 build:2026-07-31-facebook-footer */
+const CACHE_NAME = 'digital-agency-chandan-v405';
 const CORE = [
   '/',
   '/index.html',
