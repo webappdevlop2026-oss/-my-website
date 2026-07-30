@@ -1,5 +1,5 @@
-/* v4.3.0 build:2026-07-31-client-room-conference-room */
-const CACHE_NAME = 'digital-agency-chandan-v430';
+/* v5.0.0 build:2026-07-31-client-room-photo-real */
+const CACHE_NAME = 'digital-agency-chandan-v500';
 const CORE = [
   '/',
   '/index.html',
@@ -7,7 +7,8 @@ const CORE = [
   '/slide-free-offer-main.webp',
   '/slide-client-room.webp',
   '/slide-beginner-help.webp',
-  '/slide-free-tools.webp'
+  '/slide-free-tools.webp',
+  '/client-room-real-office.webp'
 ];
 
 self.addEventListener('install', event => {

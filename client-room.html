@@ -679,6 +679,214 @@ header a{color:#b7c1d4;text-decoration:none}.brand{font-weight:900;background:li
   .board-chair{display:none}
 }
 
+
+
+/* ===== Ultra realistic conference-office refinement ===== */
+body{background:linear-gradient(180deg,#dbe2ea 0%, #cfd7e1 100%)}
+#world{background:radial-gradient(circle at 50% 8%,rgba(255,255,255,.65),transparent 22%), linear-gradient(180deg,#dfe6ef 0%,#c6d0dc 100%)}
+.scene{width:1180px;height:760px;transform:translate(-50%,-50%) rotateX(-9deg) scale(.9)}
+.room{filter:drop-shadow(0 30px 70px rgba(0,0,0,.18))}
+.floor{
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.16),rgba(0,0,0,.04)),
+    repeating-linear-gradient(90deg,#c1c9d3 0 120px,#b5bdc8 120px 240px);
+  box-shadow:inset 0 0 180px rgba(0,0,0,.10);
+}
+.back{
+  background:
+    linear-gradient(180deg,rgba(255,236,199,.28),rgba(255,236,199,0) 15%),
+    repeating-linear-gradient(90deg,#4b3d35 0 86px,#574740 86px 172px);
+  border:14px solid #2a2521;
+  box-shadow:inset 0 18px 55px rgba(255,225,185,.16), inset 0 -25px 35px rgba(0,0,0,.12), 0 18px 30px rgba(0,0,0,.15);
+}
+.leftwall,.rightwall{
+  background:
+    linear-gradient(180deg,#f3f5f8 0%,#d7dde5 100%);
+  box-shadow:inset 0 0 1px rgba(255,255,255,.9);
+}
+.ceiling{background:linear-gradient(180deg,#f5f7fb,#dde4ec)}
+.ceiling-strip{height:20px; background:linear-gradient(180deg,#fff8ea,#f0cf97); box-shadow:0 0 38px rgba(245,158,11,.32)}
+.logo,.ambient-glow,.window,.wall-panel,.office-badge,.cabinet,.sofa{display:none!important}
+.plant{
+  bottom:126px;width:82px;height:98px;transform:translateZ(-365px);
+  background:linear-gradient(180deg,#5b3a25,#372114);
+  border-radius:12px 12px 22px 22px;
+  box-shadow:0 10px 20px rgba(0,0,0,.2);
+}
+.plant:before{
+  left:-10px;top:-112px;width:102px;height:128px;
+  background:
+    radial-gradient(circle at 50% 10%,#98f2ab 0 18px,transparent 18px),
+    radial-gradient(circle at 28% 40%,#58d97b 0 20px,transparent 20px),
+    radial-gradient(circle at 72% 40%,#4fd36f 0 20px,transparent 20px),
+    radial-gradient(circle at 38% 70%,#2abf5a 0 20px,transparent 20px),
+    radial-gradient(circle at 68% 72%,#24b24f 0 20px,transparent 20px),
+    radial-gradient(circle at 52% 48%,#80e594 0 24px,transparent 24px);
+}
+.lcd{
+  left:214px; top:96px; width:632px; height:330px; padding:12px;
+  border:10px solid #0d1015; background:#05060a; box-shadow:0 18px 55px rgba(0,0,0,.32);
+  transform:translateZ(-360px);
+}
+.lcd:before{
+  content:''; position:absolute; left:-14px; right:-14px; top:-24px; height:24px;
+  border-radius:10px 10px 0 0; background:linear-gradient(180deg,#4e4f53,#232428);
+}
+.lcd:after{
+  content:''; position:absolute; left:50%; bottom:-22px; width:120px; height:10px; transform:translateX(-50%);
+  border-radius:0 0 14px 14px; background:linear-gradient(180deg,#2f3136,#121418);
+}
+.lcdscreen{background:radial-gradient(circle at 50% 10%,rgba(255,255,255,.10),transparent 20%), linear-gradient(180deg,#0c2f7a 0%,#1f4d98 55%,#1d2d6b 100%)}
+.desk{
+  left:216px; top:434px; width:620px; height:188px;
+  background:linear-gradient(180deg,#5b6168 0%,#30353d 45%,#12161c 100%);
+  border-radius:10px; border:1px solid rgba(255,255,255,.08);
+  box-shadow:0 40px 65px rgba(0,0,0,.32), inset 0 2px 0 rgba(255,255,255,.14);
+  transform:translateZ(-26px) rotateX(2deg);
+}
+.desk-front-panel{
+  left:170px; right:170px; top:118px; height:68px;
+  border-radius:0 0 14px 14px;
+  background:linear-gradient(180deg,#c5ccd5,#939ba6 48%,#707883 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.45);
+}
+.desk-front-panel:before{content:'';position:absolute;left:16px;right:16px;top:10px;height:2px;background:rgba(255,255,255,.26)}
+.desk-wire-hole{width:22px;height:22px;background:#23252a}
+.notepad{
+  left:44px; top:35px; width:96px; height:58px; border-radius:8px;
+  background:linear-gradient(180deg,#fafcff,#dfe7f0); color:#0f172a; font-size:10px; font-weight:900;
+  box-shadow:0 10px 18px rgba(0,0,0,.14);
+}
+.coffee-mug{right:55px; top:35px; box-shadow:0 8px 16px rgba(0,0,0,.16)}
+.file-stack{right:105px; top:32px}
+.laptop{left:232px; top:8px; filter:drop-shadow(0 10px 18px rgba(0,0,0,.18))}
+.project-play-box,.review-box{
+  top:28px; border-radius:14px; border:1px solid rgba(255,255,255,.14); box-shadow:0 10px 18px rgba(0,0,0,.16);
+}
+.project-play-box{left:348px; width:146px; background:linear-gradient(180deg,#5b63f2,#3844ce)}
+.review-box{left:500px; width:96px; background:linear-gradient(180deg,#10b2c9,#0c87b5)}
+.review-box strong,.project-play-box strong{font-size:12px}
+.review-box small,.project-play-box small{font-size:10px}
+.chair{left:468px; top:602px; width:112px; height:58px; transform:translateZ(112px); background:linear-gradient(180deg,#31353d,#171a20); box-shadow:0 18px 28px rgba(0,0,0,.22)}
+.chair:before{height:88px; background:linear-gradient(180deg,#535862,#272c34)}
+.chair:after{content:'Main Chair'; top:20px; color:#f3f4f6; font-size:10px}
+.board-chair{
+  width:68px; height:88px; background:linear-gradient(180deg,#eef2f6,#c5ced8); border-radius:12px;
+  box-shadow:0 12px 22px rgba(0,0,0,.18);
+}
+.board-chair:before{
+  left:8px; right:8px; top:8px; height:52px; border-radius:10px;
+  background:repeating-linear-gradient(180deg,#e2d5c7 0 8px,#c7a88d 8px 16px,#f5f2ee 16px 24px);
+}
+.board-chair:after{
+  left:14px; right:14px; bottom:-30px; height:34px;
+  background:linear-gradient(180deg,#9ca3af,#59606b); border-radius:0 0 8px 8px;
+}
+.bc1{left:170px; top:438px; transform:translateZ(-48px) rotateY(24deg)}
+.bc2{left:154px; top:494px; transform:translateZ(-28px) rotateY(24deg)}
+.bc3{left:144px; top:552px; transform:translateZ(-4px) rotateY(24deg)}
+.bc4{left:138px; top:610px; transform:translateZ(22px) rotateY(24deg)}
+.bc5{right:170px; top:438px; transform:translateZ(-48px) rotateY(-24deg)}
+.bc6{right:154px; top:494px; transform:translateZ(-28px) rotateY(-24deg)}
+.bc7{right:144px; top:552px; transform:translateZ(-4px) rotateY(-24deg)}
+.bc8{right:138px; top:610px; transform:translateZ(22px) rotateY(-24deg)}
+#assistantContainer,.assistant{display:none!important}
+.hint{background:#0c1727f0;border-radius:16px;border:1px solid rgba(255,255,255,.08); box-shadow:0 14px 30px rgba(0,0,0,.14)}
+.controls{gap:8px}
+.controls button{background:#0c1730f2;border-color:#1f3767; box-shadow:0 10px 20px rgba(0,0,0,.12)}
+@media(max-width:700px){
+  .scene{transform:translate(-50%,-50%) rotateX(-8deg) scale(.48)}
+}
+
+
+
+/* ===== LCD থেকে desk দূরে + more realistic spacing ===== */
+.scene{height:790px}
+.lcd{
+  top:82px;
+  width:618px;
+  height:318px;
+  transform:translateZ(-372px);
+}
+.rug{
+  left:250px;
+  top:540px;
+  width:560px;
+  height:220px;
+  transform:rotateX(90deg) translateZ(-218px);
+}
+.conference-table-shadow{
+  left:240px;
+  top:604px;
+  width:570px;
+  height:120px;
+}
+.desk{
+  left:206px;
+  top:490px;
+  width:640px;
+  height:192px;
+  transform:translateZ(-18px) rotateX(2deg);
+}
+.desk-front-panel{
+  left:176px;
+  right:176px;
+  top:122px;
+  height:70px;
+}
+.notepad{left:46px; top:40px}
+.file-stack{right:108px; top:38px}
+.coffee-mug{right:58px; top:40px}
+.laptop{left:238px; top:16px}
+.project-play-box{left:356px; top:34px}
+.review-box{left:510px; top:34px}
+.chair{
+  left:474px;
+  top:676px;
+  transform:translateZ(118px);
+}
+.bc1{left:168px; top:500px; transform:translateZ(-48px) rotateY(24deg)}
+.bc2{left:152px; top:560px; transform:translateZ(-28px) rotateY(24deg)}
+.bc3{left:142px; top:622px; transform:translateZ(-4px) rotateY(24deg)}
+.bc4{left:136px; top:684px; transform:translateZ(22px) rotateY(24deg)}
+.bc5{right:168px; top:500px; transform:translateZ(-48px) rotateY(-24deg)}
+.bc6{right:152px; top:560px; transform:translateZ(-28px) rotateY(-24deg)}
+.bc7{right:142px; top:622px; transform:translateZ(-4px) rotateY(-24deg)}
+.bc8{right:136px; top:684px; transform:translateZ(22px) rotateY(-24deg)}
+.p1{left:110px; bottom:148px}
+.p2{right:110px; bottom:148px}
+.hint{top:16px}
+@media(max-width:700px){
+  .scene{height:760px; transform:translate(-50%,-50%) rotateX(-8deg) scale(.46)}
+}
+
+
+
+/* ===== Photo-real Client Room mode using real conference-office photo ===== */
+#world{background:linear-gradient(180deg,#111827,#0b1220);perspective:none}
+.scene{position:absolute;left:50%;top:50%;width:min(100vw,calc((100vh - 56px) * 1.5));height:auto;aspect-ratio:3/2;transform:translate(-50%,-50%)!important;transition:transform .45s ease,width .45s ease;perspective:none;overflow:hidden;box-shadow:0 30px 90px rgba(0,0,0,.45)}
+body.photo-seat .scene{transform:translate(-50%,-50%) scale(1.08)!important}
+.room{position:absolute;inset:0;transform:none;overflow:hidden;background:#111 url('client-room-real-office.webp') center/100% 100% no-repeat}
+.floor,.back,.leftwall,.rightwall,.ceiling,.ceiling-strip,.ambient-glow,.window,.wall-panel,.office-badge,.cabinet,.sofa,.rug,.conference-table-shadow,.logo,.light,.desk,.chair,.plant,.board-chair,.assistant{display:none!important}
+.lcd{position:absolute;left:25.15%;top:15.2%;width:49.2%;height:45.8%;padding:0;transform:none!important;background:#020617;border:5px solid #111318;border-radius:3px;box-shadow:0 8px 24px rgba(0,0,0,.42),0 0 0 1px rgba(255,255,255,.06);z-index:30;overflow:hidden}
+.lcd:before,.lcd:after{display:none!important}
+.lcdscreen{border:0;height:100%;padding-top:44px;background:#020617}
+.lcd-topbar{height:44px;padding:0 10px;background:linear-gradient(180deg,#101827,#050a13)}
+.lcd-title{font-size:13px}
+#lcdExpand{padding:6px 9px;font-size:9px}
+.lcd-browser{top:44px;height:calc(100% - 44px)}
+.demo-stage{height:calc(100% - 68px)}
+.player-controls{height:36px}.demo-thumbnails{height:32px}
+.demo-content{left:20px;right:20px}.demo-content h2{font-size:22px}.demo-icon-big{font-size:42px;margin:4px 0}.demo-content p{font-size:11px}.demo-meta span{font-size:9px;padding:4px 7px}.demo-open-btn{padding:7px 11px;font-size:10px;margin-top:8px}
+.real-office-actions{position:absolute;left:50%;bottom:11%;transform:translateX(-50%);z-index:40;display:flex;gap:8px;padding:8px;border-radius:16px;background:rgba(8,15,28,.74);border:1px solid rgba(255,255,255,.16);box-shadow:0 14px 35px rgba(0,0,0,.28);backdrop-filter:blur(10px)}
+.real-office-actions button{border:1px solid rgba(255,255,255,.16);border-radius:12px;padding:9px 13px;color:#fff;font-weight:800;font-size:11px;cursor:pointer;background:linear-gradient(180deg,rgba(37,99,235,.95),rgba(29,78,216,.95));box-shadow:0 7px 16px rgba(0,0,0,.2)}
+.real-office-actions button:nth-child(2){background:linear-gradient(180deg,#0f766e,#0e7490)}
+.real-office-actions button:nth-child(3){background:linear-gradient(180deg,#7c3aed,#5b21b6)}
+.hint{left:18px;top:70px;color:#e2e8f0;background:rgba(3,7,18,.78);border:1px solid rgba(255,255,255,.13);backdrop-filter:blur(10px)}
+.controls{bottom:13px;z-index:60}.controls button{background:rgba(6,13,25,.86);backdrop-filter:blur(9px)}
+@media(max-width:900px){.scene{width:100vw;top:45%}.lcd-title{font-size:10px}.real-office-actions{bottom:6%;gap:5px;padding:5px}.real-office-actions button{font-size:8px;padding:6px 8px}.hint{font-size:10px;max-width:220px}}
+@media(max-width:600px){.scene{top:42%}.lcd{border-width:2px}.lcdscreen{padding-top:31px}.lcd-topbar{height:31px;padding:0 5px}.lcd-title{font-size:7px}#lcdExpand{font-size:6px;padding:4px 5px}.lcd-browser{top:31px;height:calc(100% - 31px)}.demo-content h2{font-size:14px}.demo-content p,.demo-meta,.demo-thumbnails{display:none}.real-office-actions{bottom:4%}.controls{bottom:7px}.controls button{font-size:10px;padding:7px 9px}}
+
 </style>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
@@ -808,7 +1016,7 @@ header a{color:#b7c1d4;text-decoration:none}.brand{font-weight:900;background:li
 </div>
 </div>
 </div></div>
-<div class="hud hint">Mouse drag করে room ঘোরান • LCD screen, chat laptop, note pad, bell এবং chair-এ click করুন</div>
+<div class="hud hint">Real office view • LCD-তে project দেখুন • নিচের button দিয়ে chat, correction ও client desk ব্যবহার করুন</div>
 <div class="hud controls"><button onclick="sit()">🪑 বসুন</button><button onclick="nextLcdSlide()">🖥️ Next Demo</button><button onclick="ringBell()">🔔 Bell</button><button onclick="show('note')">📝 প্রশ্ন</button><button onclick="show('desk')">📁 Client Desk</button><button onclick="show('meeting')">📅 Meeting</button><button onclick="openLiveChat()">💬 Live Chat</button><button onclick="loadAgencyMarketing()">📢 Agency Marketing</button><button onclick="startTour()">🎬 Tour</button><button onclick="resetView()">🏠 Full Room</button></div>
 <div id="notify" class="notification"></div>
 </section>
@@ -965,14 +1173,15 @@ function openWorld(){
 }
 function show(id){$(id).classList.add('on')}function hide(id){$(id).classList.remove('on')}
 function sit(){
- $('scene').style.transform='translate(-50%,-50%) rotateX(-3deg) rotateY(0deg) scale(1.18) translateY(-38px)';
+ document.body.classList.add('photo-seat');
+ notify('Meeting table view চালু হয়েছে।');
  speakThreeLanguages(
-  'অনুগ্রহ করে বসুন। আপনার সামনে মাঝারি দূরত্বে দেয়ালে লাগানো এল সি ডি পর্দায় project দেখতে পারবেন।',
-  'कृपया बैठें। सामने मध्यम दूरी पर दीवार पर लगी एल सी डी स्क्रीन पर प्रोजेक्ट देख सकते हैं।',
-  'Please have a seat. You can view the project on the wall-mounted LCD at a comfortable distance.'
+  'অনুগ্রহ করে বসুন। সামনে বাস্তব conference room-এর এল সি ডি পর্দায় project দেখতে পারবেন।',
+  'कृपया बैठें। सामने वास्तविक conference room की एल सी डी स्क्रीन पर प्रोजेक्ट देख सकते हैं।',
+  'Please have a seat. You can view the project on the LCD in the realistic conference room.'
  );
 }
-function resetView(){$('scene').style.transform=`translate(-50%,-50%) rotateX(-7deg) rotateY(${ry}deg) scale(.92)`}
+function resetView(){document.body.classList.remove('photo-seat')}
 let assistantReturnTimer=null;
 function ringBell(){
  const a=$('assistant');
@@ -1575,7 +1784,7 @@ document.addEventListener('pointermove',e=>{
  if(!drag)return;
  ry+=(e.clientX-lastX)*.18;
  lastX=e.clientX;
- scene.style.transform=`translate(-50%,-50%) rotateX(-7deg) rotateY(${ry}deg) scale(.92)`;
+ /* photo-real mode fixed camera */
 });
 document.addEventListener('pointerup',()=>drag=false);
 $('code').addEventListener('keydown',e=>e.key==='Enter'&&enterRoom());
