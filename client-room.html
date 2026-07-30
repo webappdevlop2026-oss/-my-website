@@ -458,6 +458,137 @@ header a{color:#b7c1d4;text-decoration:none}.brand{font-weight:900;background:li
   .scene{transform:translate(-50%,-50%) rotateX(-7deg) scale(.52)}
 }
 
+
+
+/* ===== Real client desk refinement ===== */
+.desk{
+  left:255px;
+  top:412px;
+  width:540px;
+  height:168px;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,0) 22%),
+    linear-gradient(180deg,#a87348 0%, #895937 38%, #5a3722 100%);
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.12);
+  transform:translateZ(-2px) rotateX(3deg);
+  box-shadow:0 32px 56px rgba(0,0,0,.34), inset 0 2px 0 rgba(255,255,255,.22), inset 0 -10px 18px rgba(0,0,0,.15);
+  overflow:visible;
+}
+.desk:before,
+.desk:after{
+  content:'';
+  position:absolute;
+  top:124px;
+  width:26px;
+  height:160px;
+  border-radius:10px;
+  background:linear-gradient(180deg,#6b7280,#111827);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.15);
+}
+.desk:before{left:26px}
+.desk:after{right:26px}
+.desk-front-panel{
+  position:absolute;
+  left:85px;
+  right:85px;
+  top:102px;
+  height:64px;
+  border-radius:10px 10px 18px 18px;
+  background:linear-gradient(180deg,#6e4328,#452717);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08);
+}
+.desk-front-panel:before{
+  content:'CLIENT DESK';
+  position:absolute;
+  left:50%; top:18px; transform:translateX(-50%);
+  color:#e2e8f0;
+  font-size:11px; font-weight:900; letter-spacing:2px;
+}
+.desk-top-glass{
+  position:absolute;
+  left:12px; right:12px; top:8px; height:18px;
+  border-radius:14px;
+  background:linear-gradient(180deg,rgba(255,255,255,.36),rgba(255,255,255,.06));
+  pointer-events:none;
+}
+.desk-nameplate{
+  position:absolute;
+  left:182px;
+  top:18px;
+  padding:7px 12px;
+  border-radius:10px;
+  background:linear-gradient(180deg,#f8fafc,#dbe7f4);
+  color:#0f172a;
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.7px;
+  box-shadow:0 8px 16px rgba(0,0,0,.18);
+}
+.coffee-mug{
+  position:absolute;
+  right:92px;
+  top:26px;
+  width:28px; height:34px;
+  border-radius:6px 6px 12px 12px;
+  background:linear-gradient(180deg,#f8fafc,#dbe2ec);
+  box-shadow:0 6px 14px rgba(0,0,0,.18);
+}
+.coffee-mug:before{
+  content:'';
+  position:absolute;
+  right:-9px; top:8px;
+  width:12px; height:14px;
+  border:3px solid #dbe2ec;
+  border-left:0;
+  border-radius:0 10px 10px 0;
+}
+.coffee-mug:after{
+  content:'';
+  position:absolute;
+  left:4px; right:4px; top:4px; height:8px;
+  border-radius:999px;
+  background:linear-gradient(180deg,#6b3f26,#3f2517);
+}
+.file-stack{
+  position:absolute;
+  right:135px;
+  top:22px;
+  width:56px; height:40px;
+}
+.file-stack:before,
+.file-stack:after{
+  content:''; position:absolute; left:0; right:0; height:16px; border-radius:5px;
+  box-shadow:0 5px 10px rgba(0,0,0,.12);
+}
+.file-stack:before{top:0; background:linear-gradient(180deg,#eff6ff,#bfdbfe); transform:rotate(2deg)}
+.file-stack:after{top:16px; background:linear-gradient(180deg,#fef3c7,#fde68a); transform:rotate(-3deg)}
+.tablet-pad{
+  position:absolute;
+  left:84px;
+  top:32px;
+  width:70px; height:50px;
+  border-radius:9px;
+  background:linear-gradient(180deg,#1e293b,#0f172a);
+  border:2px solid #334155;
+  transform:rotate(-8deg);
+  box-shadow:0 10px 18px rgba(0,0,0,.24);
+}
+.tablet-pad:before{
+  content:''; position:absolute; left:8px; right:8px; top:8px; bottom:8px;
+  border-radius:6px; background:linear-gradient(135deg,#0ea5e9,#22c55e);
+}
+.desk-wire-hole{
+  position:absolute; left:50%; top:12px; transform:translateX(-50%);
+  width:20px; height:20px; border-radius:50%; background:#3b2417; box-shadow:inset 0 2px 4px rgba(0,0,0,.35);
+}
+.project-play-box{left:334px; top:18px}
+.review-box{left:490px; top:18px}
+.laptop{left:212px; top:-6px}
+.notepad{left:26px; top:22px}
+.bell{right:28px; top:20px}
+.chair{left:463px; top:548px}
+
 </style>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
@@ -546,6 +677,7 @@ header a{color:#b7c1d4;text-decoration:none}.brand{font-weight:900;background:li
 </div>
 </div>
 <div class="desk">
+<div class="desk-top-glass"></div><div class="desk-wire-hole"></div><div class="desk-front-panel"></div><div class="desk-nameplate">CLIENT MEETING DESK</div><div class="tablet-pad"></div><div class="file-stack"></div><div class="coffee-mug"></div>
 <div class="notepad" onclick="show('note')">CLIENT<br>NOTEPAD ✍️</div>
 <div class="laptop" onclick="openLaptopChat()">
   <div class="laptop-screen"><div>💻 ENTER CHAT</div><small>Click to Start</small></div>
