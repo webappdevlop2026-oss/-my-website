@@ -24,3 +24,11 @@
 
 /client-room.html
   X-Robots-Tag: noindex, nofollow
+
+
+/client-room.html
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-store, no-cache, must-revalidate, max-age=0
+
+/client-room-photo-exact-v5.png
+  Cache-Control: no-store, no-cache, must-revalidate, max-age=0
