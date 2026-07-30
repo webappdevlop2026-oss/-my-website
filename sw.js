@@ -1,11 +1,10 @@
-/* v5.0.0 build:2026-07-31-client-room-photo-real */
-const CACHE_NAME = 'digital-agency-chandan-v500';
+/* v4.5.0 build:2026-07-31-final-3-file-client-room */
+const CACHE_NAME = 'digital-agency-chandan-v450';
 const CORE = [
   '/',
   '/index.html',
-  '/client-room.html',
-  '/client-room-real-office.webp',
   '/manifest.json',
+  '/client-room.html',
   '/slide-free-offer-main.webp',
   '/slide-client-room.webp',
   '/slide-beginner-help.webp',
