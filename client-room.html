@@ -16,7 +16,7 @@ header a{color:#cbd5e1;text-decoration:none}.brand{font-weight:900;background:li
 .code{width:100%;padding:14px;border-radius:13px;border:1px solid #ffffff1c;background:#030712;color:#fff;text-align:center;font-weight:800;letter-spacing:2px}.enter{width:100%;margin-top:12px;border:0;border-radius:999px;padding:14px;color:#fff;font-weight:900;cursor:pointer;background:linear-gradient(90deg,#7c3aed,#06b6d4)}#error{color:#fb7185;min-height:22px;margin-top:10px}
 #world{position:fixed;inset:56px 0 0;display:none;flex-direction:column;overflow:hidden;background:#070b14}
 .stage-wrap{position:relative;flex:1;min-height:0;display:grid;place-items:center;padding:10px 14px;overflow:hidden}
-.stage-wrap:before{content:"";position:absolute;inset:-40px;background:url('client-room-clean-v7.png') center/cover no-repeat;filter:blur(32px) brightness(.36);transform:scale(1.12)}
+.stage-wrap:before{content:"";position:absolute;inset:-40px;background:url('client-room-agency-v8.png') center/cover no-repeat;filter:blur(32px) brightness(.36);transform:scale(1.12)}
 .scene{position:relative;z-index:2;height:min(calc(100vh - 56px - 72px - 20px),calc((100vw - 28px)*2/3));max-width:calc(100vw - 28px);aspect-ratio:3/2;overflow:hidden;border-radius:6px;box-shadow:0 24px 80px #000a;background:#111;transition:transform .35s ease}
 .room-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block;background:#111}
 .photo-seat .scene{transform:scale(1.025)}
@@ -30,6 +30,22 @@ header a{color:#cbd5e1;text-decoration:none}.brand{font-weight:900;background:li
 .full-room .scene{height:calc(100vh - 56px - 12px);max-width:calc(100vw - 12px)}.full-room .controls{display:none}.full-room .stage-wrap{padding:6px}.full-room .hint{display:none}
 @media(max-width:900px){.scene{height:min(calc(100vh - 56px - 72px - 8px),calc(100vw*2/3));max-width:100vw}.hint{font-size:9px;max-width:250px}.controls{padding:8px}.controls button{font-size:10px;padding:8px 10px}}
 @media(max-width:600px){header{padding:0 8px}.brand{font-size:11px}.hbtn{font-size:10px;padding:7px 9px}.stage-wrap{padding:2px}.hint{left:5px;top:5px;max-width:230px;padding:6px 8px}.controls{justify-content:flex-start}.meeting-grid{grid-template-columns:1fr}.loginbox h1{font-size:29px}.assistant-hotspot,.client-hotspot{display:none}}
+
+/* ===== V8 Safe LCD Agency Autoplay ===== */
+.agency-lcd{
+ position:absolute;z-index:18;left:31.15%;top:30.05%;width:36.45%;height:28.10%;
+ overflow:hidden;border-radius:3px;background:#020617;border:1px solid rgba(255,255,255,.10);
+ box-shadow:0 8px 24px rgba(0,0,0,.30);cursor:pointer;
+}
+.agency-lcd:before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 85% 10%,rgba(34,211,238,.16),transparent 35%);pointer-events:none;z-index:2}
+.agency-slide{position:absolute;inset:0;padding:11px 14px 24px;display:grid;grid-template-columns:54px 1fr;align-items:center;gap:11px;opacity:0;transform:translateX(16px);transition:.55s ease;background:linear-gradient(135deg,#081226 0%,#0c1d38 55%,#071522 100%)}
+.agency-slide.active{opacity:1;transform:translateX(0);z-index:1}
+.agency-icon{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;font-size:26px;background:linear-gradient(145deg,rgba(124,58,237,.55),rgba(6,182,212,.45));border:1px solid rgba(255,255,255,.14);box-shadow:0 8px 20px rgba(0,0,0,.22)}
+.agency-copy{min-width:0}.agency-kicker{font-size:7px;font-weight:900;letter-spacing:1.3px;color:#67e8f9;margin-bottom:4px}.agency-copy h3{margin:0 0 5px;font-size:clamp(11px,1.12vw,17px);line-height:1.12;color:#fff}.agency-copy p{margin:0;color:#cbd5e1;font-size:clamp(7px,.62vw,10px);line-height:1.38}.agency-tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:7px}.agency-tags span{font-size:7px;padding:3px 6px;border-radius:999px;background:rgba(15,23,42,.92);border:1px solid rgba(255,255,255,.12);color:#dbeafe}
+.agency-lcd-bottom{position:absolute;z-index:4;left:10px;right:10px;bottom:7px;display:flex;align-items:center;gap:8px}.agency-progress{height:4px;flex:1;border-radius:999px;background:#1e293b;overflow:hidden}.agency-progress b{display:block;height:100%;width:0;background:linear-gradient(90deg,#7c3aed,#22d3ee)}.agency-dots{display:flex;gap:4px}.agency-dot{width:5px;height:5px;border-radius:50%;background:#475569}.agency-dot.active{background:#22d3ee;box-shadow:0 0 8px #22d3ee}
+@media(max-width:900px){.agency-lcd{left:31.15%;top:30.05%;width:36.45%;height:28.10%}.agency-slide{padding:7px 8px 17px;grid-template-columns:34px 1fr;gap:7px}.agency-icon{width:31px;height:31px;border-radius:9px;font-size:17px}.agency-kicker{font-size:5px;margin-bottom:2px}.agency-copy h3{font-size:9px;margin-bottom:2px}.agency-copy p{font-size:6px}.agency-tags{display:none}.agency-lcd-bottom{left:6px;right:6px;bottom:4px;gap:5px}.agency-progress{height:3px}}
+@media(max-width:600px){.agency-copy p{display:none}.agency-slide{grid-template-columns:28px 1fr}.agency-icon{width:26px;height:26px;font-size:14px}.agency-copy h3{font-size:8px}.agency-kicker{font-size:4px}}
+
 </style>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
@@ -42,12 +58,21 @@ header a{color:#cbd5e1;text-decoration:none}.brand{font-weight:900;background:li
 <section id="login"><div class="loginbox"><h1>Client Room</h1><p>Unique Code দিয়ে client office-এ প্রবেশ করুন</p><div class="gate" id="gate"><i></i></div><input class="code" id="code" placeholder="CR-2026-KKB01"><button class="enter" onclick="enterRoom()">🔑 Gate খুলুন</button><small class="muted">Preview: <b>DEMO-3D</b></small><div id="error"></div></div></section>
 <section id="world">
  <div class="stage-wrap"><div class="scene" id="scene">
-  <img class="room-photo" src="client-room-clean-v7.png" alt="Digital Agency By Chandan Das Client Room">
-  <div class="hint">এই নতুন room photo সম্পূর্ণ পরিষ্কার • Project Status, Chat, Correction ও Meeting নিচের button থেকে খুলুন</div>
+  <img class="room-photo" src="client-room-agency-v8.png" alt="Digital Agency By Chandan Das Client Room">
+  <div class="hint">LCD frame-এর ভিতরে Digital Agency services autoplay হবে • নিচের button থেকে Project Status, Chat, Correction ও Meeting খুলুন</div>
+  <div class="agency-lcd" id="agencyLcd" onclick="nextAgencySlide()" title="Click for next service">
+   <div class="agency-slide active"><div class="agency-icon">🚀</div><div class="agency-copy"><div class="agency-kicker">DIGITAL AGENCY</div><h3>Digital Agency By Chandan Das</h3><p>Website, App ও Digital Service—আপনার ব্যবসার জন্য এক জায়গায় সম্পূর্ণ সমাধান।</p><div class="agency-tags"><span>Modern Design</span><span>Fast Delivery</span><span>Support</span></div></div></div>
+   <div class="agency-slide"><div class="agency-icon">🌐</div><div class="agency-copy"><div class="agency-kicker">SERVICE 01</div><h3>Website Development</h3><p>Business website, e-commerce, portfolio ও custom web solution.</p><div class="agency-tags"><span>Responsive</span><span>SEO Ready</span><span>Fast</span></div></div></div>
+   <div class="agency-slide"><div class="agency-icon">📱</div><div class="agency-copy"><div class="agency-kicker">SERVICE 02</div><h3>Mobile App Development</h3><p>Android, iOS ও mobile-friendly application design and development.</p><div class="agency-tags"><span>Android</span><span>iOS</span><span>Modern UI</span></div></div></div>
+   <div class="agency-slide"><div class="agency-icon">📈</div><div class="agency-copy"><div class="agency-kicker">SERVICE 03</div><h3>Digital Marketing</h3><p>SEO, social media, online promotion ও brand growth services.</p><div class="agency-tags"><span>SEO</span><span>Social Media</span><span>Growth</span></div></div></div>
+   <div class="agency-slide"><div class="agency-icon">💻</div><div class="agency-copy"><div class="agency-kicker">SERVICE 04</div><h3>Custom Business Software</h3><p>Billing, admin panel, client portal ও business management tools.</p><div class="agency-tags"><span>Billing</span><span>Admin Panel</span><span>Automation</span></div></div></div>
+   <div class="agency-lcd-bottom"><div class="agency-progress"><b id="agencyProgress"></b></div><div class="agency-dots" id="agencyDots"></div></div>
+  </div>
+
   <button class="assistant-hotspot" aria-label="Open assistant" onclick="ringBell()"></button>
   <button class="client-hotspot" aria-label="Open project status" onclick="show('desk')"></button>
  </div></div>
- <div class="controls"><button onclick="sit()">🪑 বসুন</button><button onclick="show('desk')">📊 Project Status</button><button onclick="openProjectReview()">✍️ Correction</button><button onclick="show('note')">📝 প্রশ্ন</button><button onclick="show('meeting')">📅 Meeting</button><button onclick="openLiveChat()">💬 Live Chat</button><button onclick="ringBell()">🤝 Assistant</button><button onclick="toggleFullRoom()">🏠 Full Room</button></div>
+ <div class="controls"><button onclick="sit()">🪑 বসুন</button><button onclick="show('desk')">📊 Project Status</button><button onclick="nextAgencySlide()">🖥️ Next Demo</button><button onclick="openProjectReview()">✍️ Correction</button><button onclick="show('note')">📝 প্রশ্ন</button><button onclick="show('meeting')">📅 Meeting</button><button onclick="openLiveChat()">💬 Live Chat</button><button onclick="ringBell()">🤝 Assistant</button><button onclick="toggleFullRoom()">🏠 Full Room</button></div>
  <div id="notify" class="notification"></div>
 </section>
 <div class="assistant" id="assistant"><div class="speech"><div class="assistant-title">নমস্কার! কীভাবে সাহায্য করতে পারি?</div><div class="assistant-chat"><input id="assistantInput" type="text" placeholder="আপনার message লিখুন..." onkeydown="if(event.key==='Enter')sendAssistantMessage()"><button onclick="sendAssistantMessage()">Send</button></div><div class="quick-actions"><button onclick="assistantQuick('project')">Project Status</button><button onclick="assistantQuick('meeting')">Book Meeting</button><button onclick="assistantQuick('price')">Price Query</button><button onclick="assistantQuick('support')">Support</button></div><div class="assistant-reply" id="assistantReply"></div><div style="margin-top:9px;text-align:right"><button class="assistant-back-btn" onclick="returnAssistant()">↩ Back</button></div></div></div>
@@ -71,7 +96,7 @@ function speakOne(text,lang,done){if(!voiceOn||!('speechSynthesis'in window)){do
 function speakThreeLanguages(bn,hi,en){if(!voiceOn||!('speechSynthesis'in window))return;speechSynthesis.cancel();speakOne(bn,'bn-BD',()=>speakOne(hi,'hi-IN',()=>speakOne(en,'en-US')))}
 function toggleVoice(){voiceOn=!voiceOn;$('voice').textContent=voiceOn?'🔊 3 Language Voice':'🔇 Muted';if(!voiceOn&&'speechSynthesis'in window)speechSynthesis.cancel()}
 async function enterRoom(){const c=$('code').value.trim().toUpperCase();$('error').textContent='';if(!c){$('error').textContent='Unique Code লিখুন।';return}try{if(c==='DEMO-3D'){client={id:'demo',client_code:c,client_name:'Demo Client'};projects=[{id:'p1',project_name:'Demo Project',status:'In Progress',progress_percent:72,current_stage:'Frontend Development'}]}else{const snap=await db.collection('room_clients').where('client_code','==',c).where('is_active','==',true).limit(1).get();if(snap.empty)throw new Error('Code সঠিক নয়।');const doc=snap.docs[0];client={id:doc.id,...doc.data()};const pSnap=await db.collection('room_projects').where('client_id','==',client.id).get();projects=pSnap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.created_at?.seconds||0)-(a.created_at?.seconds||0))}$('gate').classList.add('open');setTimeout(openWorld,900)}catch(e){console.error(e);$('error').textContent=e.message||'কিছু সমস্যা হয়েছে।'}}
-function openWorld(){$('login').classList.add('hide');$('world').style.display='flex';$('exit').classList.remove('hide');renderDesk();populateReviewProjects();setTimeout(()=>speakThreeLanguages(`${client.client_name}, ডিজিটাল এজেন্সি বাই চন্দন দাসের ক্লায়েন্ট রুমে আপনাকে স্বাগতম।`,`Welcome to the client room.`,`Welcome ${client.client_name} to the Client Room of Digital Agency by Chandan Das.`),350)}
+function openWorld(){$('login').classList.add('hide');$('world').style.display='flex';$('exit').classList.remove('hide');renderDesk();populateReviewProjects();startAgencySlides();setTimeout(()=>speakThreeLanguages(`${client.client_name}, ডিজিটাল এজেন্সি বাই চন্দন দাসের ক্লায়েন্ট রুমে আপনাকে স্বাগতম।`,`Welcome to the client room.`,`Welcome ${client.client_name} to the Client Room of Digital Agency by Chandan Das.`),350)}
 function show(id){$(id)?.classList.add('on')}function hide(id){$(id)?.classList.remove('on')}
 function sit(){document.body.classList.add('photo-seat');notifyUser('Client meeting view চালু হয়েছে।')}
 function toggleFullRoom(){document.body.classList.toggle('full-room');notifyUser(document.body.classList.contains('full-room')?'Full Room view চালু হয়েছে':'Normal view চালু হয়েছে')}
@@ -98,6 +123,20 @@ function subscribeClientChat(){const box=$('clientChatMessages'),status=$('chatS
 async function setClientTyping(){if(!client||client.id==='demo')return;clearTimeout(clientTypingTimer);try{await db.collection('room_chat_status').doc(client.id).set({client_typing:true,updated_at:firebase.firestore.FieldValue.serverTimestamp()},{merge:true})}catch(e){}clientTypingTimer=setTimeout(async()=>{try{await db.collection('room_chat_status').doc(client.id).set({client_typing:false,updated_at:firebase.firestore.FieldValue.serverTimestamp()},{merge:true})}catch(e){}},1200)}
 function subscribeTypingStatus(){if(!client||client.id==='demo')return;if(adminTypingUnsub)adminTypingUnsub();adminTypingUnsub=db.collection('room_chat_status').doc(client.id).onSnapshot(doc=>{$('clientTyping')?.classList.toggle('on',doc.exists&&doc.data().admin_typing===true)})}
 async function sendClientChat(){const input=$('clientChatInput'),message=input.value.trim();if(!message)return;input.value='';if(client.id==='demo'){const box=$('clientChatMessages');box.innerHTML+=`<div class="chat-msg client">${esc(message)}<small>আপনি • ✔ Delivered</small></div>`;box.scrollTop=box.scrollHeight;return}try{await db.collection('room_chat_status').doc(client.id).set({client_typing:false,updated_at:firebase.firestore.FieldValue.serverTimestamp()},{merge:true});await db.collection('room_chats').add({client_id:client.id,client_name:client.client_name||'Client',sender:'client',message,created_at:firebase.firestore.FieldValue.serverTimestamp(),read_by_admin:false,read_by_client:true})}catch(e){alert('Message পাঠানো যায়নি: '+e.message)}}
+
+let agencySlideIndex=0,agencySlideTimer=null,agencyProgressTimer=null,agencyElapsed=0;
+const agencyDuration=4500;
+function renderAgencySlide(){
+ const slides=[...document.querySelectorAll('.agency-slide')],dots=[...document.querySelectorAll('.agency-dot')];
+ slides.forEach((s,i)=>s.classList.toggle('active',i===agencySlideIndex));
+ dots.forEach((d,i)=>d.classList.toggle('active',i===agencySlideIndex));
+ agencyElapsed=0;
+ const bar=$('agencyProgress');if(bar)bar.style.width='0%';
+}
+function buildAgencyDots(){const box=$('agencyDots');if(!box)return;const count=document.querySelectorAll('.agency-slide').length;box.innerHTML='';for(let i=0;i<count;i++){const d=document.createElement('span');d.className='agency-dot'+(i===0?' active':'');d.onclick=e=>{e.stopPropagation();agencySlideIndex=i;renderAgencySlide()};box.appendChild(d)}}
+function nextAgencySlide(){const count=document.querySelectorAll('.agency-slide').length;if(!count)return;agencySlideIndex=(agencySlideIndex+1)%count;renderAgencySlide()}
+function startAgencySlides(){clearInterval(agencySlideTimer);clearInterval(agencyProgressTimer);buildAgencyDots();renderAgencySlide();agencySlideTimer=setInterval(nextAgencySlide,agencyDuration);agencyProgressTimer=setInterval(()=>{agencyElapsed+=100;const bar=$('agencyProgress');if(bar)bar.style.width=Math.min(100,agencyElapsed/agencyDuration*100)+'%'},100)}
+
 $('code').addEventListener('keydown',e=>{if(e.key==='Enter')enterRoom()});
 </script>
 </body>
