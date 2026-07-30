@@ -1,9 +1,10 @@
-UPLOAD THIS FOLDER TO GITHUB / VERCEL.
+READY TO UPLOAD — SEO FIXED VERSION
 
-Important folders kept:
-- project-request/       Client requirement form
-- secure-admin-portal/   Admin portal
-- api/                   Google Sheet proxy
-
-All public pages, demos, store, tools, blog, client room, SEO files and configuration files are included.
-The separate extra-backup ZIP contains old setup documents, SQL/rules and unused audio files; it is not required for normal website deployment.
+Upload all files and folders from this directory to the root of your GitHub repository.
+Fixes included:
+- Removed obsolete SearchAction schema URLs (?s= and ?q=)
+- Redirected old /partner.html 404 to homepage
+- Removed broken partner login link from admin approval message
+- Added homepage internal link to Mobile App Development article
+- Refreshed sitemap lastmod dates for the two blog pages
+- Main design and existing features unchanged

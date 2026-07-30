@@ -358,7 +358,7 @@ async function approvePartner(i) {
   const pid = app.partner_id || ('PRT-' + new Date().getFullYear() + '-' + String((approvedApps||[]).length + 1).padStart(3, '0'));
   const { error } = await sb.from('partner_applications').update({ status: 'approved', partner_id: pid }).eq('id', app.id);
   if (error) { alert('❌ ' + error.message); return; }
-  const msg = 'নমস্কার ' + encodeURIComponent(app.name) + '! আপনার Partner Application Approved! 🎉%0APartner ID: *' + pid + '*%0ALogin: ' + encodeURIComponent(window.location.origin + '/partner.html');
+  const msg = 'নমস্কার ' + encodeURIComponent(app.name) + '! আপনার Partner Application Approved! 🎉%0APartner ID: *' + pid + '*%0Aপরবর্তী login/details admin WhatsApp-এ পাঠাবেন।%0AWebsite: ' + encodeURIComponent(window.location.origin + '/');
   window.open('https://wa.me/91' + app.mobile.replace(/[^0-9]/g, '').slice(-10) + '?text=' + msg, '_blank');
   renderPartnerApps();
   updateStats();
