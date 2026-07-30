@@ -589,6 +589,96 @@ header a{color:#b7c1d4;text-decoration:none}.brand{font-weight:900;background:li
 .bell{right:28px; top:20px}
 .chair{left:463px; top:548px}
 
+
+
+/* ===== Conference room real-office reference style ===== */
+.back{
+  background:
+    linear-gradient(180deg,rgba(255,244,214,.14),rgba(255,244,214,0) 18%),
+    repeating-linear-gradient(90deg,#40352f 0 88px,#4c4039 88px 176px);
+  border:12px solid #2b2724;
+  box-shadow:inset 0 18px 50px rgba(255,215,170,.14), inset 0 0 0 1px rgba(255,255,255,.04);
+}
+.leftwall,.rightwall{
+  background:linear-gradient(180deg,#d7dbe2,#c4cad3);
+}
+.ceiling{background:linear-gradient(180deg,#edf1f6,#d8dee8)}
+.window,.wall-panel,.office-badge,.cabinet,.sofa,.logo{display:none!important}
+.ambient-glow{display:none!important}
+.rug{left:260px; top:495px; width:530px; height:200px; background:linear-gradient(180deg,#d7dde4,#bcc4ce); border-radius:8px; box-shadow:0 6px 30px rgba(0,0,0,.15)}
+.floor{
+  background:linear-gradient(180deg,#cfd5dd,#b9c1cc);
+  box-shadow:inset 0 0 140px rgba(0,0,0,.18);
+}
+.lcd{
+  left:212px; top:92px; width:620px; height:320px; padding:10px;
+  border:10px solid #17191d; background:#05060a; box-shadow:0 20px 50px rgba(0,0,0,.35);
+  transform:translateZ(-360px);
+}
+.lcd:before{
+  content:''; position:absolute; left:-10px; right:-10px; top:-24px; height:22px;
+  background:linear-gradient(180deg,#4b4b4f,#1d1f23); border-radius:10px 10px 0 0;
+  box-shadow:0 8px 20px rgba(0,0,0,.3);
+}
+.lcdscreen{border:0; background:radial-gradient(circle at 50% 10%,rgba(255,255,255,.09),transparent 28%), linear-gradient(180deg,#17367a 0%,#23489f 60%,#1b2f6f 100%)}
+.light{display:none}
+.ceiling-strip{
+  position:absolute; top:8px; width:410px; height:18px; border-radius:0 0 16px 16px;
+  background:linear-gradient(180deg,#fdf6e3,#f1d5a7); box-shadow:0 0 36px rgba(252,211,77,.45);
+  transform:translateZ(-442px);
+}
+.cs-left{left:118px}.cs-right{right:118px}
+.conference-table-shadow{
+  position:absolute; left:247px; top:558px; width:550px; height:110px; transform:rotateX(90deg) translateZ(-208px);
+  background:radial-gradient(circle at 50% 50%, rgba(0,0,0,.22), transparent 68%);
+}
+.desk{
+  left:220px; top:430px; width:610px; height:185px; transform:translateZ(-30px) rotateX(2deg);
+  background:linear-gradient(180deg,#5d6168,#2c3036 55%,#0f1217 100%);
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,.08);
+  box-shadow:0 35px 60px rgba(0,0,0,.35), inset 0 2px 0 rgba(255,255,255,.14);
+}
+.desk:before,.desk:after{display:none}
+.desk-top-glass{display:none}
+.desk-front-panel{
+  left:165px; right:165px; top:116px; height:66px; border-radius:0 0 14px 14px;
+  background:linear-gradient(180deg,#b9c0c9,#848b95 50%,#6b727b 100%);
+}
+.desk-front-panel:before{content:''}
+.desk-front-panel:after{content:''; position:absolute; left:18px; right:18px; top:10px; height:2px; background:rgba(255,255,255,.18)}
+.desk-nameplate{display:none}
+.notepad{left:40px; top:34px; width:96px; height:60px; border-radius:8px; font-size:10px; background:linear-gradient(180deg,#f7fafc,#dde5ef); color:#0f172a}
+.tablet-pad{display:none}
+.file-stack{right:100px; top:30px}
+.coffee-mug{right:54px; top:34px}
+.laptop{left:225px; top:5px}
+.project-play-box{left:344px; top:28px; width:145px; height:90px}
+.review-box{left:495px; top:28px; width:95px; height:90px}
+.bell{display:none}
+.chair{left:462px; top:598px; width:118px; height:62px; transform:translateZ(118px); background:linear-gradient(180deg,#30353d,#171a1f)}
+.chair:before{height:92px; background:linear-gradient(180deg,#4b515a,#232830)}
+.chair:after{content:'Main Chair'; font-size:10px; color:#e5e7eb}
+.plant{bottom:128px; width:78px; height:96px; transform:translateZ(-360px); background:linear-gradient(180deg,#4e3426,#352012)}
+.p1{left:116px}.p2{right:116px}
+.plant:before{left:-12px; top:-104px; width:102px; height:120px}
+.board-chair{position:absolute; width:64px; height:82px; background:linear-gradient(180deg,#e5e7eb,#b9c0cb); border-radius:12px; box-shadow:0 12px 24px rgba(0,0,0,.22); transform:translateZ(-55px)}
+.board-chair:before{content:''; position:absolute; left:8px; right:8px; top:8px; height:48px; border-radius:10px; background:repeating-linear-gradient(180deg,#c8a98c 0 9px,#f2efe9 9px 18px)}
+.board-chair:after{content:''; position:absolute; left:10px; right:10px; bottom:-26px; height:30px; background:linear-gradient(180deg,#9ca3af,#4b5563); border-radius:0 0 8px 8px}
+.bc1{left:172px; top:436px; transform:translateZ(-44px) rotateY(22deg)}
+.bc2{left:154px; top:488px; transform:translateZ(-24px) rotateY(22deg)}
+.bc3{left:144px; top:540px; transform:translateZ(0px) rotateY(22deg)}
+.bc4{left:138px; top:592px; transform:translateZ(18px) rotateY(22deg)}
+.bc5{right:172px; top:436px; transform:translateZ(-44px) rotateY(-22deg)}
+.bc6{right:154px; top:488px; transform:translateZ(-24px) rotateY(-22deg)}
+.bc7{right:144px; top:540px; transform:translateZ(0px) rotateY(-22deg)}
+.bc8{right:138px; top:592px; transform:translateZ(18px) rotateY(-22deg)}
+.hint{background:#0a1220ea}
+@media(max-width:700px){
+  .scene{transform:translate(-50%,-50%) rotateX(-7deg) scale(.5)}
+  .board-chair{display:none}
+}
+
 </style>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
@@ -598,11 +688,11 @@ header a{color:#b7c1d4;text-decoration:none}.brand{font-weight:900;background:li
 </head>
 <body>
 <header><a href="index.html">← হোম</a><div class="brand">Digital Agency by Chandan Das</div><div><button class="hbtn" onclick="toggleVoice()" id="voice">🔊 3 Language Voice</button> <button class="hbtn hide" id="exit" onclick="location.reload()">Exit</button></div></header>
-<section id="login"><div class="loginbox"><h1>Client Room V2</h1><p>Unique Code দিয়ে realistic digital office-এ প্রবেশ করুন</p><div class="gate" id="gate"><i></i></div><input class="code" id="code" placeholder="CR-2026-KKB01"><button class="enter" onclick="enterRoom()">🔑 Gate খুলুন</button><small class="muted">Preview: <b>DEMO-3D</b></small><div id="error"></div></div></section>
+<section id="login"><div class="loginbox"><h1>Client Room V2</h1><p>Unique Code দিয়ে premium conference-style client room-এ প্রবেশ করুন</p><div class="gate" id="gate"><i></i></div><input class="code" id="code" placeholder="CR-2026-KKB01"><button class="enter" onclick="enterRoom()">🔑 Gate খুলুন</button><small class="muted">Preview: <b>DEMO-3D</b></small><div id="error"></div></div></section>
 
 <section id="world">
 <div class="scene" id="scene"><div class="room">
-<div class="floor"></div><div class="back"></div><div class="leftwall"></div><div class="rightwall"></div><div class="ceiling"></div>
+<div class="floor"></div><div class="back"></div><div class="leftwall"></div><div class="rightwall"></div><div class="ceiling"></div><div class="ceiling-strip cs-left"></div><div class="ceiling-strip cs-right"></div>
 <div class="ambient-glow"></div>
 <div class="window window-left"><span></span></div>
 <div class="window window-right"><span></span></div>
@@ -611,7 +701,8 @@ header a{color:#b7c1d4;text-decoration:none}.brand{font-weight:900;background:li
 <div class="office-badge">PREMIUM CLIENT OFFICE</div>
 <div class="cabinet"></div>
 <div class="sofa"></div>
-<div class="rug"></div>
+<div class="rug"></div><div class="conference-table-shadow"></div>
+<div class="board-chair bc1"></div><div class="board-chair bc2"></div><div class="board-chair bc3"></div><div class="board-chair bc4"></div><div class="board-chair bc5"></div><div class="board-chair bc6"></div><div class="board-chair bc7"></div><div class="board-chair bc8"></div>
 
 <div class="logo">Digital Agency by Chandan Das</div><div class="light l1"></div><div class="light l2"></div><div class="light l3"></div>
 <div class="lcd" onclick="event.stopPropagation()">
