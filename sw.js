@@ -1,5 +1,5 @@
-/* v4.0.6 build:2026-07-31-premium-seo-cards */
-const CACHE_NAME = 'digital-agency-chandan-v406';
+/* v4.0.7 build:2026-07-31-remove-call-section */
+const CACHE_NAME = 'digital-agency-chandan-v407';
 const CORE = [
   '/',
   '/index.html',
