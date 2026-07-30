@@ -1,1 +1,57 @@
-/* v3.0.0 build:2026-07-30 */const CACHE_NAME = 'digital-agency-chandan-v3'; const urlsToCache = [ '/', '/index.html', '/manifest.json' ]; self.addEventListener('install', function(event) { event.waitUntil( caches.open(CACHE_NAME).then(function(cache) { return cache.addAll(urlsToCache); }) ); self.skipWaiting(); }); self.addEventListener('activate', function(event) { event.waitUntil( caches.keys().then(function(cacheNames) { return Promise.all( cacheNames.filter(function(name) { return name !== CACHE_NAME; }).map(function(name) { return caches.delete(name); }) ); }) ); self.clients.claim(); }); self.addEventListener('fetch', function(event) { event.respondWith( fetch(event.request) .then(function(response) { if (response && response.status === 200 && response.type === 'basic') { const responseClone = response.clone(); caches.open(CACHE_NAME).then(function(cache) { cache.put(event.request, responseClone); }); } return response; }) .catch(function() { return caches.match(event.request).then(function(cached) { if (cached) return cached; return caches.match('/index.html'); }); }) ); }); 
+/* v4.0.0 build:2026-07-30-slider-root-fix */
+const CACHE_NAME = 'digital-agency-chandan-v4';
+const CORE = [
+  '/',
+  '/index.html',
+  '/manifest.json',
+  '/slide-free-offer-main.webp',
+  '/slide-client-room.webp',
+  '/slide-beginner-help.webp',
+  '/slide-free-tools.webp'
+];
+
+self.addEventListener('install', event => {
+  event.waitUntil(
+    caches.open(CACHE_NAME).then(cache => cache.addAll(CORE))
+  );
+  self.skipWaiting();
+});
+
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    caches.keys().then(names => Promise.all(
+      names.filter(name => name !== CACHE_NAME).map(name => caches.delete(name))
+    ))
+  );
+  self.clients.claim();
+});
+
+self.addEventListener('fetch', event => {
+  const request = event.request;
+  if (request.method !== 'GET') return;
+
+  // HTML navigation: network first, homepage fallback only for page requests.
+  if (request.mode === 'navigate') {
+    event.respondWith(
+      fetch(request)
+        .then(response => {
+          const clone = response.clone();
+          caches.open(CACHE_NAME).then(cache => cache.put(request, clone));
+          return response;
+        })
+        .catch(() => caches.match(request).then(r => r || caches.match('/index.html')))
+    );
+    return;
+  }
+
+  // Images/CSS/JS: cache first, then network. Never return index.html for assets.
+  event.respondWith(
+    caches.match(request).then(cached => cached || fetch(request).then(response => {
+      if (response && response.status === 200) {
+        const clone = response.clone();
+        caches.open(CACHE_NAME).then(cache => cache.put(request, clone));
+      }
+      return response;
+    }))
+  );
+});
