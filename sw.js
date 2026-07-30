@@ -1,5 +1,5 @@
-/* v4.0.2 build:2026-07-30-desktop-menu */
-const CACHE_NAME = 'digital-agency-chandan-v402';
+/* v4.0.4 build:2026-07-31-remove-services-cards */
+const CACHE_NAME = 'digital-agency-chandan-v404';
 const CORE = [
   '/',
   '/index.html',
