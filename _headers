@@ -25,10 +25,16 @@
 /client-room.html
   X-Robots-Tag: noindex, nofollow
 
-
 /client-room.html
   X-Robots-Tag: noindex, nofollow
   Cache-Control: no-store, no-cache, must-revalidate, max-age=0
 
-/client-room-photo-exact-v5.png
+/client-room-photo-exact-v6.png
   Cache-Control: no-store, no-cache, must-revalidate, max-age=0
+
+/client-room-admin.html
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-store, no-cache, must-revalidate, max-age=0
+
+/sw.js
+  Cache-Control: public, max-age=0, must-revalidate

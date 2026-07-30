@@ -1,5 +1,5 @@
-/* v6.0.0 build:2026-07-31-client-room-final7 */
-const CACHE_NAME = 'digital-agency-chandan-v600';
+/* v6.0.0 build:2026-07-31-client-room-safe-align */
+const CACHE_NAME = 'digital-agency-chandan-v600-client-room-safe-align';
 const CORE = [
   '/',
   '/index.html',
@@ -16,9 +16,7 @@ self.addEventListener('install', event => {
 });
 
 self.addEventListener('activate', event => {
-  event.waitUntil(caches.keys().then(names => Promise.all(
-    names.filter(name => name !== CACHE_NAME).map(name => caches.delete(name))
-  )));
+  event.waitUntil(caches.keys().then(names => Promise.all(names.filter(name => name !== CACHE_NAME).map(name => caches.delete(name)))));
   self.clients.claim();
 });
 
@@ -26,33 +24,28 @@ self.addEventListener('fetch', event => {
   const request = event.request;
   if (request.method !== 'GET') return;
   const url = new URL(request.url);
+  const path = url.pathname;
 
-  // Client Room must always come from the network so old layouts/images never persist.
-  if (url.pathname === '/client-room.html' ||
-      url.pathname === '/client-room-photo-exact-v5.png' ||
-      url.pathname === '/sw.js') {
-    event.respondWith(fetch(request, { cache: 'no-store' }));
+  // Always go to network for client room assets so latest fix appears instantly.
+  if (path === '/client-room.html' || path === '/client-room-photo-exact-v6.png' || path === '/client-room-admin.html' || path.startsWith('/client-room-photo-exact-')) {
+    event.respondWith(fetch(request, {cache:'no-store'}).catch(() => caches.match(request)));
     return;
   }
 
   if (request.mode === 'navigate') {
-    event.respondWith(
-      fetch(request).then(response => {
-        const clone = response.clone();
-        caches.open(CACHE_NAME).then(cache => cache.put(request, clone));
-        return response;
-      }).catch(() => caches.match(request).then(r => r || caches.match('/index.html')))
-    );
+    event.respondWith(fetch(request).then(response => {
+      const clone = response.clone();
+      caches.open(CACHE_NAME).then(cache => cache.put(request, clone));
+      return response;
+    }).catch(() => caches.match(request).then(r => r || caches.match('/index.html'))));
     return;
   }
 
-  event.respondWith(
-    caches.match(request).then(cached => cached || fetch(request).then(response => {
-      if (response && response.status === 200) {
-        const clone = response.clone();
-        caches.open(CACHE_NAME).then(cache => cache.put(request, clone));
-      }
-      return response;
-    }))
-  );
+  event.respondWith(caches.match(request).then(cached => cached || fetch(request).then(response => {
+    if (response && response.status === 200) {
+      const clone = response.clone();
+      caches.open(CACHE_NAME).then(cache => cache.put(request, clone));
+    }
+    return response;
+  })));
 });
