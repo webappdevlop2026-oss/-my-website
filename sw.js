@@ -1,5 +1,5 @@
-/* v4.0.0 build:2026-07-30-slider-root-fix */
-const CACHE_NAME = 'digital-agency-chandan-v4';
+/* v4.0.2 build:2026-07-30-desktop-menu */
+const CACHE_NAME = 'digital-agency-chandan-v402';
 const CORE = [
   '/',
   '/index.html',
