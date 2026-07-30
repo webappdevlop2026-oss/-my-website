@@ -1,5 +1,5 @@
-/* v4.0.8 build:2026-07-31-compact-agency-about */
-const CACHE_NAME = 'digital-agency-chandan-v408';
+/* v4.0.9 build:2026-07-31-compact-business-growth */
+const CACHE_NAME = 'digital-agency-chandan-v409';
 const CORE = [
   '/',
   '/index.html',
