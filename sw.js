@@ -1,5 +1,5 @@
-/* v4.0.7 build:2026-07-31-remove-call-section */
-const CACHE_NAME = 'digital-agency-chandan-v407';
+/* v4.0.8 build:2026-07-31-compact-agency-about */
+const CACHE_NAME = 'digital-agency-chandan-v408';
 const CORE = [
   '/',
   '/index.html',
