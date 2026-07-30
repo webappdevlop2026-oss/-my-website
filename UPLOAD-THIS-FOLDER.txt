@@ -1,0 +1,9 @@
+UPLOAD THIS FOLDER TO GITHUB / VERCEL.
+
+Important folders kept:
+- project-request/       Client requirement form
+- secure-admin-portal/   Admin portal
+- api/                   Google Sheet proxy
+
+All public pages, demos, store, tools, blog, client room, SEO files and configuration files are included.
+The separate extra-backup ZIP contains old setup documents, SQL/rules and unused audio files; it is not required for normal website deployment.
