@@ -1,5 +1,5 @@
-/* v4.0.9 build:2026-07-31-compact-business-growth */
-const CACHE_NAME = 'digital-agency-chandan-v409';
+/* v4.1.0 build:2026-07-31-attractive-business-growth */
+const CACHE_NAME = 'digital-agency-chandan-v410';
 const CORE = [
   '/',
   '/index.html',
