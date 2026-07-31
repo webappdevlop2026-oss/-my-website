@@ -1,4 +1,4 @@
-/* v8.0.0 build:2026-07-31-agency-lcd-autoplay */
+/* v9.0.0 build:2026-07-31-male-welcome-voice */
 const CACHE_NAME='digital-agency-chandan-v800-agency-lcd';
 const CORE=['/','/index.html','/manifest.json','/slide-free-offer-main.webp','/slide-client-room.webp','/slide-beginner-help.webp','/slide-free-tools.webp'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE_NAME).then(c=>c.addAll(CORE)));self.skipWaiting()});
