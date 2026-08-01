@@ -114,12 +114,12 @@ main{max-width:1380px}.dashboard-cards{max-width:1380px}.grid{grid-template-colu
 <input id="clientName" class="field" placeholder="Client name">
 <input id="clientPhone" class="field" placeholder="Mobile number">
 <input id="clientEmail" class="field" type="email" placeholder="Email (optional)">
-<div class="row"><input id="clientCode" class="field" placeholder="Unique Client Code"><input id="clientExpiry" class="field" type="date" title="Access expiry"></div>
-<div class="row"><button class="secondary" onclick="generateCode()">Generate Code</button><button onclick="saveClient()">Client Add</button></div>
+<div class="row"><input id="clientPin" class="field" inputmode="numeric" maxlength="4" placeholder="4-digit Client PIN"><input id="clientExpiry" class="field" type="date" title="Access expiry"></div>
+<div class="row"><button class="secondary" onclick="generatePin()">Generate PIN</button><button onclick="saveClient()">Client Add</button></div>
 </div>
 <div class="card">
 <h3>Clients</h3>
-<input id="clientSearch" class="field" placeholder="Search..." oninput="renderClients()">
+<input id="clientSearch" class="field" placeholder="Search client name, mobile বা PIN..." oninput="renderClients()">
 <div id="clients"></div>
 </div>
 </section>
@@ -128,8 +128,9 @@ main{max-width:1380px}.dashboard-cards{max-width:1380px}.grid{grid-template-colu
 <div class="card">
 <h2 id="selectedTitle">Client select করুন</h2>
 <div id="selectedInfo" class="muted"></div>
+<div id="selectedPinEditor" class="row" style="display:none;margin-top:10px"><input id="selectedClientPin" class="field" inputmode="numeric" maxlength="4" placeholder="Set/Change 4-digit PIN"><button class="secondary" onclick="generateSelectedPin()">Generate</button><button onclick="saveSelectedClientPin()">Save PIN</button></div>
 <div id="selectedActions" class="toolbar" style="display:none">
-  <button class="copy-btn" onclick="copyClientAccess()">🔗 Copy Access</button>
+  <button class="copy-btn" onclick="copyClientAccess()">🔗 Copy PIN & Link</button>
   <button class="warning" onclick="toggleClientActive()">⏯ Enable / Disable</button>
   <button class="danger" onclick="deleteSelectedClient()">🗑 Delete Client</button>
 </div>
@@ -225,27 +226,37 @@ async function login(){
  }catch(e){$('loginMsg').textContent=e.message}
 }
 async function logout(){await auth.signOut();location.reload()}
-function generateCode(){
- const n=Math.random().toString(36).slice(2,7).toUpperCase();
- $('clientCode').value='CR-'+new Date().getFullYear()+'-'+n;
+function currentDemoPin(){return $('settingDemoPin')?.value.trim()||$('dashDemoPin')?.textContent.trim()||'1234'}
+async function uniqueFourDigitPin(excludeClientId=''){
+ for(let i=0;i<80;i++){
+  const pin=String(Math.floor(1000+Math.random()*9000));
+  if(pin===String(currentDemoPin()))continue;
+  const q=await db.collection('room_clients').where('client_pin','==',pin).limit(1).get();
+  if(q.empty||q.docs[0].id===excludeClientId)return pin;
+ }
+ throw new Error('Unique PIN তৈরি করা যায়নি—আবার চেষ্টা করুন');
 }
+async function generatePin(){try{$('clientPin').value=await uniqueFourDigitPin()}catch(e){alert(e.message)}}
+async function generateSelectedPin(){try{$('selectedClientPin').value=await uniqueFourDigitPin(selectedClient?.id||'')}catch(e){alert(e.message)}}
 async function saveClient(){
- const name=$('clientName').value.trim(),code=$('clientCode').value.trim().toUpperCase();
- if(!name||!code)return alert('Client name ও pass code দিন');
+ const name=$('clientName').value.trim(),pin=$('clientPin').value.trim();
+ if(!name||!/^\d{4}$/.test(pin))return alert('Client name এবং 4-digit PIN দিন');
+ if(pin===String(currentDemoPin()))return alert('এই PIN Demo PIN হিসেবে ব্যবহার হচ্ছে—অন্য PIN দিন');
  try{
-   const existing=await db.collection('room_clients').where('client_code','==',code).limit(1).get();
-   if(!existing.empty)return alert('এই pass code আগে থেকেই আছে');
+   const existing=await db.collection('room_clients').where('client_pin','==',pin).limit(1).get();
+   if(!existing.empty)return alert('এই Client PIN আগে থেকেই আছে');
    await db.collection('room_clients').add({
      client_name:name,
      client_phone:$('clientPhone').value.trim(),
      client_email:$('clientEmail').value.trim(),
      access_expiry:$('clientExpiry').value||'',
-     client_code:code,
+     client_pin:pin,
+     client_code:pin,
      is_active:true,
      created_at:firebase.firestore.FieldValue.serverTimestamp(),
      updated_at:firebase.firestore.FieldValue.serverTimestamp()
    });
-   $('clientName').value='';$('clientPhone').value='';$('clientEmail').value='';$('clientCode').value='';$('clientExpiry').value='';
+   $('clientName').value='';$('clientPhone').value='';$('clientEmail').value='';$('clientPin').value='';$('clientExpiry').value='';
    loadClients();
  }catch(e){alert(e.message)}
 }
@@ -261,16 +272,16 @@ async function loadClients(){
 function renderClients(){
  const q=$('clientSearch').value.toLowerCase();
  $('clients').innerHTML='';
- clients.filter(c=>(c.client_name+' '+c.client_code+' '+(c.client_phone||'')).toLowerCase().includes(q)).forEach(c=>{
+ clients.filter(c=>(c.client_name+' '+(c.client_pin||c.client_code||'')+' '+(c.client_phone||'')).toLowerCase().includes(q)).forEach(c=>{
    const d=document.createElement('div');d.className='client'+(selectedClient?.id===c.id?' active':'');
-   d.innerHTML=`<div class="client-head"><b>${escapeHtml(c.client_name)}</b><span class="status-pill ${c.is_active!==false?'status-on':'status-off'}">${c.is_active!==false?'Active':'Disabled'}</span></div><div class="muted"><span class="client-code">${escapeHtml(c.client_code)}</span> • ${escapeHtml(c.client_phone||'No phone')}</div>`;
+   d.innerHTML=`<div class="client-head"><b>${escapeHtml(c.client_name)}</b><span class="status-pill ${c.is_active!==false?'status-on':'status-off'}">${c.is_active!==false?'Active':'Disabled'}</span></div><div class="muted">PIN: <span class="client-code">${escapeHtml(c.client_pin||(/^[0-9]{4}$/.test(c.client_code||'')?c.client_code:'Not set'))}</span> • ${escapeHtml(c.client_phone||'No phone')}</div>`;
    d.onclick=()=>selectClient(c);$('clients').appendChild(d);
  });
 }
 function selectClient(c){
  selectedClient=c;renderClients();
  $('selectedTitle').textContent=c.client_name;
- $('selectedInfo').innerHTML=`Access Code: <b class="client-code">${escapeHtml(c.client_code)}</b> &nbsp; Mobile: ${escapeHtml(c.client_phone||'-')} &nbsp; Email: ${escapeHtml(c.client_email||'-')} &nbsp; Status: <b>${c.is_active!==false?'Active':'Disabled'}</b>`;
+ const currentPin=c.client_pin||(/^[0-9]{4}$/.test(c.client_code||'')?c.client_code:'');$('selectedInfo').innerHTML=`Client PIN: <b class="client-code">${escapeHtml(currentPin||'Not set')}</b> &nbsp; Mobile: ${escapeHtml(c.client_phone||'-')} &nbsp; Email: ${escapeHtml(c.client_email||'-')} &nbsp; Status: <b>${c.is_active!==false?'Active':'Disabled'}</b>`;$('selectedPinEditor').style.display='flex';$('selectedClientPin').value=currentPin;
  $('selectedActions').style.display='flex';
  $('projectForm').style.display='block';$('v2AdminFeatures').style.display='grid';loadProjects();loadCorrectionRequests();subscribeAdminChat();refreshDashboardTotals();loadAdminV2Data();
 }
@@ -450,7 +461,28 @@ async function saveRoomSettings(){
  const payload={demo_pin:pin,autoplay_seconds:Math.min(20,Math.max(2,Number($('settingAutoplay').value||4.5))),room_active:$('settingRoomActive').value==='true',welcome_bn:$('settingWelcomeBn').value.trim(),welcome_hi:$('settingWelcomeHi').value.trim(),welcome_en:$('settingWelcomeEn').value.trim(),updated_at:firebase.firestore.FieldValue.serverTimestamp()};
  try{await db.collection('room_settings').doc('main').set(payload,{merge:true});$('roomSettingsMsg').textContent='✅ Room settings saved';loadRoomSettings()}catch(e){alert('Save হয়নি: '+e.message)}
 }
-function copyClientAccess(){if(!selectedClient)return;const url=`${location.origin}/client-room.html?code=${encodeURIComponent(selectedClient.client_code)}`;navigator.clipboard?.writeText(`Client Room: ${url}\nAccess Code: ${selectedClient.client_code}`);alert('Client access link ও code copy হয়েছে')}
+async function saveSelectedClientPin(){
+ if(!selectedClient)return;
+ const pin=$('selectedClientPin').value.trim();
+ if(!/^\d{4}$/.test(pin))return alert('PIN ঠিক 4 digit হতে হবে');
+ if(pin===String(currentDemoPin()))return alert('Demo PIN-এর সঙ্গে Client PIN একই হতে পারবে না');
+ try{
+  const existing=await db.collection('room_clients').where('client_pin','==',pin).limit(2).get();
+  if(existing.docs.some(d=>d.id!==selectedClient.id))return alert('এই PIN অন্য client ব্যবহার করছে');
+  await db.collection('room_clients').doc(selectedClient.id).update({client_pin:pin,client_code:pin,updated_at:firebase.firestore.FieldValue.serverTimestamp()});
+  selectedClient.client_pin=pin;selectedClient.client_code=pin;
+  const idx=clients.findIndex(c=>c.id===selectedClient.id);if(idx>=0)clients[idx]={...clients[idx],client_pin:pin,client_code:pin};
+  selectClient(selectedClient);alert('Client PIN save হয়েছে');
+ }catch(e){alert(e.message)}
+}
+function copyClientAccess(){
+ if(!selectedClient)return;
+ const pin=selectedClient.client_pin||(/^[0-9]{4}$/.test(selectedClient.client_code||'')?selectedClient.client_code:'');
+ if(!pin)return alert('আগে এই client-এর 4-digit PIN set করুন');
+ const url=`${location.origin}/client-room.html?pin=${encodeURIComponent(pin)}`;
+ navigator.clipboard?.writeText(`Client Room: ${url}\nClient PIN: ${pin}`);
+ alert('Client Room link ও PIN copy হয়েছে');
+}
 async function toggleClientActive(){if(!selectedClient)return;const next=selectedClient.is_active===false;await db.collection('room_clients').doc(selectedClient.id).update({is_active:next,updated_at:firebase.firestore.FieldValue.serverTimestamp()});selectedClient.is_active=next;loadClients();selectClient(selectedClient)}
 async function deleteSelectedClient(){if(!selectedClient||!confirm(`${selectedClient.client_name} client delete করবেন?`))return;await db.collection('room_clients').doc(selectedClient.id).delete();selectedClient=null;$('selectedTitle').textContent='Client select করুন';$('selectedInfo').textContent='';$('selectedActions').style.display='none';$('projectForm').style.display='none';$('v2AdminFeatures').style.display='none';loadClients()}
 
