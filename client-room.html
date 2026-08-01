@@ -167,6 +167,9 @@ header a{color:#cbd5e1;text-decoration:none}.brand{font-weight:900;background:li
 
 /* ===== V23 Reception auto-room routing + room LCD ===== */
 .room-route{position:fixed;inset:56px 0 0;z-index:180;display:none;place-items:center;padding:20px;background:linear-gradient(rgba(2,6,23,.72),rgba(2,6,23,.86)),url('client-office-final-v21.png') center/cover no-repeat}.room-route.on{display:grid}.route-card{width:min(480px,94vw);padding:30px;border-radius:28px;background:rgba(6,17,31,.94);border:1px solid rgba(103,232,249,.28);box-shadow:0 30px 90px rgba(0,0,0,.55);text-align:center;backdrop-filter:blur(14px)}.route-icon{font-size:42px}.route-kicker{margin-top:10px;color:#67e8f9;font-size:10px;font-weight:900;letter-spacing:1.5px}.route-card h2{margin:8px 0;font-size:30px}.route-card p{margin:0;color:#cbd5e1;line-height:1.6}.route-track{height:9px;margin:22px 0 12px;border-radius:999px;background:#172033;overflow:hidden}.route-track span{display:block;height:100%;width:0;background:linear-gradient(90deg,#7c3aed,#22d3ee);transition:width 2.4s linear}.route-speaker{font-size:12px;color:#bae6fd}.room-photo{transition:transform .9s ease;transform-origin:center}.cabin-project .room-photo{transform:scale(1.62);transform-origin:14% 17%}.cabin-meeting .room-photo{transform:scale(1.62);transform-origin:13% 70%}.cabin-support .room-photo{transform:scale(1.62);transform-origin:67% 18%}.cabin-accounts .room-photo{transform:scale(1.62);transform-origin:88% 18%}.room-service-lcd{position:absolute;z-index:54;width:min(340px,30%);padding:18px 20px;border-radius:18px;background:linear-gradient(145deg,rgba(3,12,27,.97),rgba(7,43,67,.96));border:1px solid rgba(56,189,248,.45);box-shadow:0 16px 50px rgba(0,0,0,.45),0 0 28px rgba(14,165,233,.12);color:#fff}.room-lcd-speaker{position:absolute;right:14px;top:12px}.room-lcd-kicker{color:#67e8f9;font-size:9px;font-weight:900;letter-spacing:1.4px}.room-service-lcd h2{margin:5px 0 7px;font-size:22px}.room-service-lcd p{margin:0;color:#dbeafe;font-size:12px;line-height:1.55}.room-lcd-status{display:inline-block;margin-top:12px;padding:6px 9px;border-radius:999px;background:#0f766e;color:#ccfbf1;font-size:9px;font-weight:900}.cabin-project .room-service-lcd{left:5%;top:18%}.cabin-meeting .room-service-lcd{left:5%;bottom:12%}.cabin-support .room-service-lcd{right:24%;top:16%}.cabin-accounts .room-service-lcd{right:4%;top:16%}.cabin-project .clean-cabin-panel,.cabin-meeting .clean-cabin-panel,.cabin-support .clean-cabin-panel,.cabin-accounts .clean-cabin-panel{display:none}@media(max-width:900px){.room-service-lcd{width:44%;padding:12px}.room-service-lcd h2{font-size:14px}.room-service-lcd p{font-size:8px}.route-card h2{font-size:24px}}
+
+.reception-sync-state{margin-top:10px;padding:9px 11px;border-radius:10px;background:#07111f;border:1px solid #ffffff12;color:#94a3b8;font-size:11px}.reception-sync-state.ok{color:#a7f3d0;border-color:#10b98144;background:#052e2b}.reception-sync-state.err{color:#fecaca;border-color:#ef444444;background:#3f1218}
+
 </style>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
@@ -204,7 +207,7 @@ header a{color:#cbd5e1;text-decoration:none}.brand{font-weight:900;background:li
       <img src="client-office-final-v21.png" alt="Digital Agency waiting hall and cabins">
       <div class="waiting-overlay"></div>
       <div class="waiting-lcd"><h3 id="outsideLcdTitle">Welcome</h3><p id="outsideLcdText">অনুগ্রহ করে Waiting Hall-এ অপেক্ষা করুন এবং Reception-এর সঙ্গে যোগাযোগ করুন।</p><div class="adline" id="outsideLcdAd">Website • App • SEO • Digital Marketing</div></div>
-      <div class="waiting-bottom"><div><strong id="waitingHeadline">Reception assignment-এর জন্য অপেক্ষা করুন</strong><div class="muted" id="waitingSub">আপনার cabin এবং আলাদা PIN Reception থেকে দেওয়া হবে।</div></div><span class="status-pill" id="waitingStatus">WAITING</span></div>
+      <div class="waiting-bottom"><div><strong id="waitingHeadline">Reception assignment-এর জন্য অপেক্ষা করুন</strong><div class="muted" id="waitingSub">আপনার cabin এবং আলাদা PIN Reception থেকে দেওয়া হবে।</div><div id="receptionSyncState" class="reception-sync-state">Reception connection ready</div></div><span class="status-pill" id="waitingStatus">WAITING</span></div>
     </div>
     <aside class="reception-card">
       <h2>🏢 Reception Check-in</h2><div class="muted">Digital Agency By Chandan Das</div>
@@ -349,14 +352,20 @@ const waitingAds=[['Welcome to Digital Agency','Reception-এর সঙ্গে
 function startWaitingMarketing(){clearInterval(waitingAdTimer);const draw=()=>{const a=waitingAds[waitingAdIndex%waitingAds.length];$('outsideLcdTitle').textContent=a[0];$('outsideLcdText').textContent=a[1];$('outsideLcdAd').textContent=a[2];waitingAdIndex++};draw();waitingAdTimer=setInterval(draw,4500)}
 async function checkInReception(){
  const purpose=$('visitPurpose').value,note=$('visitNote').value.trim(),token=$('waitToken').textContent;
- $('waitingStatus').textContent='CHECKED IN';$('waitingHeadline').textContent='Reception আপনার request দেখছে';
+ const state=$('receptionSyncState');
+ $('waitingStatus').textContent='CHECKING IN';$('waitingHeadline').textContent='Reception-এর সঙ্গে সংযোগ হচ্ছে';
+ if(state){state.className='reception-sync-state';state.textContent='Request পাঠানো হচ্ছে...'}
  if(client.id==='demo'){
-   const demoId='demo-'+Date.now();waitingDocId=demoId;setTimeout(()=>applyAssignment({status:'Assigned',assigned_cabin:'project',cabin_pin:'2468',reception_message:'Project discussion-এর জন্য Cabin 1-এ যান। Demo Cabin PIN: 2468'}),1800);return;
+   waitingDocId='demo-'+Date.now();if(state){state.className='reception-sync-state ok';state.textContent='Demo Reception connected'}
+   setTimeout(()=>applyAssignment({status:'Assigned',assigned_cabin:'project',cabin_pin:'2468',reception_message:'Project discussion-এর জন্য Project Room-এ যান। Demo Room Code: 2468'}),1800);return;
  }
  try{
+   if(waitingDocId){if(state){state.className='reception-sync-state ok';state.textContent='Reception request ইতিমধ্যে active আছে'};return}
    const ref=await db.collection('room_waiting_queue').add({client_id:client.id,client_name:client.client_name||'Client',main_pin:client.client_pin||client.client_code||'',token,purpose,note,status:'Waiting',assigned_cabin:'',cabin_pin:'',created_at:firebase.firestore.FieldValue.serverTimestamp(),updated_at:firebase.firestore.FieldValue.serverTimestamp()});
-   waitingDocId=ref.id;if(waitingUnsub)waitingUnsub();waitingUnsub=ref.onSnapshot(doc=>{if(doc.exists)applyAssignment(doc.data())},e=>{$('waitingSub').textContent='Reception sync error: '+e.message});
- }catch(e){alert('Reception check-in হয়নি: '+e.message)}
+   waitingDocId=ref.id;
+   if(waitingUnsub)waitingUnsub();
+   waitingUnsub=ref.onSnapshot(doc=>{if(doc.exists){applyAssignment(doc.data());if(state){state.className='reception-sync-state ok';state.textContent='Reception live connected • Token '+token}}},e=>{if(state){state.className='reception-sync-state err';state.textContent='Reception sync error: '+e.message};$('waitingSub').textContent='Reception sync error: '+e.message});
+ }catch(e){if(state){state.className='reception-sync-state err';state.textContent='Check-in হয়নি: '+e.message};alert('Reception check-in হয়নি: '+e.message)}
 }
 function applyAssignment(d){
  const status=d.status||'Waiting';$('waitingStatus').textContent=status.toUpperCase();
