@@ -168,7 +168,25 @@ header a{color:#cbd5e1;text-decoration:none}.brand{font-weight:900;background:li
 /* ===== V23 Reception auto-room routing + room LCD ===== */
 .room-route{position:fixed;inset:56px 0 0;z-index:180;display:none;place-items:center;padding:20px;background:linear-gradient(rgba(2,6,23,.72),rgba(2,6,23,.86)),url('client-office-final-v21.png') center/cover no-repeat}.room-route.on{display:grid}.route-card{width:min(480px,94vw);padding:30px;border-radius:28px;background:rgba(6,17,31,.94);border:1px solid rgba(103,232,249,.28);box-shadow:0 30px 90px rgba(0,0,0,.55);text-align:center;backdrop-filter:blur(14px)}.route-icon{font-size:42px}.route-kicker{margin-top:10px;color:#67e8f9;font-size:10px;font-weight:900;letter-spacing:1.5px}.route-card h2{margin:8px 0;font-size:30px}.route-card p{margin:0;color:#cbd5e1;line-height:1.6}.route-track{height:9px;margin:22px 0 12px;border-radius:999px;background:#172033;overflow:hidden}.route-track span{display:block;height:100%;width:0;background:linear-gradient(90deg,#7c3aed,#22d3ee);transition:width 2.4s linear}.route-speaker{font-size:12px;color:#bae6fd}.room-photo{transition:transform .9s ease;transform-origin:center}.cabin-project .room-photo{transform:scale(1.62);transform-origin:14% 17%}.cabin-meeting .room-photo{transform:scale(1.62);transform-origin:13% 70%}.cabin-support .room-photo{transform:scale(1.62);transform-origin:67% 18%}.cabin-accounts .room-photo{transform:scale(1.62);transform-origin:88% 18%}.room-service-lcd{position:absolute;z-index:54;width:min(340px,30%);padding:18px 20px;border-radius:18px;background:linear-gradient(145deg,rgba(3,12,27,.97),rgba(7,43,67,.96));border:1px solid rgba(56,189,248,.45);box-shadow:0 16px 50px rgba(0,0,0,.45),0 0 28px rgba(14,165,233,.12);color:#fff}.room-lcd-speaker{position:absolute;right:14px;top:12px}.room-lcd-kicker{color:#67e8f9;font-size:9px;font-weight:900;letter-spacing:1.4px}.room-service-lcd h2{margin:5px 0 7px;font-size:22px}.room-service-lcd p{margin:0;color:#dbeafe;font-size:12px;line-height:1.55}.room-lcd-status{display:inline-block;margin-top:12px;padding:6px 9px;border-radius:999px;background:#0f766e;color:#ccfbf1;font-size:9px;font-weight:900}.cabin-project .room-service-lcd{left:5%;top:18%}.cabin-meeting .room-service-lcd{left:5%;bottom:12%}.cabin-support .room-service-lcd{right:24%;top:16%}.cabin-accounts .room-service-lcd{right:4%;top:16%}.cabin-project .clean-cabin-panel,.cabin-meeting .clean-cabin-panel,.cabin-support .clean-cabin-panel,.cabin-accounts .clean-cabin-panel{display:none}@media(max-width:900px){.room-service-lcd{width:44%;padding:12px}.room-service-lcd h2{font-size:14px}.room-service-lcd p{font-size:8px}.route-card h2{font-size:24px}}
 
-.reception-sync-state{margin-top:10px;padding:9px 11px;border-radius:10px;background:#07111f;border:1px solid #ffffff12;color:#94a3b8;font-size:11px}.reception-sync-state.ok{color:#a7f3d0;border-color:#10b98144;background:#052e2b}.reception-sync-state.err{color:#fecaca;border-color:#ef444444;background:#3f1218}
+/* V25 dedicated room interior: hall is never visible after cabin-code entry */
+#world.dedicated-open .room-photo,#world.dedicated-open .clean-cabin-panel,#world.dedicated-open .assistant-hotspot,#world.dedicated-open .client-hotspot{display:none!important}
+.dedicated-room{position:absolute;inset:0;display:none;overflow:hidden;background:linear-gradient(180deg,#172033 0%,#0b1220 55%,#05080f 100%);color:#fff}
+#world.dedicated-open .dedicated-room{display:block}
+.dedicated-room:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 12%,rgba(255,255,255,.12),transparent 28%),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px);background-size:auto,70px 70px,70px 70px}
+.room-wall-title{position:absolute;left:50%;top:5%;transform:translateX(-50%);padding:9px 18px;border-radius:999px;background:#020617cc;border:1px solid #67e8f955;font-weight:900;letter-spacing:1px;z-index:3}
+.room-speaker-box{position:absolute;right:5%;top:6%;width:48px;height:74px;border-radius:14px;background:linear-gradient(#111827,#020617);border:1px solid #64748b;display:grid;place-items:center;font-size:24px;z-index:3;box-shadow:0 12px 30px #0008}
+.room-main-lcd{position:absolute;left:50%;top:18%;transform:translateX(-50%);width:min(720px,76vw);height:min(330px,42vh);border:14px solid #05070a;border-radius:20px;background:linear-gradient(145deg,#082f49,#020617 72%);box-shadow:0 30px 80px #000b,0 0 35px #22d3ee22;z-index:2;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;box-sizing:border-box}
+.room-main-lcd .lcd-inner{max-width:90%}.room-main-lcd .lcd-k{font-size:11px;letter-spacing:2px;color:#67e8f9;font-weight:900}.room-main-lcd h1{font-size:clamp(26px,4vw,52px);margin:10px 0}.room-main-lcd p{font-size:clamp(13px,1.6vw,20px);line-height:1.6;color:#dbeafe;margin:0}.room-main-lcd .lcd-pill{display:inline-block;margin-top:18px;padding:8px 14px;border-radius:999px;background:#0f766e;color:#ccfbf1;font-weight:900}
+.room-desk{position:absolute;left:50%;bottom:5%;transform:translateX(-50%);width:min(780px,82vw);height:150px;border-radius:26px 26px 8px 8px;background:linear-gradient(180deg,#8b5e3c,#3b2417);box-shadow:0 -8px 0 #b6865a inset,0 25px 45px #0009;z-index:2}
+.room-desk:before{content:"";position:absolute;left:12%;right:12%;top:-42px;height:58px;border-radius:10px;background:#0f172a;border:5px solid #020617;box-shadow:0 10px 25px #0008}
+.room-chair{position:absolute;bottom:2%;width:110px;height:125px;border-radius:50px 50px 18px 18px;background:linear-gradient(#1f2937,#05070a);z-index:1}.room-chair.left{left:8%}.room-chair.right{right:8%}
+.room-side-panel{position:absolute;top:22%;width:180px;padding:18px;border-radius:18px;background:#071425dd;border:1px solid #ffffff18;z-index:2}.room-side-panel.left{left:4%}.room-side-panel.right{right:4%}.room-side-panel b{display:block;color:#67e8f9;margin-bottom:10px}.room-side-panel span{display:block;color:#cbd5e1;font-size:12px;line-height:1.7}
+#world.dedicated-open .room-service-lcd{display:none!important}
+body.room-project .dedicated-room{background:linear-gradient(180deg,#14243d,#07101d 58%,#03060b)}
+body.room-meeting .dedicated-room{background:linear-gradient(180deg,#30243a,#161020 58%,#07040a)}
+body.room-support .dedicated-room{background:linear-gradient(180deg,#17362f,#0a1815 58%,#030807)}
+body.room-accounts .dedicated-room{background:linear-gradient(180deg,#40321d,#1b1409 58%,#080603)}
+@media(max-width:800px){.room-side-panel{display:none}.room-main-lcd{width:90vw;height:43vh;top:15%}.room-desk{width:92vw;height:120px}.room-chair{width:72px;height:90px}}
 
 </style>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
@@ -207,7 +225,7 @@ header a{color:#cbd5e1;text-decoration:none}.brand{font-weight:900;background:li
       <img src="client-office-final-v21.png" alt="Digital Agency waiting hall and cabins">
       <div class="waiting-overlay"></div>
       <div class="waiting-lcd"><h3 id="outsideLcdTitle">Welcome</h3><p id="outsideLcdText">অনুগ্রহ করে Waiting Hall-এ অপেক্ষা করুন এবং Reception-এর সঙ্গে যোগাযোগ করুন।</p><div class="adline" id="outsideLcdAd">Website • App • SEO • Digital Marketing</div></div>
-      <div class="waiting-bottom"><div><strong id="waitingHeadline">Reception assignment-এর জন্য অপেক্ষা করুন</strong><div class="muted" id="waitingSub">আপনার cabin এবং আলাদা PIN Reception থেকে দেওয়া হবে।</div><div id="receptionSyncState" class="reception-sync-state">Reception connection ready</div></div><span class="status-pill" id="waitingStatus">WAITING</span></div>
+      <div class="waiting-bottom"><div><strong id="waitingHeadline">Reception assignment-এর জন্য অপেক্ষা করুন</strong><div class="muted" id="waitingSub">আপনার cabin এবং আলাদা PIN Reception থেকে দেওয়া হবে।</div></div><span class="status-pill" id="waitingStatus">WAITING</span></div>
     </div>
     <aside class="reception-card">
       <h2>🏢 Reception Check-in</h2><div class="muted">Digital Agency By Chandan Das</div>
@@ -224,7 +242,16 @@ header a{color:#cbd5e1;text-decoration:none}.brand{font-weight:900;background:li
 <section id="cabinGate"><div class="cabin-keypad-wrap"><div class="cabin-keypad"><span class="room-tag" id="cabinGateRoom">Assigned Cabin</span><h2>Cabin Access PIN</h2><p class="muted">Reception থেকে পাওয়া ৪ সংখ্যার PIN লিখুন</p><div class="cabin-dots"><i></i><i></i><i></i><i></i></div><div class="cabin-grid"><button onclick="pressCabinPin('1')">1</button><button onclick="pressCabinPin('2')">2</button><button onclick="pressCabinPin('3')">3</button><button onclick="pressCabinPin('4')">4</button><button onclick="pressCabinPin('5')">5</button><button onclick="pressCabinPin('6')">6</button><button onclick="pressCabinPin('7')">7</button><button onclick="pressCabinPin('8')">8</button><button onclick="pressCabinPin('9')">9</button><button onclick="clearCabinPin()">C</button><button onclick="pressCabinPin('0')">0</button><button onclick="backCabinPin()">⌫</button></div><button class="cabin-enter" onclick="submitCabinPin()">ENTER CABIN</button><div class="cabin-msg" id="cabinPinMessage"></div></div></div></section>
 <section id="world">
  <div class="stage-wrap"><div class="scene" id="scene">
-  <img class="room-photo" src="client-office-final-v21.png" alt="Digital Agency By Chandan Das Client Room"><div class="assigned-banner" id="insideCabinBadge">Assigned Cabin</div>
+  <img class="room-photo" src="client-office-final-v21.png" alt="Digital Agency By Chandan Das Client Room">
+  <div class="dedicated-room" id="dedicatedRoom">
+    <div class="room-wall-title" id="dedicatedRoomTitle">ASSIGNED ROOM</div>
+    <div class="room-speaker-box" id="dedicatedSpeaker" onclick="speakDedicatedRoom()" title="Speaker guidance">🔊</div>
+    <div class="room-side-panel left"><b id="roomHelpTitle">Room Help</b><span id="roomHelpText">এই room-এর প্রয়োজনীয় service নিচের controls থেকে ব্যবহার করুন।</span></div>
+    <div class="room-side-panel right"><b>Access Status</b><span>Room code verified<br>Private session active<br>Reception connected</span></div>
+    <div class="room-main-lcd"><div class="lcd-inner"><div class="lcd-k" id="dedicatedLcdKicker">DIGITAL AGENCY CLIENT ROOM</div><h1 id="dedicatedLcdTitle">Welcome</h1><p id="dedicatedLcdText">Your assigned room is ready.</p><div class="lcd-pill" id="dedicatedLcdStatus">READY</div></div></div>
+    <div class="room-chair left"></div><div class="room-chair right"></div><div class="room-desk"></div>
+  </div>
+<div class="assigned-banner" id="insideCabinBadge">Assigned Cabin</div>
   <div class="hint">আপনার নির্ধারিত cabin খুলেছে • নিচের প্রয়োজনীয় option থেকে Project Status, Chat, Correction ও Meeting ব্যবহার করুন</div>
   <div class="cctv-presence" title="Virtual room activity monitor — device camera is not used"><i></i> CCTV CONNECTING...</div>
   <div class="clean-cabin-panel" id="cleanCabinPanel">
@@ -352,20 +379,14 @@ const waitingAds=[['Welcome to Digital Agency','Reception-এর সঙ্গে
 function startWaitingMarketing(){clearInterval(waitingAdTimer);const draw=()=>{const a=waitingAds[waitingAdIndex%waitingAds.length];$('outsideLcdTitle').textContent=a[0];$('outsideLcdText').textContent=a[1];$('outsideLcdAd').textContent=a[2];waitingAdIndex++};draw();waitingAdTimer=setInterval(draw,4500)}
 async function checkInReception(){
  const purpose=$('visitPurpose').value,note=$('visitNote').value.trim(),token=$('waitToken').textContent;
- const state=$('receptionSyncState');
- $('waitingStatus').textContent='CHECKING IN';$('waitingHeadline').textContent='Reception-এর সঙ্গে সংযোগ হচ্ছে';
- if(state){state.className='reception-sync-state';state.textContent='Request পাঠানো হচ্ছে...'}
+ $('waitingStatus').textContent='CHECKED IN';$('waitingHeadline').textContent='Reception আপনার request দেখছে';
  if(client.id==='demo'){
-   waitingDocId='demo-'+Date.now();if(state){state.className='reception-sync-state ok';state.textContent='Demo Reception connected'}
-   setTimeout(()=>applyAssignment({status:'Assigned',assigned_cabin:'project',cabin_pin:'2468',reception_message:'Project discussion-এর জন্য Project Room-এ যান। Demo Room Code: 2468'}),1800);return;
+   const demoId='demo-'+Date.now();waitingDocId=demoId;setTimeout(()=>applyAssignment({status:'Assigned',assigned_cabin:'project',cabin_pin:'2468',reception_message:'Project discussion-এর জন্য Cabin 1-এ যান। Demo Cabin PIN: 2468'}),1800);return;
  }
  try{
-   if(waitingDocId){if(state){state.className='reception-sync-state ok';state.textContent='Reception request ইতিমধ্যে active আছে'};return}
    const ref=await db.collection('room_waiting_queue').add({client_id:client.id,client_name:client.client_name||'Client',main_pin:client.client_pin||client.client_code||'',token,purpose,note,status:'Waiting',assigned_cabin:'',cabin_pin:'',created_at:firebase.firestore.FieldValue.serverTimestamp(),updated_at:firebase.firestore.FieldValue.serverTimestamp()});
-   waitingDocId=ref.id;
-   if(waitingUnsub)waitingUnsub();
-   waitingUnsub=ref.onSnapshot(doc=>{if(doc.exists){applyAssignment(doc.data());if(state){state.className='reception-sync-state ok';state.textContent='Reception live connected • Token '+token}}},e=>{if(state){state.className='reception-sync-state err';state.textContent='Reception sync error: '+e.message};$('waitingSub').textContent='Reception sync error: '+e.message});
- }catch(e){if(state){state.className='reception-sync-state err';state.textContent='Check-in হয়নি: '+e.message};alert('Reception check-in হয়নি: '+e.message)}
+   waitingDocId=ref.id;if(waitingUnsub)waitingUnsub();waitingUnsub=ref.onSnapshot(doc=>{if(doc.exists)applyAssignment(doc.data())},e=>{$('waitingSub').textContent='Reception sync error: '+e.message});
+ }catch(e){alert('Reception check-in হয়নি: '+e.message)}
 }
 function applyAssignment(d){
  const status=d.status||'Waiting';$('waitingStatus').textContent=status.toUpperCase();
@@ -384,8 +405,27 @@ async function submitCabinPin(){
 function speakRoomAssignment(){const g=cabinGuides[assignedCabin];if(!g)return;speakMaleBn(`Reception আপনাকে ${g.title} assign করেছে। আপনার room code ${assignedCabinPin.split('').join(' ')}। Code লিখে room-এ প্রবেশ করুন।`)}
 function speakMaleBn(text){if(!voiceOn||!('speechSynthesis' in window))return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text),voices=speechSynthesis.getVoices();u.lang='bn-BD';const male=voices.find(v=>/male|ravi|rahul|hemant|bangla/i.test(v.name)&&!/female|zira|heera|kalpana/i.test(v.name));if(male)u.voice=male;u.rate=.91;u.pitch=.78;speechSynthesis.speak(u)}
 function showRoomRoute(){const g=cabinGuides[assignedCabin]||{title:'Assigned Room',instruction:'Reception-এর নির্দেশনা অনুসরণ করুন।'};$('roomRoute').classList.add('on');$('routeRoomName').textContent=g.title;$('routeInstruction').textContent=g.instruction;$('routeProgress').style.width='0';requestAnimationFrame(()=>requestAnimationFrame(()=>$('routeProgress').style.width='100%'));speakMaleBn(`${g.instruction} এখন আপনার ${g.title} খুলছে।`);setTimeout(()=>{$('roomRoute').classList.remove('on');openWorld();$('insideCabinBadge').textContent=cabinLabels[assignedCabin]||assignedCabin;applyCabinMode();},2600)}
+
+function updateDedicatedRoom(){
+ const g=cabinGuides[assignedCabin]||{title:'Assigned Room',lcd:'Your room is ready.'};
+ const labels={project:'PROJECT ROOM',meeting:'MEETING ROOM',support:'SUPPORT ROOM',accounts:'ACCOUNTS ROOM'};
+ const helps={project:'Project Status, progress, files এবং Correction ব্যবহার করুন।',meeting:'Meeting schedule, discussion এবং appointment ব্যবহার করুন।',support:'Live Chat, correction এবং assistant help ব্যবহার করুন।',accounts:'Invoice, payment status এবং receipt support ব্যবহার করুন।'};
+ document.body.classList.remove('room-project','room-meeting','room-support','room-accounts');
+ document.body.classList.add('room-'+assignedCabin);
+ $('dedicatedRoomTitle').textContent=labels[assignedCabin]||'ASSIGNED ROOM';
+ $('dedicatedLcdKicker').textContent=(cabinLabels[assignedCabin]||'ASSIGNED ROOM').toUpperCase();
+ $('dedicatedLcdTitle').textContent=g.title||'Assigned Room';
+ let text=g.lcd||'Your assigned room is ready.';
+ let status='READY';
+ if(assignedCabin==='project'&&projects.length){const p=projects[0];text=`${p.project_name||'Your Project'} — ${p.current_stage||p.status||'Update available'}. Progress ${p.progress_percent||0}%.`;status=(p.status||'IN PROGRESS')+' • '+(p.progress_percent||0)+'%'}
+ $('dedicatedLcdText').textContent=text;$('dedicatedLcdStatus').textContent=status;$('roomHelpText').textContent=helps[assignedCabin]||'Room service controls ব্যবহার করুন।';
+}
+function speakDedicatedRoom(){const g=cabinGuides[assignedCabin]||{};speakMaleBn(`${g.title||'Assigned Room'}। ${$('dedicatedLcdText').textContent}`)}
+
 function updateRoomLcd(){const g=cabinGuides[assignedCabin]||{};document.body.classList.remove('cabin-project','cabin-meeting','cabin-support','cabin-accounts');document.body.classList.add('cabin-'+assignedCabin);$('roomLcdKicker').textContent=(cabinLabels[assignedCabin]||'ASSIGNED ROOM').toUpperCase();$('roomLcdTitle').textContent=g.title||'Assigned Room';$('roomLcdText').textContent=g.lcd||'Reception guidance completed.';let status='READY';if(assignedCabin==='project'&&projects.length){const p=projects[0];status=(p.status||'IN PROGRESS')+' • '+(p.progress_percent||0)+'%';$('roomLcdText').textContent=`${p.project_name||'Your Project'} — ${p.current_stage||p.status||'Update available'}. Progress ${p.progress_percent||0}%.`}$('roomLcdStatus').textContent=status;speakMaleBn(`${g.title} এ আপনাকে স্বাগতম। ${$('roomLcdText').textContent}`)}
 function applyCabinMode(){
+ document.getElementById('world').classList.add('dedicated-open');
+ updateDedicatedRoom();
  updateRoomLcd();
  document.querySelectorAll('.controls button').forEach(b=>b.style.display='none');
  const showByText=(txt)=>document.querySelectorAll('.controls button').forEach(b=>{if(b.textContent.includes(txt))b.style.display='' });

@@ -1,6 +1,1 @@
-/* v21.0.0 build:2026-08-02-reception-cabin-pins
-const CACHE_NAME='digital-agency-chandan-v2400-clean-reception';
-const CORE=['/','/index.html','/manifest.json','/slide-free-offer-main.webp','/slide-client-room.webp','/slide-beginner-help.webp','/slide-free-tools.webp'];
-self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE_NAME).then(c=>c.addAll(CORE)));self.skipWaiting()});
-self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ns=>Promise.all(ns.filter(n=>n!==CACHE_NAME).map(n=>caches.delete(n)))));self.clients.claim()});
-self.addEventListener('fetch',e=>{const r=e.request;if(r.method!=='GET')return;const p=new URL(r.url).pathname;if(p==='/client-room.html'||p==='/client-office-final-v21.png'||p==='/client-room-gate-v10.png'||p==='/client-room-admin.html'||p==='/agency-control-2026.html'){e.respondWith(fetch(r,{cache:'no-store'}).catch(()=>caches.match(r)));return}if(r.mode==='navigate'){e.respondWith(fetch(r).then(x=>{const y=x.clone();caches.open(CACHE_NAME).then(c=>c.put(r,y));return x}).catch(()=>caches.match(r).then(x=>x||caches.match('/index.html'))));return}e.respondWith(caches.match(r).then(x=>x||fetch(r).then(y=>{if(y&&y.status===200){const z=y.clone();caches.open(CACHE_NAME).then(c=>c.put(r,z))}return y})))})
+self.addEventListener('install',e=>self.skipWaiting());self.addEventListener('activate',e=>e.waitUntil(clients.claim()));self.addEventListener('fetch',e=>e.respondWith(fetch(e.request,{cache:'no-store'}).catch(()=>caches.match(e.request))));
