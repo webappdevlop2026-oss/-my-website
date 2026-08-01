@@ -1,46 +1,492 @@
 <!doctype html>
 <html lang="bn">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
-<title>Fresh Client Office | Digital Agency by Chandan Das</title>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Client Room | Digital Agency by Chandan Das</title>
 <style>
-*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Segoe UI,Arial,sans-serif;background:#050912;color:#fff}button,input,select,textarea{font:inherit}.hide{display:none!important}
-header{height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;background:#07101d;border-bottom:1px solid #203149;position:fixed;inset:0 0 auto;z-index:100}.brand{font-weight:900}.btn{border:0;border-radius:12px;padding:11px 16px;color:#fff;font-weight:800;background:linear-gradient(90deg,#6d28d9,#0891b2);cursor:pointer}.ghost{background:#152033;border:1px solid #334155}.page{min-height:100vh;padding-top:58px}.center{display:grid;place-items:center;padding:20px}.card{width:min(470px,94vw);background:#0a1424;border:1px solid #25354c;border-radius:24px;padding:24px;box-shadow:0 30px 90px #0009}.title{margin:0 0 8px;font-size:30px}.muted{color:#9fb0c7}.field{width:100%;margin-top:12px;padding:13px;border-radius:12px;border:1px solid #2b3b52;background:#050b14;color:#fff}.pin{font-size:24px;letter-spacing:8px;text-align:center}.msg{min-height:23px;margin-top:10px;color:#fda4af}.gate-art{height:180px;border-radius:18px;margin:16px 0;background:linear-gradient(135deg,#18243a,#080d16);position:relative;overflow:hidden;border:1px solid #35435a}.gate-art:before,.gate-art:after{content:"";position:absolute;top:10px;bottom:10px;width:47%;background:linear-gradient(135deg,#334155,#111827);border:1px solid #516176;transition:.8s}.gate-art:before{left:2%;transform-origin:left}.gate-art:after{right:2%;transform-origin:right}.gate-art.open:before{transform:rotateY(-102deg)}.gate-art.open:after{transform:rotateY(102deg)}
-#hall{display:none}.hall-grid{min-height:calc(100vh - 58px);display:grid;grid-template-columns:minmax(0,1.5fr) minmax(330px,.5fr);gap:18px;padding:18px;background:radial-gradient(circle at 20% 15%,#173052,transparent 34%),#060b13}.hall-visual{border-radius:24px;border:1px solid #25354c;background:linear-gradient(150deg,#182335,#0a101a 55%,#111827);position:relative;min-height:560px;overflow:hidden}.hall-visual:before{content:"WAITING HALL";position:absolute;left:28px;top:28px;font-size:42px;font-weight:900;color:#ffffff12}.reception-desk{position:absolute;left:50%;bottom:12%;transform:translateX(-50%);width:42%;height:25%;background:linear-gradient(#9b7a55,#4e3621);border-radius:20px 20px 5px 5px;box-shadow:0 25px 45px #0008}.hall-note{position:absolute;left:28px;bottom:28px;right:28px;padding:18px;border-radius:18px;background:#050b14dc;border:1px solid #2b3b52}.ticket{padding:14px;border-radius:14px;background:#050b14;border:1px solid #26364d;margin:14px 0;line-height:1.7}.assigned{display:none;margin-top:16px;padding:16px;border-radius:16px;background:#062f36;border:1px solid #168c9b}.assigned.on{display:block}.codebox{font-size:28px;letter-spacing:6px;font-weight:900;margin:10px 0;color:#67e8f9}
-#roomCode{display:none;position:fixed;inset:58px 0 0;z-index:80;background:#030711;place-items:center;padding:20px}#roomCode.on{display:grid}
-#room{display:none;position:fixed;inset:58px 0 0;z-index:70;background:#05080d}.room-shell{height:100%;display:grid;grid-template-rows:1fr auto}.interior{position:relative;overflow:hidden;display:grid;place-items:center;padding:28px;background:linear-gradient(145deg,var(--wall1),var(--wall2))}.interior:before{content:"";position:absolute;inset:8% 5% 12%;border-radius:26px;background:linear-gradient(145deg,#ffffff08,#0004);border:1px solid #ffffff15;box-shadow:inset 0 0 90px #0007}.floor{position:absolute;left:0;right:0;bottom:0;height:31%;background:linear-gradient(165deg,#a68461,#4f3825);clip-path:polygon(0 18%,100% 0,100% 100%,0 100%)}.desk{position:absolute;left:50%;bottom:13%;transform:translateX(-50%);width:46%;height:16%;border-radius:12px;background:linear-gradient(#9a724d,#3c291b);box-shadow:0 18px 30px #0008}.chair{position:absolute;left:50%;bottom:27%;transform:translateX(-50%);width:9%;height:15%;border-radius:18px 18px 8px 8px;background:#141b25}.speaker{position:absolute;right:7%;top:9%;width:56px;height:56px;border-radius:50%;display:grid;place-items:center;background:#101827;border:1px solid #49617f;font-size:25px;box-shadow:0 0 22px #38bdf844}.lcd{position:relative;z-index:5;width:min(760px,80vw);aspect-ratio:16/9;background:#02050a;border:14px solid #111827;border-radius:12px;box-shadow:0 22px 60px #000d,0 0 0 2px #64748b;display:grid;place-items:center;text-align:center;padding:5%;overflow:hidden}.lcd:after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,#ffffff12,transparent 28%);pointer-events:none}.lcd-kicker{font-size:13px;letter-spacing:3px;color:var(--accent);font-weight:900}.lcd h1{font-size:clamp(30px,5vw,64px);margin:10px 0}.lcd p{font-size:clamp(14px,2vw,23px);color:#cbd5e1;line-height:1.55;max-width:650px}.status{display:inline-block;margin-top:14px;padding:8px 13px;border-radius:999px;background:var(--accent);color:#031018;font-weight:900}.room-controls{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;padding:13px;background:#090f18;border-top:1px solid #26364d}.room-controls button{min-width:130px}.project{--wall1:#182f4b;--wall2:#08111f;--accent:#38bdf8}.meeting{--wall1:#3a213d;--wall2:#120b18;--accent:#f0abfc}.support{--wall1:#153a35;--wall2:#071714;--accent:#34d399}.accounts{--wall1:#3b3017;--wall2:#171106;--accent:#fbbf24}
-.modal{display:none;position:fixed;inset:58px 0 0;z-index:120;background:#000c;place-items:center;padding:20px}.modal.on{display:grid}.modal .card{width:min(720px,95vw);max-height:86vh;overflow:auto}.row{display:flex;gap:10px;justify-content:flex-end;margin-top:14px}
-@media(max-width:850px){.hall-grid{grid-template-columns:1fr}.hall-visual{min-height:330px}.reception-desk{width:56%}.lcd{width:92vw;border-width:8px}.room-controls{overflow-x:auto;justify-content:flex-start;flex-wrap:nowrap}.room-controls button{flex:0 0 auto}.speaker{width:44px;height:44px;font-size:20px}}
+*{box-sizing:border-box}html,body{margin:0;height:100%;overflow:hidden;background:#070b14;color:#fff;font-family:Segoe UI,Tahoma,Arial,sans-serif}
+button,input,textarea,select{font:inherit}.hide{display:none!important}.muted{color:#94a3b8}
+header{height:56px;position:fixed;z-index:200;inset:0 0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 16px;background:#070b14f3;border-bottom:1px solid #ffffff18;backdrop-filter:blur(12px)}
+header a{color:#cbd5e1;text-decoration:none}.brand{font-weight:900;background:linear-gradient(90deg,#a78bfa,#22d3ee);background-clip:text;color:transparent}.hbtn{border:1px solid #ffffff20;background:#ffffff0d;color:white;border-radius:999px;padding:8px 13px;cursor:pointer}
+#login{height:100%;padding-top:56px;display:grid;place-items:center;background:radial-gradient(circle at 20% 20%,#6d28d933,transparent 35%),radial-gradient(circle at 80% 70%,#0891b233,transparent 40%)}
+.loginbox{width:min(460px,92%);padding:25px;border-radius:26px;background:#081020e8;border:1px solid #ffffff18;box-shadow:0 35px 100px #000;text-align:center}.loginbox h1{margin:0 0 8px;font-size:38px}.loginbox p{color:#94a3b8}
+.gate{height:220px;margin:18px 0;perspective:900px;position:relative;overflow:hidden;border-radius:20px;background:linear-gradient(#0b1324,#02050d);border:1px solid #ffffff12}.gate:before,.gate:after{content:"";position:absolute;top:7px;bottom:7px;width:48.5%;background:linear-gradient(135deg,#273251,#090e1c);border:1px solid #8b5cf64d;transition:1s}.gate:before{left:1%;transform-origin:left}.gate:after{right:1%;transform-origin:right}.gate.open:before{transform:rotateY(-105deg)}.gate.open:after{transform:rotateY(105deg)}.gate i{position:absolute;inset:0;background:radial-gradient(circle,#22d3ee44,transparent 60%)}
+.code{width:100%;padding:14px;border-radius:13px;border:1px solid #ffffff1c;background:#030712;color:#fff;text-align:center;font-weight:800;letter-spacing:2px}.enter{width:100%;margin-top:12px;border:0;border-radius:999px;padding:14px;color:#fff;font-weight:900;cursor:pointer;background:linear-gradient(90deg,#7c3aed,#06b6d4)}#error{color:#fb7185;min-height:22px;margin-top:10px}
+#world{position:fixed;inset:56px 0 0;display:none;flex-direction:column;overflow:hidden;background:#070b14}
+.stage-wrap{position:relative;flex:1;min-height:0;display:grid;place-items:center;padding:10px 14px;overflow:hidden}
+.stage-wrap:before{content:"";position:absolute;inset:-40px;background:url('client-office-final-v21.png') center/cover no-repeat;filter:blur(32px) brightness(.36);transform:scale(1.12)}
+.scene{position:relative;z-index:2;height:min(calc(100vh - 56px - 72px - 20px),calc((100vw - 28px)*2/3));max-width:calc(100vw - 28px);aspect-ratio:3/2;overflow:hidden;border-radius:6px;box-shadow:0 24px 80px #000a;background:#111;transition:transform .35s ease}
+.room-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block;background:#111}
+.photo-seat .scene{transform:scale(1.025)}
+.hint{position:absolute;z-index:20;left:12px;top:12px;max-width:430px;padding:8px 11px;border-radius:12px;background:#070b14c9;border:1px solid #ffffff20;color:#e2e8f0;font-size:11px;line-height:1.4;backdrop-filter:blur(8px)}
+.assistant-hotspot{position:absolute;z-index:25;right:16%;bottom:16%;width:22%;height:45%;border:0;background:transparent;cursor:pointer}.client-hotspot{position:absolute;z-index:25;left:12%;bottom:14%;width:22%;height:45%;border:0;background:transparent;cursor:pointer}
+.controls{position:relative;z-index:5;flex:0 0 88px;display:flex;gap:9px;justify-content:center;align-items:center;overflow-x:auto;padding:13px 16px 15px;background:linear-gradient(180deg,#11161d,#080c12);border-top:1px solid #29313d;box-shadow:inset 0 1px 0 rgba(255,255,255,.04),0 -12px 30px rgba(0,0,0,.22);scrollbar-width:thin}.controls::-webkit-scrollbar{height:5px}.controls::-webkit-scrollbar-thumb{background:#3a4656;border-radius:999px}.controls:before{content:'CLIENT CONTROL';flex:0 0 auto;color:#7f8b9b;font-size:9px;font-weight:800;letter-spacing:1.6px;padding:0 7px 0 2px}.controls button.control-btn{position:relative;flex:0 0 auto;display:flex;align-items:center;gap:10px;min-width:142px;height:58px;border:1px solid #333d4a;background:linear-gradient(180deg,#1d242d,#11171f);color:#f8fafc;border-radius:10px;padding:8px 13px;cursor:pointer;box-shadow:inset 0 1px 0 rgba(255,255,255,.06),inset 0 -2px 0 rgba(0,0,0,.35),0 6px 14px rgba(0,0,0,.22);transition:transform .15s ease,border-color .15s ease,background .15s ease}.controls button.control-btn:before{content:'';position:absolute;left:8px;top:7px;width:5px;height:5px;border-radius:50%;background:#34d399;box-shadow:0 0 8px rgba(52,211,153,.75)}.controls button.control-btn:hover{transform:translateY(-1px);border-color:#64748b;background:linear-gradient(180deg,#252e39,#151c25)}.controls button.control-btn:active{transform:translateY(1px);box-shadow:inset 0 2px 5px rgba(0,0,0,.45)}.control-icon{width:35px;height:35px;flex:0 0 35px;border-radius:8px;display:grid;place-items:center;background:linear-gradient(180deg,#252e39,#151b23);border:1px solid #414c5a;box-shadow:inset 0 1px 0 rgba(255,255,255,.06);font-size:17px}.control-text{display:flex;flex-direction:column;align-items:flex-start;line-height:1.1}.control-label{font-size:12px;font-weight:800;letter-spacing:.1px}.control-sub{font-size:8px;color:#8fa0b5;margin-top:4px}.controls button.control-btn.primary{border-color:#2563eb;background:linear-gradient(180deg,#18345c,#10223f)}.controls button.control-btn.primary .control-icon{border-color:#3b82f6;background:linear-gradient(180deg,#1e4f86,#15365e)}
+.notification{position:fixed;z-index:180;right:18px;bottom:92px;max-width:320px;padding:12px 15px;border-radius:14px;background:#0f172a;border:1px solid #ffffff1c;box-shadow:0 18px 50px #0008;opacity:0;transform:translateY(15px);pointer-events:none;transition:.3s}.notification.show{opacity:1;transform:translateY(0)}
+.assistant{position:fixed;z-index:210;right:20px;bottom:92px;display:none}.assistant.come{display:block}.speech{width:min(340px,90vw);padding:14px;border-radius:18px;background:#fff;color:#111827;font-weight:700;box-shadow:0 22px 55px #0009}.assistant-title{font-size:14px;margin-bottom:8px}.assistant-chat{display:flex;gap:7px}.assistant-chat input{flex:1;min-width:0;border:1px solid #cbd5e1;border-radius:10px;padding:8px;color:#111827}.assistant-chat button,.assistant-back-btn{border:0;border-radius:9px;padding:8px 10px;background:linear-gradient(90deg,#7c3aed,#06b6d4);color:#fff;font-weight:800}.quick-actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.quick-actions button{border:1px solid #cbd5e1;background:#f8fafc;color:#334155;border-radius:999px;padding:5px 8px;font-size:10px}.assistant-reply{display:none;margin-top:8px;padding:8px;border-radius:10px;background:#eef2ff;color:#3730a3;font-size:11px}
+.modal{display:none;position:fixed;z-index:220;inset:0;background:#000c;place-items:center;padding:16px}.modal.on{display:grid}.card{width:min(760px,100%);max-height:88vh;overflow:auto;background:#081120;border:1px solid #ffffff1c;border-radius:24px;padding:20px}.cardtop{display:flex;align-items:center;justify-content:space-between}.close{width:38px;height:38px;border-radius:50%;background:#172033;border:1px solid #ffffff1c;color:#fff}.project{padding:15px;border-radius:15px;background:#ffffff0a;border:1px solid #ffffff12;margin-top:10px}.field{width:100%;padding:12px;margin-top:10px;border-radius:12px;border:1px solid #ffffff1c;background:#030712;color:#fff}.send,.secondary{margin-top:10px;padding:11px 17px;border:0;border-radius:999px;background:linear-gradient(90deg,#7c3aed,#06b6d4);color:#fff;font-weight:800}.progress{height:8px;background:#ffffff12;border-radius:10px;overflow:hidden;margin:10px 0}.progress b{display:block;height:100%;background:linear-gradient(90deg,#7c3aed,#22d3ee)}
+.chat-card{width:min(760px,96vw)}.chat-messages{height:420px;overflow-y:auto;padding:14px;background:#020617;border:1px solid #ffffff14;border-radius:14px;display:flex;flex-direction:column;gap:10px}.chat-msg{max-width:78%;padding:10px 12px;border-radius:14px;line-height:1.45;font-size:14px}.chat-msg.client{align-self:flex-end;background:linear-gradient(90deg,#7c3aed,#2563eb)}.chat-msg.admin{align-self:flex-start;background:#172033}.chat-msg small{display:block;margin-top:5px;color:#cbd5e1;font-size:10px}.chat-compose{display:flex;gap:9px;margin-top:12px}.chat-compose textarea{flex:1;resize:none;border:1px solid #ffffff1c;border-radius:12px;background:#030712;color:#fff;padding:11px}.chat-compose button{border:0;border-radius:12px;padding:0 18px;background:linear-gradient(90deg,#7c3aed,#06b6d4);color:#fff;font-weight:900}.typing-indicator{display:none;color:#7dd3fc;font-size:11px;margin-top:6px}.typing-indicator.on{display:block}.delivery{font-size:9px;color:#cbd5e1}.meeting-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.review-project-preview{padding:12px;border-radius:12px;background:#020617;border:1px solid #ffffff14;margin:10px 0}.review-history-item{padding:11px;border:1px solid #ffffff14;border-radius:12px;margin-top:8px;background:#ffffff08}.live-update-banner{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;border-radius:12px;background:#052e2b;border:1px solid #0f766e;color:#ccfbf1;margin-bottom:12px;font-size:12px}
+.full-room .scene{height:calc(100vh - 56px - 12px);max-width:calc(100vw - 12px)}.full-room .controls{display:none}.full-room .stage-wrap{padding:6px}.full-room .hint{display:none}
+@media(max-width:900px){.scene{height:min(calc(100vh - 56px - 72px - 8px),calc(100vw*2/3));max-width:100vw}.hint{font-size:9px;max-width:250px}.controls{padding:10px 8px;justify-content:flex-start}.controls:before{display:none}.controls button.control-btn{min-width:136px;height:54px;padding:8px 11px}.control-label{font-size:11px}.control-sub{font-size:8px}.control-icon{width:32px;height:32px;font-size:15px}}
+@media(max-width:600px){header{padding:0 8px}.brand{font-size:11px}.hbtn{font-size:10px;padding:7px 9px}.stage-wrap{padding:2px}.hint{left:5px;top:5px;max-width:230px;padding:6px 8px}.controls{justify-content:flex-start}.controls:before{display:none}.controls button.control-btn{min-width:126px;height:50px;gap:8px;padding:7px 9px}.control-icon{width:29px;height:29px;font-size:14px;border-radius:7px}.control-label{font-size:10px}.control-sub{font-size:7px}.meeting-grid{grid-template-columns:1fr}.loginbox h1{font-size:29px}.assistant-hotspot,.client-hotspot{display:none}}
+
+/* ===== V8 Safe LCD Agency Autoplay ===== */
+.agency-lcd{
+ position:absolute;z-index:18;left:31.15%;top:30.05%;width:36.45%;height:28.10%;
+ overflow:hidden;border-radius:3px;background:#020617;border:1px solid rgba(255,255,255,.10);
+ box-shadow:0 8px 24px rgba(0,0,0,.30);cursor:pointer;
+}
+.agency-lcd:before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 85% 10%,rgba(34,211,238,.16),transparent 35%);pointer-events:none;z-index:2}
+.agency-slide{position:absolute;inset:0;padding:11px 14px 24px;display:grid;grid-template-columns:54px 1fr;align-items:center;gap:11px;opacity:0;transform:translateX(16px);transition:.55s ease;background:linear-gradient(135deg,#081226 0%,#0c1d38 55%,#071522 100%)}
+.agency-slide.active{opacity:1;transform:translateX(0);z-index:1}
+.agency-icon{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;font-size:26px;background:linear-gradient(145deg,rgba(124,58,237,.55),rgba(6,182,212,.45));border:1px solid rgba(255,255,255,.14);box-shadow:0 8px 20px rgba(0,0,0,.22)}
+.agency-copy{min-width:0}.agency-kicker{font-size:7px;font-weight:900;letter-spacing:1.3px;color:#67e8f9;margin-bottom:4px}.agency-copy h3{margin:0 0 5px;font-size:clamp(11px,1.12vw,17px);line-height:1.12;color:#fff}.agency-copy p{margin:0;color:#cbd5e1;font-size:clamp(7px,.62vw,10px);line-height:1.38}.agency-tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:7px}.agency-tags span{font-size:7px;padding:3px 6px;border-radius:999px;background:rgba(15,23,42,.92);border:1px solid rgba(255,255,255,.12);color:#dbeafe}
+.agency-lcd-bottom{position:absolute;z-index:4;left:10px;right:10px;bottom:7px;display:flex;align-items:center;gap:8px}.agency-progress{height:4px;flex:1;border-radius:999px;background:#1e293b;overflow:hidden}.agency-progress b{display:block;height:100%;width:0;background:linear-gradient(90deg,#7c3aed,#22d3ee)}.agency-dots{display:flex;gap:4px}.agency-dot{width:5px;height:5px;border-radius:50%;background:#475569}.agency-dot.active{background:#22d3ee;box-shadow:0 0 8px #22d3ee}
+@media(max-width:900px){.agency-lcd{left:31.15%;top:30.05%;width:36.45%;height:28.10%}.agency-slide{padding:7px 8px 17px;grid-template-columns:34px 1fr;gap:7px}.agency-icon{width:31px;height:31px;border-radius:9px;font-size:17px}.agency-kicker{font-size:5px;margin-bottom:2px}.agency-copy h3{font-size:9px;margin-bottom:2px}.agency-copy p{font-size:6px}.agency-tags{display:none}.agency-lcd-bottom{left:6px;right:6px;bottom:4px;gap:5px}.agency-progress{height:3px}}
+@media(max-width:600px){.agency-copy p{display:none}.agency-slide{grid-template-columns:28px 1fr}.agency-icon{width:26px;height:26px;font-size:14px}.agency-copy h3{font-size:8px}.agency-kicker{font-size:4px}}
+
+
+
+/* ===== V10 Real Client Room Gate + Functional PIN ===== */
+#login{
+  position:fixed;inset:56px 0 0;height:auto;padding:0;display:grid;place-items:center;
+  overflow:hidden;background:#0a0d12;
+}
+#login:before{
+  content:"";position:absolute;inset:-38px;
+  background:url('client-room-gate-v10.png') center/cover no-repeat;
+  filter:blur(34px) brightness(.38);transform:scale(1.1);
+}
+.gate-scene{
+  position:relative;z-index:2;aspect-ratio:3/2;
+  height:min(calc(100vh - 56px - 20px),calc((100vw - 24px)*2/3));
+  max-width:calc(100vw - 24px);overflow:hidden;border-radius:8px;background:#111;
+  box-shadow:0 28px 90px #000c;border:1px solid #ffffff18;
+}
+.gate-photo{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:fill}
+.pin-panel{
+  position:absolute;z-index:10;left:61.75%;top:27.2%;width:15.05%;height:45.7%;
+  display:flex;flex-direction:column;align-items:center;
+  padding:1.3% 1.05% 1.1%;border-radius:8%;
+  color:#fff;background:linear-gradient(180deg,rgba(7,18,39,.98),rgba(3,10,25,.98));
+  border:1px solid rgba(125,211,252,.75);
+  box-shadow:0 0 0 2px rgba(250,204,21,.25),0 0 22px rgba(34,211,238,.35),0 0 34px rgba(236,72,153,.22);
+}
+.pin-title{font-size:clamp(7px,.83vw,13px);font-weight:900;line-height:1.15;margin-top:1%;white-space:nowrap}
+.pin-sub{font-size:clamp(6px,.58vw,9px);color:#cbd5e1;margin-top:4%}
+.pin-dots{display:flex;gap:7%;justify-content:center;width:70%;margin:4% 0 5%}
+.pin-dot{width:13%;aspect-ratio:1;border-radius:50%;border:1px solid #cbd5e1;background:transparent;box-shadow:inset 0 0 0 1px #000}
+.pin-dot.on{background:#22d3ee;border-color:#67e8f9;box-shadow:0 0 9px #22d3ee}
+.pin-grid{width:86%;display:grid;grid-template-columns:repeat(3,1fr);gap:3.6% 4.2%;flex:1;min-height:0}
+.pin-key{
+  min-width:0;border:1px solid #334b70;background:linear-gradient(180deg,#152744,#0b1730);color:#fff;
+  border-radius:14%;font-size:clamp(7px,.92vw,14px);font-weight:800;cursor:pointer;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08);transition:.15s;
+}
+.pin-key:hover{background:#1d4ed8;transform:translateY(-1px)}
+.pin-key:active{transform:scale(.94)}
+.pin-enter{
+  width:86%;margin-top:4%;padding:3.4% 4%;border:0;border-radius:8px;cursor:pointer;
+  color:#fff;font-size:clamp(6px,.62vw,10px);font-weight:900;letter-spacing:.7px;
+  background:linear-gradient(90deg,#2563eb,#06b6d4);box-shadow:0 6px 16px rgba(6,182,212,.25)
+}
+.demo-pin{margin-top:4%;font-size:clamp(5px,.55vw,9px);color:#f8fafc;white-space:nowrap}
+.pin-message{position:absolute;left:4%;right:4%;bottom:2%;min-height:12px;text-align:center;color:#fb7185;font-size:clamp(5px,.5vw,8px);font-weight:800}
+.gate-access{
+  position:absolute;z-index:20;inset:0;display:grid;place-items:center;opacity:0;pointer-events:none;
+  background:rgba(2,6,23,.30);transition:.3s;
+}
+.gate-access div{padding:16px 24px;border-radius:999px;background:#052e2bde;border:1px solid #22c55e;color:#dcfce7;font-weight:900;box-shadow:0 16px 50px #0008}
+.gate-scene.access-ok .gate-access{opacity:1}
+.gate-scene.access-ok{animation:gateZoom .9s ease forwards}
+@keyframes gateZoom{0%{transform:scale(1)}100%{transform:scale(1.045);filter:brightness(1.05)}}
+.client-code-toggle{
+  position:absolute;z-index:12;left:4%;bottom:4%;border:1px solid #ffffff2b;background:#07101dcc;color:#fff;
+  border-radius:999px;padding:9px 13px;cursor:pointer;font-size:11px;font-weight:800;backdrop-filter:blur(8px)
+}
+.client-code-box{
+  position:absolute;z-index:14;left:4%;bottom:11%;width:min(360px,42%);padding:14px;border-radius:16px;
+  background:#07101ef2;border:1px solid #ffffff20;box-shadow:0 18px 50px #000a;display:none
+}
+.client-code-box.on{display:block}.client-code-box h3{margin:0 0 5px;font-size:16px}.client-code-box p{margin:0 0 9px;color:#94a3b8;font-size:11px}
+.client-code-row{display:flex;gap:8px}.client-code-row .code{margin:0;padding:10px;font-size:12px}.client-code-row .enter{width:auto;margin:0;padding:10px 14px;white-space:nowrap}
+#error{margin:7px 0 0;font-size:11px}
+@media(max-width:700px){
+ #login{align-items:start;padding-top:8px;overflow:auto}
+ .gate-scene{width:100vw;height:auto;max-width:none;border-radius:0}
+ .pin-panel{left:48%;top:31%;width:42%;height:58%;padding:3% 3% 2%;border-radius:16px;background:rgba(3,10,25,.97)}
+ .pin-title{font-size:14px}.pin-sub{font-size:10px}.pin-key{font-size:14px}.pin-enter{font-size:10px}.demo-pin{font-size:9px}.pin-message{font-size:8px}
+ .client-code-toggle{left:8px;bottom:8px;font-size:9px;padding:7px 9px}
+ .client-code-box{left:8px;bottom:48px;width:calc(100% - 16px)}
+}
+
+
+
+/* ===== Live Admin LCD Overlay V14 ===== */
+.live-lcd-overlay{position:absolute;z-index:30;inset:0;display:none;align-items:stretch;justify-content:stretch;background:#020617;overflow:hidden;cursor:default}
+.live-lcd-overlay.on{display:flex}.live-lcd-overlay iframe,.live-lcd-overlay img,.live-lcd-overlay video{width:100%;height:100%;border:0;object-fit:contain;background:#000}
+.live-lcd-message-client{width:100%;height:100%;display:grid;place-items:center;text-align:center;padding:18px;background:radial-gradient(circle at 80% 10%,#0ea5e933,transparent 38%),linear-gradient(135deg,#111827,#05182b)}
+.live-lcd-message-client .inner{max-width:90%}.live-lcd-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border-radius:999px;background:#7f1d1d;color:#fecaca;font-size:7px;font-weight:900;letter-spacing:.8px;margin-bottom:8px}.live-lcd-badge i{width:6px;height:6px;border-radius:50%;background:#fb7185;box-shadow:0 0 10px #fb7185}
+.live-lcd-message-client h3{font-size:18px;margin:0 0 7px}.live-lcd-message-client p{font-size:9px;line-height:1.45;margin:0;color:#dbeafe}.live-lcd-close-note{position:absolute;right:7px;bottom:5px;font-size:6px;color:#94a3b8}
+@media(max-width:900px){.live-lcd-message-client{padding:8px}.live-lcd-message-client h3{font-size:10px;margin-bottom:3px}.live-lcd-message-client p{font-size:6px}.live-lcd-badge{font-size:5px;padding:3px 5px;margin-bottom:4px}}
+
+
+
+/* ===== Virtual CCTV presence indicator V18 ===== */
+.cctv-presence{position:absolute;z-index:56;right:12px;top:12px;display:flex;align-items:center;gap:7px;padding:7px 10px;border-radius:999px;background:rgba(5,12,22,.80);border:1px solid rgba(52,211,153,.34);color:#d1fae5;font-size:9px;font-weight:800;letter-spacing:.5px;backdrop-filter:blur(8px);box-shadow:0 8px 22px rgba(0,0,0,.22)}
+.cctv-presence i{width:7px;height:7px;border-radius:50%;background:#34d399;box-shadow:0 0 10px #34d399;animation:cctvPulse 1.7s infinite}
+@keyframes cctvPulse{50%{opacity:.45;transform:scale(.8)}}
+@media(max-width:600px){.cctv-presence{right:5px;top:5px;font-size:7px;padding:5px 7px}}
+
+
+/* ===== V21 Reception + Waiting Hall + Cabin PIN ===== */
+#waitingHall,#cabinGate{position:fixed;inset:56px 0 0;display:none;background:#07101b;color:#fff;z-index:120;overflow:auto}
+.waiting-stage{min-height:calc(100vh - 56px);display:grid;grid-template-columns:minmax(0,1.5fr) minmax(320px,.7fr);gap:18px;padding:18px;background:radial-gradient(circle at 15% 20%,#164e6330,transparent 36%),linear-gradient(180deg,#07101b,#030712)}
+.waiting-office{position:relative;min-height:620px;border:1px solid #ffffff18;border-radius:24px;overflow:hidden;background:#111;box-shadow:0 24px 70px #0008}
+.waiting-office img{width:100%;height:100%;object-fit:cover;display:block}
+.waiting-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(2,6,23,.76))}
+.waiting-lcd{position:absolute;left:18.5%;top:23%;width:19%;height:29%;border-radius:10px;background:linear-gradient(150deg,#071426,#0e2a45);border:1px solid #38bdf855;box-shadow:0 0 24px #0ea5e944;overflow:hidden;padding:16px;display:flex;flex-direction:column;justify-content:center}
+.waiting-lcd h3{margin:0 0 8px;font-size:clamp(14px,1.5vw,24px);color:#67e8f9}.waiting-lcd p{margin:0;color:#dbeafe;font-size:clamp(9px,.85vw,14px);line-height:1.5}.waiting-lcd .adline{margin-top:14px;padding-top:12px;border-top:1px solid #ffffff1c;color:#facc15;font-weight:800}
+.waiting-bottom{position:absolute;left:22px;right:22px;bottom:18px;display:flex;gap:12px;align-items:center;justify-content:space-between;background:#06111de8;border:1px solid #ffffff1c;border-radius:18px;padding:14px 16px;backdrop-filter:blur(12px)}
+.waiting-bottom strong{font-size:18px}.status-pill{padding:8px 12px;border-radius:999px;background:#0f766e;color:#ccfbf1;font-weight:900;font-size:12px}
+.reception-card{align-self:start;background:linear-gradient(180deg,#0d1728,#08111f);border:1px solid #ffffff17;border-radius:24px;padding:20px;box-shadow:0 24px 70px #0007;position:sticky;top:18px}
+.reception-card h2{margin:0 0 8px}.queue-ticket{margin-top:14px;padding:14px;border-radius:16px;background:#020617;border:1px solid #ffffff16}.queue-ticket b{color:#67e8f9}.assign-box{display:none;margin-top:16px;padding:15px;border-radius:16px;background:#082f49;border:1px solid #0ea5e9}.assign-box.on{display:block}.cabin-name{font-size:20px;font-weight:900;color:#fff}.cabin-note{color:#bae6fd;margin-top:6px;line-height:1.5}.collect-pin{margin-top:12px;padding:10px 12px;border-radius:12px;background:#f59e0b;color:#111827;font-weight:900;text-align:center}
+.cabin-keypad-wrap{min-height:calc(100vh - 56px);display:grid;place-items:center;padding:20px;background:radial-gradient(circle at 50% 20%,#0e749055,transparent 35%),linear-gradient(180deg,#08111f,#020617)}
+.cabin-keypad{width:min(420px,94vw);padding:24px;border-radius:26px;background:#0b1525;border:1px solid #ffffff1c;box-shadow:0 30px 90px #000}.cabin-keypad h2{margin:0 0 8px}.cabin-keypad .room-tag{display:inline-block;padding:6px 10px;border-radius:999px;background:#0f766e;color:#ccfbf1;font-weight:900;font-size:12px}.cabin-dots{display:flex;justify-content:center;gap:14px;margin:22px 0}.cabin-dots i{width:18px;height:18px;border-radius:50%;border:2px solid #64748b}.cabin-dots i.on{background:#22d3ee;border-color:#67e8f9;box-shadow:0 0 14px #22d3ee}.cabin-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.cabin-grid button{height:58px;border:1px solid #ffffff1c;border-radius:14px;background:#111e33;color:#fff;font-size:20px;font-weight:900}.cabin-enter{width:100%;margin-top:12px;padding:14px;border:0;border-radius:14px;background:linear-gradient(90deg,#7c3aed,#06b6d4);color:#fff;font-weight:900}.cabin-msg{text-align:center;min-height:22px;margin-top:10px;color:#fb7185}.assigned-banner{position:absolute;z-index:55;right:16px;top:16px;padding:9px 13px;border-radius:999px;background:#082f49e8;border:1px solid #38bdf855;color:#e0f2fe;font-weight:900;font-size:11px}
+@media(max-width:900px){.waiting-stage{grid-template-columns:1fr;padding:8px}.waiting-office{min-height:520px}.reception-card{position:relative;top:auto}.waiting-lcd{left:15%;top:18%;width:32%;height:30%}.waiting-bottom{left:8px;right:8px;bottom:8px;flex-direction:column;align-items:flex-start}.waiting-bottom strong{font-size:15px}}
+
+
+/* ===== V22 CLEAN OFFICE REBUILD: NO OLD LCD PLAYER ===== */
+.clean-cabin-panel{position:absolute;z-index:48;left:3.2%;bottom:5.5%;width:min(340px,28%);display:flex;gap:12px;align-items:center;padding:14px 16px;border-radius:18px;background:linear-gradient(145deg,rgba(5,15,28,.92),rgba(8,35,55,.88));border:1px solid rgba(103,232,249,.28);box-shadow:0 18px 45px rgba(0,0,0,.34);backdrop-filter:blur(14px)}
+.clean-cabin-icon{width:46px;height:46px;flex:0 0 46px;display:grid;place-items:center;border-radius:14px;background:linear-gradient(135deg,#7c3aed,#06b6d4);font-size:22px;box-shadow:0 8px 22px rgba(6,182,212,.22)}
+.clean-cabin-kicker{font-size:8px;font-weight:900;letter-spacing:1.1px;color:#67e8f9}.clean-cabin-panel h3{margin:3px 0 4px;font-size:17px}.clean-cabin-panel p{margin:0;color:#cbd5e1;font-size:10px;line-height:1.45}
+.agency-lcd,.agency-lcd-bottom,.agency-slide,.live-lcd-overlay{display:none!important}
+@media(max-width:900px){.clean-cabin-panel{left:2%;bottom:3%;width:42%;padding:9px 10px;gap:8px}.clean-cabin-icon{width:34px;height:34px;flex-basis:34px;font-size:17px}.clean-cabin-panel h3{font-size:11px}.clean-cabin-panel p{font-size:7px}.clean-cabin-kicker{font-size:6px}}
+
 </style>
-<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script><script src="firebase-client.js"></script>
-</head><body>
-<header><div class="brand">Digital Agency by Chandan Das</div><button class="btn ghost" onclick="resetOffice()">Exit</button></header>
-<section id="login" class="page center"><div class="card"><h1 class="title">Client Main Gate</h1><div class="muted">Client PIN দিয়ে Waiting Hall-এ প্রবেশ করুন</div><div id="gateArt" class="gate-art"></div><input id="mainPin" class="field pin" maxlength="8" inputmode="numeric" placeholder="••••"><button class="btn" style="width:100%;margin-top:12px" onclick="enterMainGate()">ENTER MAIN GATE</button><div id="mainMsg" class="msg"></div></div></section>
-<section id="hall" class="page"><div class="hall-grid"><div class="hall-visual"><div class="reception-desk"></div><div class="hall-note"><b>Reception Waiting Hall</b><div class="muted">Reception আপনার কারণ অনুযায়ী Room Name ও আলাদা 4-digit Room Code generate করবে।</div></div></div><aside class="card"><h2>Reception Check-in</h2><div id="ticket" class="ticket"></div><select id="purpose" class="field"><option value="Project Discussion">Project Discussion</option><option value="Meeting">Meeting</option><option value="Technical Support">Technical Support</option><option value="Accounts / Payment">Accounts / Payment</option></select><textarea id="note" class="field" rows="3" placeholder="কাজের বিষয় লিখুন"></textarea><button class="btn" style="width:100%;margin-top:12px" onclick="checkIn()">Reception-এ Request পাঠান</button><div id="hallMsg" class="msg"></div><div id="assigned" class="assigned"><b id="assignedName">Room assigned</b><div class="muted">আপনার Room Code</div><div id="assignedCode" class="codebox">----</div><button class="btn" style="width:100%" onclick="showRoomCode()">Room Code দিয়ে প্রবেশ করুন</button></div></aside></div></section>
-<section id="roomCode"><div class="card"><h2 id="codeRoomName">Assigned Room</h2><div class="muted">Reception থেকে পাওয়া 4-digit code লিখুন</div><input id="roomPin" class="field pin" maxlength="4" inputmode="numeric" placeholder="••••"><button class="btn" style="width:100%;margin-top:12px" onclick="verifyRoomCode()">ENTER ROOM</button><button class="btn ghost" style="width:100%;margin-top:8px" onclick="hideRoomCode()">Back to Hall</button><div id="roomMsg" class="msg"></div></div></section>
-<section id="room"><div class="room-shell"><div id="interior" class="interior project"><div class="floor"></div><div class="desk"></div><div class="chair"></div><button class="speaker" onclick="speakRoom()" title="Speaker">🔊</button><div class="lcd"><div><div id="lcdKicker" class="lcd-kicker">PROJECT ROOM LCD</div><h1 id="lcdTitle">Project Room</h1><p id="lcdText">আপনার project status, progress এবং correction support এখানে দেখানো হবে।</p><span id="lcdStatus" class="status">READY</span></div></div></div><div class="room-controls"><button class="btn" onclick="showHelp('status')">Project Status</button><button class="btn" onclick="showHelp('help')">Room Help</button><button class="btn" onclick="showHelp('chat')">Chat / Request</button><button class="btn ghost" onclick="backToHall()">Back to Hall</button></div></div></section>
-<div id="modal" class="modal"><div class="card"><h2 id="modalTitle">Help</h2><div id="modalBody" class="muted"></div><textarea id="requestText" class="field" rows="4" placeholder="আপনার message লিখুন"></textarea><div class="row"><button class="btn ghost" onclick="closeModal()">Close</button><button class="btn" onclick="sendRequest()">Send</button></div></div></div>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-storage-compat.js"></script>
+<script src="firebase-client.js"></script>
+</head>
+<body>
+<header><a href="index.html">← হোম</a><div class="brand">Digital Agency by Chandan Das</div><div><button class="hbtn" onclick="toggleVoice()" id="voice">🔊 Male Welcome Voice</button> <button class="hbtn hide" id="exit" onclick="location.reload()">Exit</button></div></header>
+<section id="login">
+  <div class="gate-scene" id="gateScene">
+    <img class="gate-photo" src="client-room-gate-v10.png" alt="Digital Agency By Chandan Das Client Room Entrance">
+    <div class="pin-panel" aria-label="Client Room PIN keypad">
+      <div class="pin-title">Client Room Entry</div>
+      <div class="pin-sub">Enter PIN</div>
+      <div class="pin-dots" aria-live="polite">
+        <span class="pin-dot"></span><span class="pin-dot"></span><span class="pin-dot"></span><span class="pin-dot"></span>
+      </div>
+      <div class="pin-grid">
+        <button class="pin-key" onclick="pressPin('1')">1</button><button class="pin-key" onclick="pressPin('2')">2</button><button class="pin-key" onclick="pressPin('3')">3</button>
+        <button class="pin-key" onclick="pressPin('4')">4</button><button class="pin-key" onclick="pressPin('5')">5</button><button class="pin-key" onclick="pressPin('6')">6</button>
+        <button class="pin-key" onclick="pressPin('7')">7</button><button class="pin-key" onclick="pressPin('8')">8</button><button class="pin-key" onclick="pressPin('9')">9</button>
+        <button class="pin-key" onclick="clearPin()">C</button><button class="pin-key" onclick="pressPin('0')">0</button><button class="pin-key" onclick="backspacePin()">⌫</button>
+      </div>
+      <button class="pin-enter" onclick="submitPin()">ENTER ROOM</button>
+      <div class="demo-pin">Demo PIN: <b id="demoPinLabel">1234</b></div>
+      <div class="pin-message" id="pinMessage"></div>
+    </div>
+    <div class="gate-access" id="gateAccess"><div>✅ Access Granted — Door Opening</div></div>
+  </div>
+</section>
+<section id="waitingHall">
+  <div class="waiting-stage">
+    <div class="waiting-office">
+      <img src="client-office-final-v21.png" alt="Digital Agency waiting hall and cabins">
+      <div class="waiting-overlay"></div>
+      <div class="waiting-lcd"><h3 id="outsideLcdTitle">Welcome</h3><p id="outsideLcdText">অনুগ্রহ করে Waiting Hall-এ অপেক্ষা করুন এবং Reception-এর সঙ্গে যোগাযোগ করুন।</p><div class="adline" id="outsideLcdAd">Website • App • SEO • Digital Marketing</div></div>
+      <div class="waiting-bottom"><div><strong id="waitingHeadline">Reception assignment-এর জন্য অপেক্ষা করুন</strong><div class="muted" id="waitingSub">আপনার cabin এবং আলাদা PIN Reception থেকে দেওয়া হবে।</div></div><span class="status-pill" id="waitingStatus">WAITING</span></div>
+    </div>
+    <aside class="reception-card">
+      <h2>🏢 Reception Check-in</h2><div class="muted">Digital Agency By Chandan Das</div>
+      <div class="queue-ticket">Client: <b id="waitClientName">—</b><br>Token: <b id="waitToken">—</b><br>Entry PIN: <b id="waitMainPin">—</b></div>
+      <label class="muted">আপনার কাজের ধরন</label>
+      <select id="visitPurpose" class="field"><option>Project Discussion</option><option>Meeting</option><option>Technical Support</option><option>Accounts / Payment</option><option>General Enquiry</option></select>
+      <textarea id="visitNote" class="field" rows="3" placeholder="কাজের বিষয়ে সংক্ষেপে লিখুন (optional)"></textarea>
+      <button class="send" onclick="checkInReception()">🔔 Reception-এ জানান</button>
+      <div class="assign-box" id="assignmentBox"><div class="cabin-name" id="assignedCabinName">Cabin assigned</div><div class="cabin-note" id="assignedCabinNote"></div><div class="collect-pin">PIN Reception থেকে সংগ্রহ করুন</div><button class="send" onclick="openCabinGate()">Cabin PIN লিখুন</button></div>
+    </aside>
+  </div>
+</section>
+<section id="cabinGate"><div class="cabin-keypad-wrap"><div class="cabin-keypad"><span class="room-tag" id="cabinGateRoom">Assigned Cabin</span><h2>Cabin Access PIN</h2><p class="muted">Reception থেকে পাওয়া ৪ সংখ্যার PIN লিখুন</p><div class="cabin-dots"><i></i><i></i><i></i><i></i></div><div class="cabin-grid"><button onclick="pressCabinPin('1')">1</button><button onclick="pressCabinPin('2')">2</button><button onclick="pressCabinPin('3')">3</button><button onclick="pressCabinPin('4')">4</button><button onclick="pressCabinPin('5')">5</button><button onclick="pressCabinPin('6')">6</button><button onclick="pressCabinPin('7')">7</button><button onclick="pressCabinPin('8')">8</button><button onclick="pressCabinPin('9')">9</button><button onclick="clearCabinPin()">C</button><button onclick="pressCabinPin('0')">0</button><button onclick="backCabinPin()">⌫</button></div><button class="cabin-enter" onclick="submitCabinPin()">ENTER CABIN</button><div class="cabin-msg" id="cabinPinMessage"></div></div></div></section>
+<section id="world">
+ <div class="stage-wrap"><div class="scene" id="scene">
+  <img class="room-photo" src="client-office-final-v21.png" alt="Digital Agency By Chandan Das Client Room"><div class="assigned-banner" id="insideCabinBadge">Assigned Cabin</div>
+  <div class="hint">আপনার নির্ধারিত cabin খুলেছে • নিচের প্রয়োজনীয় option থেকে Project Status, Chat, Correction ও Meeting ব্যবহার করুন</div>
+  <div class="cctv-presence" title="Virtual room activity monitor — device camera is not used"><i></i> CCTV CONNECTING...</div>
+  <div class="clean-cabin-panel" id="cleanCabinPanel">
+    <div class="clean-cabin-icon">🏢</div>
+    <div>
+      <div class="clean-cabin-kicker">CABIN ACCESS GRANTED</div>
+      <h3 id="cleanCabinTitle">Assigned Cabin</h3>
+      <p id="cleanCabinText">Reception থেকে দেওয়া cabin PIN সফল হয়েছে। নিচের প্রয়োজনীয় option ব্যবহার করুন।</p>
+    </div>
+  </div>
+
+  <button class="assistant-hotspot" aria-label="Open assistant" onclick="ringBell()"></button>
+  <button class="client-hotspot" aria-label="Open project status" onclick="show('desk')"></button>
+ </div></div>
+ <div class="controls">
+  <button class="control-btn primary" onclick="show('desk')"><span class="control-icon">📊</span><span class="control-text"><span class="control-label">Project Status</span><span class="control-sub">Progress & files</span></span></button>
+  <button class="control-btn" onclick="openProjectReview()"><span class="control-icon">🛠️</span><span class="control-text"><span class="control-label">Correction</span><span class="control-sub">Request changes</span></span></button>
+  <button class="control-btn" onclick="show('meeting')"><span class="control-icon">📅</span><span class="control-text"><span class="control-label">Meeting</span><span class="control-sub">Book schedule</span></span></button>
+  <button class="control-btn" onclick="openLiveChat()"><span class="control-icon">💬</span><span class="control-text"><span class="control-label">Live Chat</span><span class="control-sub">Talk to admin</span></span></button>
+  <button class="control-btn" onclick="ringBell()"><span class="control-icon">🎧</span><span class="control-text"><span class="control-label">Assistant</span><span class="control-sub">Quick support</span></span></button>
+  <button class="control-btn" onclick="toggleFullRoom()"><span class="control-icon">⛶</span><span class="control-text"><span class="control-label">Full Room</span><span class="control-sub">Immersive view</span></span></button>
+</div>
+ <div id="notify" class="notification"></div>
+</section>
+<div class="assistant" id="assistant"><div class="speech"><div class="assistant-title">নমস্কার! কীভাবে সাহায্য করতে পারি?</div><div class="assistant-chat"><input id="assistantInput" type="text" placeholder="আপনার message লিখুন..." onkeydown="if(event.key==='Enter')sendAssistantMessage()"><button onclick="sendAssistantMessage()">Send</button></div><div class="quick-actions"><button onclick="assistantQuick('project')">Project Status</button><button onclick="assistantQuick('meeting')">Book Meeting</button><button onclick="assistantQuick('price')">Price Query</button><button onclick="assistantQuick('support')">Support</button></div><div class="assistant-reply" id="assistantReply"></div><div style="margin-top:9px;text-align:right"><button class="assistant-back-btn" onclick="returnAssistant()">↩ Back</button></div></div></div>
+
+<div class="modal" id="note"><div class="card"><div class="cardtop"><h2>📝 Client Notepad</h2><button class="close" onclick="hide('note')">×</button></div><select class="field" id="projectSelect"><option value="">General Question</option></select><textarea class="field" rows="6" id="requestText" placeholder="আপনার প্রশ্ন বা feature request লিখুন..."></textarea><button class="send" onclick="submitRequest()">Request পাঠান</button><div id="requests"></div></div></div>
+<div class="modal" id="liveChat"><div class="card chat-card"><div class="cardtop"><div><h2>💬 Admin-এর সাথে Live Chat</h2><small id="chatStatus" class="muted">Connecting...</small></div><button class="close" onclick="closeLiveChat()">×</button></div><div id="clientChatMessages" class="chat-messages"></div><div id="clientTyping" class="typing-indicator">Admin is typing...</div><div class="chat-compose"><textarea id="clientChatInput" rows="2" placeholder="আপনার message লিখুন..." oninput="setClientTyping()" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendClientChat()}"></textarea><button onclick="sendClientChat()">Send</button></div></div></div>
+<div class="modal" id="projectReview"><div class="card"><div class="cardtop"><h2>✍️ Project Correction Request</h2><button class="close" onclick="hide('projectReview')">×</button></div><div class="live-update-banner"><span>🟢 Project information sync চালু আছে</span><button class="secondary" onclick="refreshProjects()">Refresh</button></div><select id="reviewProjectSelect" class="field" onchange="renderReviewPreview()"></select><div id="reviewProjectPreview" class="review-project-preview"></div><select id="reviewArea" class="field"><option value="Design">Design / Color / Layout</option><option value="Text">Text / Content</option><option value="Feature">Feature / Function</option><option value="Mobile">Mobile View</option><option value="Speed">Speed / Loading</option><option value="Other">Other Correction</option></select><textarea id="reviewMessage" class="field" rows="5" placeholder="কোন page বা section-এ কী ঠিক করতে হবে বিস্তারিত লিখুন..."></textarea><input id="reviewPageUrl" class="field" placeholder="Page URL বা section name (optional)"><button class="send" onclick="submitProjectReview()">Correction পাঠান</button><div id="reviewHistory" style="margin-top:14px"></div></div></div>
+<div class="modal" id="meeting"><div class="card"><div class="cardtop"><h2>📅 Meeting Booking</h2><button class="close" onclick="hide('meeting')">×</button></div><div class="meeting-grid"><input id="meetingDate" class="field" type="date"><input id="meetingTime" class="field" type="time"></div><select id="meetingType" class="field"><option>Video Meeting</option><option>Phone Call</option><option>Office Visit</option></select><textarea id="meetingNote" class="field" rows="4" placeholder="Meeting-এর বিষয় লিখুন..."></textarea><button class="send" onclick="bookMeeting()">Meeting Request পাঠান</button><div id="meetingResult" class="project" style="display:none;margin-top:12px"></div></div></div>
+<div class="modal" id="desk"><div class="card"><div class="cardtop"><div><h2 id="clientName">📊 Project Status</h2><small class="muted" id="clientCode"></small></div><button class="close" onclick="hide('desk')">×</button></div><div id="projects" style="margin-top:15px"></div></div></div>
+
 <script>
-let db=null,client=null,projects=[],queueId=null,queueUnsub=null,assignedRoom='',assignedCode='';
-const $=id=>document.getElementById(id);const labels={project:'Project Room',meeting:'Meeting Room',support:'Support Room',accounts:'Accounts Room'};
-function init(){try{db=firebase.firestore()}catch(e){$('mainMsg').textContent='Firebase connect হয়নি। firebase-client.js check করুন।'}}
-async function enterMainGate(){const pin=$('mainPin').value.trim();$('mainMsg').textContent='Checking...';if(pin==='1234'){client={id:'demo',client_name:'Demo Client',client_pin:'1234'};projects=[{project_name:'Demo Project',progress:72,status:'In Progress'}];return openHall()}try{let q=await db.collection('room_clients').where('client_pin','==',pin).limit(1).get();if(q.empty)q=await db.collection('room_clients').where('client_code','==',pin).limit(1).get();if(q.empty)throw new Error('PIN পাওয়া যায়নি');const d=q.docs[0];client={id:d.id,...d.data()};if(client.is_active===false)throw new Error('Client inactive');const p=await db.collection('room_projects').where('client_id','==',client.id).get();projects=p.docs.map(x=>({id:x.id,...x.data()}));$('gateArt').classList.add('open');setTimeout(openHall,650)}catch(e){$('mainMsg').textContent=e.message}}
-function openHall(){$('login').style.display='none';$('hall').style.display='block';$('ticket').innerHTML=`Client: <b>${esc(client.client_name||'Client')}</b><br>Main PIN: <b>${esc(client.client_pin||client.client_code||'—')}</b>`;if(client.id!=='demo')findActiveQueue()}
-async function findActiveQueue(){try{const q=await db.collection('room_waiting_queue').where('client_id','==',client.id).get();const rows=q.docs.map(d=>({id:d.id,...d.data()})).filter(x=>x.status!=='Completed').sort((a,b)=>(b.created_at?.seconds||0)-(a.created_at?.seconds||0));if(rows[0])watchQueue(rows[0].id)}catch(e){$('hallMsg').textContent=e.message}}
-async function checkIn(){if(client.id==='demo'){queueId='demo';assignedRoom=roomFromPurpose($('purpose').value);assignedCode=String(Math.floor(1000+Math.random()*9000));showAssignment();return}try{$('hallMsg').textContent='Request পাঠানো হচ্ছে...';const ref=await db.collection('room_waiting_queue').add({client_id:client.id,client_name:client.client_name||'Client',main_pin:client.client_pin||client.client_code||'',purpose:$('purpose').value,note:$('note').value.trim(),status:'Waiting',assigned_cabin:'',cabin_pin:'',created_at:firebase.firestore.FieldValue.serverTimestamp(),updated_at:firebase.firestore.FieldValue.serverTimestamp()});watchQueue(ref.id);$('hallMsg').textContent='Reception request পেয়েছে। অপেক্ষা করুন।'}catch(e){$('hallMsg').textContent=e.message}}
-function watchQueue(id){queueId=id;if(queueUnsub)queueUnsub();queueUnsub=db.collection('room_waiting_queue').doc(id).onSnapshot(doc=>{if(!doc.exists)return;const d=doc.data();if(d.assigned_cabin&&d.cabin_pin){assignedRoom=d.assigned_cabin;assignedCode=String(d.cabin_pin);showAssignment()}},e=>$('hallMsg').textContent=e.message)}
-function showAssignment(){$('assignedName').textContent=labels[assignedRoom]||assignedRoom;$('assignedCode').textContent=assignedCode;$('assigned').classList.add('on');$('hallMsg').textContent='Room ready হয়েছে।'}
-function showRoomCode(){$('codeRoomName').textContent=labels[assignedRoom]||'Assigned Room';$('roomPin').value='';$('roomMsg').textContent='';$('roomCode').classList.add('on')}
-function hideRoomCode(){$('roomCode').classList.remove('on')}
-function verifyRoomCode(){if($('roomPin').value.trim()!==assignedCode){$('roomMsg').textContent='ভুল Room Code';return}openAssignedRoom()}
-async function openAssignedRoom(){hideRoomCode();$('hall').style.display='none';$('room').style.display='block';const r=assignedRoom||'project';const el=$('interior');el.className='interior '+r;const p=projects[0]||{};const cfg={project:['PROJECT ROOM LCD','Project Room',`${p.project_name||'আপনার Project'} — Status: ${p.status||'In Progress'}, Progress: ${p.progress||0}%`,'PROJECT ACTIVE'],meeting:['MEETING ROOM LCD','Meeting Room','Meeting schedule, discussion points এবং appointment support এই screen-এ দেখানো হবে।','MEETING READY'],support:['SUPPORT ROOM LCD','Support Room','Technical support, correction, live chat এবং problem solving এখানে করা হবে।','SUPPORT ONLINE'],accounts:['ACCOUNTS ROOM LCD','Accounts Room','Invoice, payment status, due amount এবং receipt support এখানে দেখানো হবে।','ACCOUNTS READY']}[r]||[];$('lcdKicker').textContent=cfg[0];$('lcdTitle').textContent=cfg[1];$('lcdText').textContent=cfg[2];$('lcdStatus').textContent=cfg[3];if(queueId&&queueId!=='demo')try{await db.collection('room_waiting_queue').doc(queueId).update({status:'Entered',entered_at:firebase.firestore.FieldValue.serverTimestamp()})}catch(e){}speakRoom()}
-function speakRoom(){const text=`স্বাগতম। আপনি ${labels[assignedRoom]||'assigned room'} এ প্রবেশ করেছেন। LCD screen থেকে প্রয়োজনীয় সহায়তা নিন।`;if('speechSynthesis'in window){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='bn-IN';u.rate=.9;speechSynthesis.speak(u)}}
-function showHelp(type){const r=labels[assignedRoom]||'Room';$('modalTitle').textContent=type==='status'?r+' Status':type==='chat'?r+' Request':r+' Help';$('modalBody').innerHTML=type==='status'?`এই LCD-তে ${esc($('lcdText').textContent)} দেখানো হচ্ছে।`:`আপনার প্রয়োজন লিখে Send করুন। Admin panel-এ request যাবে।`;$('modal').classList.add('on')}
-function closeModal(){$('modal').classList.remove('on')}
-async function sendRequest(){const t=$('requestText').value.trim();if(!t)return;if(client.id==='demo'){alert('Demo request received');$('requestText').value='';return}try{await db.collection('room_feature_requests').add({client_id:client.id,project_id:projects[0]?.id||null,request_text:`[${labels[assignedRoom]}] ${t}`,status:'New',created_at:firebase.firestore.FieldValue.serverTimestamp()});$('requestText').value='';alert('Request পাঠানো হয়েছে')}catch(e){alert(e.message)}}
-function backToHall(){$('room').style.display='none';$('hall').style.display='block';if('speechSynthesis'in window)speechSynthesis.cancel()}
-function resetOffice(){location.reload()}
-function roomFromPurpose(p){if(p.includes('Meeting'))return'meeting';if(p.includes('Support'))return'support';if(p.includes('Accounts'))return'accounts';return'project'}
-function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
-window.addEventListener('load',init);
-</script></body></html>
+let voiceOn=true,client=null,projects=[];
+let roomPresenceId=null,roomPresenceTimer=null,roomCurrentAction='Gate';
+let roomSettings={demo_pin:'1234',autoplay_seconds:4.5,room_active:true,welcome_bn:'ডিজিটাল এজেন্সি বাই চন্দন দাসের ক্লায়েন্ট রুমে আপনাকে আন্তরিক স্বাগতম। এখানে আমাদের ডিজিটাল সার্ভিস, প্রজেক্ট আপডেট, মিটিং, লাইভ চ্যাট এবং কারেকশন সুবিধা ব্যবহার করতে পারবেন।',welcome_hi:'डिजिटल एजेंसी बाय चंदन दास के क्लाइंट रूम में आपका हार्दिक स्वागत है। यहाँ आप हमारी डिजिटल सेवाएँ, प्रोजेक्ट अपडेट, मीटिंग, लाइव चैट और करेक्शन सुविधा उपयोग कर सकते हैं।',welcome_en:'A warm welcome to the Client Room of Digital Agency by Chandan Das. Here you can explore our digital services, project updates, meetings, live chat, and correction support.'};
+const $=id=>document.getElementById(id);
+const esc=s=>{const d=document.createElement('div');d.textContent=s??'';return d.innerHTML};
+const escapeHtml=esc;
+let availableVoices=[];
+function loadVoices(){if('speechSynthesis'in window)availableVoices=window.speechSynthesis.getVoices()||[]}
+if('speechSynthesis'in window){loadVoices();window.speechSynthesis.onvoiceschanged=loadVoices}
+const maleVoiceNames=['male','david','mark','guy','george','james','daniel','thomas','alex','ravi','hemant','madhur','prabhat','bashkar','anand','raj','kabir','aditya','arjun'];
+const femaleVoiceNames=['female','zira','hazel','susan','samantha','victoria','karen','moira','fiona','tessa','swara','kalpana','heera','tanishaa','neerja','veena','priya','lekha','raveena','linda','aria','jenny','emma','ava','sonia'];
+function isKnownMaleVoice(v){const n=(v?.name||'').toLowerCase();return maleVoiceNames.some(x=>n.includes(x))&&!femaleVoiceNames.some(x=>n.includes(x))}
+function chooseMaleVoice(){const priorities=['bn-IN','bn-BD','hi-IN','en-IN','en-GB','en-US'];for(const lang of priorities){const exact=availableVoices.find(v=>(v.lang||'').toLowerCase()===lang.toLowerCase()&&isKnownMaleVoice(v));if(exact)return exact;const prefix=lang.split('-')[0].toLowerCase();const sameLanguage=availableVoices.find(v=>(v.lang||'').toLowerCase().startsWith(prefix)&&isKnownMaleVoice(v));if(sameLanguage)return sameLanguage}return availableVoices.find(isKnownMaleVoice)||null}
+function maleMessageForVoice(voice,bn,hi,en){const lang=(voice?.lang||'en-US').toLowerCase();if(lang.startsWith('bn'))return bn;if(lang.startsWith('hi'))return hi;return en}
+function speakMaleOnly(bn,hi,en){if(!voiceOn||!('speechSynthesis'in window))return;speechSynthesis.cancel();loadVoices();const voice=chooseMaleVoice();if(!voice){notifyUser('এই device-এ নিশ্চিত male voice পাওয়া যায়নি—তাই female voice চালানো হয়নি।');return}const u=new SpeechSynthesisUtterance(maleMessageForVoice(voice,bn,hi,en));u.voice=voice;u.lang=voice.lang||'en-US';u.rate=.88;u.pitch=.78;u.volume=1;speechSynthesis.speak(u)}
+function speakThreeLanguages(bn,hi,en){speakMaleOnly(bn,hi,en)}
+function speakWelcomeMale(){speakMaleOnly(roomSettings.welcome_bn,roomSettings.welcome_hi,roomSettings.welcome_en)}
+function toggleVoice(){voiceOn=!voiceOn;$('voice').textContent=voiceOn?'🔊 Male Welcome Voice':'🔇 Muted';if(!voiceOn&&'speechSynthesis'in window)speechSynthesis.cancel()}
+
+function presenceDevice(){return innerWidth<=700?'Mobile':'Desktop'}
+function presenceSessionId(){
+ if(roomPresenceId)return roomPresenceId;
+ const key='clientRoomPresenceId';
+ roomPresenceId=sessionStorage.getItem(key)||((crypto.randomUUID?.()||('sess-'+Date.now()+'-'+Math.random().toString(36).slice(2))).replace(/[^a-zA-Z0-9_-]/g,''));
+ sessionStorage.setItem(key,roomPresenceId);return roomPresenceId;
+}
+async function writeRoomPresence(extra={}){
+ if(!client||typeof db==='undefined')return false;
+ const id=presenceSessionId();
+ const payload={
+  session_id:id,client_id:String(client.id||'demo'),client_name:String(client.client_name||'Guest'),client_pin:String(client.client_pin||client.client_code||''),
+  online:true,current_action:String(extra.current_action||roomCurrentAction||'Inside Client Room'),device:presenceDevice(),viewport:`${innerWidth}x${innerHeight}`,
+  page:'client-room.html',last_seen:firebase.firestore.FieldValue.serverTimestamp(),last_seen_ms:Date.now(),...extra
+ };
+ try{
+  await db.collection('room_presence').doc(id).set(payload,{merge:true});
+  const badge=document.querySelector('.cctv-presence');
+  if(badge)badge.innerHTML='<i></i> CCTV LIVE CONNECTED';
+  return true;
+ }catch(e){
+  console.warn('Presence update:',e.message);
+  const badge=document.querySelector('.cctv-presence');
+  if(badge)badge.innerHTML='<i style="background:#fb7185;box-shadow:0 0 10px #fb7185"></i> CCTV SYNC ERROR';
+  return false;
+ }
+}
+async function startRoomPresence(){
+ roomCurrentAction='Entered Client Room';
+ await writeRoomPresence({entered_at:firebase.firestore.FieldValue.serverTimestamp(),online:true,current_action:roomCurrentAction});
+ clearInterval(roomPresenceTimer);roomPresenceTimer=setInterval(()=>writeRoomPresence({online:true}),8000);setTimeout(()=>writeRoomPresence({online:true}),1500);setTimeout(()=>writeRoomPresence({online:true}),4000);
+}
+function trackRoomAction(action){roomCurrentAction=action;writeRoomPresence({current_action:action,online:true})}
+function closeRoomPresence(){
+ if(!roomPresenceId||typeof db==='undefined')return;
+ try{db.collection('room_presence').doc(roomPresenceId).set({online:false,current_action:'Left Client Room',left_at:firebase.firestore.FieldValue.serverTimestamp(),last_seen:firebase.firestore.FieldValue.serverTimestamp()},{merge:true})}catch(e){}
+}
+window.addEventListener('beforeunload',closeRoomPresence);
+document.addEventListener('visibilitychange',()=>{if(client)writeRoomPresence({online:true,current_action:document.visibilityState==='visible'?roomCurrentAction:'Client Room Open in Background'})});
+
+async function enterRoom(pinOverride){
+ const pin=String(pinOverride||gatePin||'').trim();
+ if(!/^\d{4}$/.test(pin))throw new Error('4-digit PIN লিখুন।');
+ if(pin===String(roomSettings.demo_pin||'1234')){
+  client={id:'demo',client_pin:pin,client_code:pin,client_name:'Guest'};
+  projects=[{id:'p1',project_name:'Demo Project',status:'In Progress',progress_percent:72,current_stage:'Frontend Development'}];
+ }else{
+  let snap=await db.collection('room_clients').where('client_pin','==',pin).where('is_active','==',true).limit(1).get();
+  if(snap.empty)snap=await db.collection('room_clients').where('client_code','==',pin).where('is_active','==',true).limit(1).get();
+  if(snap.empty)throw new Error('Client PIN সঠিক নয়।');
+  const doc=snap.docs[0];client={id:doc.id,...doc.data(),client_pin:doc.data().client_pin||pin};
+  if(client.access_expiry&&new Date(client.access_expiry+'T23:59:59')<new Date())throw new Error('এই Client PIN-এর মেয়াদ শেষ হয়েছে।');
+  const pSnap=await db.collection('room_projects').where('client_id','==',client.id).get();
+  projects=pSnap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.created_at?.seconds||0)-(a.created_at?.seconds||0));
+ }
+ const scene=$('gateScene');if(scene)scene.classList.add('access-ok');
+ setTimeout(enterWaitingHall,700);
+}
+
+let waitingDocId=null,waitingUnsub=null,assignedCabin='',assignedCabinPin='',cabinPinInput='';
+const cabinLabels={project:'1 • Project Cabin',meeting:'2 • Meeting Cabin',support:'3 • Support Cabin',accounts:'4 • Accounts Cabin'};
+function updateCleanCabinPanel(){const labels={project:'Project Cabin',meeting:'Meeting Cabin',support:'Support Cabin',accounts:'Accounts Cabin'};const notes={project:'Project status, files এবং correction support এখানে ব্যবহার করুন।',meeting:'Meeting booking ও discussion support এখানে ব্যবহার করুন।',support:'Live Chat ও Assistant support এখানে ব্যবহার করুন।',accounts:'Invoice, payment এবং account assistance-এর জন্য Reception/Admin-এর সঙ্গে যোগাযোগ করুন।'};const title=$('cleanCabinTitle'),text=$('cleanCabinText');if(title)title.textContent=labels[assignedCabin]||'Assigned Cabin';if(text)text.textContent=notes[assignedCabin]||'Reception থেকে দেওয়া cabin PIN সফল হয়েছে।';}
+function makeToken(){return 'WT-'+String(Date.now()).slice(-5)}
+async function enterWaitingHall(){
+ $('login').classList.add('hide');$('waitingHall').style.display='block';$('exit').classList.remove('hide');
+ $('waitClientName').textContent=client.client_name||'Guest';$('waitMainPin').textContent=client.client_pin||client.client_code||roomSettings.demo_pin||'1234';$('waitToken').textContent=makeToken();
+ startWaitingMarketing();
+}
+let waitingAdTimer=null,waitingAdIndex=0;
+const waitingAds=[['Welcome to Digital Agency','Reception-এর সঙ্গে যোগাযোগ করুন। আপনার জন্য সঠিক cabin assign করা হবে।','Professional Website • Mobile App'],['Grow Your Business Online','Website, E-commerce, SEO এবং Digital Marketing services।','Free Consultation Available'],['Project Support Desk','Project update, correction, meeting এবং payment assistance।','Fast • Transparent • Professional']];
+function startWaitingMarketing(){clearInterval(waitingAdTimer);const draw=()=>{const a=waitingAds[waitingAdIndex%waitingAds.length];$('outsideLcdTitle').textContent=a[0];$('outsideLcdText').textContent=a[1];$('outsideLcdAd').textContent=a[2];waitingAdIndex++};draw();waitingAdTimer=setInterval(draw,4500)}
+async function checkInReception(){
+ const purpose=$('visitPurpose').value,note=$('visitNote').value.trim(),token=$('waitToken').textContent;
+ $('waitingStatus').textContent='CHECKED IN';$('waitingHeadline').textContent='Reception আপনার request দেখছে';
+ if(client.id==='demo'){
+   const demoId='demo-'+Date.now();waitingDocId=demoId;setTimeout(()=>applyAssignment({status:'Assigned',assigned_cabin:'project',cabin_pin:'2468',reception_message:'Project discussion-এর জন্য Cabin 1-এ যান। Demo Cabin PIN: 2468'}),1800);return;
+ }
+ try{
+   const ref=await db.collection('room_waiting_queue').add({client_id:client.id,client_name:client.client_name||'Client',main_pin:client.client_pin||client.client_code||'',token,purpose,note,status:'Waiting',assigned_cabin:'',cabin_pin:'',created_at:firebase.firestore.FieldValue.serverTimestamp(),updated_at:firebase.firestore.FieldValue.serverTimestamp()});
+   waitingDocId=ref.id;if(waitingUnsub)waitingUnsub();waitingUnsub=ref.onSnapshot(doc=>{if(doc.exists)applyAssignment(doc.data())},e=>{$('waitingSub').textContent='Reception sync error: '+e.message});
+ }catch(e){alert('Reception check-in হয়নি: '+e.message)}
+}
+function applyAssignment(d){
+ const status=d.status||'Waiting';$('waitingStatus').textContent=status.toUpperCase();
+ if((status==='Assigned'||status==='Called')&&d.assigned_cabin){assignedCabin=d.assigned_cabin;assignedCabinPin=String(d.cabin_pin||'');$('assignmentBox').classList.add('on');$('assignedCabinName').textContent=cabinLabels[assignedCabin]||d.assigned_cabin;$('assignedCabinNote').textContent=d.reception_message||'Reception থেকে cabin PIN সংগ্রহ করে নির্ধারিত cabin-এ যান।';$('waitingHeadline').textContent='আপনার cabin প্রস্তুত';$('waitingSub').textContent='Reception থেকে PIN নিয়ে Cabin Gate-এ লিখুন।'}
+}
+function openCabinGate(){if(!assignedCabin)return notifyUser('Reception এখনও cabin assign করেনি');$('waitingHall').style.display='none';$('cabinGate').style.display='block';$('cabinGateRoom').textContent=cabinLabels[assignedCabin]||assignedCabin;clearCabinPin()}
+function updateCabinDots(){document.querySelectorAll('.cabin-dots i').forEach((d,i)=>d.classList.toggle('on',i<cabinPinInput.length))}
+function pressCabinPin(n){if(cabinPinInput.length<4)cabinPinInput+=n;updateCabinDots();$('cabinPinMessage').textContent=''}
+function clearCabinPin(){cabinPinInput='';updateCabinDots();$('cabinPinMessage').textContent=''}function backCabinPin(){cabinPinInput=cabinPinInput.slice(0,-1);updateCabinDots()}
+async function submitCabinPin(){
+ if(cabinPinInput.length!==4){$('cabinPinMessage').textContent='৪ সংখ্যার PIN লিখুন';return}
+ if(cabinPinInput!==assignedCabinPin){$('cabinPinMessage').textContent='Cabin PIN সঠিক নয়';clearCabinPin();return}
+ try{if(waitingDocId&&client.id!=='demo')await db.collection('room_waiting_queue').doc(waitingDocId).update({status:'Entered',entered_at:firebase.firestore.FieldValue.serverTimestamp(),updated_at:firebase.firestore.FieldValue.serverTimestamp()})}catch(e){}
+ $('cabinGate').style.display='none';openWorld();$('insideCabinBadge').textContent=cabinLabels[assignedCabin]||assignedCabin;applyCabinMode();
+}
+function applyCabinMode(){
+ document.querySelectorAll('.controls button').forEach(b=>b.style.display='none');
+ const showByText=(txt)=>document.querySelectorAll('.controls button').forEach(b=>{if(b.textContent.includes(txt))b.style.display='' });
+ showByText('Full Room');showByText('Assistant');
+ if(assignedCabin==='project'){showByText('Project Status');showByText('Correction')}
+ if(assignedCabin==='meeting'){showByText('Meeting');setTimeout(()=>show('meeting'),500)}
+ if(assignedCabin==='support'){showByText('Live Chat');showByText('Correction')}
+ if(assignedCabin==='accounts'){showByText('Project Status');notifyUser('Accounts Cabin: invoice ও payment তথ্য Client Desk-এ দেখুন')}
+ trackRoomAction('Entered '+(cabinLabels[assignedCabin]||assignedCabin));
+}
+
+function openWorld(){$('login').classList.add('hide');$('world').style.display='flex';$('exit').classList.remove('hide');renderDesk();populateReviewProjects();startRoomPresence();updateCleanCabinPanel();setTimeout(speakWelcomeMale,350)}
+function show(id){$(id)?.classList.add('on');const names={desk:'Project Status',projectReview:'Correction',note:'Questions',meeting:'Meeting',liveChat:'Live Chat'};trackRoomAction(names[id]||('Opened '+id))}function hide(id){$(id)?.classList.remove('on');trackRoomAction('Inside Client Room')}
+function sit(){document.body.classList.add('photo-seat');notifyUser('Client meeting view চালু হয়েছে।')}
+function toggleFullRoom(){trackRoomAction('Full Room View');document.body.classList.toggle('full-room');notifyUser(document.body.classList.contains('full-room')?'Full Room view চালু হয়েছে':'Normal view চালু হয়েছে')}
+function notifyUser(message){const n=$('notify');n.textContent=message;n.classList.add('show');clearTimeout(window.__notifyTimer);window.__notifyTimer=setTimeout(()=>n.classList.remove('show'),2600)}
+let assistantReturnTimer=null;
+function bell(){try{const A=new(window.AudioContext||window.webkitAudioContext),o=A.createOscillator(),g=A.createGain();o.frequency.value=900;g.gain.setValueAtTime(.18,A.currentTime);g.gain.exponentialRampToValueAtTime(.001,A.currentTime+.55);o.connect(g).connect(A.destination);o.start();o.stop(A.currentTime+.55)}catch(e){}}
+function ringBell(){trackRoomAction('Assistant');clearTimeout(assistantReturnTimer);$('assistant').classList.add('come');bell();setTimeout(()=>speakThreeLanguages('নমস্কার। আমি আপনার ভার্চুয়াল সহকারী।','नमस्कार। मैं आपका वर्चुअल सहायक हूँ।','Hello. I am your virtual assistant.'),300);assistantReturnTimer=setTimeout(returnAssistant,12000)}
+function returnAssistant(){clearTimeout(assistantReturnTimer);$('assistant').classList.remove('come');if('speechSynthesis'in window)speechSynthesis.cancel()}
+function assistantQuick(type){if(type==='project'){show('desk');notifyUser('Project Status খোলা হয়েছে')}else if(type==='meeting'){show('meeting')}else{$('assistantInput').value=type==='price'?'Project-এর আনুমানিক দাম জানতে চাই':'আমার technical support দরকার';sendAssistantMessage()}}
+async function sendAssistantMessage(){const input=$('assistantInput'),reply=$('assistantReply'),message=input.value.trim();if(!message)return;input.value='';reply.style.display='block';reply.textContent='আপনার message গ্রহণ করা হয়েছে।';if(client&&client.id!=='demo'){try{await db.collection('room_feature_requests').add({client_id:client.id,project_id:null,request_text:'Virtual Assistant: '+message,status:'New',created_at:firebase.firestore.FieldValue.serverTimestamp(),updated_at:firebase.firestore.FieldValue.serverTimestamp()});reply.textContent='✅ Message পাঠানো হয়েছে.';setTimeout(returnAssistant,2500)}catch(e){reply.textContent='Message save করা যায়নি।'}}else{reply.textContent='✅ Demo mode: Message গ্রহণ করা হয়েছে।';setTimeout(returnAssistant,2500)}}
+function renderDesk(){$('clientName').textContent='📊 Project Status — '+client.client_name;$('clientCode').textContent='Client PIN: '+(client.client_pin||client.client_code||'-');$('projects').innerHTML=projects.length?projects.map(p=>`<div class="project"><b>${esc(p.project_name)}</b><span style="float:right">${esc(p.status||'')}</span><p class="muted">${esc(p.current_stage||'')}</p><div class="progress"><b style="width:${Math.min(100,p.progress_percent||0)}%"></b></div><small>${p.progress_percent||0}% Complete</small></div>`).join(''):'<p class="muted">কোনো project পাওয়া যায়নি।</p>';$('projectSelect').innerHTML='<option value="">General Question</option>'+projects.map(p=>`<option value="${p.id}">${esc(p.project_name)}</option>`).join('')}
+async function refreshProjects(){if(!client||client.id==='demo'){renderDesk();notifyUser('Demo project refreshed');return}try{const snap=await db.collection('room_projects').where('client_id','==',client.id).get();projects=snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.created_at?.seconds||0)-(a.created_at?.seconds||0));renderDesk();populateReviewProjects();renderReviewPreview();notifyUser('Project information refreshed')}catch(e){notifyUser('Refresh হয়নি: '+e.message)}}
+async function submitRequest(){const t=$('requestText').value.trim();if(!t)return alert('প্রশ্ন লিখুন।');if(client.id==='demo'){$('requests').innerHTML=`<div class="project">✅ ${esc(t)}</div>`;$('requestText').value='';return}try{await db.collection('room_feature_requests').add({client_id:client.id,project_id:$('projectSelect').value||null,request_text:t,status:'New',created_at:firebase.firestore.FieldValue.serverTimestamp(),updated_at:firebase.firestore.FieldValue.serverTimestamp()});$('requestText').value='';alert('Request পাঠানো হয়েছে।')}catch(e){alert('Request পাঠানো যায়নি: '+e.message)}}
+function openProjectReview(){trackRoomAction('Correction');if(!projects.length){notifyUser('Correction পাঠানোর জন্য project দরকার');return}populateReviewProjects();renderReviewPreview();loadReviewHistory();show('projectReview')}
+function populateReviewProjects(){const sel=$('reviewProjectSelect');if(!sel)return;const current=sel.value;sel.innerHTML='';projects.forEach(p=>{const o=document.createElement('option');o.value=p.id;o.textContent=p.project_name;sel.appendChild(o)});if(current&&[...sel.options].some(o=>o.value===current))sel.value=current}
+function renderReviewPreview(){const id=$('reviewProjectSelect')?.value,p=projects.find(x=>String(x.id)===String(id)),box=$('reviewProjectPreview');if(!box)return;if(!p){box.innerHTML='Project select করুন';return}box.innerHTML=`<b>${esc(p.project_name)}</b><div class="muted">Status: ${esc(p.status||'')} • Progress: ${p.progress_percent||0}%</div><div class="muted">Current Stage: ${esc(p.current_stage||'-')}</div>`}
+async function submitProjectReview(){const projectId=$('reviewProjectSelect').value,area=$('reviewArea').value,message=$('reviewMessage').value.trim(),pageUrl=$('reviewPageUrl').value.trim();if(!projectId||!message)return alert('Project এবং correction message লিখুন।');const full=`[${area}] ${message}${pageUrl?` | Page/Section: ${pageUrl}`:''}`;if(client.id==='demo'){$('reviewMessage').value='';$('reviewPageUrl').value='';notifyUser('Demo correction request গ্রহণ করা হয়েছে');loadReviewHistory(true,full);return}try{await db.collection('room_feature_requests').add({client_id:client.id,project_id:projectId,request_text:full,status:'New',created_at:firebase.firestore.FieldValue.serverTimestamp(),updated_at:firebase.firestore.FieldValue.serverTimestamp()});$('reviewMessage').value='';$('reviewPageUrl').value='';notifyUser('Correction request পাঠানো হয়েছে');loadReviewHistory()}catch(e){alert('Correction পাঠানো যায়নি: '+e.message)}}
+async function loadReviewHistory(isDemo=false,demoText=''){const box=$('reviewHistory');if(!box)return;if(isDemo){box.innerHTML=`<div class="review-history-item"><b>${esc(demoText)}</b><br><small>Status: New</small></div>`;return}if(!client||client.id==='demo'){box.innerHTML='';return}try{const snap=await db.collection('room_feature_requests').where('client_id','==',client.id).get();const rows=snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.created_at?.seconds||0)-(a.created_at?.seconds||0)).slice(0,10);box.innerHTML=rows.map(r=>`<div class="review-history-item"><b>${esc(r.request_text)}</b><br><small>Status: ${esc(r.status||'New')}</small></div>`).join('')||'<div class="muted">এখনও কোনো correction পাঠানো হয়নি।</div>'}catch(e){box.innerHTML='<div class="muted">'+esc(e.message)+'</div>'}}
+async function bookMeeting(){const date=$('meetingDate').value,time=$('meetingTime').value,type=$('meetingType').value,note=$('meetingNote').value.trim(),result=$('meetingResult');if(!date||!time)return alert('Date এবং time select করুন।');const message=`Meeting Request: ${date} ${time} | ${type} | ${note||'No note'}`;result.style.display='block';result.textContent='✅ Meeting request পাঠানো হয়েছে: '+date+' '+time;if(client.id!=='demo'){try{await db.collection('room_feature_requests').add({client_id:client.id,project_id:null,request_text:message,status:'New',created_at:firebase.firestore.FieldValue.serverTimestamp(),updated_at:firebase.firestore.FieldValue.serverTimestamp()})}catch(e){alert('Meeting request save হয়নি: '+e.message)}}notifyUser('Meeting request গ্রহণ করা হয়েছে')}
+let clientChatUnsub=null,adminTypingUnsub=null,clientTypingTimer=null;
+function openLiveChat(){trackRoomAction('Live Chat');if(!client||!client.id)return notifyUser('আগে Client Room-এ প্রবেশ করুন');show('liveChat');subscribeClientChat();subscribeTypingStatus()}
+function closeLiveChat(){hide('liveChat')}
+function chatTimestamp(value){if(!value)return 0;if(typeof value.toMillis==='function')return value.toMillis();if(typeof value.seconds==='number')return value.seconds*1000;return 0}
+function subscribeClientChat(){const box=$('clientChatMessages'),status=$('chatStatus');if(client.id==='demo'){status.textContent='Demo connected';box.innerHTML='<div class="chat-msg admin">স্বাগতম! এটি demo chat.</div>';return}if(clientChatUnsub)clientChatUnsub();status.textContent='Live connected';clientChatUnsub=db.collection('room_chats').where('client_id','==',client.id).onSnapshot(snap=>{const rows=snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>chatTimestamp(a.created_at)-chatTimestamp(b.created_at));box.innerHTML=rows.map(m=>`<div class="chat-msg ${m.sender==='client'?'client':'admin'}">${esc(m.message||'')}<small>${m.sender==='client'?'আপনি':'Admin'}${m.sender==='client'?` • <span class="delivery">${m.read_by_admin?'✔✔ Seen':'✔ Delivered'}</span>`:''}</small></div>`).join('')||'<div class="muted">এখনও কোনো message নেই।</div>';box.scrollTop=box.scrollHeight},e=>{status.textContent='Chat error';box.innerHTML='<div class="muted">'+esc(e.message)+'</div>'})}
+async function setClientTyping(){if(!client||client.id==='demo')return;clearTimeout(clientTypingTimer);try{await db.collection('room_chat_status').doc(client.id).set({client_typing:true,updated_at:firebase.firestore.FieldValue.serverTimestamp()},{merge:true})}catch(e){}clientTypingTimer=setTimeout(async()=>{try{await db.collection('room_chat_status').doc(client.id).set({client_typing:false,updated_at:firebase.firestore.FieldValue.serverTimestamp()},{merge:true})}catch(e){}},1200)}
+function subscribeTypingStatus(){if(!client||client.id==='demo')return;if(adminTypingUnsub)adminTypingUnsub();adminTypingUnsub=db.collection('room_chat_status').doc(client.id).onSnapshot(doc=>{$('clientTyping')?.classList.toggle('on',doc.exists&&doc.data().admin_typing===true)})}
+async function sendClientChat(){const input=$('clientChatInput'),message=input.value.trim();if(!message)return;input.value='';if(client.id==='demo'){const box=$('clientChatMessages');box.innerHTML+=`<div class="chat-msg client">${esc(message)}<small>আপনি • ✔ Delivered</small></div>`;box.scrollTop=box.scrollHeight;return}try{await db.collection('room_chat_status').doc(client.id).set({client_typing:false,updated_at:firebase.firestore.FieldValue.serverTimestamp()},{merge:true});await db.collection('room_chats').add({client_id:client.id,client_name:client.client_name||'Client',sender:'client',message,created_at:firebase.firestore.FieldValue.serverTimestamp(),read_by_admin:false,read_by_client:true})}catch(e){alert('Message পাঠানো যায়নি: '+e.message)}}
+
+let agencySlideIndex=0,agencySlideTimer=null,agencyProgressTimer=null,agencyElapsed=0;
+let agencyDuration=4500;
+function renderAgencySlide(){
+ const slides=[...document.querySelectorAll('.agency-slide')],dots=[...document.querySelectorAll('.agency-dot')];
+ slides.forEach((s,i)=>s.classList.toggle('active',i===agencySlideIndex));
+ dots.forEach((d,i)=>d.classList.toggle('active',i===agencySlideIndex));
+ agencyElapsed=0;
+ const bar=$('agencyProgress');if(bar)bar.style.width='0%';
+}
+function buildAgencyDots(){const box=$('agencyDots');if(!box)return;const count=document.querySelectorAll('.agency-slide').length;box.innerHTML='';for(let i=0;i<count;i++){const d=document.createElement('span');d.className='agency-dot'+(i===0?' active':'');d.onclick=e=>{e.stopPropagation();agencySlideIndex=i;renderAgencySlide()};box.appendChild(d)}}
+function nextAgencySlide(){trackRoomAction('Next Demo');if(liveLcdActive){notifyUser('Admin live broadcast চলছে');return}const count=document.querySelectorAll('.agency-slide').length;if(!count)return;agencySlideIndex=(agencySlideIndex+1)%count;renderAgencySlide()}
+function startAgencySlides(){if(liveLcdActive)return;clearInterval(agencySlideTimer);clearInterval(agencyProgressTimer);buildAgencyDots();renderAgencySlide();agencySlideTimer=setInterval(nextAgencySlide,agencyDuration);agencyProgressTimer=setInterval(()=>{agencyElapsed+=100;const bar=$('agencyProgress');if(bar)bar.style.width=Math.min(100,agencyElapsed/agencyDuration*100)+'%'},100)}
+
+
+
+
+
+// ===== Live to LCD Client Listener V14 =====
+let liveLcdUnsub=null,liveLcdActive=false;
+function isLiveTargetForThisClient(data){
+  if(!data||data.active!==true)return false;
+  const target=String(data.target_client_id||'all');
+  return target==='all'||target===''||(client&&String(client.id)===target);
+}
+function stopAgencySlideTimers(){clearInterval(agencySlideTimer);clearInterval(agencyProgressTimer)}
+function showAdminLiveOnLcd(data){
+  const box=$('liveLcdOverlay');if(!box)return;liveLcdActive=true;stopAgencySlideTimers();box.innerHTML='';box.classList.add('on');
+  const type=String(data.type||'message'),url=String(data.url||'').trim(),title=String(data.title||'Live Update'),message=String(data.message||'');
+  if(type==='image'&&/^https?:\/\//i.test(url)){const img=document.createElement('img');img.src=url;img.alt=title;box.appendChild(img)}
+  else if(type==='video'&&/^https?:\/\//i.test(url)){const v=document.createElement('video');v.src=url;v.controls=true;v.autoplay=true;v.muted=true;v.loop=true;v.playsInline=true;box.appendChild(v)}
+  else if(type==='website'&&/^https?:\/\//i.test(url)){const f=document.createElement('iframe');f.src=url;f.title=title;f.allow='autoplay; fullscreen';box.appendChild(f)}
+  else{const wrap=document.createElement('div');wrap.className='live-lcd-message-client';const inner=document.createElement('div');inner.className='inner';const badge=document.createElement('div');badge.className='live-lcd-badge';badge.innerHTML='<i></i> LIVE FROM ADMIN';const h=document.createElement('h3');h.textContent=title;const p=document.createElement('p');p.textContent=message;inner.append(badge,h,p);wrap.appendChild(inner);box.appendChild(wrap)}
+  const note=document.createElement('div');note.className='live-lcd-close-note';note.textContent='Admin live broadcast';box.appendChild(note);
+}
+function hideAdminLiveFromLcd(){
+  const box=$('liveLcdOverlay');if(!box)return;const was=liveLcdActive;liveLcdActive=false;box.classList.remove('on');box.innerHTML='';if(was)startAgencySlides();
+}
+function startLiveLcdListener(){
+  if(liveLcdUnsub)liveLcdUnsub();
+  liveLcdUnsub=db.collection('room_live_lcd').doc('main').onSnapshot(doc=>{const data=doc.exists?doc.data():{};if(isLiveTargetForThisClient(data))showAdminLiveOnLcd(data);else hideAdminLiveFromLcd()},e=>console.warn('Live LCD listener',e));
+}
+
+async function loadRoomSettingsClient(){
+ try{
+  const doc=await db.collection('room_settings').doc('main').get();
+  if(doc.exists)roomSettings={...roomSettings,...doc.data()};
+ }catch(e){console.warn('Room settings fallback',e)}
+ agencyDuration=Math.max(2000,Number(roomSettings.autoplay_seconds||4.5)*1000);
+ const label=$('demoPinLabel');if(label)label.textContent=roomSettings.demo_pin||'1234';
+ if(roomSettings.room_active===false){$('pinMessage').style.color='#fbbf24';$('pinMessage').textContent='Client Room এখন maintenance mode-এ আছে';}
+}
+
+let gatePin='';
+function updatePinUI(){
+ document.querySelectorAll('.pin-dot').forEach((d,i)=>d.classList.toggle('on',i<gatePin.length));
+}
+function pressPin(n){
+ if(gatePin.length>=4)return;
+ gatePin+=String(n);updatePinUI();$('pinMessage').textContent='';
+ if(gatePin.length===4)setTimeout(submitPin,180);
+}
+function clearPin(){gatePin='';updatePinUI();$('pinMessage').textContent=''}
+function backspacePin(){gatePin=gatePin.slice(0,-1);updatePinUI();$('pinMessage').textContent=''}
+async function submitPin(){
+ if(roomSettings.room_active===false){$('pinMessage').style.color='#fbbf24';$('pinMessage').textContent='Room maintenance চলছে';setTimeout(clearPin,900);return}
+ if(!/^\d{4}$/.test(gatePin))return;
+ $('pinMessage').style.color='#cbd5e1';$('pinMessage').textContent='PIN যাচাই হচ্ছে...';
+ try{
+  await enterRoom(gatePin);
+  $('pinMessage').style.color='#86efac';$('pinMessage').textContent='Access Granted';
+ }catch(e){
+  $('pinMessage').style.color='#fb7185';$('pinMessage').textContent=e.message||'Wrong PIN — আবার চেষ্টা করুন';
+  const panel=document.querySelector('.pin-panel');panel?.animate([{transform:'translateX(0)'},{transform:'translateX(-5px)'},{transform:'translateX(5px)'},{transform:'translateX(0)'}],{duration:260});
+  setTimeout(clearPin,900);
+ }
+}
+
+loadRoomSettingsClient();
+const urlPin=new URLSearchParams(location.search).get('pin');
+if(/^\d{4}$/.test(urlPin||'')){gatePin=urlPin;updatePinUI();}
+
+</script>
+</body>
+</html>

@@ -84,25 +84,6 @@ main{max-width:1380px}.dashboard-cards{max-width:1380px}.grid{grid-template-colu
 /* ===== V21 Reception Queue ===== */
 .reception-queue{margin:18px 20px;padding:18px;border-radius:22px;background:linear-gradient(180deg,#0b1728,#08111f);border:1px solid #0ea5e955}.queue-head{display:flex;align-items:center;justify-content:space-between;gap:12px}.queue-count{padding:7px 11px;border-radius:999px;background:#0f766e;color:#ccfbf1;font-weight:900}.queue-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:12px;margin-top:14px}.queue-item{padding:14px;border-radius:16px;background:#020617;border:1px solid #ffffff17}.queue-item h4{margin:0 0 7px}.queue-meta{font-size:12px;color:#94a3b8;line-height:1.6}.queue-actions{display:grid;grid-template-columns:1fr 110px;gap:8px;margin-top:10px}.queue-actions select,.queue-actions input{width:100%;padding:10px;border-radius:10px;border:1px solid #ffffff18;background:#0b1324;color:#fff}.queue-buttons{display:flex;gap:8px;flex-wrap:wrap;margin-top:9px}.queue-buttons button{padding:9px 12px}.pin-badge{display:inline-block;padding:5px 8px;border-radius:8px;background:#3b0764;color:#f5d0fe;font-weight:900}.status-waiting{color:#facc15}.status-assigned{color:#67e8f9}.status-entered{color:#86efac}
 
-
-
-/* ===== V24 Clean Reception Admin Workspace ===== */
-.admin-tabs{position:sticky;top:72px;z-index:45;display:flex;gap:8px;overflow-x:auto;padding:10px 12px;margin:0 20px 16px;border-radius:16px;background:rgba(5,12,24,.92);border:1px solid #ffffff16;backdrop-filter:blur(16px);box-shadow:0 12px 30px #0004}
-.admin-tabs button{flex:0 0 auto;display:flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px;background:#111c2d;border:1px solid #ffffff12;color:#cbd5e1;font-size:12px}
-.admin-tabs button.active{background:linear-gradient(90deg,#1d4ed8,#0f766e);color:#fff;border-color:#38bdf855;box-shadow:0 8px 22px #0ea5e933}
-.admin-panel-hidden{display:none!important}
-.reception-queue{max-width:1380px;margin:0 auto 18px!important;background:linear-gradient(145deg,#0b1728,#08111f)!important;border:1px solid #22d3ee44!important;box-shadow:0 18px 48px #0004}
-.queue-grid{grid-template-columns:repeat(auto-fit,minmax(310px,1fr))!important}
-.queue-item{position:relative;overflow:hidden;background:linear-gradient(160deg,#07101d,#0b1627)!important;border:1px solid #ffffff18!important;box-shadow:0 12px 26px #0003}
-.queue-item:before{content:'';position:absolute;inset:0 auto 0 0;width:4px;background:linear-gradient(#22d3ee,#7c3aed)}
-.queue-item h4{font-size:16px}.queue-meta{padding:10px 0;border-top:1px solid #ffffff0d;border-bottom:1px solid #ffffff0d}
-.queue-actions{grid-template-columns:1fr!important}.queue-actions input{display:none!important}
-.queue-buttons button{flex:1;min-width:120px}.pin-badge{font-family:Consolas,monospace;font-size:18px;letter-spacing:3px;background:#172554!important;color:#bfdbfe!important;border:1px solid #3b82f666}
-.reception-empty{padding:32px;text-align:center;border:1px dashed #334155;border-radius:16px;color:#94a3b8;background:#02061788}
-.reception-guide{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:0 auto 16px;max-width:1380px}
-.reception-guide .step{padding:14px;border-radius:14px;background:#0b1525;border:1px solid #ffffff12}.reception-guide b{display:block;color:#67e8f9;margin-bottom:4px}.reception-guide small{color:#94a3b8}
-@media(max-width:760px){.admin-tabs{top:64px;margin:0 8px 12px}.reception-guide{grid-template-columns:1fr;margin:0 8px 12px}.reception-queue{margin:0 8px 14px!important}.queue-grid{grid-template-columns:1fr!important}}
-
 </style>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js">
 // ===== V21 Reception Queue =====
@@ -113,54 +94,16 @@ function startReceptionQueue(){
  receptionQueueUnsub=db.collection('room_waiting_queue').onSnapshot(s=>{receptionRows=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.created_at?.seconds||0)-(a.created_at?.seconds||0));renderReceptionQueue()},e=>{const box=document.getElementById('receptionQueue');if(box)box.innerHTML='<div class="muted">Queue permission error: '+escapeHtml(e.message)+'</div>'});
 }
 function receptionPin(){return String(Math.floor(1000+Math.random()*9000))}
-function cabinDisplayName(c){return ({project:'Project Room',meeting:'Meeting Room',support:'Support Room',accounts:'Accounts Room'})[c]||'Assigned Room'}
-function suggestCabin(purpose=''){const x=String(purpose).toLowerCase();if(x.includes('meeting'))return'meeting';if(x.includes('support')||x.includes('technical'))return'support';if(x.includes('account')||x.includes('payment'))return'accounts';return'project'}
 function renderReceptionQueue(){
  const box=document.getElementById('receptionQueue');if(!box)return;
- const active=receptionRows.filter(r=>!['Completed','Cancelled'].includes(r.status));
- document.getElementById('waitingQueueCount').textContent=active.filter(r=>r.status==='Waiting').length+' WAITING';
- box.innerHTML=active.map(r=>{const id=escapeHtml(r.id),status=escapeHtml(r.status||'Waiting'),pin=escapeHtml(r.cabin_pin||''),assigned=!!(r.assigned_cabin&&pin);return `<article class="queue-item"><h4>${escapeHtml(r.client_name||'Client')} <span class="status-${status.toLowerCase()}">• ${status}</span></h4><div class="queue-meta"><b>Token:</b> ${escapeHtml(r.token||'-')} &nbsp; <b>Main PIN:</b> ${escapeHtml(r.main_pin||'-')}<br><b>Reason:</b> ${escapeHtml(r.purpose||'-')}<br>${escapeHtml(r.note||'')}</div><div class="queue-actions"><select id="cabin-${id}"><option value="project" ${(r.assigned_cabin||suggestCabin(r.purpose))==='project'?'selected':''}>1 • Project Room</option><option value="meeting" ${(r.assigned_cabin||suggestCabin(r.purpose))==='meeting'?'selected':''}>2 • Meeting Room</option><option value="support" ${(r.assigned_cabin||suggestCabin(r.purpose))==='support'?'selected':''}>3 • Support Room</option><option value="accounts" ${(r.assigned_cabin||suggestCabin(r.purpose))==='accounts'?'selected':''}>4 • Accounts Room</option></select><input id="cpin-${id}" value="${pin}"></div><div class="queue-buttons"><button class="success" onclick="assignReceptionCabin('${id}',false)">${assigned?'Update Room':'Assign Room & Generate Code'}</button>${assigned?`<button class="secondary" onclick="assignReceptionCabin('${id}',true)">New Code</button><button class="copy-btn" onclick="copyQueuePin('${id}')">Copy Details</button>`:''}<button class="danger" onclick="completeReception('${id}')">Complete</button></div>${assigned?`<div style="margin-top:10px"><b>${escapeHtml(cabinDisplayName(r.assigned_cabin))}</b><br>Room Code: <span class="pin-badge">${pin}</span></div>`:''}</article>`}).join('')||'<div class="reception-empty">Waiting Hall-এ এখন কোনো client নেই। Client check-in করলে এখানে live দেখা যাবে।</div>';
+ const active=receptionRows.filter(r=>!['Completed','Cancelled'].includes(r.status));document.getElementById('waitingQueueCount').textContent=active.filter(r=>r.status==='Waiting').length+' WAITING';
+ box.innerHTML=active.map(r=>{const id=escapeHtml(r.id),status=escapeHtml(r.status||'Waiting'),pin=escapeHtml(r.cabin_pin||'');return `<article class="queue-item"><h4>${escapeHtml(r.client_name||'Client')} <span class="status-${status.toLowerCase()}">• ${status}</span></h4><div class="queue-meta">Token: ${escapeHtml(r.token||'-')} • Main PIN: ${escapeHtml(r.main_pin||'-')}<br>Purpose: ${escapeHtml(r.purpose||'-')}<br>${escapeHtml(r.note||'')}</div><div class="queue-actions"><select id="cabin-${id}"><option value="project" ${r.assigned_cabin==='project'?'selected':''}>1 • Project Cabin</option><option value="meeting" ${r.assigned_cabin==='meeting'?'selected':''}>2 • Meeting Cabin</option><option value="support" ${r.assigned_cabin==='support'?'selected':''}>3 • Support Cabin</option><option value="accounts" ${r.assigned_cabin==='accounts'?'selected':''}>4 • Accounts Cabin</option></select><input id="cpin-${id}" maxlength="4" inputmode="numeric" value="${pin}" placeholder="Cabin PIN"></div><div class="queue-buttons"><button onclick="generateQueuePin('${id}')">Generate PIN</button><button onclick="assignReceptionCabin('${id}')">Assign & Call</button>${pin?`<button class="secondary" onclick="copyQueuePin('${id}')">Copy PIN</button>`:''}<button class="danger" onclick="completeReception('${id}')">Complete</button></div>${pin?`<div style="margin-top:8px">Cabin PIN: <span class="pin-badge">${pin}</span></div>`:''}</article>`}).join('')||'<div class="muted">Waiting Hall-এ কোনো client নেই।</div>';
 }
 function generateQueuePin(id){const el=document.getElementById('cpin-'+id);if(el)el.value=receptionPin()}
-async function assignReceptionCabin(id,forceNew=false){
- const row=receptionRows.find(x=>x.id===id)||{};
- const cabin=document.getElementById('cabin-'+id).value||suggestCabin(row.purpose);
- let pin=(!forceNew&&/^\d{4}$/.test(String(row.cabin_pin||'')))?String(row.cabin_pin):await uniqueReceptionPin(id);
- const labels={project:'Project Room',meeting:'Meeting Room',support:'Support Room',accounts:'Accounts Room'};
- const directions={project:'বাম পাশের 1 নম্বর Project Room-এ যান।',meeting:'বাম পাশের নিচের 2 নম্বর Meeting Room-এ যান।',support:'Lift বা সিঁড়ি দিয়ে 3 নম্বর Support Room-এ যান।',accounts:'Lift বা সিঁড়ি দিয়ে 4 নম্বর Accounts Room-এ যান।'};
- try{
-  await db.collection('room_waiting_queue').doc(id).update({status:'Assigned',assigned_cabin:cabin,cabin_pin:pin,reception_message:`${labels[cabin]} assign করা হয়েছে। ${directions[cabin]} Room Code: ${pin}`,assigned_at:firebase.firestore.FieldValue.serverTimestamp(),updated_at:firebase.firestore.FieldValue.serverTimestamp()});
-  alert(`${row.client_name||'Client'}\n${labels[cabin]}\nRoom Code: ${pin}`);
- }catch(e){alert('Room assign হয়নি: '+e.message)}
-}
-function copyQueuePin(id){const r=receptionRows.find(x=>x.id===id);if(!r)return;navigator.clipboard.writeText(`${r.client_name||'Client'}\nRoom: ${cabinDisplayName(r.assigned_cabin)}\nRoom Code: ${r.cabin_pin||''}`);alert('Room details copied')}
+async function assignReceptionCabin(id){const cabin=document.getElementById('cabin-'+id).value,pin=document.getElementById('cpin-'+id).value.trim();if(!/^\d{4}$/.test(pin))return alert('4-digit Cabin PIN দিন');const labels={project:'Project Cabin',meeting:'Meeting Cabin',support:'Support Cabin',accounts:'Accounts Cabin'};await db.collection('room_waiting_queue').doc(id).update({status:'Assigned',assigned_cabin:cabin,cabin_pin:pin,reception_message:`${labels[cabin]}-এ যান। PIN Reception থেকে সংগ্রহ করুন।`,assigned_at:firebase.firestore.FieldValue.serverTimestamp(),updated_at:firebase.firestore.FieldValue.serverTimestamp()})}
+function copyQueuePin(id){const r=receptionRows.find(x=>x.id===id);if(!r)return;navigator.clipboard.writeText(`${r.client_name||'Client'} — ${r.assigned_cabin||'Cabin'} PIN: ${r.cabin_pin||''}`);alert('Cabin PIN copied')}
 async function completeReception(id){await db.collection('room_waiting_queue').doc(id).update({status:'Completed',completed_at:firebase.firestore.FieldValue.serverTimestamp(),updated_at:firebase.firestore.FieldValue.serverTimestamp()})}
 setTimeout(startReceptionQueue,1200);
-
-
-
-function showAdminPanel(name,btn){
-  const map={reception:['.reception-queue','.dashboard-cards','#receptionGuide'],clients:['.grid'],cctv:['#cctvCard'],lcd:['#liveLcdCard'],settings:['#roomSettingsCard']};
-  const all=['.reception-queue','.dashboard-cards','#receptionGuide','.grid','#cctvCard','#liveLcdCard','#roomSettingsCard'];
-  all.forEach(sel=>document.querySelectorAll(sel).forEach(el=>el.classList.add('admin-panel-hidden')));
-  (map[name]||map.reception).forEach(sel=>document.querySelectorAll(sel).forEach(el=>el.classList.remove('admin-panel-hidden')));
-  document.querySelectorAll('#adminTabs button').forEach(b=>b.classList.toggle('active',b===btn||b.dataset.adminPanel===name));
-  localStorage.setItem('clientAdminPanel',name);
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-function initCleanAdminWorkspace(){
-  const saved=localStorage.getItem('clientAdminPanel')||'reception';
-  const btn=document.querySelector(`#adminTabs button[data-admin-panel="${saved}"]`)||document.querySelector('#adminTabs button');
-  showAdminPanel(saved,btn);
-}
-async function uniqueReceptionPin(ignoreId=''){
-  for(let i=0;i<30;i++){
-    const pin=String(Math.floor(1000+Math.random()*9000));
-    const used=receptionRows.some(r=>r.id!==ignoreId&&r.cabin_pin===pin&&!['Completed','Cancelled'].includes(r.status));
-    if(!used)return pin;
-  }
-  throw new Error('Unique Room Code generate হয়নি। আবার চেষ্টা করুন।');
-}
 
 </script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
@@ -188,18 +131,7 @@ async function uniqueReceptionPin(ignoreId=''){
 <div id="loginMsg" class="muted"></div>
 </section>
 
-<main id="app" style="display:none"><div class="admin-tabs" id="adminTabs">
-<button class="active" data-admin-panel="reception" onclick="showAdminPanel('reception',this)">🛎️ Reception</button>
-<button data-admin-panel="clients" onclick="showAdminPanel('clients',this)">👥 Clients & Projects</button>
-<button data-admin-panel="cctv" onclick="showAdminPanel('cctv',this)">📹 Live Activity</button>
-<button data-admin-panel="lcd" onclick="showAdminPanel('lcd',this)">📡 Live LCD</button>
-<button data-admin-panel="settings" onclick="showAdminPanel('settings',this)">⚙️ Room Settings</button>
-</div>
-<div class="reception-guide" id="receptionGuide">
-<div class="step"><b>1. Client Check-in</b><small>Waiting Hall থেকে request queue-তে আসবে।</small></div>
-<div class="step"><b>2. Assign Room</b><small>Reason দেখে room select করুন; code automatic হবে।</small></div>
-<div class="step"><b>3. Client Entry</b><small>Room Name + Code client screen-এ live যাবে।</small></div>
-</div><section class="reception-queue"><div class="queue-head"><div><h2 style="margin:0">🛎️ Reception & Waiting Hall</h2><div class="muted">Client reason অনুযায়ী room select করুন—system নিজে 4-digit Room Code generate করবে</div></div><span class="queue-count" id="waitingQueueCount">0 WAITING</span></div><div class="queue-grid" id="receptionQueue"><div class="muted">Waiting queue loading...</div></div></section>
+<main id="app" style="display:none"><section class="reception-queue"><div class="queue-head"><div><h2 style="margin:0">🛎️ Reception & Waiting Hall</h2><div class="muted">Waiting client-কে cabin assign করুন এবং আলাদা 4-digit PIN দিন</div></div><span class="queue-count" id="waitingQueueCount">0 WAITING</span></div><div class="queue-grid" id="receptionQueue"><div class="muted">Waiting queue loading...</div></div></section>
 <div class="dashboard-cards">
   <div class="dash"><span>Total Clients</span><b id="totalClients">0</b></div>
   <div class="dash"><span>Total Projects</span><b id="totalProjects">0</b></div>
@@ -386,7 +318,7 @@ function checkSession(){
  auth.onAuthStateChanged(user=>{
    if(user){
      $('login').style.display='none';
-     $('app').style.display='block';setTimeout(initCleanAdminWorkspace,50);
+     $('app').style.display='block';
      loadClients();
      loadRoomSettings();
      subscribeLiveLcdAdmin();
