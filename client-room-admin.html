@@ -51,6 +51,20 @@ main{max-width:1380px}.dashboard-cards{max-width:1380px}.grid{grid-template-colu
 @media(max-width:1000px){.settings-grid{grid-template-columns:1fr 1fr}.grid{grid-template-columns:1fr}}
 @media(max-width:640px){.settings-grid{grid-template-columns:1fr}.settings-grid .wide{grid-column:auto}.dashboard-cards{grid-template-columns:1fr 1fr}.row>*{min-width:0}}
 
+
+
+/* ===== Live to LCD V14 ===== */
+.live-lcd-card{background:linear-gradient(145deg,#17123a,#0b172b);border:1px solid #8b5cf655;box-shadow:0 18px 45px #0005}
+.live-lcd-layout{display:grid;grid-template-columns:1.2fr .8fr;gap:14px;margin-top:14px}
+.live-lcd-form{display:grid;grid-template-columns:1fr 1fr;gap:10px}.live-lcd-form .wide{grid-column:1/-1}
+.live-lcd-preview{min-height:230px;border-radius:16px;border:1px solid #ffffff1c;background:#030712;overflow:hidden;display:grid;place-items:center;position:relative}
+.live-lcd-preview iframe,.live-lcd-preview img,.live-lcd-preview video{width:100%;height:230px;border:0;object-fit:contain;background:#000}
+.live-lcd-message{padding:24px;text-align:center}.live-lcd-message b{display:block;font-size:22px;margin-bottom:9px}.live-lcd-message p{margin:0;color:#cbd5e1;line-height:1.5}
+.live-status{display:inline-flex;align-items:center;gap:7px;padding:6px 10px;border-radius:999px;font-size:11px;font-weight:900;background:#3f1d2e;color:#fecdd3}.live-status.on{background:#064e3b;color:#a7f3d0;box-shadow:0 0 18px #10b98144}
+.live-dot-admin{width:8px;height:8px;border-radius:50%;background:#fb7185}.live-status.on .live-dot-admin{background:#34d399;box-shadow:0 0 10px #34d399}
+.live-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}.live-actions button{flex:0 0 auto}
+@media(max-width:900px){.live-lcd-layout{grid-template-columns:1fr}.live-lcd-form{grid-template-columns:1fr}.live-lcd-form .wide{grid-column:auto}}
+
 </style>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
@@ -105,6 +119,36 @@ main{max-width:1380px}.dashboard-cards{max-width:1380px}.grid{grid-template-colu
     <a href="client-room.html?v=1100" target="_blank"><button class="copy-btn" type="button">🚪 Open Client Gate</button></a>
   </div>
   <div id="roomSettingsMsg" class="muted" style="margin-top:9px"></div>
+</div>
+
+
+
+<div class="card live-lcd-card" id="liveLcdCard">
+  <div class="cardtop">
+    <div><h2 style="margin-bottom:5px">📡 Live to LCD</h2><div class="muted">Admin থেকে Client Room LCD-তে live message, image, video বা website পাঠান</div></div>
+    <span id="liveLcdStatus" class="live-status"><span class="live-dot-admin"></span><span>OFFLINE</span></span>
+  </div>
+  <div class="live-lcd-layout">
+    <div>
+      <div class="live-lcd-form">
+        <div><label class="tiny">Content Type</label><select id="liveLcdType" class="field" onchange="previewLiveLcdAdmin()"><option value="message">Message</option><option value="image">Image URL</option><option value="video">Video URL</option><option value="website">Website Link</option></select></div>
+        <div><label class="tiny">Target</label><select id="liveLcdTarget" class="field"><option value="all">All Client Rooms</option><option value="selected">Selected Client Only</option></select></div>
+        <div class="wide"><label class="tiny">Title</label><input id="liveLcdTitle" class="field" placeholder="Important Update" oninput="previewLiveLcdAdmin()"></div>
+        <div class="wide"><label class="tiny">Message / Description</label><textarea id="liveLcdMessage" class="field" rows="3" placeholder="LCD-তে যে message দেখাতে চান" oninput="previewLiveLcdAdmin()"></textarea></div>
+        <div class="wide"><label class="tiny">Image / Video / Website URL</label><input id="liveLcdUrl" class="field" placeholder="https://..." oninput="previewLiveLcdAdmin()"></div>
+      </div>
+      <div class="live-actions">
+        <button class="success" onclick="goLiveToLcd()">🔴 Go Live to LCD</button>
+        <button class="secondary" onclick="previewLiveLcdAdmin()">👁 Preview</button>
+        <button class="danger" onclick="stopLiveToLcd()">⏹ Stop Live</button>
+      </div>
+      <div id="liveLcdMsg" class="muted" style="margin-top:9px"></div>
+    </div>
+    <div>
+      <div class="tiny" style="margin-bottom:7px">LCD Preview</div>
+      <div id="liveLcdPreview" class="live-lcd-preview"><div class="live-lcd-message"><b>Live Preview</b><p>Message বা URL লিখুন</p></div></div>
+    </div>
+  </div>
 </div>
 
 <div class="grid">
@@ -213,6 +257,7 @@ function checkSession(){
      $('app').style.display='block';
      loadClients();
      loadRoomSettings();
+     subscribeLiveLcdAdmin();
    }else{
      $('login').style.display='block';
      $('app').style.display='none';
@@ -226,6 +271,41 @@ async function login(){
  }catch(e){$('loginMsg').textContent=e.message}
 }
 async function logout(){await auth.signOut();location.reload()}
+
+
+// ===== Live to LCD V14 =====
+let liveLcdAdminUnsub=null;
+function safeUrl(value){
+  const v=String(value||'').trim();
+  return /^https?:\/\//i.test(v)?v:'';
+}
+function previewLiveLcdAdmin(){
+  const box=$('liveLcdPreview');if(!box)return;
+  const type=$('liveLcdType').value,title=$('liveLcdTitle').value.trim()||'Live Update',message=$('liveLcdMessage').value.trim(),url=safeUrl($('liveLcdUrl').value);
+  box.innerHTML='';
+  if(type==='image'&&url){const img=document.createElement('img');img.src=url;img.alt=title;box.appendChild(img);return}
+  if(type==='video'&&url){const v=document.createElement('video');v.src=url;v.controls=true;v.muted=true;v.autoplay=true;v.loop=true;box.appendChild(v);return}
+  if(type==='website'&&url){const f=document.createElement('iframe');f.src=url;f.title=title;box.appendChild(f);return}
+  const wrap=document.createElement('div');wrap.className='live-lcd-message';const b=document.createElement('b');b.textContent=title;const p=document.createElement('p');p.textContent=message||'Admin live message এখানে দেখা যাবে';wrap.append(b,p);box.appendChild(wrap);
+}
+async function goLiveToLcd(){
+  const type=$('liveLcdType').value,title=$('liveLcdTitle').value.trim()||'Live Update',message=$('liveLcdMessage').value.trim(),url=safeUrl($('liveLcdUrl').value),target=$('liveLcdTarget').value;
+  if(type!=='message'&&!url)return alert('Image, Video বা Website-এর valid https URL দিন');
+  if(type==='message'&&!message)return alert('Live message লিখুন');
+  if(target==='selected'&&!selectedClient)return alert('Selected Client Only ব্যবহার করতে আগে Client select করুন');
+  const payload={active:true,type,title,message,url:url||'',target_client_id:target==='selected'?selectedClient.id:'all',target_client_name:target==='selected'?(selectedClient.client_name||'Client'):'All Clients',updated_by:auth.currentUser?.email||'Admin',updated_at:firebase.firestore.FieldValue.serverTimestamp()};
+  try{await db.collection('room_live_lcd').doc('main').set(payload,{merge:true});$('liveLcdMsg').textContent='✅ LCD live করা হয়েছে';previewLiveLcdAdmin()}catch(e){alert('Live করা যায়নি: '+e.message)}
+}
+async function stopLiveToLcd(){
+  try{await db.collection('room_live_lcd').doc('main').set({active:false,updated_by:auth.currentUser?.email||'Admin',updated_at:firebase.firestore.FieldValue.serverTimestamp()},{merge:true});$('liveLcdMsg').textContent='⏹ Live বন্ধ করা হয়েছে'}catch(e){alert('Stop হয়নি: '+e.message)}
+}
+function subscribeLiveLcdAdmin(){
+  if(liveLcdAdminUnsub)liveLcdAdminUnsub();
+  liveLcdAdminUnsub=db.collection('room_live_lcd').doc('main').onSnapshot(doc=>{
+    const s=$('liveLcdStatus');if(!s)return;const d=doc.exists?doc.data():{};const on=d.active===true;s.classList.toggle('on',on);s.querySelector('span:last-child').textContent=on?'LIVE • '+(d.target_client_name||'All Clients'):'OFFLINE';
+  },e=>console.warn('Live LCD admin listener',e));
+}
+
 function currentDemoPin(){return $('settingDemoPin')?.value.trim()||$('dashDemoPin')?.textContent.trim()||'1234'}
 async function uniqueFourDigitPin(excludeClientId=''){
  for(let i=0;i<80;i++){

@@ -121,6 +121,16 @@ header a{color:#cbd5e1;text-decoration:none}.brand{font-weight:900;background:li
  .client-code-box{left:8px;bottom:48px;width:calc(100% - 16px)}
 }
 
+
+
+/* ===== Live Admin LCD Overlay V14 ===== */
+.live-lcd-overlay{position:absolute;z-index:30;inset:0;display:none;align-items:stretch;justify-content:stretch;background:#020617;overflow:hidden;cursor:default}
+.live-lcd-overlay.on{display:flex}.live-lcd-overlay iframe,.live-lcd-overlay img,.live-lcd-overlay video{width:100%;height:100%;border:0;object-fit:contain;background:#000}
+.live-lcd-message-client{width:100%;height:100%;display:grid;place-items:center;text-align:center;padding:18px;background:radial-gradient(circle at 80% 10%,#0ea5e933,transparent 38%),linear-gradient(135deg,#111827,#05182b)}
+.live-lcd-message-client .inner{max-width:90%}.live-lcd-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border-radius:999px;background:#7f1d1d;color:#fecaca;font-size:7px;font-weight:900;letter-spacing:.8px;margin-bottom:8px}.live-lcd-badge i{width:6px;height:6px;border-radius:50%;background:#fb7185;box-shadow:0 0 10px #fb7185}
+.live-lcd-message-client h3{font-size:18px;margin:0 0 7px}.live-lcd-message-client p{font-size:9px;line-height:1.45;margin:0;color:#dbeafe}.live-lcd-close-note{position:absolute;right:7px;bottom:5px;font-size:6px;color:#94a3b8}
+@media(max-width:900px){.live-lcd-message-client{padding:8px}.live-lcd-message-client h3{font-size:10px;margin-bottom:3px}.live-lcd-message-client p{font-size:6px}.live-lcd-badge{font-size:5px;padding:3px 5px;margin-bottom:4px}}
+
 </style>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
@@ -162,6 +172,8 @@ header a{color:#cbd5e1;text-decoration:none}.brand{font-weight:900;background:li
    <div class="agency-slide"><div class="agency-icon">📱</div><div class="agency-copy"><div class="agency-kicker">SERVICE 02</div><h3>Mobile App Development</h3><p>Android, iOS ও mobile-friendly application design and development.</p><div class="agency-tags"><span>Android</span><span>iOS</span><span>Modern UI</span></div></div></div>
    <div class="agency-slide"><div class="agency-icon">📈</div><div class="agency-copy"><div class="agency-kicker">SERVICE 03</div><h3>Digital Marketing</h3><p>SEO, social media, online promotion ও brand growth services.</p><div class="agency-tags"><span>SEO</span><span>Social Media</span><span>Growth</span></div></div></div>
    <div class="agency-slide"><div class="agency-icon">💻</div><div class="agency-copy"><div class="agency-kicker">SERVICE 04</div><h3>Custom Business Software</h3><p>Billing, admin panel, client portal ও business management tools.</p><div class="agency-tags"><span>Billing</span><span>Admin Panel</span><span>Automation</span></div></div></div>
+
+   <div id="liveLcdOverlay" class="live-lcd-overlay" onclick="event.stopPropagation()"></div>
    <div class="agency-lcd-bottom"><div class="agency-progress"><b id="agencyProgress"></b></div><div class="agency-dots" id="agencyDots"></div></div>
   </div>
 
@@ -225,7 +237,7 @@ async function enterRoom(pinOverride){
  const scene=$('gateScene');if(scene)scene.classList.add('access-ok');
  setTimeout(openWorld,900);
 }
-function openWorld(){$('login').classList.add('hide');$('world').style.display='flex';$('exit').classList.remove('hide');renderDesk();populateReviewProjects();startAgencySlides();setTimeout(speakWelcomeMale,350)}
+function openWorld(){$('login').classList.add('hide');$('world').style.display='flex';$('exit').classList.remove('hide');renderDesk();populateReviewProjects();startAgencySlides();startLiveLcdListener();setTimeout(speakWelcomeMale,350)}
 function show(id){$(id)?.classList.add('on')}function hide(id){$(id)?.classList.remove('on')}
 function sit(){document.body.classList.add('photo-seat');notifyUser('Client meeting view চালু হয়েছে।')}
 function toggleFullRoom(){document.body.classList.toggle('full-room');notifyUser(document.body.classList.contains('full-room')?'Full Room view চালু হয়েছে':'Normal view চালু হয়েছে')}
@@ -263,10 +275,37 @@ function renderAgencySlide(){
  const bar=$('agencyProgress');if(bar)bar.style.width='0%';
 }
 function buildAgencyDots(){const box=$('agencyDots');if(!box)return;const count=document.querySelectorAll('.agency-slide').length;box.innerHTML='';for(let i=0;i<count;i++){const d=document.createElement('span');d.className='agency-dot'+(i===0?' active':'');d.onclick=e=>{e.stopPropagation();agencySlideIndex=i;renderAgencySlide()};box.appendChild(d)}}
-function nextAgencySlide(){const count=document.querySelectorAll('.agency-slide').length;if(!count)return;agencySlideIndex=(agencySlideIndex+1)%count;renderAgencySlide()}
-function startAgencySlides(){clearInterval(agencySlideTimer);clearInterval(agencyProgressTimer);buildAgencyDots();renderAgencySlide();agencySlideTimer=setInterval(nextAgencySlide,agencyDuration);agencyProgressTimer=setInterval(()=>{agencyElapsed+=100;const bar=$('agencyProgress');if(bar)bar.style.width=Math.min(100,agencyElapsed/agencyDuration*100)+'%'},100)}
+function nextAgencySlide(){if(liveLcdActive){notifyUser('Admin live broadcast চলছে');return}const count=document.querySelectorAll('.agency-slide').length;if(!count)return;agencySlideIndex=(agencySlideIndex+1)%count;renderAgencySlide()}
+function startAgencySlides(){if(liveLcdActive)return;clearInterval(agencySlideTimer);clearInterval(agencyProgressTimer);buildAgencyDots();renderAgencySlide();agencySlideTimer=setInterval(nextAgencySlide,agencyDuration);agencyProgressTimer=setInterval(()=>{agencyElapsed+=100;const bar=$('agencyProgress');if(bar)bar.style.width=Math.min(100,agencyElapsed/agencyDuration*100)+'%'},100)}
 
 
+
+
+
+// ===== Live to LCD Client Listener V14 =====
+let liveLcdUnsub=null,liveLcdActive=false;
+function isLiveTargetForThisClient(data){
+  if(!data||data.active!==true)return false;
+  const target=String(data.target_client_id||'all');
+  return target==='all'||target===''||(client&&String(client.id)===target);
+}
+function stopAgencySlideTimers(){clearInterval(agencySlideTimer);clearInterval(agencyProgressTimer)}
+function showAdminLiveOnLcd(data){
+  const box=$('liveLcdOverlay');if(!box)return;liveLcdActive=true;stopAgencySlideTimers();box.innerHTML='';box.classList.add('on');
+  const type=String(data.type||'message'),url=String(data.url||'').trim(),title=String(data.title||'Live Update'),message=String(data.message||'');
+  if(type==='image'&&/^https?:\/\//i.test(url)){const img=document.createElement('img');img.src=url;img.alt=title;box.appendChild(img)}
+  else if(type==='video'&&/^https?:\/\//i.test(url)){const v=document.createElement('video');v.src=url;v.controls=true;v.autoplay=true;v.muted=true;v.loop=true;v.playsInline=true;box.appendChild(v)}
+  else if(type==='website'&&/^https?:\/\//i.test(url)){const f=document.createElement('iframe');f.src=url;f.title=title;f.allow='autoplay; fullscreen';box.appendChild(f)}
+  else{const wrap=document.createElement('div');wrap.className='live-lcd-message-client';const inner=document.createElement('div');inner.className='inner';const badge=document.createElement('div');badge.className='live-lcd-badge';badge.innerHTML='<i></i> LIVE FROM ADMIN';const h=document.createElement('h3');h.textContent=title;const p=document.createElement('p');p.textContent=message;inner.append(badge,h,p);wrap.appendChild(inner);box.appendChild(wrap)}
+  const note=document.createElement('div');note.className='live-lcd-close-note';note.textContent='Admin live broadcast';box.appendChild(note);
+}
+function hideAdminLiveFromLcd(){
+  const box=$('liveLcdOverlay');if(!box)return;const was=liveLcdActive;liveLcdActive=false;box.classList.remove('on');box.innerHTML='';if(was)startAgencySlides();
+}
+function startLiveLcdListener(){
+  if(liveLcdUnsub)liveLcdUnsub();
+  liveLcdUnsub=db.collection('room_live_lcd').doc('main').onSnapshot(doc=>{const data=doc.exists?doc.data():{};if(isLiveTargetForThisClient(data))showAdminLiveOnLcd(data);else hideAdminLiveFromLcd()},e=>console.warn('Live LCD listener',e));
+}
 
 async function loadRoomSettingsClient(){
  try{

@@ -9,6 +9,12 @@ service cloud.firestore {
       allow create, update, delete: if isAdmin();
     }
 
+
+    match /room_live_lcd/{docId} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+
     match /room_clients/{clientId} {
       allow read: if true;
       allow create, update, delete: if isAdmin();

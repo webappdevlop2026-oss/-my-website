@@ -1,0 +1,12 @@
+Client Room V14 — Live to LCD
+
+Upload/replace these files in GitHub root:
+1. client-room.html
+2. client-room-admin.html
+3. agency-control-2026.html
+4. sw.js
+
+Firebase Console > Firestore Database > Rules:
+Replace existing rules with firestore.rules and Publish.
+
+Admin Panel: select All Client Rooms or Selected Client Only, choose content type, then press Go Live to LCD. Stop Live returns the LCD to agency autoplay.
