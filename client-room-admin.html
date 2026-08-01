@@ -1,280 +1,60 @@
-<!doctype html>
-<html lang="bn">
-<head><meta name="robots" content="noindex, nofollow">
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Client Room Admin V11 | Digital Agency by Chandan Das</title>
-<style>
-*{box-sizing:border-box}body{margin:0;background:#07101d;color:#fff;font-family:Segoe UI,Tahoma,sans-serif}
-header{padding:18px 24px;background:#0b1323;border-bottom:1px solid #ffffff18;display:flex;justify-content:space-between;align-items:center}
-main{max-width:1200px;margin:auto;padding:20px}.grid{display:grid;grid-template-columns:360px 1fr;gap:18px}
-.card{background:#0d1728;border:1px solid #ffffff16;border-radius:18px;padding:18px;margin-bottom:16px}
-h2,h3{margin-top:0}.field{width:100%;padding:11px 12px;margin:6px 0;border:1px solid #ffffff1c;border-radius:10px;background:#050b16;color:#fff}
-button{border:0;border-radius:10px;padding:10px 13px;background:#7c3aed;color:#fff;font-weight:800;cursor:pointer}
-.secondary{background:#1e293b}.danger{background:#be123c}.success{background:#0f766e}
-.client{padding:12px;border:1px solid #ffffff14;border-radius:12px;margin:8px 0;cursor:pointer}.client.active{border-color:#22d3ee;background:#0e749033}
-.row{display:flex;gap:8px;flex-wrap:wrap}.row>*{flex:1}.project{padding:14px;border:1px solid #ffffff14;border-radius:14px;margin:10px 0;background:#ffffff08}
-.badge{display:inline-block;padding:4px 8px;border-radius:999px;background:#164e63;font-size:11px}
-.request-card{padding:13px;border:1px solid #ffffff14;border-radius:13px;margin:9px 0;background:#ffffff08}
-.request-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}
-.request-actions button{padding:7px 10px;font-size:12px}
-.live-badge{display:inline-block;padding:4px 8px;border-radius:999px;background:#166534;color:#dcfce7;font-size:11px;margin-left:6px}
-.muted{color:#94a3b8;font-size:13px}#login{max-width:420px;margin:80px auto}
-.dashboard-cards{max-width:1200px;margin:0 auto 18px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.dash{padding:16px;border-radius:16px;background:linear-gradient(145deg,#111c30,#0b1323);border:1px solid #ffffff16}
-.dash span{display:block;color:#94a3b8;font-size:12px;margin-bottom:8px}.dash b{font-size:24px}
-@media(max-width:800px){.grid{grid-template-columns:1fr}.dashboard-cards{grid-template-columns:repeat(2,1fr)}}
-.cardtop{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.admin-chat-messages{height:360px;overflow-y:auto;padding:12px;background:#050b16;border:1px solid #ffffff14;border-radius:12px;display:flex;flex-direction:column;gap:9px}
-.admin-chat-msg{max-width:78%;padding:10px 12px;border-radius:13px;line-height:1.4}
-.admin-chat-msg.admin{align-self:flex-end;background:linear-gradient(90deg,#7c3aed,#2563eb)}
-.admin-chat-msg.client{align-self:flex-start;background:#172033;border:1px solid #ffffff12}
-.admin-chat-msg small{display:block;margin-top:5px;color:#cbd5e1;font-size:10px}
-.admin-chat-compose{display:flex;gap:8px;margin-top:10px}
-.admin-chat-compose textarea{flex:1;resize:none;border:1px solid #ffffff1c;border-radius:10px;background:#050b16;color:#fff;padding:10px}
-.admin-chat-compose button{border:0;border-radius:10px;padding:0 18px;background:#0f766e;color:#fff;font-weight:900}
-
-.admin-feature-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.admin-feature-grid .card{margin-bottom:0}.file-row,.admin-data-row{padding:12px;border-radius:12px;background:#07111f;border:1px solid #ffffff12;margin-top:8px}.tiny{font-size:11px;color:#94a3b8}.upload-progress{height:8px;border-radius:999px;background:#ffffff12;overflow:hidden;margin-top:8px}.upload-progress b{display:block;height:100%;width:0;background:linear-gradient(90deg,#7c3aed,#22d3ee)}
-@media(max-width:900px){.admin-feature-grid{grid-template-columns:1fr}}
-
-
-/* ===== Client Room Admin V11 UI ===== */
-body{background:radial-gradient(circle at 20% 0,#15264a55,transparent 35%),linear-gradient(180deg,#050914,#091321)}
-header{position:sticky;top:0;z-index:50;background:#07101dee;backdrop-filter:blur(16px);box-shadow:0 12px 35px #0004}
-main{max-width:1380px}.dashboard-cards{max-width:1380px}.grid{grid-template-columns:390px 1fr}
-.card{box-shadow:0 14px 36px #0003}.dash{position:relative;overflow:hidden}.dash:after{content:'';position:absolute;width:80px;height:80px;border-radius:50%;right:-20px;top:-20px;background:#22d3ee14}
-.room-settings-card{background:linear-gradient(145deg,#111d36,#0b1629);border:1px solid #38bdf833}
-.settings-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.settings-grid .wide{grid-column:1/-1}.settings-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}
-.status-pill{display:inline-flex;align-items:center;gap:6px;padding:5px 9px;border-radius:999px;font-size:11px;font-weight:800}.status-on{background:#14532d;color:#bbf7d0}.status-off{background:#7f1d1d;color:#fecaca}
-.client{transition:.2s}.client:hover{transform:translateY(-2px);border-color:#38bdf855}.client-head{display:flex;align-items:center;justify-content:space-between;gap:8px}.client-code{font-family:Consolas,monospace;letter-spacing:.5px;color:#7dd3fc}.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.toolbar button{flex:0 0 auto}
-.copy-btn{background:#0369a1}.warning{background:#b45309}.outline{background:transparent;border:1px solid #ffffff28}
-@media(max-width:1000px){.settings-grid{grid-template-columns:1fr 1fr}.grid{grid-template-columns:1fr}}
-@media(max-width:640px){.settings-grid{grid-template-columns:1fr}.settings-grid .wide{grid-column:auto}.dashboard-cards{grid-template-columns:1fr 1fr}.row>*{min-width:0}}
-
-
-
-/* ===== Live to LCD V14 ===== */
-.live-lcd-card{background:linear-gradient(145deg,#17123a,#0b172b);border:1px solid #8b5cf655;box-shadow:0 18px 45px #0005}
-.live-lcd-layout{display:grid;grid-template-columns:1.2fr .8fr;gap:14px;margin-top:14px}
-.live-lcd-form{display:grid;grid-template-columns:1fr 1fr;gap:10px}.live-lcd-form .wide{grid-column:1/-1}
-.live-lcd-preview{min-height:230px;border-radius:16px;border:1px solid #ffffff1c;background:#030712;overflow:hidden;display:grid;place-items:center;position:relative}
-.live-lcd-preview iframe,.live-lcd-preview img,.live-lcd-preview video{width:100%;height:230px;border:0;object-fit:contain;background:#000}
-.live-lcd-message{padding:24px;text-align:center}.live-lcd-message b{display:block;font-size:22px;margin-bottom:9px}.live-lcd-message p{margin:0;color:#cbd5e1;line-height:1.5}
-.live-status{display:inline-flex;align-items:center;gap:7px;padding:6px 10px;border-radius:999px;font-size:11px;font-weight:900;background:#3f1d2e;color:#fecdd3}.live-status.on{background:#064e3b;color:#a7f3d0;box-shadow:0 0 18px #10b98144}
-.live-dot-admin{width:8px;height:8px;border-radius:50%;background:#fb7185}.live-status.on .live-dot-admin{background:#34d399;box-shadow:0 0 10px #34d399}
-.live-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}.live-actions button{flex:0 0 auto}
-@media(max-width:900px){.live-lcd-layout{grid-template-columns:1fr}.live-lcd-form{grid-template-columns:1fr}.live-lcd-form .wide{grid-column:auto}}
-
-
-
-/* ===== Virtual CCTV Monitor V16 ===== */
-.cctv-card{background:linear-gradient(145deg,#09151f,#07101c);border:1px solid #22d3ee35;box-shadow:0 20px 55px #0005}
-.cctv-layout{display:grid;grid-template-columns:minmax(420px,1.25fr) minmax(300px,.75fr);gap:15px;margin-top:14px}
-.cctv-screen{position:relative;min-height:340px;border-radius:18px;overflow:hidden;background:#020617 url('client-room-agency-v8.png') center/cover no-repeat;border:1px solid #334155;box-shadow:inset 0 0 0 1px #ffffff08,0 16px 38px #0005}
-.cctv-screen:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(2,6,23,.08),rgba(2,6,23,.58));pointer-events:none}
-.cctv-rec{position:absolute;z-index:3;left:14px;top:14px;display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:999px;background:#070b14cc;border:1px solid #ffffff20;font-size:11px;font-weight:900}.cctv-rec i{width:9px;height:9px;border-radius:50%;background:#fb7185;box-shadow:0 0 10px #fb7185;animation:cctvRec 1.4s infinite}@keyframes cctvRec{50%{opacity:.4}}
-.cctv-time{position:absolute;z-index:3;right:14px;top:14px;padding:7px 10px;border-radius:9px;background:#070b14cc;font-family:Consolas,monospace;font-size:11px}
-.cctv-info{position:absolute;z-index:3;left:18px;right:18px;bottom:18px;padding:15px;border-radius:15px;background:linear-gradient(90deg,rgba(4,12,24,.94),rgba(7,24,35,.84));border:1px solid #22d3ee35;backdrop-filter:blur(10px)}
-.cctv-info h3{margin:0 0 7px;font-size:21px}.cctv-meta{display:flex;gap:8px;flex-wrap:wrap}.cctv-meta span{padding:5px 8px;border-radius:999px;background:#ffffff0d;border:1px solid #ffffff14;font-size:10px;color:#cbd5e1}.cctv-action{margin-top:9px;color:#67e8f9;font-weight:800;font-size:13px}
-.cctv-side{display:flex;flex-direction:column;gap:12px}.cctv-list{max-height:210px;overflow:auto;padding-right:3px}.cctv-person{padding:11px;border-radius:13px;border:1px solid #ffffff14;background:#0a1524;margin-bottom:8px;cursor:pointer;transition:.18s}.cctv-person:hover,.cctv-person.active{border-color:#22d3ee88;background:#0d2535;transform:translateY(-1px)}.cctv-person-head{display:flex;align-items:center;justify-content:space-between;gap:8px}.online-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#34d399;box-shadow:0 0 9px #34d399;margin-right:6px}.offline-dot{background:#64748b;box-shadow:none}.cctv-log{max-height:145px;overflow:auto}.cctv-log-row{padding:8px 9px;border-left:2px solid #334155;margin:0 0 7px 4px;background:#ffffff05;border-radius:0 9px 9px 0;font-size:11px}.cctv-notice{font-size:10px;color:#94a3b8;margin-top:8px}.cctv-counter{display:inline-flex;gap:7px;align-items:center;padding:6px 10px;border-radius:999px;background:#064e3b;color:#a7f3d0;font-size:11px;font-weight:900}
-@media(max-width:980px){.cctv-layout{grid-template-columns:1fr}.cctv-screen{min-height:310px}}
-@media(max-width:600px){.cctv-screen{min-height:260px}.cctv-info h3{font-size:17px}.cctv-layout{display:block}.cctv-side{margin-top:12px}}
-
-</style>
-<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-storage-compat.js"></script>
-<script src="firebase-client.js"></script>
-</head>
-<body>
+<!doctype html><html lang="bn"><head><meta name="robots" content="noindex, nofollow"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Multi-Client Admin | Digital Agency by Chandan Das</title><style>
+:root{--bg:#06101d;--panel:#0b1728;--panel2:#0e1d31;--line:#1b2d45;--text:#f8fafc;--muted:#8ea3bb;--cyan:#22d3ee;--blue:#3b82f6;--violet:#8b5cf6;--green:#10b981;--danger:#e11d48}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:radial-gradient(circle at 20% 0,#15345d55,transparent 30%),linear-gradient(180deg,#050b14,#081526);color:var(--text);font-family:Segoe UI,Tahoma,Arial,sans-serif}button,input,textarea,select{font:inherit}.muted,.tiny{color:var(--muted)}.tiny{font-size:11px}button{border:0;cursor:pointer;color:#fff;font-weight:800}
+header{height:70px;position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 22px;background:#06101df2;border-bottom:1px solid var(--line);backdrop-filter:blur(16px)}.brand-title{font-size:18px;font-weight:900}.brand-sub{font-size:11px;color:var(--muted);margin-top:3px}.header-actions{display:flex;gap:9px}.header-btn{padding:10px 14px;border-radius:12px;background:#152238;border:1px solid #263953}.header-btn:hover{background:#1b2d48}
+#login{width:min(430px,92vw);margin:80px auto;padding:24px;border-radius:24px;background:#0b1728;border:1px solid var(--line);box-shadow:0 28px 80px #0008}.field{width:100%;padding:11px 12px;margin:6px 0;border:1px solid #233750;border-radius:11px;background:#050c17;color:#fff;outline:none}.field:focus{border-color:#38bdf8;box-shadow:0 0 0 3px #38bdf81c}.btn{padding:10px 13px;border-radius:11px;background:linear-gradient(135deg,#7c3aed,#2563eb)}.secondary{background:#1c2a40}.success{background:#0f766e}.danger{background:#be123c}.warning{background:#b45309}.copy-btn{background:#0369a1}.outline{background:transparent;border:1px solid #32465f}.row{display:flex;gap:9px;flex-wrap:wrap}.row>*{flex:1}.card{background:linear-gradient(145deg,#0d1a2c,#0a1525);border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:0 14px 38px #0003}.card h2,.card h3,.card h4{margin-top:0}.cardtop{display:flex;justify-content:space-between;align-items:center;gap:10px}
+#app{display:none}.top-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:14px 18px}.stat{min-height:78px;padding:14px;border-radius:17px;background:linear-gradient(145deg,#0d1b30,#0a1424);border:1px solid var(--line);position:relative;overflow:hidden}.stat:after{content:'';position:absolute;right:-18px;top:-24px;width:84px;height:84px;border-radius:50%;background:#22d3ee12}.stat span{display:block;color:var(--muted);font-size:11px}.stat b{display:block;font-size:25px;margin-top:7px}
+.admin-shell{display:grid;grid-template-columns:310px minmax(0,1fr);gap:14px;padding:0 18px 18px;min-height:calc(100vh - 178px)}.client-sidebar{position:sticky;top:84px;align-self:start;height:calc(100vh - 100px);display:flex;flex-direction:column;background:#091525;border:1px solid var(--line);border-radius:20px;overflow:hidden}.sidebar-head{padding:15px;border-bottom:1px solid var(--line)}.sidebar-title{display:flex;align-items:center;justify-content:space-between}.sidebar-title h2{font-size:17px;margin:0}.add-client-btn{width:34px;height:34px;border-radius:11px;background:linear-gradient(135deg,#7c3aed,#06b6d4);font-size:20px}.search-wrap{position:relative;margin-top:11px}.search-wrap:before{content:'⌕';position:absolute;left:11px;top:10px;color:#7dd3fc}.search-wrap input{padding-left:32px;margin:0}.new-client-box{display:none;padding:12px;border-bottom:1px solid var(--line);background:#0d1c30}.new-client-box.open{display:block}.client-list{padding:10px;overflow:auto;flex:1}.client{padding:11px;border:1px solid transparent;border-radius:14px;margin-bottom:7px;cursor:pointer;background:#0c1a2c;transition:.18s}.client:hover{border-color:#2b4969;transform:translateY(-1px)}.client.active{border-color:#22d3ee;background:linear-gradient(135deg,#0d3040,#10223a);box-shadow:0 0 0 1px #22d3ee22}.client-row{display:flex;align-items:center;gap:10px}.client-avatar{width:38px;height:38px;flex:0 0 38px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(135deg,#7c3aed,#0891b2);font-weight:900}.client-body{min-width:0;flex:1}.client-head{display:flex;align-items:center;justify-content:space-between;gap:6px}.client-head b{font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.client-meta{font-size:10px;color:var(--muted);margin-top:4px}.client-code{font-family:Consolas,monospace;color:#67e8f9}.client-arrow{color:#5f7895;font-size:22px}.status-pill{padding:3px 6px;border-radius:999px;font-size:8px}.status-on{background:#064e3b;color:#a7f3d0}.status-off{background:#6f1d2c;color:#fecdd3}
+.workspace{min-width:0}.workspace-header{padding:15px 16px;border:1px solid var(--line);border-radius:20px;background:linear-gradient(145deg,#0d1d32,#0a1729);margin-bottom:10px}.workspace-client{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.workspace-client h2{margin:0 0 5px;font-size:21px}.selected-info{font-size:12px;line-height:1.65;color:#b5c4d5}.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.toolbar button{padding:8px 10px;border-radius:10px}.pin-editor{display:none;gap:8px;align-items:center;margin-top:10px}.pin-editor .field{max-width:220px;margin:0}.workspace-tabs{display:flex;gap:6px;overflow-x:auto;padding:7px;border:1px solid var(--line);border-radius:15px;background:#081423;margin-bottom:10px;position:sticky;top:78px;z-index:40}.workspace-tab{flex:0 0 auto;padding:9px 12px;border-radius:10px;background:transparent;color:#9fb1c5;font-size:11px}.workspace-tab.active{background:linear-gradient(135deg,#1d4ed8,#0e7490);color:#fff;box-shadow:0 8px 18px #0004}.tab-panel{display:none}.tab-panel.active{display:block}.empty-workspace{min-height:440px;display:grid;place-items:center;text-align:center;border:1px dashed #29425e;border-radius:20px;background:#081423}.empty-workspace .empty-icon{font-size:46px}.selected-workspace:not(.ready) .workspace-header,.selected-workspace:not(.ready) .workspace-tabs{opacity:.55}.section-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.section-grid.three{grid-template-columns:repeat(3,1fr)}.overview-tile{padding:15px;border-radius:15px;background:#0b192b;border:1px solid var(--line)}.overview-tile b{display:block;font-size:15px}.overview-tile span{display:block;font-size:11px;color:var(--muted);margin-top:5px}.project,.request-card,.file-row,.admin-data-row{padding:12px;border-radius:13px;background:#081423;border:1px solid var(--line);margin-top:8px}.badge,.live-badge{display:inline-block;padding:4px 7px;border-radius:999px;background:#164e63;font-size:10px}.request-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px}.request-actions button{padding:7px 9px;border-radius:9px}.admin-chat-messages{height:480px;overflow-y:auto;padding:13px;background:#050b15;border:1px solid var(--line);border-radius:14px;display:flex;flex-direction:column;gap:9px}.admin-chat-msg{max-width:78%;padding:10px 12px;border-radius:14px;line-height:1.45;font-size:13px}.admin-chat-msg.admin{align-self:flex-end;background:linear-gradient(135deg,#6d28d9,#2563eb)}.admin-chat-msg.client{align-self:flex-start;background:#17243a}.admin-chat-msg small{display:block;font-size:9px;color:#cbd5e1;margin-top:4px}.admin-chat-compose{display:flex;gap:8px;margin-top:9px}.admin-chat-compose textarea{flex:1;resize:none}.admin-chat-compose button{width:90px;border-radius:11px;background:#0f766e}.upload-progress{height:7px;border-radius:999px;background:#ffffff12;overflow:hidden;margin-top:8px}.upload-progress b{display:block;height:100%;width:0;background:linear-gradient(90deg,#7c3aed,#22d3ee)}
+.live-lcd-layout{display:grid;grid-template-columns:1.15fr .85fr;gap:12px}.live-lcd-form{display:grid;grid-template-columns:1fr 1fr;gap:9px}.live-lcd-form .wide{grid-column:1/-1}.live-lcd-preview{min-height:250px;border-radius:15px;border:1px solid var(--line);background:#030712;display:grid;place-items:center;overflow:hidden}.live-lcd-preview iframe,.live-lcd-preview img,.live-lcd-preview video{width:100%;height:250px;border:0;object-fit:contain;background:#000}.live-lcd-message{padding:22px;text-align:center}.live-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.live-status,.cctv-counter{display:inline-flex;align-items:center;gap:6px;padding:5px 9px;border-radius:999px;font-size:10px;font-weight:900;background:#3f1d2e;color:#fecdd3}.live-status.on,.cctv-counter{background:#064e3b;color:#a7f3d0}.live-dot-admin,.online-dot{width:7px;height:7px;border-radius:50%;background:#34d399;box-shadow:0 0 9px #34d399;display:inline-block}.cctv-layout{display:grid;grid-template-columns:minmax(400px,1.2fr) minmax(270px,.8fr);gap:12px}.cctv-screen{position:relative;min-height:330px;border-radius:16px;overflow:hidden;background:#020617 url('client-room-agency-v8.png') center/cover no-repeat;border:1px solid var(--line)}.cctv-screen:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,#02061710,#020617aa)}.cctv-rec,.cctv-time,.cctv-info{position:absolute;z-index:3}.cctv-rec{left:12px;top:12px;padding:6px 9px;border-radius:999px;background:#07101dcc;font-size:10px}.cctv-time{right:12px;top:12px;padding:6px 8px;border-radius:8px;background:#07101dcc;font-family:Consolas}.cctv-info{left:14px;right:14px;bottom:14px;padding:13px;border-radius:14px;background:#06111ee8;border:1px solid #22d3ee33}.cctv-info h3{margin:0 0 7px}.cctv-meta{display:flex;gap:6px;flex-wrap:wrap}.cctv-meta span{padding:4px 7px;border-radius:999px;background:#ffffff0d;font-size:9px}.cctv-action{margin-top:8px;color:#67e8f9;font-size:11px}.cctv-side{display:flex;flex-direction:column;gap:10px}.cctv-list,.cctv-log{max-height:190px;overflow:auto}.cctv-person,.cctv-log-row{padding:9px;border-radius:11px;background:#0a1728;border:1px solid var(--line);margin-bottom:7px}.cctv-person{cursor:pointer}.cctv-person.active{border-color:#22d3ee}.cctv-person-head{display:flex;justify-content:space-between}.offline-dot{background:#64748b;box-shadow:none}.settings-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.settings-grid .wide{grid-column:1/-1}.settings-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+@media(max-width:1100px){.admin-shell{grid-template-columns:270px minmax(0,1fr)}.section-grid,.section-grid.three{grid-template-columns:1fr}.live-lcd-layout,.cctv-layout{grid-template-columns:1fr}}
+@media(max-width:760px){header{height:auto;padding:12px}.brand-sub{display:none}.top-stats{grid-template-columns:1fr 1fr;padding:10px}.admin-shell{display:block;padding:0 10px 12px}.client-sidebar{position:relative;top:auto;height:auto;max-height:440px;margin-bottom:10px}.workspace-tabs{top:0}.workspace-client{display:block}.header-actions{gap:5px}.header-btn{font-size:10px;padding:8px}.live-lcd-form,.settings-grid{grid-template-columns:1fr}.live-lcd-form .wide,.settings-grid .wide{grid-column:auto}.row>*{min-width:0}.admin-chat-messages{height:380px}}
+</style><script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-storage-compat.js"></script><script src="firebase-client.js"></script></head><body>
 <header>
-<div>
-  <b style="font-size:18px">Digital Agency by Chandan Das</b>
-  <div class="muted">Client Room Admin V18 — CCTV, Access, Projects, Chat & Settings</div>
-</div>
-<div class="row" style="flex:0 0 auto">
-  <a href="client-room.html" target="_blank" style="text-decoration:none"><button class="secondary">Client Room দেখুন</button></a>
-  <button class="secondary" onclick="logout()">Logout</button>
-</div>
+  <div><div class="brand-title">Digital Agency by Chandan Das</div><div class="brand-sub">Multi-Client Room Admin — each client has a separate workspace</div></div>
+  <div class="header-actions"><a href="client-room.html" target="_blank"><button class="header-btn">🚪 Client Room</button></a><button class="header-btn" onclick="logout()">Logout</button></div>
 </header>
-
-<section id="login" class="card">
-<h2>Admin Login</h2>
-<input id="email" class="field" type="email" placeholder="Admin email">
-<input id="password" class="field" type="password" placeholder="Password">
-<button onclick="login()">Login</button>
-<div id="loginMsg" class="muted"></div>
+<section id="login">
+  <h2>Admin Login</h2><p class="muted">Client workspace পরিচালনা করতে login করুন</p>
+  <input id="email" class="field" type="email" placeholder="Admin email"><input id="password" class="field" type="password" placeholder="Password"><button class="btn" onclick="login()">Login</button><div id="loginMsg" class="muted" style="margin-top:9px"></div>
 </section>
+<main id="app">
+  <div class="top-stats"><div class="stat"><span>Total Clients</span><b id="totalClients">0</b></div><div class="stat"><span>Total Projects</span><b id="totalProjects">0</b></div><div class="stat"><span>New Corrections</span><b id="newCorrections">0</b></div><div class="stat"><span>Demo Gate PIN</span><b id="dashDemoPin" style="color:#67e8f9">1234</b></div></div>
+  <div class="admin-shell">
+    <aside class="client-sidebar">
+      <div class="sidebar-head"><div class="sidebar-title"><h2>👥 Clients</h2><button class="add-client-btn" title="Add client" onclick="toggleNewClient()">＋</button></div><div class="search-wrap"><input id="clientSearch" class="field" placeholder="Name, mobile or PIN..." oninput="renderClients()"></div></div>
+      <div id="newClientBox" class="new-client-box"><b>New Client</b><input id="clientName" class="field" placeholder="Client name"><input id="clientPhone" class="field" placeholder="Mobile number"><input id="clientEmail" class="field" type="email" placeholder="Email (optional)"><div class="row"><input id="clientPin" class="field" inputmode="numeric" maxlength="4" placeholder="4-digit PIN"><input id="clientExpiry" class="field" type="date"></div><div class="row"><button class="secondary" onclick="generatePin()">Generate PIN</button><button class="btn" onclick="saveClient()">Add Client</button></div></div>
+      <div id="clients" class="client-list"><div class="muted">Loading clients...</div></div>
+    </aside>
 
-<main id="app" style="display:none">
-<div class="dashboard-cards">
-  <div class="dash"><span>Total Clients</span><b id="totalClients">0</b></div>
-  <div class="dash"><span>Total Projects</span><b id="totalProjects">0</b></div>
-  <div class="dash"><span>New Corrections</span><b id="newCorrections">0</b></div>
-  <div class="dash"><span>Demo Gate PIN</span><b id="dashDemoPin" style="color:#67e8f9">1234</b></div>
-</div>
+    <section class="workspace">
+      <div id="emptyWorkspace" class="empty-workspace"><div><div class="empty-icon">🗂️</div><h2>Select a Client</h2><p class="muted">বাঁ পাশ থেকে client select করলে তার Project, Chat, Correction, Meeting, Files ও Billing আলাদাভাবে খুলবে।</p><button class="btn" onclick="focusClientSearch()">Search Client</button></div></div>
+      <div id="selectedWorkspace" class="selected-workspace">
+        <div class="workspace-header"><div class="workspace-client"><div><h2 id="selectedTitle">Client select করুন</h2><div id="selectedInfo" class="selected-info"></div></div><div id="selectedActions" class="toolbar" style="display:none"><button class="copy-btn" onclick="copyClientAccess()">🔗 Copy PIN & Link</button><button class="warning" onclick="toggleClientActive()">⏯ Enable / Disable</button><button class="danger" onclick="deleteSelectedClient()">🗑 Delete</button></div></div><div id="selectedPinEditor" class="pin-editor"><input id="selectedClientPin" class="field" inputmode="numeric" maxlength="4" placeholder="4-digit PIN"><button class="secondary" onclick="generateSelectedPin()">Generate</button><button class="btn" onclick="saveSelectedClientPin()">Save PIN</button></div></div>
+        <nav class="workspace-tabs">
+          <button class="workspace-tab active" data-tab="overview" onclick="switchAdminTab('overview')">Overview</button><button class="workspace-tab" data-tab="projects" onclick="switchAdminTab('projects')">Projects</button><button class="workspace-tab" data-tab="chat" onclick="switchAdminTab('chat')">Live Chat</button><button class="workspace-tab" data-tab="corrections" onclick="switchAdminTab('corrections')">Corrections</button><button class="workspace-tab" data-tab="meetings" onclick="switchAdminTab('meetings')">Meetings</button><button class="workspace-tab" data-tab="files" onclick="switchAdminTab('files')">Files & Billing</button><button class="workspace-tab" data-tab="live" onclick="switchAdminTab('live')">Live Control</button><button class="workspace-tab" data-tab="settings" onclick="switchAdminTab('settings')">Room Settings</button>
+        </nav>
 
-<div class="card cctv-card" id="cctvCard">
-  <div class="cardtop">
-    <div><h2 style="margin-bottom:5px">📹 Client Room Virtual CCTV</h2><div class="muted">Client Room-এ কে ঢুকেছে, online status এবং current activity live দেখুন</div></div>
-    <span id="cctvOnlineCount" class="cctv-counter"><span class="online-dot"></span>0 ONLINE</span>
-  </div>
-  <div class="cctv-layout">
-    <div>
-      <div class="cctv-screen" id="cctvScreen">
-        <div class="cctv-rec"><i></i> VIRTUAL CCTV • LIVE</div>
-        <div class="cctv-time" id="cctvClock">--:--:--</div>
-        <div class="cctv-info">
-          <h3 id="cctvName">কোনো client online নেই</h3>
-          <div class="cctv-meta"><span id="cctvPin">PIN: —</span><span id="cctvDevice">Device: —</span><span id="cctvEntered">Entered: —</span></div>
-          <div class="cctv-action" id="cctvAction">Waiting for room entry…</div>
-        </div>
+        <div id="tab-overview" class="tab-panel active"><div class="section-grid three"><div class="overview-tile"><b>📊 Separate Projects</b><span>শুধু selected client-এর project দেখা ও update হবে।</span></div><div class="overview-tile"><b>💬 Private Chat</b><span>প্রতিটি client-এর chat thread সম্পূর্ণ আলাদা।</span></div><div class="overview-tile"><b>📡 Targeted LCD</b><span>Selected Client Only বেছে আলাদা live content পাঠান।</span></div></div><div class="card" style="margin-top:12px"><h3>Client Workspace</h3><p class="muted">উপরের tabs থেকে কাজ নির্বাচন করুন। Client পরিবর্তন করলে data automatically সেই client অনুযায়ী বদলে যাবে।</p></div></div>
+
+        <div id="tab-projects" class="tab-panel"><div class="section-grid"><div id="projectForm" class="card" style="display:none"><h3>Project Add / Update</h3><input id="projectId" type="hidden"><div class="row"><input id="projectName" class="field" placeholder="Project name"><select id="projectType" class="field"><option>Website</option><option>Mobile App</option><option>Admin Panel</option><option>Software</option><option>Other</option></select></div><div class="row"><select id="projectStatus" class="field"><option>Enquiry</option><option>Advance Paid</option><option selected>In Progress</option><option>Testing</option><option>Delivered</option><option>On Hold</option></select><input id="projectProgress" class="field" type="number" min="0" max="100" placeholder="Progress %"></div><input id="projectStage" class="field" placeholder="Current stage"><textarea id="projectNotes" class="field" rows="3" placeholder="Client update note"></textarea><div class="row"><input id="projectPreview" class="field" placeholder="Preview URL"><input id="projectVideo" class="field" placeholder="Video URL"></div><div class="row"><input id="projectCost" class="field" placeholder="Project cost"><input id="projectDelivery" class="field" type="date"></div><div class="row"><button class="btn" onclick="saveProject()">Save Project</button><button class="secondary" onclick="clearProjectForm()">Clear</button></div></div><div class="card"><div class="cardtop"><h3>Client Projects</h3><span class="tiny">Selected client only</span></div><div id="projects"><div class="muted">Client select করুন</div></div></div></div></div>
+
+        <div id="tab-chat" class="tab-panel"><div class="card"><div class="cardtop"><h3>💬 Private Client Chat</h3><span id="adminChatStatus" class="muted">Client select করুন</span></div><div id="adminChatMessages" class="admin-chat-messages"></div><div class="admin-chat-compose"><textarea id="adminChatInput" class="field" rows="2" placeholder="Selected client-কে reply লিখুন..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendAdminChat()}"></textarea><button onclick="sendAdminChat()">Send</button></div></div></div>
+
+        <div id="tab-corrections" class="tab-panel"><div class="card"><div class="cardtop"><h3>✍️ Correction Requests</h3><button class="secondary" onclick="loadCorrectionRequests()">Refresh</button></div><div id="correctionRequests"><div class="muted">Client select করুন</div></div></div></div>
+
+        <div id="tab-meetings" class="tab-panel"><div class="section-grid"><div class="card"><div class="cardtop"><h3>📅 Meeting Requests</h3><button class="secondary" onclick="loadMeetingsApprovals()">Refresh</button></div><div id="adminMeetings"></div></div><div class="card"><h3>✅ Project Approvals</h3><div id="adminApprovals"></div></div></div></div>
+
+        <div id="tab-files" class="tab-panel"><div id="v2AdminFeatures" class="section-grid" style="display:none"><div class="card"><h3>📥 Client Files</h3><select id="adminFileProject" class="field"></select><input id="adminFileInput" class="field" type="file"><input id="adminFileNote" class="field" placeholder="File note / version"><button class="btn" onclick="uploadClientFile()">Upload File</button><div class="upload-progress"><b id="fileUploadBar"></b></div><div id="adminFiles"></div></div><div class="card"><h3>🧾 Invoice / Payment</h3><select id="invoiceProject" class="field"></select><div class="row"><input id="invoiceNo" class="field" placeholder="Invoice No"><input id="invoiceAmount" class="field" placeholder="Amount"></div><div class="row"><select id="invoiceStatus" class="field"><option>Due</option><option>Partially Paid</option><option>Paid</option><option>Cancelled</option></select><input id="invoiceDue" class="field" type="date"></div><input id="invoiceUrl" class="field" placeholder="Invoice PDF URL"><input id="paymentUrl" class="field" placeholder="Payment URL"><textarea id="invoiceNote" class="field" rows="2" placeholder="Payment note"></textarea><button class="btn" onclick="saveInvoice()">Save Invoice</button><div id="adminInvoices"></div></div><div class="card"><h3>🔔 Send Notification</h3><input id="notificationTitle" class="field" placeholder="Notification title"><select id="notificationType" class="field"><option>Update</option><option>Important</option><option>Payment</option><option>Delivery</option><option>Meeting</option></select><textarea id="notificationMessage" class="field" rows="3" placeholder="Client message"></textarea><button class="btn" onclick="sendNotification()">Send Notification</button><div id="adminNotifications"></div></div></div></div>
+
+        <div id="tab-live" class="tab-panel"><div class="card" style="margin-bottom:12px"><div class="cardtop"><div><h3>📡 Live to LCD</h3><div class="muted">All clients বা selected client-এর LCD আলাদাভাবে control করুন</div></div><span id="liveLcdStatus" class="live-status"><span class="live-dot-admin"></span><span>OFFLINE</span></span></div><div class="live-lcd-layout"><div><div class="live-lcd-form"><div><label class="tiny">Content Type</label><select id="liveLcdType" class="field" onchange="previewLiveLcdAdmin()"><option value="message">Message</option><option value="image">Image URL</option><option value="video">Video URL</option><option value="website">Website Link</option></select></div><div><label class="tiny">Target</label><select id="liveLcdTarget" class="field"><option value="all">All Client Rooms</option><option value="selected">Selected Client Only</option></select></div><div class="wide"><input id="liveLcdTitle" class="field" placeholder="Title" oninput="previewLiveLcdAdmin()"></div><div class="wide"><textarea id="liveLcdMessage" class="field" rows="3" placeholder="Message / description" oninput="previewLiveLcdAdmin()"></textarea></div><div class="wide"><input id="liveLcdUrl" class="field" placeholder="https://..." oninput="previewLiveLcdAdmin()"></div></div><div class="live-actions"><button class="success" onclick="goLiveToLcd()">🔴 Go Live</button><button class="secondary" onclick="previewLiveLcdAdmin()">Preview</button><button class="danger" onclick="stopLiveToLcd()">Stop Live</button></div><div id="liveLcdMsg" class="muted"></div></div><div id="liveLcdPreview" class="live-lcd-preview"><div class="live-lcd-message"><b>Live Preview</b><p>Message বা URL লিখুন</p></div></div></div></div>
+          <div class="card"><div class="cardtop"><div><h3>📹 Virtual CCTV Activity</h3><div class="muted">Camera নয়—online session ও current action</div></div><span id="cctvOnlineCount" class="cctv-counter"><span class="online-dot"></span>0 ONLINE</span></div><div class="cctv-layout"><div><div class="cctv-screen" id="cctvScreen"><div class="cctv-rec">● VIRTUAL CCTV LIVE</div><div class="cctv-time" id="cctvClock">--:--:--</div><div class="cctv-info"><h3 id="cctvName">কোনো client online নেই</h3><div class="cctv-meta"><span id="cctvPin">PIN: —</span><span id="cctvDevice">Device: —</span><span id="cctvEntered">Entered: —</span></div><div class="cctv-action" id="cctvAction">Waiting for room entry…</div></div></div></div><div class="cctv-side"><div class="card"><div class="cardtop"><h4>Online Visitors</h4><button class="secondary" onclick="refreshCctvMonitor()">↻</button></div><div id="cctvVisitors" class="cctv-list"></div></div><div class="card"><h4>Recent Entry Log</h4><div id="cctvLog" class="cctv-log"></div></div></div></div></div></div>
+
+        <div id="tab-settings" class="tab-panel"><div class="card"><div class="cardtop"><div><h3>🚪 Global Room Settings</h3><div class="muted">Demo PIN, voice, autoplay ও maintenance mode</div></div><span id="roomSettingsState" class="status-pill status-on">● Connected</span></div><div class="settings-grid"><div><label class="tiny">Demo PIN</label><input id="settingDemoPin" class="field" inputmode="numeric" maxlength="4"></div><div><label class="tiny">Autoplay seconds</label><input id="settingAutoplay" class="field" type="number" min="2" max="20" step="0.5"></div><div><label class="tiny">Room status</label><select id="settingRoomActive" class="field"><option value="true">Active</option><option value="false">Maintenance</option></select></div><div class="wide"><label class="tiny">Bengali male welcome</label><textarea id="settingWelcomeBn" class="field" rows="2"></textarea></div><div class="wide"><label class="tiny">Hindi male welcome</label><textarea id="settingWelcomeHi" class="field" rows="2"></textarea></div><div class="wide"><label class="tiny">English male welcome</label><textarea id="settingWelcomeEn" class="field" rows="2"></textarea></div></div><div class="settings-actions"><button class="btn" onclick="saveRoomSettings()">Save Settings</button><button class="secondary" onclick="loadRoomSettings()">Reload</button><a href="client-room.html" target="_blank"><button class="copy-btn" type="button">Open Client Gate</button></a></div><div id="roomSettingsMsg" class="muted" style="margin-top:8px"></div></div></div>
       </div>
-      <div class="cctv-notice">🔒 এটি শুধু virtual room activity monitor। Client-এর device camera বা microphone ব্যবহার করা হয় না।</div>
-    </div>
-    <div class="cctv-side">
-      <div class="card" style="margin:0;padding:13px"><div class="cardtop"><h3 style="margin:0">Online Visitors</h3><button class="secondary" style="padding:7px 9px" onclick="refreshCctvMonitor()">↻</button></div><div id="cctvVisitors" class="cctv-list" style="margin-top:10px"><div class="muted">Waiting…</div></div></div>
-      <div class="card" style="margin:0;padding:13px"><h3>Recent Entry Log</h3><div id="cctvLog" class="cctv-log"><div class="muted">No entry yet</div></div></div>
-    </div>
+    </section>
   </div>
-</div>
-
-<div class="card room-settings-card" id="roomSettingsCard">
-  <div class="cardtop">
-    <div><h2 style="margin-bottom:5px">🚪 Client Room Settings</h2><div class="muted">Gate PIN, male welcome voice এবং agency LCD autoplay এখান থেকে control করুন</div></div>
-    <span id="roomSettingsState" class="status-pill status-on">● Connected</span>
-  </div>
-  <div class="settings-grid" style="margin-top:14px">
-    <div><label class="tiny">Demo PIN (4 digits)</label><input id="settingDemoPin" class="field" inputmode="numeric" maxlength="4" placeholder="1234"></div>
-    <div><label class="tiny">Autoplay seconds</label><input id="settingAutoplay" class="field" type="number" min="2" max="20" step="0.5" placeholder="4.5"></div>
-    <div><label class="tiny">Room status</label><select id="settingRoomActive" class="field"><option value="true">Active</option><option value="false">Maintenance</option></select></div>
-    <div class="wide"><label class="tiny">Bengali male welcome message</label><textarea id="settingWelcomeBn" class="field" rows="2"></textarea></div>
-    <div class="wide"><label class="tiny">Hindi male welcome message</label><textarea id="settingWelcomeHi" class="field" rows="2"></textarea></div>
-    <div class="wide"><label class="tiny">English male welcome message</label><textarea id="settingWelcomeEn" class="field" rows="2"></textarea></div>
-  </div>
-  <div class="settings-actions">
-    <button onclick="saveRoomSettings()">💾 Save Room Settings</button>
-    <button class="secondary" onclick="loadRoomSettings()">↻ Reload</button>
-    <a href="client-room.html?v=1100" target="_blank"><button class="copy-btn" type="button">🚪 Open Client Gate</button></a>
-  </div>
-  <div id="roomSettingsMsg" class="muted" style="margin-top:9px"></div>
-</div>
-
-
-
-<div class="card live-lcd-card" id="liveLcdCard">
-  <div class="cardtop">
-    <div><h2 style="margin-bottom:5px">📡 Live to LCD</h2><div class="muted">Admin থেকে Client Room LCD-তে live message, image, video বা website পাঠান</div></div>
-    <span id="liveLcdStatus" class="live-status"><span class="live-dot-admin"></span><span>OFFLINE</span></span>
-  </div>
-  <div class="live-lcd-layout">
-    <div>
-      <div class="live-lcd-form">
-        <div><label class="tiny">Content Type</label><select id="liveLcdType" class="field" onchange="previewLiveLcdAdmin()"><option value="message">Message</option><option value="image">Image URL</option><option value="video">Video URL</option><option value="website">Website Link</option></select></div>
-        <div><label class="tiny">Target</label><select id="liveLcdTarget" class="field"><option value="all">All Client Rooms</option><option value="selected">Selected Client Only</option></select></div>
-        <div class="wide"><label class="tiny">Title</label><input id="liveLcdTitle" class="field" placeholder="Important Update" oninput="previewLiveLcdAdmin()"></div>
-        <div class="wide"><label class="tiny">Message / Description</label><textarea id="liveLcdMessage" class="field" rows="3" placeholder="LCD-তে যে message দেখাতে চান" oninput="previewLiveLcdAdmin()"></textarea></div>
-        <div class="wide"><label class="tiny">Image / Video / Website URL</label><input id="liveLcdUrl" class="field" placeholder="https://..." oninput="previewLiveLcdAdmin()"></div>
-      </div>
-      <div class="live-actions">
-        <button class="success" onclick="goLiveToLcd()">🔴 Go Live to LCD</button>
-        <button class="secondary" onclick="previewLiveLcdAdmin()">👁 Preview</button>
-        <button class="danger" onclick="stopLiveToLcd()">⏹ Stop Live</button>
-      </div>
-      <div id="liveLcdMsg" class="muted" style="margin-top:9px"></div>
-    </div>
-    <div>
-      <div class="tiny" style="margin-bottom:7px">LCD Preview</div>
-      <div id="liveLcdPreview" class="live-lcd-preview"><div class="live-lcd-message"><b>Live Preview</b><p>Message বা URL লিখুন</p></div></div>
-    </div>
-  </div>
-</div>
-
-<div class="grid">
-<section>
-<div class="card">
-<h3>নতুন Client</h3>
-<input id="clientName" class="field" placeholder="Client name">
-<input id="clientPhone" class="field" placeholder="Mobile number">
-<input id="clientEmail" class="field" type="email" placeholder="Email (optional)">
-<div class="row"><input id="clientPin" class="field" inputmode="numeric" maxlength="4" placeholder="4-digit Client PIN"><input id="clientExpiry" class="field" type="date" title="Access expiry"></div>
-<div class="row"><button class="secondary" onclick="generatePin()">Generate PIN</button><button onclick="saveClient()">Client Add</button></div>
-</div>
-<div class="card">
-<h3>Clients</h3>
-<input id="clientSearch" class="field" placeholder="Search client name, mobile বা PIN..." oninput="renderClients()">
-<div id="clients"></div>
-</div>
-</section>
-
-<section>
-<div class="card">
-<h2 id="selectedTitle">Client select করুন</h2>
-<div id="selectedInfo" class="muted"></div>
-<div id="selectedPinEditor" class="row" style="display:none;margin-top:10px"><input id="selectedClientPin" class="field" inputmode="numeric" maxlength="4" placeholder="Set/Change 4-digit PIN"><button class="secondary" onclick="generateSelectedPin()">Generate</button><button onclick="saveSelectedClientPin()">Save PIN</button></div>
-<div id="selectedActions" class="toolbar" style="display:none">
-  <button class="copy-btn" onclick="copyClientAccess()">🔗 Copy PIN & Link</button>
-  <button class="warning" onclick="toggleClientActive()">⏯ Enable / Disable</button>
-  <button class="danger" onclick="deleteSelectedClient()">🗑 Delete Client</button>
-</div>
-</div>
-
-<div id="projectForm" class="card" style="display:none">
-<h3>Project Add / Update</h3>
-<input id="projectId" type="hidden">
-<div class="row">
-<input id="projectName" class="field" placeholder="Project name">
-<select id="projectType" class="field">
-<option>Website</option><option>Mobile App</option><option>Admin Panel</option><option>Software</option><option>Other</option>
-</select>
-</div>
-<div class="row">
-<select id="projectStatus" class="field">
-<option>Enquiry</option><option>Advance Paid</option><option selected>In Progress</option><option>Testing</option><option>Delivered</option><option>On Hold</option>
-</select>
-<input id="projectProgress" class="field" type="number" min="0" max="100" placeholder="Progress %">
-</div>
-<input id="projectStage" class="field" placeholder="Current stage">
-<textarea id="projectNotes" class="field" rows="3" placeholder="Client-এর জন্য update note"></textarea>
-<div class="row">
-<input id="projectPreview" class="field" placeholder="Website/preview URL">
-<input id="projectVideo" class="field" placeholder="Project video URL">
-</div>
-<div class="row">
-<input id="projectCost" class="field" placeholder="Project cost">
-<input id="projectDelivery" class="field" type="date">
-</div>
-<div class="row"><button onclick="saveProject()">Save Project</button><button class="secondary" onclick="clearProjectForm()">Clear</button></div>
-</div>
-
-<div class="card">
-<h3>Client Projects</h3>
-<div id="projects"></div>
-</div>
-
-<div class="card">
-<h3>Client Correction Requests</h3>
-<button class="secondary" onclick="loadCorrectionRequests()">Refresh Requests</button>
-<div id="correctionRequests" style="margin-top:12px"></div>
-</div>
-
-<div class="admin-feature-grid" id="v2AdminFeatures" style="display:none">
-  <div class="card"><h3>📥 Client File Upload</h3><select id="adminFileProject" class="field"></select><input id="adminFileInput" class="field" type="file"><input id="adminFileNote" class="field" placeholder="File note / version"><button onclick="uploadClientFile()">Upload File</button><div class="upload-progress"><b id="fileUploadBar"></b></div><div id="adminFiles"></div></div>
-  <div class="card"><h3>🧾 Invoice / Payment</h3><select id="invoiceProject" class="field"></select><div class="row"><input id="invoiceNo" class="field" placeholder="Invoice No"><input id="invoiceAmount" class="field" placeholder="Amount e.g. ₹12,000"></div><div class="row"><select id="invoiceStatus" class="field"><option>Due</option><option>Partially Paid</option><option>Paid</option><option>Cancelled</option></select><input id="invoiceDue" class="field" type="date"></div><input id="invoiceUrl" class="field" placeholder="Invoice PDF URL (optional)"><input id="paymentUrl" class="field" placeholder="Payment URL (optional)"><textarea id="invoiceNote" class="field" rows="2" placeholder="Payment note"></textarea><button onclick="saveInvoice()">Save Invoice</button><div id="adminInvoices"></div></div>
-  <div class="card"><h3>🔔 Send Notification</h3><input id="notificationTitle" class="field" placeholder="Notification title"><select id="notificationType" class="field"><option>Update</option><option>Important</option><option>Payment</option><option>Delivery</option><option>Meeting</option></select><textarea id="notificationMessage" class="field" rows="3" placeholder="Client message"></textarea><button onclick="sendNotification()">Send Notification</button><div id="adminNotifications"></div></div>
-  <div class="card"><h3>📅 Meetings & ✅ Approvals</h3><button class="secondary" onclick="loadMeetingsApprovals()">Refresh</button><h4>Meeting Requests</h4><div id="adminMeetings"></div><h4 style="margin-top:14px">Project Approvals</h4><div id="adminApprovals"></div></div>
-</div>
-
-<div class="card">
-<div class="cardtop"><h3>💬 Client Live Chat</h3><span id="adminChatStatus" class="muted">Client select করুন</span></div>
-<div id="adminChatMessages" class="admin-chat-messages"></div>
-<div class="admin-chat-compose"><textarea id="adminChatInput" rows="2" placeholder="Client-কে reply লিখুন..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendAdminChat()}"></textarea><button onclick="sendAdminChat()">Send</button></div>
-</div>
-</section>
-</div>
 </main>
-
 <script>
 let clients=[],selectedClient=null,projectRows=[];
 const $=id=>document.getElementById(id);
@@ -395,7 +175,7 @@ function renderClients(){
  $('clients').innerHTML='';
  clients.filter(c=>(c.client_name+' '+(c.client_pin||c.client_code||'')+' '+(c.client_phone||'')).toLowerCase().includes(q)).forEach(c=>{
    const d=document.createElement('div');d.className='client'+(selectedClient?.id===c.id?' active':'');
-   d.innerHTML=`<div class="client-head"><b>${escapeHtml(c.client_name)}</b><span class="status-pill ${c.is_active!==false?'status-on':'status-off'}">${c.is_active!==false?'Active':'Disabled'}</span></div><div class="muted">PIN: <span class="client-code">${escapeHtml(c.client_pin||(/^[0-9]{4}$/.test(c.client_code||'')?c.client_code:'Not set'))}</span> • ${escapeHtml(c.client_phone||'No phone')}</div>`;
+   d.innerHTML=`<div class="client-row"><div class="client-avatar">${escapeHtml((c.client_name||'C').trim().charAt(0).toUpperCase())}</div><div class="client-body"><div class="client-head"><b>${escapeHtml(c.client_name)}</b><span class="status-pill ${c.is_active!==false?'status-on':'status-off'}">${c.is_active!==false?'Active':'Disabled'}</span></div><div class="client-meta">PIN <span class="client-code">${escapeHtml(c.client_pin||(/^[0-9]{4}$/.test(c.client_code||'')?c.client_code:'Not set'))}</span> · ${escapeHtml(c.client_phone||'No phone')}</div></div><span class="client-arrow">›</span></div>`;
    d.onclick=()=>selectClient(c);$('clients').appendChild(d);
  });
 }
@@ -404,7 +184,7 @@ function selectClient(c){
  $('selectedTitle').textContent=c.client_name;
  const currentPin=c.client_pin||(/^[0-9]{4}$/.test(c.client_code||'')?c.client_code:'');$('selectedInfo').innerHTML=`Client PIN: <b class="client-code">${escapeHtml(currentPin||'Not set')}</b> &nbsp; Mobile: ${escapeHtml(c.client_phone||'-')} &nbsp; Email: ${escapeHtml(c.client_email||'-')} &nbsp; Status: <b>${c.is_active!==false?'Active':'Disabled'}</b>`;$('selectedPinEditor').style.display='flex';$('selectedClientPin').value=currentPin;
  $('selectedActions').style.display='flex';
- $('projectForm').style.display='block';$('v2AdminFeatures').style.display='grid';loadProjects();loadCorrectionRequests();subscribeAdminChat();refreshDashboardTotals();loadAdminV2Data();
+ $('projectForm').style.display='block';$('v2AdminFeatures').style.display='contents';$('selectedWorkspace').classList.add('ready');$('emptyWorkspace').style.display='none';loadProjects();loadCorrectionRequests();subscribeAdminChat();refreshDashboardTotals();loadAdminV2Data();switchAdminTab('overview',true);
 }
 async function loadProjects(){
  try{
@@ -633,10 +413,24 @@ function copyClientAccess(){
  alert('Client Room link ও PIN copy হয়েছে');
 }
 async function toggleClientActive(){if(!selectedClient)return;const next=selectedClient.is_active===false;await db.collection('room_clients').doc(selectedClient.id).update({is_active:next,updated_at:firebase.firestore.FieldValue.serverTimestamp()});selectedClient.is_active=next;loadClients();selectClient(selectedClient)}
-async function deleteSelectedClient(){if(!selectedClient||!confirm(`${selectedClient.client_name} client delete করবেন?`))return;await db.collection('room_clients').doc(selectedClient.id).delete();selectedClient=null;$('selectedTitle').textContent='Client select করুন';$('selectedInfo').textContent='';$('selectedActions').style.display='none';$('projectForm').style.display='none';$('v2AdminFeatures').style.display='none';loadClients()}
+async function deleteSelectedClient(){if(!selectedClient||!confirm(`${selectedClient.client_name} client delete করবেন?`))return;await db.collection('room_clients').doc(selectedClient.id).delete();selectedClient=null;$('selectedTitle').textContent='Client select করুন';$('selectedInfo').textContent='';$('selectedActions').style.display='none';$('selectedPinEditor').style.display='none';$('projectForm').style.display='none';$('v2AdminFeatures').style.display='none';$('selectedWorkspace').classList.remove('ready');$('emptyWorkspace').style.display='grid';loadClients();switchAdminTab('overview',true)}
+
+
+
+const clientRequiredTabs=new Set(['overview','projects','chat','corrections','meetings','files']);
+function switchAdminTab(tab,force=false){
+  if(!force&&clientRequiredTabs.has(tab)&&!selectedClient){alert('আগে বাঁ পাশ থেকে একজন client select করুন');return}
+  document.querySelectorAll('.workspace-tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.toggle('active',p.id==='tab-'+tab));
+  if(tab==='chat'&&selectedClient)subscribeAdminChat();
+  if(tab==='corrections'&&selectedClient)loadCorrectionRequests();
+  if(tab==='meetings'&&selectedClient)loadMeetingsApprovals();
+  if(tab==='files'&&selectedClient)loadAdminV2Data();
+  if(tab==='live')refreshCctvMonitor();
+}
+function toggleNewClient(){document.getElementById('newClientBox')?.classList.toggle('open')}
+function focusClientSearch(){document.getElementById('clientSearch')?.focus()}
 
 function escapeHtml(v){const d=document.createElement('div');d.textContent=v??'';return d.innerHTML}
 checkSession();
-</script>
-</body>
-</html>
+</script></body></html>
