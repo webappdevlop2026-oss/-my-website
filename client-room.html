@@ -216,6 +216,47 @@ header a{color:#cbd5e1;text-decoration:none}.brand{font-weight:900;background:li
  .waiting-lcd h3{font-size:clamp(3.7px,.50vw,6px)!important}
  .waiting-lcd p,.waiting-lcd .adline{font-size:clamp(2.7px,.29vw,4px)!important}
 }
+
+/* ===== V21.3 exact INNER vertical LCD screen ===== */
+.waiting-lcd{
+  left:20.18%!important;
+  top:27.05%!important;
+  width:5.55%!important;
+  height:23.35%!important;
+  padding:.78% .36%!important;
+  border-radius:0!important;
+  background:linear-gradient(180deg,#06152b,#061d34 58%,#04101d)!important;
+  overflow:hidden!important;
+  clip-path:inset(0)!important;
+  contain:strict!important;
+}
+.waiting-lcd h3{
+  font-size:clamp(3.7px,.39vw,6px)!important;
+  line-height:1.02!important;
+  margin:0 0 8%!important;
+  max-height:30%!important;
+  overflow:hidden!important;
+  text-align:left!important;
+}
+.waiting-lcd p{
+  font-size:clamp(2.6px,.23vw,3.8px)!important;
+  line-height:1.20!important;
+  max-height:35%!important;
+  overflow:hidden!important;
+}
+.waiting-lcd .adline{
+  font-size:clamp(2.5px,.22vw,3.7px)!important;
+  line-height:1.14!important;
+  margin-top:8%!important;
+  padding-top:7%!important;
+  max-height:24%!important;
+  overflow:hidden!important;
+}
+@media(max-width:900px){
+ .waiting-lcd{left:20.18%!important;top:27.05%!important;width:5.55%!important;height:23.35%!important;padding:.78% .36%!important}
+ .waiting-lcd h3{font-size:clamp(3px,.39vw,5px)!important}
+ .waiting-lcd p,.waiting-lcd .adline{font-size:clamp(2.2px,.22vw,3.3px)!important}
+}
 </style>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
@@ -392,7 +433,7 @@ async function enterWaitingHall(){
  startWaitingMarketing();
 }
 let waitingAdTimer=null,waitingAdIndex=0;
-const waitingAds=[['WELCOME','Reception-এ যোগাযোগ করুন।','Please Wait'],['GROW ONLINE','Website • App • SEO • Marketing','Free Consultation'],['PROJECT SUPPORT','Update • Correction • Meeting • Payment','Fast • Clear • Professional']];
+const waitingAds=[['WELCOME','Reception Desk','Please Wait'],['GROW ONLINE','Web • App • SEO','Free Help'],['PROJECT\nSUPPORT','Update • Fix','Fast • Clear']];
 function startWaitingMarketing(){clearInterval(waitingAdTimer);const draw=()=>{const a=waitingAds[waitingAdIndex%waitingAds.length];$('outsideLcdTitle').textContent=a[0];$('outsideLcdText').textContent=a[1];$('outsideLcdAd').textContent=a[2];waitingAdIndex++};draw();waitingAdTimer=setInterval(draw,4500)}
 async function checkInReception(){
  const purpose=$('visitPurpose').value,note=$('visitNote').value.trim(),token=$('waitToken').textContent;
