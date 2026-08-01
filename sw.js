@@ -1,5 +1,5 @@
-/* v14.0.0 build:2026-08-01-live-to-lcd */
-const CACHE_NAME='digital-agency-chandan-v1400-live-to-lcd';
+/* v15.0.0 build:2026-08-01-real-essential-controls */
+const CACHE_NAME='digital-agency-chandan-v1500-real-essential-controls';
 const CORE=['/','/index.html','/manifest.json','/slide-free-offer-main.webp','/slide-client-room.webp','/slide-beginner-help.webp','/slide-free-tools.webp'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE_NAME).then(c=>c.addAll(CORE)));self.skipWaiting()});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ns=>Promise.all(ns.filter(n=>n!==CACHE_NAME).map(n=>caches.delete(n)))));self.clients.claim()});
