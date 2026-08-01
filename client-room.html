@@ -16,7 +16,7 @@ header a{color:#cbd5e1;text-decoration:none}.brand{font-weight:900;background:li
 .code{width:100%;padding:14px;border-radius:13px;border:1px solid #ffffff1c;background:#030712;color:#fff;text-align:center;font-weight:800;letter-spacing:2px}.enter{width:100%;margin-top:12px;border:0;border-radius:999px;padding:14px;color:#fff;font-weight:900;cursor:pointer;background:linear-gradient(90deg,#7c3aed,#06b6d4)}#error{color:#fb7185;min-height:22px;margin-top:10px}
 #world{position:fixed;inset:56px 0 0;display:none;flex-direction:column;overflow:hidden;background:#070b14}
 .stage-wrap{position:relative;flex:1;min-height:0;display:grid;place-items:center;padding:10px 14px;overflow:hidden}
-.stage-wrap:before{content:"";position:absolute;inset:-40px;background:url('client-room-agency-v8.png') center/cover no-repeat;filter:blur(32px) brightness(.36);transform:scale(1.12)}
+.stage-wrap:before{content:"";position:absolute;inset:-40px;background:url('client-office-final-v21.png') center/cover no-repeat;filter:blur(32px) brightness(.36);transform:scale(1.12)}
 .scene{position:relative;z-index:2;height:min(calc(100vh - 56px - 72px - 20px),calc((100vw - 28px)*2/3));max-width:calc(100vw - 28px);aspect-ratio:3/2;overflow:hidden;border-radius:6px;box-shadow:0 24px 80px #000a;background:#111;transition:transform .35s ease}
 .room-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block;background:#111}
 .photo-seat .scene{transform:scale(1.025)}
@@ -139,6 +139,23 @@ header a{color:#cbd5e1;text-decoration:none}.brand{font-weight:900;background:li
 @keyframes cctvPulse{50%{opacity:.45;transform:scale(.8)}}
 @media(max-width:600px){.cctv-presence{right:5px;top:5px;font-size:7px;padding:5px 7px}}
 
+
+/* ===== V21 Reception + Waiting Hall + Cabin PIN ===== */
+#waitingHall,#cabinGate{position:fixed;inset:56px 0 0;display:none;background:#07101b;color:#fff;z-index:120;overflow:auto}
+.waiting-stage{min-height:calc(100vh - 56px);display:grid;grid-template-columns:minmax(0,1.5fr) minmax(320px,.7fr);gap:18px;padding:18px;background:radial-gradient(circle at 15% 20%,#164e6330,transparent 36%),linear-gradient(180deg,#07101b,#030712)}
+.waiting-office{position:relative;min-height:620px;border:1px solid #ffffff18;border-radius:24px;overflow:hidden;background:#111;box-shadow:0 24px 70px #0008}
+.waiting-office img{width:100%;height:100%;object-fit:cover;display:block}
+.waiting-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(2,6,23,.76))}
+.waiting-lcd{position:absolute;left:18.5%;top:23%;width:19%;height:29%;border-radius:10px;background:linear-gradient(150deg,#071426,#0e2a45);border:1px solid #38bdf855;box-shadow:0 0 24px #0ea5e944;overflow:hidden;padding:16px;display:flex;flex-direction:column;justify-content:center}
+.waiting-lcd h3{margin:0 0 8px;font-size:clamp(14px,1.5vw,24px);color:#67e8f9}.waiting-lcd p{margin:0;color:#dbeafe;font-size:clamp(9px,.85vw,14px);line-height:1.5}.waiting-lcd .adline{margin-top:14px;padding-top:12px;border-top:1px solid #ffffff1c;color:#facc15;font-weight:800}
+.waiting-bottom{position:absolute;left:22px;right:22px;bottom:18px;display:flex;gap:12px;align-items:center;justify-content:space-between;background:#06111de8;border:1px solid #ffffff1c;border-radius:18px;padding:14px 16px;backdrop-filter:blur(12px)}
+.waiting-bottom strong{font-size:18px}.status-pill{padding:8px 12px;border-radius:999px;background:#0f766e;color:#ccfbf1;font-weight:900;font-size:12px}
+.reception-card{align-self:start;background:linear-gradient(180deg,#0d1728,#08111f);border:1px solid #ffffff17;border-radius:24px;padding:20px;box-shadow:0 24px 70px #0007;position:sticky;top:18px}
+.reception-card h2{margin:0 0 8px}.queue-ticket{margin-top:14px;padding:14px;border-radius:16px;background:#020617;border:1px solid #ffffff16}.queue-ticket b{color:#67e8f9}.assign-box{display:none;margin-top:16px;padding:15px;border-radius:16px;background:#082f49;border:1px solid #0ea5e9}.assign-box.on{display:block}.cabin-name{font-size:20px;font-weight:900;color:#fff}.cabin-note{color:#bae6fd;margin-top:6px;line-height:1.5}.collect-pin{margin-top:12px;padding:10px 12px;border-radius:12px;background:#f59e0b;color:#111827;font-weight:900;text-align:center}
+.cabin-keypad-wrap{min-height:calc(100vh - 56px);display:grid;place-items:center;padding:20px;background:radial-gradient(circle at 50% 20%,#0e749055,transparent 35%),linear-gradient(180deg,#08111f,#020617)}
+.cabin-keypad{width:min(420px,94vw);padding:24px;border-radius:26px;background:#0b1525;border:1px solid #ffffff1c;box-shadow:0 30px 90px #000}.cabin-keypad h2{margin:0 0 8px}.cabin-keypad .room-tag{display:inline-block;padding:6px 10px;border-radius:999px;background:#0f766e;color:#ccfbf1;font-weight:900;font-size:12px}.cabin-dots{display:flex;justify-content:center;gap:14px;margin:22px 0}.cabin-dots i{width:18px;height:18px;border-radius:50%;border:2px solid #64748b}.cabin-dots i.on{background:#22d3ee;border-color:#67e8f9;box-shadow:0 0 14px #22d3ee}.cabin-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.cabin-grid button{height:58px;border:1px solid #ffffff1c;border-radius:14px;background:#111e33;color:#fff;font-size:20px;font-weight:900}.cabin-enter{width:100%;margin-top:12px;padding:14px;border:0;border-radius:14px;background:linear-gradient(90deg,#7c3aed,#06b6d4);color:#fff;font-weight:900}.cabin-msg{text-align:center;min-height:22px;margin-top:10px;color:#fb7185}.assigned-banner{position:absolute;z-index:55;right:16px;top:16px;padding:9px 13px;border-radius:999px;background:#082f49e8;border:1px solid #38bdf855;color:#e0f2fe;font-weight:900;font-size:11px}
+@media(max-width:900px){.waiting-stage{grid-template-columns:1fr;padding:8px}.waiting-office{min-height:520px}.reception-card{position:relative;top:auto}.waiting-lcd{left:15%;top:18%;width:32%;height:30%}.waiting-bottom{left:8px;right:8px;bottom:8px;flex-direction:column;align-items:flex-start}.waiting-bottom strong{font-size:15px}}
+
 </style>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
@@ -170,9 +187,29 @@ header a{color:#cbd5e1;text-decoration:none}.brand{font-weight:900;background:li
     <div class="gate-access" id="gateAccess"><div>✅ Access Granted — Door Opening</div></div>
   </div>
 </section>
+<section id="waitingHall">
+  <div class="waiting-stage">
+    <div class="waiting-office">
+      <img src="client-office-final-v21.png" alt="Digital Agency waiting hall and cabins">
+      <div class="waiting-overlay"></div>
+      <div class="waiting-lcd"><h3 id="outsideLcdTitle">Welcome</h3><p id="outsideLcdText">অনুগ্রহ করে Waiting Hall-এ অপেক্ষা করুন এবং Reception-এর সঙ্গে যোগাযোগ করুন।</p><div class="adline" id="outsideLcdAd">Website • App • SEO • Digital Marketing</div></div>
+      <div class="waiting-bottom"><div><strong id="waitingHeadline">Reception assignment-এর জন্য অপেক্ষা করুন</strong><div class="muted" id="waitingSub">আপনার cabin এবং আলাদা PIN Reception থেকে দেওয়া হবে।</div></div><span class="status-pill" id="waitingStatus">WAITING</span></div>
+    </div>
+    <aside class="reception-card">
+      <h2>🏢 Reception Check-in</h2><div class="muted">Digital Agency By Chandan Das</div>
+      <div class="queue-ticket">Client: <b id="waitClientName">—</b><br>Token: <b id="waitToken">—</b><br>Entry PIN: <b id="waitMainPin">—</b></div>
+      <label class="muted">আপনার কাজের ধরন</label>
+      <select id="visitPurpose" class="field"><option>Project Discussion</option><option>Meeting</option><option>Technical Support</option><option>Accounts / Payment</option><option>General Enquiry</option></select>
+      <textarea id="visitNote" class="field" rows="3" placeholder="কাজের বিষয়ে সংক্ষেপে লিখুন (optional)"></textarea>
+      <button class="send" onclick="checkInReception()">🔔 Reception-এ জানান</button>
+      <div class="assign-box" id="assignmentBox"><div class="cabin-name" id="assignedCabinName">Cabin assigned</div><div class="cabin-note" id="assignedCabinNote"></div><div class="collect-pin">PIN Reception থেকে সংগ্রহ করুন</div><button class="send" onclick="openCabinGate()">Cabin PIN লিখুন</button></div>
+    </aside>
+  </div>
+</section>
+<section id="cabinGate"><div class="cabin-keypad-wrap"><div class="cabin-keypad"><span class="room-tag" id="cabinGateRoom">Assigned Cabin</span><h2>Cabin Access PIN</h2><p class="muted">Reception থেকে পাওয়া ৪ সংখ্যার PIN লিখুন</p><div class="cabin-dots"><i></i><i></i><i></i><i></i></div><div class="cabin-grid"><button onclick="pressCabinPin('1')">1</button><button onclick="pressCabinPin('2')">2</button><button onclick="pressCabinPin('3')">3</button><button onclick="pressCabinPin('4')">4</button><button onclick="pressCabinPin('5')">5</button><button onclick="pressCabinPin('6')">6</button><button onclick="pressCabinPin('7')">7</button><button onclick="pressCabinPin('8')">8</button><button onclick="pressCabinPin('9')">9</button><button onclick="clearCabinPin()">C</button><button onclick="pressCabinPin('0')">0</button><button onclick="backCabinPin()">⌫</button></div><button class="cabin-enter" onclick="submitCabinPin()">ENTER CABIN</button><div class="cabin-msg" id="cabinPinMessage"></div></div></div></section>
 <section id="world">
  <div class="stage-wrap"><div class="scene" id="scene">
-  <img class="room-photo" src="client-room-agency-v8.png" alt="Digital Agency By Chandan Das Client Room">
+  <img class="room-photo" src="client-office-final-v21.png" alt="Digital Agency By Chandan Das Client Room"><div class="assigned-banner" id="insideCabinBadge">Assigned Cabin</div>
   <div class="hint">LCD frame-এর ভিতরে Digital Agency services autoplay হবে • নিচের button থেকে Project Status, Chat, Correction ও Meeting খুলুন</div>
   <div class="cctv-presence" title="Virtual room activity monitor — device camera is not used"><i></i> CCTV CONNECTING...</div>
   <div class="agency-lcd" id="agencyLcd" onclick="nextAgencySlide()" title="Click for next service">
@@ -283,8 +320,56 @@ async function enterRoom(pinOverride){
   projects=pSnap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.created_at?.seconds||0)-(a.created_at?.seconds||0));
  }
  const scene=$('gateScene');if(scene)scene.classList.add('access-ok');
- setTimeout(openWorld,900);
+ setTimeout(enterWaitingHall,700);
 }
+
+let waitingDocId=null,waitingUnsub=null,assignedCabin='',assignedCabinPin='',cabinPinInput='';
+const cabinLabels={project:'1 • Project Cabin',meeting:'2 • Meeting Cabin',support:'3 • Support Cabin',accounts:'4 • Accounts Cabin'};
+function makeToken(){return 'WT-'+String(Date.now()).slice(-5)}
+async function enterWaitingHall(){
+ $('login').classList.add('hide');$('waitingHall').style.display='block';$('exit').classList.remove('hide');
+ $('waitClientName').textContent=client.client_name||'Guest';$('waitMainPin').textContent=client.client_pin||client.client_code||roomSettings.demo_pin||'1234';$('waitToken').textContent=makeToken();
+ startWaitingMarketing();
+}
+let waitingAdTimer=null,waitingAdIndex=0;
+const waitingAds=[['Welcome to Digital Agency','Reception-এর সঙ্গে যোগাযোগ করুন। আপনার জন্য সঠিক cabin assign করা হবে।','Professional Website • Mobile App'],['Grow Your Business Online','Website, E-commerce, SEO এবং Digital Marketing services।','Free Consultation Available'],['Project Support Desk','Project update, correction, meeting এবং payment assistance।','Fast • Transparent • Professional']];
+function startWaitingMarketing(){clearInterval(waitingAdTimer);const draw=()=>{const a=waitingAds[waitingAdIndex%waitingAds.length];$('outsideLcdTitle').textContent=a[0];$('outsideLcdText').textContent=a[1];$('outsideLcdAd').textContent=a[2];waitingAdIndex++};draw();waitingAdTimer=setInterval(draw,4500)}
+async function checkInReception(){
+ const purpose=$('visitPurpose').value,note=$('visitNote').value.trim(),token=$('waitToken').textContent;
+ $('waitingStatus').textContent='CHECKED IN';$('waitingHeadline').textContent='Reception আপনার request দেখছে';
+ if(client.id==='demo'){
+   const demoId='demo-'+Date.now();waitingDocId=demoId;setTimeout(()=>applyAssignment({status:'Assigned',assigned_cabin:'project',cabin_pin:'2468',reception_message:'Project discussion-এর জন্য Cabin 1-এ যান। Demo Cabin PIN: 2468'}),1800);return;
+ }
+ try{
+   const ref=await db.collection('room_waiting_queue').add({client_id:client.id,client_name:client.client_name||'Client',main_pin:client.client_pin||client.client_code||'',token,purpose,note,status:'Waiting',assigned_cabin:'',cabin_pin:'',created_at:firebase.firestore.FieldValue.serverTimestamp(),updated_at:firebase.firestore.FieldValue.serverTimestamp()});
+   waitingDocId=ref.id;if(waitingUnsub)waitingUnsub();waitingUnsub=ref.onSnapshot(doc=>{if(doc.exists)applyAssignment(doc.data())},e=>{$('waitingSub').textContent='Reception sync error: '+e.message});
+ }catch(e){alert('Reception check-in হয়নি: '+e.message)}
+}
+function applyAssignment(d){
+ const status=d.status||'Waiting';$('waitingStatus').textContent=status.toUpperCase();
+ if((status==='Assigned'||status==='Called')&&d.assigned_cabin){assignedCabin=d.assigned_cabin;assignedCabinPin=String(d.cabin_pin||'');$('assignmentBox').classList.add('on');$('assignedCabinName').textContent=cabinLabels[assignedCabin]||d.assigned_cabin;$('assignedCabinNote').textContent=d.reception_message||'Reception থেকে cabin PIN সংগ্রহ করে নির্ধারিত cabin-এ যান।';$('waitingHeadline').textContent='আপনার cabin প্রস্তুত';$('waitingSub').textContent='Reception থেকে PIN নিয়ে Cabin Gate-এ লিখুন।'}
+}
+function openCabinGate(){if(!assignedCabin)return notifyUser('Reception এখনও cabin assign করেনি');$('waitingHall').style.display='none';$('cabinGate').style.display='block';$('cabinGateRoom').textContent=cabinLabels[assignedCabin]||assignedCabin;clearCabinPin()}
+function updateCabinDots(){document.querySelectorAll('.cabin-dots i').forEach((d,i)=>d.classList.toggle('on',i<cabinPinInput.length))}
+function pressCabinPin(n){if(cabinPinInput.length<4)cabinPinInput+=n;updateCabinDots();$('cabinPinMessage').textContent=''}
+function clearCabinPin(){cabinPinInput='';updateCabinDots();$('cabinPinMessage').textContent=''}function backCabinPin(){cabinPinInput=cabinPinInput.slice(0,-1);updateCabinDots()}
+async function submitCabinPin(){
+ if(cabinPinInput.length!==4){$('cabinPinMessage').textContent='৪ সংখ্যার PIN লিখুন';return}
+ if(cabinPinInput!==assignedCabinPin){$('cabinPinMessage').textContent='Cabin PIN সঠিক নয়';clearCabinPin();return}
+ try{if(waitingDocId&&client.id!=='demo')await db.collection('room_waiting_queue').doc(waitingDocId).update({status:'Entered',entered_at:firebase.firestore.FieldValue.serverTimestamp(),updated_at:firebase.firestore.FieldValue.serverTimestamp()})}catch(e){}
+ $('cabinGate').style.display='none';openWorld();$('insideCabinBadge').textContent=cabinLabels[assignedCabin]||assignedCabin;applyCabinMode();
+}
+function applyCabinMode(){
+ document.querySelectorAll('.controls button').forEach(b=>b.style.display='none');
+ const showByText=(txt)=>document.querySelectorAll('.controls button').forEach(b=>{if(b.textContent.includes(txt))b.style.display='' });
+ showByText('Full Room');showByText('Assistant');
+ if(assignedCabin==='project'){showByText('Project Status');showByText('Correction')}
+ if(assignedCabin==='meeting'){showByText('Meeting');setTimeout(()=>show('meeting'),500)}
+ if(assignedCabin==='support'){showByText('Live Chat');showByText('Correction')}
+ if(assignedCabin==='accounts'){showByText('Project Status');notifyUser('Accounts Cabin: invoice ও payment তথ্য Client Desk-এ দেখুন')}
+ trackRoomAction('Entered '+(cabinLabels[assignedCabin]||assignedCabin));
+}
+
 function openWorld(){$('login').classList.add('hide');$('world').style.display='flex';$('exit').classList.remove('hide');renderDesk();populateReviewProjects();startAgencySlides();startLiveLcdListener();startRoomPresence();setTimeout(speakWelcomeMale,350)}
 function show(id){$(id)?.classList.add('on');const names={desk:'Project Status',projectReview:'Correction',note:'Questions',meeting:'Meeting',liveChat:'Live Chat'};trackRoomAction(names[id]||('Opened '+id))}function hide(id){$(id)?.classList.remove('on');trackRoomAction('Inside Client Room')}
 function sit(){document.body.classList.add('photo-seat');notifyUser('Client meeting view চালু হয়েছে।')}
