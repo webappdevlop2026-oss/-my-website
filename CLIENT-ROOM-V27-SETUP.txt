@@ -1,0 +1,7 @@
+V27 FIX
+- Main Gate unchanged
+- Reception and Waiting Hall unchanged
+- Only Project Room interior changed to real image
+- project-room-real.png is required
+- Upload all files to GitHub root
+- Open client-room.html?v=2700 and hard refresh
