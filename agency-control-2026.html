@@ -91,7 +91,7 @@ main{max-width:1380px}.dashboard-cards{max-width:1380px}.grid{grid-template-colu
 <header>
 <div>
   <b style="font-size:18px">Digital Agency by Chandan Das</b>
-  <div class="muted">Client Room Admin V16 — CCTV, Access, Projects, Chat & Settings</div>
+  <div class="muted">Client Room Admin V18 — CCTV, Access, Projects, Chat & Settings</div>
 </div>
 <div class="row" style="flex:0 0 auto">
   <a href="client-room.html" target="_blank" style="text-decoration:none"><button class="secondary">Client Room দেখুন</button></a>
@@ -564,11 +564,12 @@ async function deleteV2Doc(col,id){if(!confirm('Delete করবেন?'))return
 // ===== VIRTUAL CCTV MONITOR V16 =====
 let cctvUnsub=null,cctvSessions=[],selectedCctvId=null,cctvClockTimer=null;
 function cctvTs(v){return v&&typeof v.toDate==='function'?v.toDate():v?new Date(v):null}
+function cctvLastSeen(s){return cctvTs(s.last_seen)||cctvTs(s.last_seen_ms)}
 function cctvTime(v){const d=cctvTs(v);return d&&!isNaN(d)?d.toLocaleString('en-IN',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit',second:'2-digit'}):'—'}
-function cctvIsOnline(s){const d=cctvTs(s.last_seen);return !!(d&&(Date.now()-d.getTime()<65000)&&s.current_action!=='Left Client Room')}
+function cctvIsOnline(s){const d=cctvLastSeen(s);return !!(d&&(Date.now()-d.getTime()<70000)&&s.online!==false&&s.current_action!=='Left Client Room')}
 function startCctvMonitor(){
  if(cctvUnsub)cctvUnsub();
- cctvUnsub=db.collection('room_presence').onSnapshot(snap=>{cctvSessions=snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(cctvTs(b.last_seen)?.getTime()||0)-(cctvTs(a.last_seen)?.getTime()||0));renderCctvMonitor()},e=>{$('cctvVisitors').innerHTML=`<div class="muted">CCTV permission error: ${escapeHtml(e.message)}</div>`});
+ cctvUnsub=db.collection('room_presence').onSnapshot(snap=>{cctvSessions=snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(cctvLastSeen(b)?.getTime()||0)-(cctvLastSeen(a)?.getTime()||0));renderCctvMonitor()},e=>{$('cctvVisitors').innerHTML=`<div class="muted">CCTV permission error: ${escapeHtml(e.message)}</div>`});
  clearInterval(cctvClockTimer);cctvClockTimer=setInterval(()=>{const c=$('cctvClock');if(c)c.textContent=new Date().toLocaleTimeString('en-IN');renderCctvMonitor()},5000)
 }
 function refreshCctvMonitor(){renderCctvMonitor()}
@@ -580,7 +581,7 @@ function renderCctvMonitor(){
  if(!selectedCctvId||!cctvSessions.some(x=>x.id===selectedCctvId))selectedCctvId=(online[0]||recent[0]||{}).id||null;
  const current=cctvSessions.find(x=>x.id===selectedCctvId)||online[0]||recent[0];
  $('cctvVisitors').innerHTML=online.length?online.map(s=>`<div class="cctv-person ${s.id===selectedCctvId?'active':''}" onclick="selectCctvSession('${s.id}')"><div class="cctv-person-head"><b><span class="online-dot"></span>${escapeHtml(s.client_name||'Guest')}</b><small>${escapeHtml(s.device||'')}</small></div><div class="tiny" style="margin-top:5px">PIN ${escapeHtml(s.client_pin||'—')} • ${escapeHtml(s.current_action||'Inside Room')}</div></div>`).join(''):'<div class="muted">কোনো client এখন online নেই</div>';
- $('cctvLog').innerHTML=recent.length?recent.map(s=>`<div class="cctv-log-row"><b>${escapeHtml(s.client_name||'Guest')}</b> — ${escapeHtml(s.current_action||'Room visit')}<div class="tiny">${cctvTime(s.last_seen)} • ${cctvIsOnline(s)?'ONLINE':'OFFLINE'}</div></div>`).join(''):'<div class="muted">No entry yet</div>';
+ $('cctvLog').innerHTML=recent.length?recent.map(s=>`<div class="cctv-log-row"><b>${escapeHtml(s.client_name||'Guest')}</b> — ${escapeHtml(s.current_action||'Room visit')}<div class="tiny">${cctvTime(s.last_seen||s.last_seen_ms)} • ${cctvIsOnline(s)?'ONLINE':'OFFLINE'}</div></div>`).join(''):'<div class="muted">No entry yet</div>';
  if(current){$('cctvName').textContent=current.client_name||'Guest';$('cctvPin').textContent='PIN: '+(current.client_pin||'—');$('cctvDevice').textContent='Device: '+(current.device||'—');$('cctvEntered').textContent='Entered: '+cctvTime(current.entered_at);$('cctvAction').textContent=(cctvIsOnline(current)?'● LIVE — ':'○ LAST ACTIVITY — ')+(current.current_action||'Inside Client Room')}else{$('cctvName').textContent='কোনো client online নেই';$('cctvPin').textContent='PIN: —';$('cctvDevice').textContent='Device: —';$('cctvEntered').textContent='Entered: —';$('cctvAction').textContent='Waiting for room entry…'}
 }
 

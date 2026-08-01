@@ -133,7 +133,7 @@ header a{color:#cbd5e1;text-decoration:none}.brand{font-weight:900;background:li
 
 
 
-/* ===== Virtual CCTV presence indicator V16 ===== */
+/* ===== Virtual CCTV presence indicator V18 ===== */
 .cctv-presence{position:absolute;z-index:56;right:12px;top:12px;display:flex;align-items:center;gap:7px;padding:7px 10px;border-radius:999px;background:rgba(5,12,22,.80);border:1px solid rgba(52,211,153,.34);color:#d1fae5;font-size:9px;font-weight:800;letter-spacing:.5px;backdrop-filter:blur(8px);box-shadow:0 8px 22px rgba(0,0,0,.22)}
 .cctv-presence i{width:7px;height:7px;border-radius:50%;background:#34d399;box-shadow:0 0 10px #34d399;animation:cctvPulse 1.7s infinite}
 @keyframes cctvPulse{50%{opacity:.45;transform:scale(.8)}}
@@ -174,7 +174,7 @@ header a{color:#cbd5e1;text-decoration:none}.brand{font-weight:900;background:li
  <div class="stage-wrap"><div class="scene" id="scene">
   <img class="room-photo" src="client-room-agency-v8.png" alt="Digital Agency By Chandan Das Client Room">
   <div class="hint">LCD frame-এর ভিতরে Digital Agency services autoplay হবে • নিচের button থেকে Project Status, Chat, Correction ও Meeting খুলুন</div>
-  <div class="cctv-presence" title="Virtual room activity monitor — device camera is not used"><i></i> ROOM CONNECTED</div>
+  <div class="cctv-presence" title="Virtual room activity monitor — device camera is not used"><i></i> CCTV CONNECTING...</div>
   <div class="agency-lcd" id="agencyLcd" onclick="nextAgencySlide()" title="Click for next service">
    <div class="agency-slide active"><div class="agency-icon">🚀</div><div class="agency-copy"><div class="agency-kicker">DIGITAL AGENCY</div><h3>Digital Agency By Chandan Das</h3><p>Website, App ও Digital Service—আপনার ব্যবসার জন্য এক জায়গায় সম্পূর্ণ সমাধান।</p><div class="agency-tags"><span>Modern Design</span><span>Fast Delivery</span><span>Support</span></div></div></div>
    <div class="agency-slide"><div class="agency-icon">🌐</div><div class="agency-copy"><div class="agency-kicker">SERVICE 01</div><h3>Website Development</h3><p>Business website, e-commerce, portfolio ও custom web solution.</p><div class="agency-tags"><span>Responsive</span><span>SEO Ready</span><span>Fast</span></div></div></div>
@@ -235,14 +235,24 @@ function presenceSessionId(){
  sessionStorage.setItem(key,roomPresenceId);return roomPresenceId;
 }
 async function writeRoomPresence(extra={}){
- if(!client||!window.db)return;
+ if(!client||typeof db==='undefined')return false;
  const id=presenceSessionId();
  const payload={
   session_id:id,client_id:String(client.id||'demo'),client_name:String(client.client_name||'Guest'),client_pin:String(client.client_pin||client.client_code||''),
   online:true,current_action:String(extra.current_action||roomCurrentAction||'Inside Client Room'),device:presenceDevice(),viewport:`${innerWidth}x${innerHeight}`,
-  page:'client-room.html',last_seen:firebase.firestore.FieldValue.serverTimestamp(),...extra
+  page:'client-room.html',last_seen:firebase.firestore.FieldValue.serverTimestamp(),last_seen_ms:Date.now(),...extra
  };
- try{await db.collection('room_presence').doc(id).set(payload,{merge:true})}catch(e){console.warn('Presence update:',e.message)}
+ try{
+  await db.collection('room_presence').doc(id).set(payload,{merge:true});
+  const badge=document.querySelector('.cctv-presence');
+  if(badge)badge.innerHTML='<i></i> CCTV LIVE CONNECTED';
+  return true;
+ }catch(e){
+  console.warn('Presence update:',e.message);
+  const badge=document.querySelector('.cctv-presence');
+  if(badge)badge.innerHTML='<i style="background:#fb7185;box-shadow:0 0 10px #fb7185"></i> CCTV SYNC ERROR';
+  return false;
+ }
 }
 async function startRoomPresence(){
  roomCurrentAction='Entered Client Room';
@@ -251,7 +261,7 @@ async function startRoomPresence(){
 }
 function trackRoomAction(action){roomCurrentAction=action;writeRoomPresence({current_action:action,online:true})}
 function closeRoomPresence(){
- if(!roomPresenceId||!window.db)return;
+ if(!roomPresenceId||typeof db==='undefined')return;
  try{db.collection('room_presence').doc(roomPresenceId).set({online:false,current_action:'Left Client Room',left_at:firebase.firestore.FieldValue.serverTimestamp(),last_seen:firebase.firestore.FieldValue.serverTimestamp()},{merge:true})}catch(e){}
 }
 window.addEventListener('beforeunload',closeRoomPresence);
