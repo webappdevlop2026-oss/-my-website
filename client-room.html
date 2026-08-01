@@ -18,7 +18,7 @@ header{height:58px;display:flex;align-items:center;justify-content:space-between
 .modal{display:none;position:fixed;inset:58px 0 0;z-index:120;background:#000c;place-items:center;padding:20px}.modal.on{display:grid}.modal .card{width:min(720px,95vw);max-height:86vh;overflow:auto}.row{display:flex;gap:10px;justify-content:flex-end;margin-top:14px}
 @media(max-width:850px){.hall-grid{grid-template-columns:1fr}.hall-visual{min-height:330px}.reception-desk{width:56%}.lcd{width:92vw;border-width:8px}.room-controls{overflow-x:auto;justify-content:flex-start;flex-wrap:nowrap}.room-controls button{flex:0 0 auto}.speaker{width:44px;height:44px;font-size:20px}}
 </style>
-<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script><script src="firebase-client.js"></script>
+
 </head><body>
 <header><div class="brand">Digital Agency by Chandan Das</div><button class="btn ghost" onclick="resetOffice()">Exit</button></header>
 <section id="login">
@@ -28,12 +28,12 @@ header{height:58px;display:flex;align-items:center;justify-content:space-between
       <div class="pin-title">Client Room Entry</div><div class="pin-sub">Enter PIN</div>
       <div class="pin-dots"><span class="pin-dot"></span><span class="pin-dot"></span><span class="pin-dot"></span><span class="pin-dot"></span></div>
       <div class="pin-grid">
-        <button type="button" class="pin-key" data-pin="1">1</button><button type="button" class="pin-key" data-pin="2">2</button><button type="button" class="pin-key" data-pin="3">3</button>
-        <button type="button" class="pin-key" data-pin="4">4</button><button type="button" class="pin-key" data-pin="5">5</button><button type="button" class="pin-key" data-pin="6">6</button>
-        <button type="button" class="pin-key" data-pin="7">7</button><button type="button" class="pin-key" data-pin="8">8</button><button type="button" class="pin-key" data-pin="9">9</button>
-        <button type="button" class="pin-key" data-action="clear">C</button><button type="button" class="pin-key" data-pin="0">0</button><button type="button" class="pin-key" data-action="back">⌫</button>
+        <button type="button" class="pin-key" data-pin="1" onclick="pressPin('1')">1</button><button type="button" class="pin-key" data-pin="2" onclick="pressPin('2')">2</button><button type="button" class="pin-key" data-pin="3" onclick="pressPin('3')">3</button>
+        <button type="button" class="pin-key" data-pin="4" onclick="pressPin('4')">4</button><button type="button" class="pin-key" data-pin="5" onclick="pressPin('5')">5</button><button type="button" class="pin-key" data-pin="6" onclick="pressPin('6')">6</button>
+        <button type="button" class="pin-key" data-pin="7" onclick="pressPin('7')">7</button><button type="button" class="pin-key" data-pin="8" onclick="pressPin('8')">8</button><button type="button" class="pin-key" data-pin="9" onclick="pressPin('9')">9</button>
+        <button type="button" class="pin-key" data-action="clear" onclick="clearPin()">C</button><button type="button" class="pin-key" data-pin="0" onclick="pressPin('0')">0</button><button type="button" class="pin-key" data-action="back" onclick="backspacePin()">⌫</button>
       </div>
-      <button type="button" class="pin-enter" id="mainGateEnter">ENTER MAIN GATE</button>
+      <button type="button" class="pin-enter" id="mainGateEnter" onclick="submitPin()">ENTER MAIN GATE</button>
       <div class="demo-pin">Demo PIN: <b>1234</b></div><div class="pin-message" id="mainMsg"></div>
     </div>
     <div class="gate-access" id="gateAccess"><div>✅ Access Granted — Door Opening</div></div>
@@ -46,7 +46,29 @@ header{height:58px;display:flex;align-items:center;justify-content:space-between
 <script>
 let db=null,client=null,projects=[],queueId=null,queueUnsub=null,assignedRoom='',assignedCode='';
 const $=id=>document.getElementById(id);const labels={project:'Project Room',meeting:'Meeting Room',support:'Support Room',accounts:'Accounts Room'};
-function init(){bindMainGateKeypad();try{db=firebase.firestore()}catch(e){db=null;const m=$('mainMsg');if(m)m.textContent='Demo PIN 1234 ব্যবহার করুন।'}}
+function init(){
+  updatePinUI();
+  document.addEventListener('keydown',mainGateKeyboard);
+  loadFirebaseBackend();
+}
+function mainGateKeyboard(e){
+  const login=$('login');
+  if(!login||login.style.display==='none')return;
+  if(/^\d$/.test(e.key)){e.preventDefault();pressPin(e.key)}
+  else if(e.key==='Backspace'){e.preventDefault();backspacePin()}
+  else if(e.key==='Escape'){e.preventDefault();clearPin()}
+  else if(e.key==='Enter'){e.preventDefault();submitPin()}
+}
+function loadScript(src){return new Promise((resolve,reject)=>{const s=document.createElement('script');s.src=src;s.onload=resolve;s.onerror=reject;document.head.appendChild(s)})}
+async function loadFirebaseBackend(){
+  try{
+    await loadScript('https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js');
+    await loadScript('https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js');
+    await loadScript('https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js');
+    await loadScript('firebase-client.js?v=3000');
+    db=window.firebase&&firebase.firestore?firebase.firestore():null;
+  }catch(e){db=null;}
+}
 let gatePin='';
 function updatePinUI(){
   document.querySelectorAll('.pin-dot').forEach((d,i)=>d.classList.toggle('on',i<gatePin.length));
@@ -63,26 +85,7 @@ function submitPin(){
   if(gatePin.length!==4){const m=$('mainMsg');if(m)m.textContent='4-digit PIN দিন';return;}
   enterMainGate(gatePin);
 }
-function bindMainGateKeypad(){
-  const panel=document.querySelector('.pin-panel');
-  if(!panel)return;
-  panel.addEventListener('click',function(e){
-    const b=e.target.closest('button'); if(!b)return;
-    e.preventDefault(); e.stopPropagation();
-    if(b.dataset.pin!==undefined)pressPin(b.dataset.pin);
-    else if(b.dataset.action==='clear')clearPin();
-    else if(b.dataset.action==='back')backspacePin();
-    else if(b.id==='mainGateEnter')submitPin();
-  });
-  document.addEventListener('keydown',function(e){
-    if($('login')?.style.display==='none')return;
-    if(/^\d$/.test(e.key)){e.preventDefault();pressPin(e.key)}
-    else if(e.key==='Backspace'){e.preventDefault();backspacePin()}
-    else if(e.key==='Escape'){e.preventDefault();clearPin()}
-    else if(e.key==='Enter'){e.preventDefault();submitPin()}
-  });
-}
-async function enterMainGate(pinOverride){const pin=String(pinOverride||gatePin||'').trim();$('mainMsg').textContent='Checking...';if(pin==='1234'){client={id:'demo',client_name:'Demo Client',client_pin:'1234'};projects=[{project_name:'Demo Project',progress:72,status:'In Progress'}];$('gateScene').classList.add('access-ok');return setTimeout(openHall,850)}try{if(!db)throw new Error('Firebase connect হয়নি');let q=await db.collection('room_clients').where('client_pin','==',pin).limit(1).get();if(q.empty)q=await db.collection('room_clients').where('client_code','==',pin).limit(1).get();if(q.empty)throw new Error('PIN পাওয়া যায়নি');const d=q.docs[0];client={id:d.id,...d.data()};if(client.is_active===false)throw new Error('Client inactive');const p=await db.collection('room_projects').where('client_id','==',client.id).get();projects=p.docs.map(x=>({id:x.id,...x.data()}));$('gateScene').classList.add('access-ok');setTimeout(openHall,850)}catch(e){$('mainMsg').textContent=e.message}}
+async function enterMainGate(pinOverride){const pin=String(pinOverride||gatePin||'').trim();$('mainMsg').textContent='Checking...';if(pin==='1234'){client={id:'demo',client_name:'Demo Client',client_pin:'1234'};projects=[{project_name:'Demo Project',progress:72,status:'In Progress'}];$('gateScene').classList.add('access-ok');return setTimeout(openHall,500)}try{if(!db){$('mainMsg').textContent='Online client PIN connect হচ্ছে...';for(let i=0;i<20&&!db;i++)await new Promise(r=>setTimeout(r,150));}if(!db)throw new Error('Firebase connect হয়নি—Demo PIN 1234 ব্যবহার করুন');let q=await db.collection('room_clients').where('client_pin','==',pin).limit(1).get();if(q.empty)q=await db.collection('room_clients').where('client_code','==',pin).limit(1).get();if(q.empty)throw new Error('PIN পাওয়া যায়নি');const d=q.docs[0];client={id:d.id,...d.data()};if(client.is_active===false)throw new Error('Client inactive');const p=await db.collection('room_projects').where('client_id','==',client.id).get();projects=p.docs.map(x=>({id:x.id,...x.data()}));$('gateScene').classList.add('access-ok');setTimeout(openHall,850)}catch(e){$('mainMsg').textContent=e.message}}
 function openHall(){$('login').style.display='none';$('hall').style.display='block';$('ticket').innerHTML=`Client: <b>${esc(client.client_name||'Client')}</b><br>Main PIN: <b>${esc(client.client_pin||client.client_code||'—')}</b>`;if(client.id!=='demo')findActiveQueue()}
 async function findActiveQueue(){try{const q=await db.collection('room_waiting_queue').where('client_id','==',client.id).get();const rows=q.docs.map(d=>({id:d.id,...d.data()})).filter(x=>x.status!=='Completed').sort((a,b)=>(b.created_at?.seconds||0)-(a.created_at?.seconds||0));if(rows[0])watchQueue(rows[0].id)}catch(e){$('hallMsg').textContent=e.message}}
 async function checkIn(){if(client.id==='demo'){queueId='demo';assignedRoom=roomFromPurpose($('purpose').value);assignedCode=String(Math.floor(1000+Math.random()*9000));showAssignment();return}try{$('hallMsg').textContent='Request পাঠানো হচ্ছে...';const ref=await db.collection('room_waiting_queue').add({client_id:client.id,client_name:client.client_name||'Client',main_pin:client.client_pin||client.client_code||'',purpose:$('purpose').value,note:$('note').value.trim(),status:'Waiting',assigned_cabin:'',cabin_pin:'',created_at:firebase.firestore.FieldValue.serverTimestamp(),updated_at:firebase.firestore.FieldValue.serverTimestamp()});watchQueue(ref.id);$('hallMsg').textContent='Reception request পেয়েছে। অপেক্ষা করুন।'}catch(e){$('hallMsg').textContent=e.message}}
@@ -100,5 +103,5 @@ function backToHall(){$('room').style.display='none';$('hall').style.display='bl
 function resetOffice(){location.reload()}
 function roomFromPurpose(p){if(p.includes('Meeting'))return'meeting';if(p.includes('Support'))return'support';if(p.includes('Accounts'))return'accounts';return'project'}
 function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
-window.addEventListener('load',init);
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 </script></body></html>
