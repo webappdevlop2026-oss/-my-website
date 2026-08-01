@@ -46,6 +46,81 @@ header a{color:#cbd5e1;text-decoration:none}.brand{font-weight:900;background:li
 @media(max-width:900px){.agency-lcd{left:31.15%;top:30.05%;width:36.45%;height:28.10%}.agency-slide{padding:7px 8px 17px;grid-template-columns:34px 1fr;gap:7px}.agency-icon{width:31px;height:31px;border-radius:9px;font-size:17px}.agency-kicker{font-size:5px;margin-bottom:2px}.agency-copy h3{font-size:9px;margin-bottom:2px}.agency-copy p{font-size:6px}.agency-tags{display:none}.agency-lcd-bottom{left:6px;right:6px;bottom:4px;gap:5px}.agency-progress{height:3px}}
 @media(max-width:600px){.agency-copy p{display:none}.agency-slide{grid-template-columns:28px 1fr}.agency-icon{width:26px;height:26px;font-size:14px}.agency-copy h3{font-size:8px}.agency-kicker{font-size:4px}}
 
+
+
+/* ===== V10 Real Client Room Gate + Functional PIN ===== */
+#login{
+  position:fixed;inset:56px 0 0;height:auto;padding:0;display:grid;place-items:center;
+  overflow:hidden;background:#0a0d12;
+}
+#login:before{
+  content:"";position:absolute;inset:-38px;
+  background:url('client-room-gate-v10.png') center/cover no-repeat;
+  filter:blur(34px) brightness(.38);transform:scale(1.1);
+}
+.gate-scene{
+  position:relative;z-index:2;aspect-ratio:3/2;
+  height:min(calc(100vh - 56px - 20px),calc((100vw - 24px)*2/3));
+  max-width:calc(100vw - 24px);overflow:hidden;border-radius:8px;background:#111;
+  box-shadow:0 28px 90px #000c;border:1px solid #ffffff18;
+}
+.gate-photo{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:fill}
+.pin-panel{
+  position:absolute;z-index:10;left:61.75%;top:27.2%;width:15.05%;height:45.7%;
+  display:flex;flex-direction:column;align-items:center;
+  padding:1.3% 1.05% 1.1%;border-radius:8%;
+  color:#fff;background:linear-gradient(180deg,rgba(7,18,39,.98),rgba(3,10,25,.98));
+  border:1px solid rgba(125,211,252,.75);
+  box-shadow:0 0 0 2px rgba(250,204,21,.25),0 0 22px rgba(34,211,238,.35),0 0 34px rgba(236,72,153,.22);
+}
+.pin-title{font-size:clamp(7px,.83vw,13px);font-weight:900;line-height:1.15;margin-top:1%;white-space:nowrap}
+.pin-sub{font-size:clamp(6px,.58vw,9px);color:#cbd5e1;margin-top:4%}
+.pin-dots{display:flex;gap:7%;justify-content:center;width:70%;margin:4% 0 5%}
+.pin-dot{width:13%;aspect-ratio:1;border-radius:50%;border:1px solid #cbd5e1;background:transparent;box-shadow:inset 0 0 0 1px #000}
+.pin-dot.on{background:#22d3ee;border-color:#67e8f9;box-shadow:0 0 9px #22d3ee}
+.pin-grid{width:86%;display:grid;grid-template-columns:repeat(3,1fr);gap:3.6% 4.2%;flex:1;min-height:0}
+.pin-key{
+  min-width:0;border:1px solid #334b70;background:linear-gradient(180deg,#152744,#0b1730);color:#fff;
+  border-radius:14%;font-size:clamp(7px,.92vw,14px);font-weight:800;cursor:pointer;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08);transition:.15s;
+}
+.pin-key:hover{background:#1d4ed8;transform:translateY(-1px)}
+.pin-key:active{transform:scale(.94)}
+.pin-enter{
+  width:86%;margin-top:4%;padding:3.4% 4%;border:0;border-radius:8px;cursor:pointer;
+  color:#fff;font-size:clamp(6px,.62vw,10px);font-weight:900;letter-spacing:.7px;
+  background:linear-gradient(90deg,#2563eb,#06b6d4);box-shadow:0 6px 16px rgba(6,182,212,.25)
+}
+.demo-pin{margin-top:4%;font-size:clamp(5px,.55vw,9px);color:#f8fafc;white-space:nowrap}
+.pin-message{position:absolute;left:4%;right:4%;bottom:2%;min-height:12px;text-align:center;color:#fb7185;font-size:clamp(5px,.5vw,8px);font-weight:800}
+.gate-access{
+  position:absolute;z-index:20;inset:0;display:grid;place-items:center;opacity:0;pointer-events:none;
+  background:rgba(2,6,23,.30);transition:.3s;
+}
+.gate-access div{padding:16px 24px;border-radius:999px;background:#052e2bde;border:1px solid #22c55e;color:#dcfce7;font-weight:900;box-shadow:0 16px 50px #0008}
+.gate-scene.access-ok .gate-access{opacity:1}
+.gate-scene.access-ok{animation:gateZoom .9s ease forwards}
+@keyframes gateZoom{0%{transform:scale(1)}100%{transform:scale(1.045);filter:brightness(1.05)}}
+.client-code-toggle{
+  position:absolute;z-index:12;left:4%;bottom:4%;border:1px solid #ffffff2b;background:#07101dcc;color:#fff;
+  border-radius:999px;padding:9px 13px;cursor:pointer;font-size:11px;font-weight:800;backdrop-filter:blur(8px)
+}
+.client-code-box{
+  position:absolute;z-index:14;left:4%;bottom:11%;width:min(360px,42%);padding:14px;border-radius:16px;
+  background:#07101ef2;border:1px solid #ffffff20;box-shadow:0 18px 50px #000a;display:none
+}
+.client-code-box.on{display:block}.client-code-box h3{margin:0 0 5px;font-size:16px}.client-code-box p{margin:0 0 9px;color:#94a3b8;font-size:11px}
+.client-code-row{display:flex;gap:8px}.client-code-row .code{margin:0;padding:10px;font-size:12px}.client-code-row .enter{width:auto;margin:0;padding:10px 14px;white-space:nowrap}
+#error{margin:7px 0 0;font-size:11px}
+@media(max-width:700px){
+ #login{align-items:start;padding-top:8px;overflow:auto}
+ .gate-scene{width:100vw;height:auto;max-width:none;border-radius:0}
+ .pin-panel{left:48%;top:31%;width:42%;height:58%;padding:3% 3% 2%;border-radius:16px;background:rgba(3,10,25,.97)}
+ .pin-title{font-size:14px}.pin-sub{font-size:10px}.pin-key{font-size:14px}.pin-enter{font-size:10px}.demo-pin{font-size:9px}.pin-message{font-size:8px}
+ .client-code-toggle{left:8px;bottom:8px;font-size:9px;padding:7px 9px}
+ .client-code-box{left:8px;bottom:48px;width:calc(100% - 16px)}
+}
+
 </style>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
@@ -55,7 +130,35 @@ header a{color:#cbd5e1;text-decoration:none}.brand{font-weight:900;background:li
 </head>
 <body>
 <header><a href="index.html">← হোম</a><div class="brand">Digital Agency by Chandan Das</div><div><button class="hbtn" onclick="toggleVoice()" id="voice">🔊 Male Welcome Voice</button> <button class="hbtn hide" id="exit" onclick="location.reload()">Exit</button></div></header>
-<section id="login"><div class="loginbox"><h1>Client Room</h1><p>Unique Code দিয়ে client office-এ প্রবেশ করুন</p><div class="gate" id="gate"><i></i></div><input class="code" id="code" placeholder="CR-2026-KKB01"><button class="enter" onclick="enterRoom()">🔑 Gate খুলুন</button><small class="muted">Preview: <b>DEMO-3D</b></small><div id="error"></div></div></section>
+<section id="login">
+  <div class="gate-scene" id="gateScene">
+    <img class="gate-photo" src="client-room-gate-v10.png" alt="Digital Agency By Chandan Das Client Room Entrance">
+    <div class="pin-panel" aria-label="Client Room PIN keypad">
+      <div class="pin-title">Client Room Entry</div>
+      <div class="pin-sub">Enter PIN</div>
+      <div class="pin-dots" aria-live="polite">
+        <span class="pin-dot"></span><span class="pin-dot"></span><span class="pin-dot"></span><span class="pin-dot"></span>
+      </div>
+      <div class="pin-grid">
+        <button class="pin-key" onclick="pressPin('1')">1</button><button class="pin-key" onclick="pressPin('2')">2</button><button class="pin-key" onclick="pressPin('3')">3</button>
+        <button class="pin-key" onclick="pressPin('4')">4</button><button class="pin-key" onclick="pressPin('5')">5</button><button class="pin-key" onclick="pressPin('6')">6</button>
+        <button class="pin-key" onclick="pressPin('7')">7</button><button class="pin-key" onclick="pressPin('8')">8</button><button class="pin-key" onclick="pressPin('9')">9</button>
+        <button class="pin-key" onclick="clearPin()">C</button><button class="pin-key" onclick="pressPin('0')">0</button><button class="pin-key" onclick="backspacePin()">⌫</button>
+      </div>
+      <button class="pin-enter" onclick="submitPin()">ENTER ROOM</button>
+      <div class="demo-pin">Demo PIN: <b>1234</b></div>
+      <div class="pin-message" id="pinMessage"></div>
+    </div>
+    <button class="client-code-toggle" onclick="toggleClientCode()">🔑 Existing Client Code</button>
+    <div class="client-code-box" id="clientCodeBox">
+      <h3>Existing Client Login</h3>
+      <p>আপনার agency থেকে পাওয়া unique client code লিখুন।</p>
+      <div class="client-code-row"><input class="code" id="code" placeholder="CR-2026-KKB01"><button class="enter" onclick="enterRoom()">Enter</button></div>
+      <div id="error"></div>
+    </div>
+    <div class="gate-access" id="gateAccess"><div>✅ Access Granted — Door Opening</div></div>
+  </div>
+</section>
 <section id="world">
  <div class="stage-wrap"><div class="scene" id="scene">
   <img class="room-photo" src="client-room-agency-v8.png" alt="Digital Agency By Chandan Das Client Room">
@@ -100,7 +203,25 @@ function speakMaleOnly(bn,hi,en){if(!voiceOn||!('speechSynthesis'in window))retu
 function speakThreeLanguages(bn,hi,en){speakMaleOnly(bn,hi,en)}
 function speakWelcomeMale(){speakMaleOnly('ডিজিটাল এজেন্সি বাই চন্দন দাসের ক্লায়েন্ট রুমে আপনাকে আন্তরিক স্বাগতম। এখানে আমাদের ডিজিটাল সার্ভিস, প্রজেক্ট আপডেট, মিটিং, লাইভ চ্যাট এবং কারেকশন সুবিধা ব্যবহার করতে পারবেন।','डिजिटल एजेंसी बाय चंदन दास के क्लाइंट रूम में आपका हार्दिक स्वागत है। यहाँ आप हमारी डिजिटल सेवाएँ, प्रोजेक्ट अपडेट, मीटिंग, लाइव चैट और करेक्शन सुविधा उपयोग कर सकते हैं।','A warm welcome to the Client Room of Digital Agency by Chandan Das. Here you can explore our digital services, project updates, meetings, live chat, and correction support.')}
 function toggleVoice(){voiceOn=!voiceOn;$('voice').textContent=voiceOn?'🔊 Male Welcome Voice':'🔇 Muted';if(!voiceOn&&'speechSynthesis'in window)speechSynthesis.cancel()}
-async function enterRoom(){const c=$('code').value.trim().toUpperCase();$('error').textContent='';if(!c){$('error').textContent='Unique Code লিখুন।';return}try{if(c==='DEMO-3D'){client={id:'demo',client_code:c,client_name:'Guest'};projects=[{id:'p1',project_name:'Demo Project',status:'In Progress',progress_percent:72,current_stage:'Frontend Development'}]}else{const snap=await db.collection('room_clients').where('client_code','==',c).where('is_active','==',true).limit(1).get();if(snap.empty)throw new Error('Code সঠিক নয়।');const doc=snap.docs[0];client={id:doc.id,...doc.data()};const pSnap=await db.collection('room_projects').where('client_id','==',client.id).get();projects=pSnap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.created_at?.seconds||0)-(a.created_at?.seconds||0))}$('gate').classList.add('open');setTimeout(openWorld,900)}catch(e){console.error(e);$('error').textContent=e.message||'কিছু সমস্যা হয়েছে।'}}
+async function enterRoom(codeOverride){
+ const c=String(codeOverride||$('code')?.value||'').trim().toUpperCase();
+ if($('error'))$('error').textContent='';
+ if(!c){if($('error'))$('error').textContent='Unique Client Code লিখুন।';return}
+ try{
+  if(c==='DEMO-3D'){
+   client={id:'demo',client_code:'1234',client_name:'Guest'};
+   projects=[{id:'p1',project_name:'Demo Project',status:'In Progress',progress_percent:72,current_stage:'Frontend Development'}];
+  }else{
+   const snap=await db.collection('room_clients').where('client_code','==',c).where('is_active','==',true).limit(1).get();
+   if(snap.empty)throw new Error('Client Code সঠিক নয়।');
+   const doc=snap.docs[0];client={id:doc.id,...doc.data()};
+   const pSnap=await db.collection('room_projects').where('client_id','==',client.id).get();
+   projects=pSnap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.created_at?.seconds||0)-(a.created_at?.seconds||0));
+  }
+  const scene=$('gateScene');if(scene)scene.classList.add('access-ok');
+  setTimeout(openWorld,900);
+ }catch(e){console.error(e);if($('error'))$('error').textContent=e.message||'কিছু সমস্যা হয়েছে।'}
+}
 function openWorld(){$('login').classList.add('hide');$('world').style.display='flex';$('exit').classList.remove('hide');renderDesk();populateReviewProjects();startAgencySlides();setTimeout(speakWelcomeMale,350)}
 function show(id){$(id)?.classList.add('on')}function hide(id){$(id)?.classList.remove('on')}
 function sit(){document.body.classList.add('photo-seat');notifyUser('Client meeting view চালু হয়েছে।')}
@@ -142,7 +263,31 @@ function buildAgencyDots(){const box=$('agencyDots');if(!box)return;const count=
 function nextAgencySlide(){const count=document.querySelectorAll('.agency-slide').length;if(!count)return;agencySlideIndex=(agencySlideIndex+1)%count;renderAgencySlide()}
 function startAgencySlides(){clearInterval(agencySlideTimer);clearInterval(agencyProgressTimer);buildAgencyDots();renderAgencySlide();agencySlideTimer=setInterval(nextAgencySlide,agencyDuration);agencyProgressTimer=setInterval(()=>{agencyElapsed+=100;const bar=$('agencyProgress');if(bar)bar.style.width=Math.min(100,agencyElapsed/agencyDuration*100)+'%'},100)}
 
-$('code').addEventListener('keydown',e=>{if(e.key==='Enter')enterRoom()});
+
+let gatePin='';
+function updatePinUI(){
+ document.querySelectorAll('.pin-dot').forEach((d,i)=>d.classList.toggle('on',i<gatePin.length));
+}
+function pressPin(n){
+ if(gatePin.length>=4)return;
+ gatePin+=String(n);updatePinUI();$('pinMessage').textContent='';
+ if(gatePin.length===4)setTimeout(submitPin,180);
+}
+function clearPin(){gatePin='';updatePinUI();$('pinMessage').textContent=''}
+function backspacePin(){gatePin=gatePin.slice(0,-1);updatePinUI();$('pinMessage').textContent=''}
+function submitPin(){
+ if(gatePin==='1234'){
+  $('pinMessage').style.color='#86efac';$('pinMessage').textContent='Access Granted';
+  enterRoom('DEMO-3D');
+ }else{
+  $('pinMessage').style.color='#fb7185';$('pinMessage').textContent='Wrong PIN — আবার চেষ্টা করুন';
+  const panel=document.querySelector('.pin-panel');panel?.animate([{transform:'translateX(0)'},{transform:'translateX(-5px)'},{transform:'translateX(5px)'},{transform:'translateX(0)'}],{duration:260});
+  setTimeout(clearPin,650);
+ }
+}
+function toggleClientCode(){$('clientCodeBox')?.classList.toggle('on')}
+
+$('code')?.addEventListener('keydown',e=>{if(e.key==='Enter')enterRoom()});
 </script>
 </body>
 </html>
