@@ -10,7 +10,7 @@ header{height:58px;display:flex;align-items:center;justify-content:space-between
 .gate-scene{position:relative;z-index:2;aspect-ratio:3/2;height:min(calc(100vh - 78px),calc((100vw - 24px)*2/3));max-width:calc(100vw - 24px);overflow:hidden;border-radius:8px;background:#111;box-shadow:0 28px 90px #000c;border:1px solid #ffffff18}
 .gate-photo{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:fill}
 .pin-panel{position:absolute;z-index:10;left:61.75%;top:27.2%;width:15.05%;height:45.7%;display:flex;flex-direction:column;align-items:center;padding:1.3% 1.05% 1.1%;border-radius:8%;color:#fff;background:linear-gradient(180deg,rgba(7,18,39,.98),rgba(3,10,25,.98));border:1px solid rgba(125,211,252,.75);box-shadow:0 0 0 2px rgba(250,204,21,.25),0 0 22px rgba(34,211,238,.35)}
-.pin-title{font-size:clamp(7px,.83vw,13px);font-weight:900;line-height:1.15;margin-top:1%;white-space:nowrap}.pin-sub{font-size:clamp(6px,.58vw,9px);color:#cbd5e1;margin-top:4%}.pin-dots{display:flex;gap:7%;justify-content:center;width:70%;margin:4% 0 5%}.pin-dot{width:13%;aspect-ratio:1;border-radius:50%;border:1px solid #cbd5e1;background:transparent}.pin-dot.on{background:#22d3ee;border-color:#67e8f9;box-shadow:0 0 9px #22d3ee}.pin-grid{width:86%;display:grid;grid-template-columns:repeat(3,1fr);gap:3.6% 4.2%;flex:1;min-height:0}.pin-key{min-width:0;border:1px solid #334b70;background:linear-gradient(180deg,#152744,#0b1730);color:#fff;border-radius:14%;font-size:clamp(7px,.92vw,14px);font-weight:800;cursor:pointer}.pin-key:active{transform:scale(.94)}.pin-enter{width:86%;margin-top:4%;padding:3.4% 4%;border:0;border-radius:8px;cursor:pointer;color:#fff;font-size:clamp(6px,.62vw,10px);font-weight:900;background:linear-gradient(90deg,#2563eb,#06b6d4)}.demo-pin{margin-top:4%;font-size:clamp(5px,.55vw,9px);color:#f8fafc;white-space:nowrap}.pin-message{position:absolute;left:4%;right:4%;bottom:2%;min-height:12px;text-align:center;color:#fb7185;font-size:clamp(5px,.5vw,8px);font-weight:800}.gate-access{position:absolute;z-index:20;inset:0;display:grid;place-items:center;opacity:0;pointer-events:none;background:rgba(2,6,23,.30);transition:.3s}.gate-access div{padding:16px 24px;border-radius:999px;background:#052e2bde;border:1px solid #22c55e;color:#dcfce7;font-weight:900}.gate-scene.access-ok .gate-access{opacity:1}.gate-scene.access-ok{animation:gateZoom .9s ease forwards}@keyframes gateZoom{to{transform:scale(1.045);filter:brightness(1.05)}}
+.pin-title{font-size:clamp(7px,.83vw,13px);font-weight:900;line-height:1.15;margin-top:1%;white-space:nowrap}.pin-sub{font-size:clamp(6px,.58vw,9px);color:#cbd5e1;margin-top:4%}.pin-dots{display:flex;gap:7%;justify-content:center;width:70%;margin:4% 0 5%}.pin-dot{width:13%;aspect-ratio:1;border-radius:50%;border:1px solid #cbd5e1;background:transparent}.pin-dot.on{background:#22d3ee;border-color:#67e8f9;box-shadow:0 0 9px #22d3ee}.pin-grid{width:86%;display:grid;grid-template-columns:repeat(3,1fr);gap:3.6% 4.2%;flex:1;min-height:0}.pin-key{min-width:0;border:1px solid #334b70;background:linear-gradient(180deg,#152744,#0b1730);color:#fff;border-radius:14%;font-size:clamp(7px,.92vw,14px);font-weight:800;cursor:pointer}.pin-key{pointer-events:auto;touch-action:manipulation;user-select:none;-webkit-user-select:none}.pin-key:active{transform:scale(.94)}.pin-enter{pointer-events:auto;touch-action:manipulation;user-select:none;-webkit-user-select:none;width:86%;margin-top:4%;padding:3.4% 4%;border:0;border-radius:8px;cursor:pointer;color:#fff;font-size:clamp(6px,.62vw,10px);font-weight:900;background:linear-gradient(90deg,#2563eb,#06b6d4)}.demo-pin{margin-top:4%;font-size:clamp(5px,.55vw,9px);color:#f8fafc;white-space:nowrap}.pin-message{position:absolute;left:4%;right:4%;bottom:2%;min-height:12px;text-align:center;color:#fb7185;font-size:clamp(5px,.5vw,8px);font-weight:800}.gate-access{position:absolute;z-index:20;inset:0;display:grid;place-items:center;opacity:0;pointer-events:none;background:rgba(2,6,23,.30);transition:.3s}.gate-access div{padding:16px 24px;border-radius:999px;background:#052e2bde;border:1px solid #22c55e;color:#dcfce7;font-weight:900}.gate-scene.access-ok .gate-access{opacity:1}.gate-scene.access-ok{animation:gateZoom .9s ease forwards}@keyframes gateZoom{to{transform:scale(1.045);filter:brightness(1.05)}}
 @media(max-width:700px){#login{align-items:start;padding-top:8px;overflow:auto}.gate-scene{width:100vw;height:auto;max-width:none;border-radius:0}.pin-panel{left:48%;top:31%;width:42%;height:58%;padding:3% 3% 2%;border-radius:16px}.pin-title{font-size:14px}.pin-sub{font-size:10px}.pin-key{font-size:14px}.pin-enter{font-size:10px}.demo-pin{font-size:9px}.pin-message{font-size:8px}}
 #hall{display:none}.hall-grid{min-height:calc(100vh - 58px);display:grid;grid-template-columns:minmax(0,1.5fr) minmax(330px,.5fr);gap:18px;padding:18px;background:radial-gradient(circle at 20% 15%,#173052,transparent 34%),#060b13}.hall-visual{border-radius:24px;border:1px solid #25354c;background:linear-gradient(150deg,#182335,#0a101a 55%,#111827);position:relative;min-height:560px;overflow:hidden}.hall-visual:before{content:"WAITING HALL";position:absolute;left:28px;top:28px;font-size:42px;font-weight:900;color:#ffffff12}.reception-desk{position:absolute;left:50%;bottom:12%;transform:translateX(-50%);width:42%;height:25%;background:linear-gradient(#9b7a55,#4e3621);border-radius:20px 20px 5px 5px;box-shadow:0 25px 45px #0008}.hall-note{position:absolute;left:28px;bottom:28px;right:28px;padding:18px;border-radius:18px;background:#050b14dc;border:1px solid #2b3b52}.ticket{padding:14px;border-radius:14px;background:#050b14;border:1px solid #26364d;margin:14px 0;line-height:1.7}.assigned{display:none;margin-top:16px;padding:16px;border-radius:16px;background:#062f36;border:1px solid #168c9b}.assigned.on{display:block}.codebox{font-size:28px;letter-spacing:6px;font-weight:900;margin:10px 0;color:#67e8f9}
 #roomCode{display:none;position:fixed;inset:58px 0 0;z-index:80;background:#030711;place-items:center;padding:20px}#roomCode.on{display:grid}
@@ -28,12 +28,12 @@ header{height:58px;display:flex;align-items:center;justify-content:space-between
       <div class="pin-title">Client Room Entry</div><div class="pin-sub">Enter PIN</div>
       <div class="pin-dots"><span class="pin-dot"></span><span class="pin-dot"></span><span class="pin-dot"></span><span class="pin-dot"></span></div>
       <div class="pin-grid">
-        <button class="pin-key" onclick="pressPin('1')">1</button><button class="pin-key" onclick="pressPin('2')">2</button><button class="pin-key" onclick="pressPin('3')">3</button>
-        <button class="pin-key" onclick="pressPin('4')">4</button><button class="pin-key" onclick="pressPin('5')">5</button><button class="pin-key" onclick="pressPin('6')">6</button>
-        <button class="pin-key" onclick="pressPin('7')">7</button><button class="pin-key" onclick="pressPin('8')">8</button><button class="pin-key" onclick="pressPin('9')">9</button>
-        <button class="pin-key" onclick="clearPin()">C</button><button class="pin-key" onclick="pressPin('0')">0</button><button class="pin-key" onclick="backspacePin()">⌫</button>
+        <button type="button" class="pin-key" data-pin="1">1</button><button type="button" class="pin-key" data-pin="2">2</button><button type="button" class="pin-key" data-pin="3">3</button>
+        <button type="button" class="pin-key" data-pin="4">4</button><button type="button" class="pin-key" data-pin="5">5</button><button type="button" class="pin-key" data-pin="6">6</button>
+        <button type="button" class="pin-key" data-pin="7">7</button><button type="button" class="pin-key" data-pin="8">8</button><button type="button" class="pin-key" data-pin="9">9</button>
+        <button type="button" class="pin-key" data-action="clear">C</button><button type="button" class="pin-key" data-pin="0">0</button><button type="button" class="pin-key" data-action="back">⌫</button>
       </div>
-      <button class="pin-enter" onclick="submitPin()">ENTER ROOM</button>
+      <button type="button" class="pin-enter" id="mainGateEnter">ENTER MAIN GATE</button>
       <div class="demo-pin">Demo PIN: <b>1234</b></div><div class="pin-message" id="mainMsg"></div>
     </div>
     <div class="gate-access" id="gateAccess"><div>✅ Access Granted — Door Opening</div></div>
@@ -46,9 +46,43 @@ header{height:58px;display:flex;align-items:center;justify-content:space-between
 <script>
 let db=null,client=null,projects=[],queueId=null,queueUnsub=null,assignedRoom='',assignedCode='';
 const $=id=>document.getElementById(id);const labels={project:'Project Room',meeting:'Meeting Room',support:'Support Room',accounts:'Accounts Room'};
-function init(){try{db=firebase.firestore()}catch(e){$('mainMsg').textContent='Firebase connect হয়নি। firebase-client.js check করুন।'}}
-let gatePin='';function updatePinUI(){document.querySelectorAll('.pin-dot').forEach((d,i)=>d.classList.toggle('on',i<gatePin.length))}function pressPin(n){if(gatePin.length<4){gatePin+=n;updatePinUI();if(gatePin.length===4)setTimeout(submitPin,180)}}function clearPin(){gatePin='';updatePinUI();$('mainMsg').textContent=''}function backspacePin(){gatePin=gatePin.slice(0,-1);updatePinUI()}function submitPin(){if(gatePin.length===4)enterMainGate(gatePin)}
-async function enterMainGate(pinOverride){const pin=String(pinOverride||gatePin||'').trim();$('mainMsg').textContent='Checking...';if(pin==='1234'){client={id:'demo',client_name:'Demo Client',client_pin:'1234'};projects=[{project_name:'Demo Project',progress:72,status:'In Progress'}];$('gateScene').classList.add('access-ok');return setTimeout(openHall,850)}try{let q=await db.collection('room_clients').where('client_pin','==',pin).limit(1).get();if(q.empty)q=await db.collection('room_clients').where('client_code','==',pin).limit(1).get();if(q.empty)throw new Error('PIN পাওয়া যায়নি');const d=q.docs[0];client={id:d.id,...d.data()};if(client.is_active===false)throw new Error('Client inactive');const p=await db.collection('room_projects').where('client_id','==',client.id).get();projects=p.docs.map(x=>({id:x.id,...x.data()}));$('gateScene').classList.add('access-ok');setTimeout(openHall,850)}catch(e){$('mainMsg').textContent=e.message}}
+function init(){bindMainGateKeypad();try{db=firebase.firestore()}catch(e){db=null;const m=$('mainMsg');if(m)m.textContent='Demo PIN 1234 ব্যবহার করুন।'}}
+let gatePin='';
+function updatePinUI(){
+  document.querySelectorAll('.pin-dot').forEach((d,i)=>d.classList.toggle('on',i<gatePin.length));
+  const msg=$('mainMsg'); if(msg&&gatePin.length<4) msg.textContent='';
+}
+function pressPin(n){
+  n=String(n);
+  if(!/^\d$/.test(n)||gatePin.length>=4)return;
+  gatePin+=n; updatePinUI();
+}
+function clearPin(){gatePin='';updatePinUI();const m=$('mainMsg');if(m)m.textContent=''}
+function backspacePin(){gatePin=gatePin.slice(0,-1);updatePinUI()}
+function submitPin(){
+  if(gatePin.length!==4){const m=$('mainMsg');if(m)m.textContent='4-digit PIN দিন';return;}
+  enterMainGate(gatePin);
+}
+function bindMainGateKeypad(){
+  const panel=document.querySelector('.pin-panel');
+  if(!panel)return;
+  panel.addEventListener('click',function(e){
+    const b=e.target.closest('button'); if(!b)return;
+    e.preventDefault(); e.stopPropagation();
+    if(b.dataset.pin!==undefined)pressPin(b.dataset.pin);
+    else if(b.dataset.action==='clear')clearPin();
+    else if(b.dataset.action==='back')backspacePin();
+    else if(b.id==='mainGateEnter')submitPin();
+  });
+  document.addEventListener('keydown',function(e){
+    if($('login')?.style.display==='none')return;
+    if(/^\d$/.test(e.key)){e.preventDefault();pressPin(e.key)}
+    else if(e.key==='Backspace'){e.preventDefault();backspacePin()}
+    else if(e.key==='Escape'){e.preventDefault();clearPin()}
+    else if(e.key==='Enter'){e.preventDefault();submitPin()}
+  });
+}
+async function enterMainGate(pinOverride){const pin=String(pinOverride||gatePin||'').trim();$('mainMsg').textContent='Checking...';if(pin==='1234'){client={id:'demo',client_name:'Demo Client',client_pin:'1234'};projects=[{project_name:'Demo Project',progress:72,status:'In Progress'}];$('gateScene').classList.add('access-ok');return setTimeout(openHall,850)}try{if(!db)throw new Error('Firebase connect হয়নি');let q=await db.collection('room_clients').where('client_pin','==',pin).limit(1).get();if(q.empty)q=await db.collection('room_clients').where('client_code','==',pin).limit(1).get();if(q.empty)throw new Error('PIN পাওয়া যায়নি');const d=q.docs[0];client={id:d.id,...d.data()};if(client.is_active===false)throw new Error('Client inactive');const p=await db.collection('room_projects').where('client_id','==',client.id).get();projects=p.docs.map(x=>({id:x.id,...x.data()}));$('gateScene').classList.add('access-ok');setTimeout(openHall,850)}catch(e){$('mainMsg').textContent=e.message}}
 function openHall(){$('login').style.display='none';$('hall').style.display='block';$('ticket').innerHTML=`Client: <b>${esc(client.client_name||'Client')}</b><br>Main PIN: <b>${esc(client.client_pin||client.client_code||'—')}</b>`;if(client.id!=='demo')findActiveQueue()}
 async function findActiveQueue(){try{const q=await db.collection('room_waiting_queue').where('client_id','==',client.id).get();const rows=q.docs.map(d=>({id:d.id,...d.data()})).filter(x=>x.status!=='Completed').sort((a,b)=>(b.created_at?.seconds||0)-(a.created_at?.seconds||0));if(rows[0])watchQueue(rows[0].id)}catch(e){$('hallMsg').textContent=e.message}}
 async function checkIn(){if(client.id==='demo'){queueId='demo';assignedRoom=roomFromPurpose($('purpose').value);assignedCode=String(Math.floor(1000+Math.random()*9000));showAssignment();return}try{$('hallMsg').textContent='Request পাঠানো হচ্ছে...';const ref=await db.collection('room_waiting_queue').add({client_id:client.id,client_name:client.client_name||'Client',main_pin:client.client_pin||client.client_code||'',purpose:$('purpose').value,note:$('note').value.trim(),status:'Waiting',assigned_cabin:'',cabin_pin:'',created_at:firebase.firestore.FieldValue.serverTimestamp(),updated_at:firebase.firestore.FieldValue.serverTimestamp()});watchQueue(ref.id);$('hallMsg').textContent='Reception request পেয়েছে। অপেক্ষা করুন।'}catch(e){$('hallMsg').textContent=e.message}}
