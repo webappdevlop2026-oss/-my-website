@@ -1,0 +1,12 @@
+CLIENT ROOM VIRTUAL CCTV V16
+
+Upload/replace:
+- client-room.html
+- client-room-admin.html
+- agency-control-2026.html
+- sw.js
+
+Firebase Console > Firestore Database > Rules:
+- firestore.rules code paste করে Publish করুন।
+
+Virtual CCTV শুধু website session/activity দেখায়। Client device camera বা microphone ব্যবহার করে না।

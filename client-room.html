@@ -131,6 +131,14 @@ header a{color:#cbd5e1;text-decoration:none}.brand{font-weight:900;background:li
 .live-lcd-message-client h3{font-size:18px;margin:0 0 7px}.live-lcd-message-client p{font-size:9px;line-height:1.45;margin:0;color:#dbeafe}.live-lcd-close-note{position:absolute;right:7px;bottom:5px;font-size:6px;color:#94a3b8}
 @media(max-width:900px){.live-lcd-message-client{padding:8px}.live-lcd-message-client h3{font-size:10px;margin-bottom:3px}.live-lcd-message-client p{font-size:6px}.live-lcd-badge{font-size:5px;padding:3px 5px;margin-bottom:4px}}
 
+
+
+/* ===== Virtual CCTV presence indicator V16 ===== */
+.cctv-presence{position:absolute;z-index:56;right:12px;top:12px;display:flex;align-items:center;gap:7px;padding:7px 10px;border-radius:999px;background:rgba(5,12,22,.80);border:1px solid rgba(52,211,153,.34);color:#d1fae5;font-size:9px;font-weight:800;letter-spacing:.5px;backdrop-filter:blur(8px);box-shadow:0 8px 22px rgba(0,0,0,.22)}
+.cctv-presence i{width:7px;height:7px;border-radius:50%;background:#34d399;box-shadow:0 0 10px #34d399;animation:cctvPulse 1.7s infinite}
+@keyframes cctvPulse{50%{opacity:.45;transform:scale(.8)}}
+@media(max-width:600px){.cctv-presence{right:5px;top:5px;font-size:7px;padding:5px 7px}}
+
 </style>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
@@ -166,6 +174,7 @@ header a{color:#cbd5e1;text-decoration:none}.brand{font-weight:900;background:li
  <div class="stage-wrap"><div class="scene" id="scene">
   <img class="room-photo" src="client-room-agency-v8.png" alt="Digital Agency By Chandan Das Client Room">
   <div class="hint">LCD frame-এর ভিতরে Digital Agency services autoplay হবে • নিচের button থেকে Project Status, Chat, Correction ও Meeting খুলুন</div>
+  <div class="cctv-presence" title="Virtual room activity monitor — device camera is not used"><i></i> ROOM CONNECTED</div>
   <div class="agency-lcd" id="agencyLcd" onclick="nextAgencySlide()" title="Click for next service">
    <div class="agency-slide active"><div class="agency-icon">🚀</div><div class="agency-copy"><div class="agency-kicker">DIGITAL AGENCY</div><h3>Digital Agency By Chandan Das</h3><p>Website, App ও Digital Service—আপনার ব্যবসার জন্য এক জায়গায় সম্পূর্ণ সমাধান।</p><div class="agency-tags"><span>Modern Design</span><span>Fast Delivery</span><span>Support</span></div></div></div>
    <div class="agency-slide"><div class="agency-icon">🌐</div><div class="agency-copy"><div class="agency-kicker">SERVICE 01</div><h3>Website Development</h3><p>Business website, e-commerce, portfolio ও custom web solution.</p><div class="agency-tags"><span>Responsive</span><span>SEO Ready</span><span>Fast</span></div></div></div>
@@ -200,6 +209,7 @@ header a{color:#cbd5e1;text-decoration:none}.brand{font-weight:900;background:li
 
 <script>
 let voiceOn=true,client=null,projects=[];
+let roomPresenceId=null,roomPresenceTimer=null,roomCurrentAction='Gate';
 let roomSettings={demo_pin:'1234',autoplay_seconds:4.5,room_active:true,welcome_bn:'ডিজিটাল এজেন্সি বাই চন্দন দাসের ক্লায়েন্ট রুমে আপনাকে আন্তরিক স্বাগতম। এখানে আমাদের ডিজিটাল সার্ভিস, প্রজেক্ট আপডেট, মিটিং, লাইভ চ্যাট এবং কারেকশন সুবিধা ব্যবহার করতে পারবেন।',welcome_hi:'डिजिटल एजेंसी बाय चंदन दास के क्लाइंट रूम में आपका हार्दिक स्वागत है। यहाँ आप हमारी डिजिटल सेवाएँ, प्रोजेक्ट अपडेट, मीटिंग, लाइव चैट और करेक्शन सुविधा उपयोग कर सकते हैं।',welcome_en:'A warm welcome to the Client Room of Digital Agency by Chandan Das. Here you can explore our digital services, project updates, meetings, live chat, and correction support.'};
 const $=id=>document.getElementById(id);
 const esc=s=>{const d=document.createElement('div');d.textContent=s??'';return d.innerHTML};
@@ -216,6 +226,37 @@ function speakMaleOnly(bn,hi,en){if(!voiceOn||!('speechSynthesis'in window))retu
 function speakThreeLanguages(bn,hi,en){speakMaleOnly(bn,hi,en)}
 function speakWelcomeMale(){speakMaleOnly(roomSettings.welcome_bn,roomSettings.welcome_hi,roomSettings.welcome_en)}
 function toggleVoice(){voiceOn=!voiceOn;$('voice').textContent=voiceOn?'🔊 Male Welcome Voice':'🔇 Muted';if(!voiceOn&&'speechSynthesis'in window)speechSynthesis.cancel()}
+
+function presenceDevice(){return innerWidth<=700?'Mobile':'Desktop'}
+function presenceSessionId(){
+ if(roomPresenceId)return roomPresenceId;
+ const key='clientRoomPresenceId';
+ roomPresenceId=sessionStorage.getItem(key)||((crypto.randomUUID?.()||('sess-'+Date.now()+'-'+Math.random().toString(36).slice(2))).replace(/[^a-zA-Z0-9_-]/g,''));
+ sessionStorage.setItem(key,roomPresenceId);return roomPresenceId;
+}
+async function writeRoomPresence(extra={}){
+ if(!client||!window.db)return;
+ const id=presenceSessionId();
+ const payload={
+  session_id:id,client_id:String(client.id||'demo'),client_name:String(client.client_name||'Guest'),client_pin:String(client.client_pin||client.client_code||''),
+  online:true,current_action:String(extra.current_action||roomCurrentAction||'Inside Client Room'),device:presenceDevice(),viewport:`${innerWidth}x${innerHeight}`,
+  page:'client-room.html',last_seen:firebase.firestore.FieldValue.serverTimestamp(),...extra
+ };
+ try{await db.collection('room_presence').doc(id).set(payload,{merge:true})}catch(e){console.warn('Presence update:',e.message)}
+}
+async function startRoomPresence(){
+ roomCurrentAction='Entered Client Room';
+ await writeRoomPresence({entered_at:firebase.firestore.FieldValue.serverTimestamp(),online:true,current_action:roomCurrentAction});
+ clearInterval(roomPresenceTimer);roomPresenceTimer=setInterval(()=>writeRoomPresence({online:true}),12000);
+}
+function trackRoomAction(action){roomCurrentAction=action;writeRoomPresence({current_action:action,online:true})}
+function closeRoomPresence(){
+ if(!roomPresenceId||!window.db)return;
+ try{db.collection('room_presence').doc(roomPresenceId).set({online:false,current_action:'Left Client Room',left_at:firebase.firestore.FieldValue.serverTimestamp(),last_seen:firebase.firestore.FieldValue.serverTimestamp()},{merge:true})}catch(e){}
+}
+window.addEventListener('beforeunload',closeRoomPresence);
+document.addEventListener('visibilitychange',()=>{if(client)writeRoomPresence({online:document.visibilityState==='visible',current_action:document.visibilityState==='visible'?roomCurrentAction:'Tab Hidden'})});
+
 async function enterRoom(pinOverride){
  const pin=String(pinOverride||gatePin||'').trim();
  if(!/^\d{4}$/.test(pin))throw new Error('4-digit PIN লিখুন।');
@@ -234,28 +275,28 @@ async function enterRoom(pinOverride){
  const scene=$('gateScene');if(scene)scene.classList.add('access-ok');
  setTimeout(openWorld,900);
 }
-function openWorld(){$('login').classList.add('hide');$('world').style.display='flex';$('exit').classList.remove('hide');renderDesk();populateReviewProjects();startAgencySlides();startLiveLcdListener();setTimeout(speakWelcomeMale,350)}
-function show(id){$(id)?.classList.add('on')}function hide(id){$(id)?.classList.remove('on')}
+function openWorld(){$('login').classList.add('hide');$('world').style.display='flex';$('exit').classList.remove('hide');renderDesk();populateReviewProjects();startAgencySlides();startLiveLcdListener();startRoomPresence();setTimeout(speakWelcomeMale,350)}
+function show(id){$(id)?.classList.add('on');const names={desk:'Project Status',projectReview:'Correction',note:'Questions',meeting:'Meeting',liveChat:'Live Chat'};trackRoomAction(names[id]||('Opened '+id))}function hide(id){$(id)?.classList.remove('on');trackRoomAction('Inside Client Room')}
 function sit(){document.body.classList.add('photo-seat');notifyUser('Client meeting view চালু হয়েছে।')}
-function toggleFullRoom(){document.body.classList.toggle('full-room');notifyUser(document.body.classList.contains('full-room')?'Full Room view চালু হয়েছে':'Normal view চালু হয়েছে')}
+function toggleFullRoom(){trackRoomAction('Full Room View');document.body.classList.toggle('full-room');notifyUser(document.body.classList.contains('full-room')?'Full Room view চালু হয়েছে':'Normal view চালু হয়েছে')}
 function notifyUser(message){const n=$('notify');n.textContent=message;n.classList.add('show');clearTimeout(window.__notifyTimer);window.__notifyTimer=setTimeout(()=>n.classList.remove('show'),2600)}
 let assistantReturnTimer=null;
 function bell(){try{const A=new(window.AudioContext||window.webkitAudioContext),o=A.createOscillator(),g=A.createGain();o.frequency.value=900;g.gain.setValueAtTime(.18,A.currentTime);g.gain.exponentialRampToValueAtTime(.001,A.currentTime+.55);o.connect(g).connect(A.destination);o.start();o.stop(A.currentTime+.55)}catch(e){}}
-function ringBell(){clearTimeout(assistantReturnTimer);$('assistant').classList.add('come');bell();setTimeout(()=>speakThreeLanguages('নমস্কার। আমি আপনার ভার্চুয়াল সহকারী।','नमस्कार। मैं आपका वर्चुअल सहायक हूँ।','Hello. I am your virtual assistant.'),300);assistantReturnTimer=setTimeout(returnAssistant,12000)}
+function ringBell(){trackRoomAction('Assistant');clearTimeout(assistantReturnTimer);$('assistant').classList.add('come');bell();setTimeout(()=>speakThreeLanguages('নমস্কার। আমি আপনার ভার্চুয়াল সহকারী।','नमस्कार। मैं आपका वर्चुअल सहायक हूँ।','Hello. I am your virtual assistant.'),300);assistantReturnTimer=setTimeout(returnAssistant,12000)}
 function returnAssistant(){clearTimeout(assistantReturnTimer);$('assistant').classList.remove('come');if('speechSynthesis'in window)speechSynthesis.cancel()}
 function assistantQuick(type){if(type==='project'){show('desk');notifyUser('Project Status খোলা হয়েছে')}else if(type==='meeting'){show('meeting')}else{$('assistantInput').value=type==='price'?'Project-এর আনুমানিক দাম জানতে চাই':'আমার technical support দরকার';sendAssistantMessage()}}
 async function sendAssistantMessage(){const input=$('assistantInput'),reply=$('assistantReply'),message=input.value.trim();if(!message)return;input.value='';reply.style.display='block';reply.textContent='আপনার message গ্রহণ করা হয়েছে।';if(client&&client.id!=='demo'){try{await db.collection('room_feature_requests').add({client_id:client.id,project_id:null,request_text:'Virtual Assistant: '+message,status:'New',created_at:firebase.firestore.FieldValue.serverTimestamp(),updated_at:firebase.firestore.FieldValue.serverTimestamp()});reply.textContent='✅ Message পাঠানো হয়েছে.';setTimeout(returnAssistant,2500)}catch(e){reply.textContent='Message save করা যায়নি।'}}else{reply.textContent='✅ Demo mode: Message গ্রহণ করা হয়েছে।';setTimeout(returnAssistant,2500)}}
 function renderDesk(){$('clientName').textContent='📊 Project Status — '+client.client_name;$('clientCode').textContent='Client PIN: '+(client.client_pin||client.client_code||'-');$('projects').innerHTML=projects.length?projects.map(p=>`<div class="project"><b>${esc(p.project_name)}</b><span style="float:right">${esc(p.status||'')}</span><p class="muted">${esc(p.current_stage||'')}</p><div class="progress"><b style="width:${Math.min(100,p.progress_percent||0)}%"></b></div><small>${p.progress_percent||0}% Complete</small></div>`).join(''):'<p class="muted">কোনো project পাওয়া যায়নি।</p>';$('projectSelect').innerHTML='<option value="">General Question</option>'+projects.map(p=>`<option value="${p.id}">${esc(p.project_name)}</option>`).join('')}
 async function refreshProjects(){if(!client||client.id==='demo'){renderDesk();notifyUser('Demo project refreshed');return}try{const snap=await db.collection('room_projects').where('client_id','==',client.id).get();projects=snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.created_at?.seconds||0)-(a.created_at?.seconds||0));renderDesk();populateReviewProjects();renderReviewPreview();notifyUser('Project information refreshed')}catch(e){notifyUser('Refresh হয়নি: '+e.message)}}
 async function submitRequest(){const t=$('requestText').value.trim();if(!t)return alert('প্রশ্ন লিখুন।');if(client.id==='demo'){$('requests').innerHTML=`<div class="project">✅ ${esc(t)}</div>`;$('requestText').value='';return}try{await db.collection('room_feature_requests').add({client_id:client.id,project_id:$('projectSelect').value||null,request_text:t,status:'New',created_at:firebase.firestore.FieldValue.serverTimestamp(),updated_at:firebase.firestore.FieldValue.serverTimestamp()});$('requestText').value='';alert('Request পাঠানো হয়েছে।')}catch(e){alert('Request পাঠানো যায়নি: '+e.message)}}
-function openProjectReview(){if(!projects.length){notifyUser('Correction পাঠানোর জন্য project দরকার');return}populateReviewProjects();renderReviewPreview();loadReviewHistory();show('projectReview')}
+function openProjectReview(){trackRoomAction('Correction');if(!projects.length){notifyUser('Correction পাঠানোর জন্য project দরকার');return}populateReviewProjects();renderReviewPreview();loadReviewHistory();show('projectReview')}
 function populateReviewProjects(){const sel=$('reviewProjectSelect');if(!sel)return;const current=sel.value;sel.innerHTML='';projects.forEach(p=>{const o=document.createElement('option');o.value=p.id;o.textContent=p.project_name;sel.appendChild(o)});if(current&&[...sel.options].some(o=>o.value===current))sel.value=current}
 function renderReviewPreview(){const id=$('reviewProjectSelect')?.value,p=projects.find(x=>String(x.id)===String(id)),box=$('reviewProjectPreview');if(!box)return;if(!p){box.innerHTML='Project select করুন';return}box.innerHTML=`<b>${esc(p.project_name)}</b><div class="muted">Status: ${esc(p.status||'')} • Progress: ${p.progress_percent||0}%</div><div class="muted">Current Stage: ${esc(p.current_stage||'-')}</div>`}
 async function submitProjectReview(){const projectId=$('reviewProjectSelect').value,area=$('reviewArea').value,message=$('reviewMessage').value.trim(),pageUrl=$('reviewPageUrl').value.trim();if(!projectId||!message)return alert('Project এবং correction message লিখুন।');const full=`[${area}] ${message}${pageUrl?` | Page/Section: ${pageUrl}`:''}`;if(client.id==='demo'){$('reviewMessage').value='';$('reviewPageUrl').value='';notifyUser('Demo correction request গ্রহণ করা হয়েছে');loadReviewHistory(true,full);return}try{await db.collection('room_feature_requests').add({client_id:client.id,project_id:projectId,request_text:full,status:'New',created_at:firebase.firestore.FieldValue.serverTimestamp(),updated_at:firebase.firestore.FieldValue.serverTimestamp()});$('reviewMessage').value='';$('reviewPageUrl').value='';notifyUser('Correction request পাঠানো হয়েছে');loadReviewHistory()}catch(e){alert('Correction পাঠানো যায়নি: '+e.message)}}
 async function loadReviewHistory(isDemo=false,demoText=''){const box=$('reviewHistory');if(!box)return;if(isDemo){box.innerHTML=`<div class="review-history-item"><b>${esc(demoText)}</b><br><small>Status: New</small></div>`;return}if(!client||client.id==='demo'){box.innerHTML='';return}try{const snap=await db.collection('room_feature_requests').where('client_id','==',client.id).get();const rows=snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.created_at?.seconds||0)-(a.created_at?.seconds||0)).slice(0,10);box.innerHTML=rows.map(r=>`<div class="review-history-item"><b>${esc(r.request_text)}</b><br><small>Status: ${esc(r.status||'New')}</small></div>`).join('')||'<div class="muted">এখনও কোনো correction পাঠানো হয়নি।</div>'}catch(e){box.innerHTML='<div class="muted">'+esc(e.message)+'</div>'}}
 async function bookMeeting(){const date=$('meetingDate').value,time=$('meetingTime').value,type=$('meetingType').value,note=$('meetingNote').value.trim(),result=$('meetingResult');if(!date||!time)return alert('Date এবং time select করুন।');const message=`Meeting Request: ${date} ${time} | ${type} | ${note||'No note'}`;result.style.display='block';result.textContent='✅ Meeting request পাঠানো হয়েছে: '+date+' '+time;if(client.id!=='demo'){try{await db.collection('room_feature_requests').add({client_id:client.id,project_id:null,request_text:message,status:'New',created_at:firebase.firestore.FieldValue.serverTimestamp(),updated_at:firebase.firestore.FieldValue.serverTimestamp()})}catch(e){alert('Meeting request save হয়নি: '+e.message)}}notifyUser('Meeting request গ্রহণ করা হয়েছে')}
 let clientChatUnsub=null,adminTypingUnsub=null,clientTypingTimer=null;
-function openLiveChat(){if(!client||!client.id)return notifyUser('আগে Client Room-এ প্রবেশ করুন');show('liveChat');subscribeClientChat();subscribeTypingStatus()}
+function openLiveChat(){trackRoomAction('Live Chat');if(!client||!client.id)return notifyUser('আগে Client Room-এ প্রবেশ করুন');show('liveChat');subscribeClientChat();subscribeTypingStatus()}
 function closeLiveChat(){hide('liveChat')}
 function subscribeClientChat(){const box=$('clientChatMessages'),status=$('chatStatus');if(client.id==='demo'){status.textContent='Demo connected';box.innerHTML='<div class="chat-msg admin">স্বাগতম! এটি demo chat.</div>';return}if(clientChatUnsub)clientChatUnsub();status.textContent='Live connected';clientChatUnsub=db.collection('room_chats').where('client_id','==',client.id).orderBy('created_at','asc').onSnapshot(snap=>{const rows=snap.docs.map(d=>({id:d.id,...d.data()}));box.innerHTML=rows.map(m=>`<div class="chat-msg ${m.sender==='client'?'client':'admin'}">${esc(m.message||'')}<small>${m.sender==='client'?'আপনি':'Admin'}${m.sender==='client'?` • <span class="delivery">${m.read_by_admin?'✔✔ Seen':'✔ Delivered'}</span>`:''}</small></div>`).join('')||'<div class="muted">এখনও কোনো message নেই।</div>';box.scrollTop=box.scrollHeight},e=>{status.textContent='Chat error';box.innerHTML='<div class="muted">'+esc(e.message)+'</div>'})}
 async function setClientTyping(){if(!client||client.id==='demo')return;clearTimeout(clientTypingTimer);try{await db.collection('room_chat_status').doc(client.id).set({client_typing:true,updated_at:firebase.firestore.FieldValue.serverTimestamp()},{merge:true})}catch(e){}clientTypingTimer=setTimeout(async()=>{try{await db.collection('room_chat_status').doc(client.id).set({client_typing:false,updated_at:firebase.firestore.FieldValue.serverTimestamp()},{merge:true})}catch(e){}},1200)}
@@ -272,7 +313,7 @@ function renderAgencySlide(){
  const bar=$('agencyProgress');if(bar)bar.style.width='0%';
 }
 function buildAgencyDots(){const box=$('agencyDots');if(!box)return;const count=document.querySelectorAll('.agency-slide').length;box.innerHTML='';for(let i=0;i<count;i++){const d=document.createElement('span');d.className='agency-dot'+(i===0?' active':'');d.onclick=e=>{e.stopPropagation();agencySlideIndex=i;renderAgencySlide()};box.appendChild(d)}}
-function nextAgencySlide(){if(liveLcdActive){notifyUser('Admin live broadcast চলছে');return}const count=document.querySelectorAll('.agency-slide').length;if(!count)return;agencySlideIndex=(agencySlideIndex+1)%count;renderAgencySlide()}
+function nextAgencySlide(){trackRoomAction('Next Demo');if(liveLcdActive){notifyUser('Admin live broadcast চলছে');return}const count=document.querySelectorAll('.agency-slide').length;if(!count)return;agencySlideIndex=(agencySlideIndex+1)%count;renderAgencySlide()}
 function startAgencySlides(){if(liveLcdActive)return;clearInterval(agencySlideTimer);clearInterval(agencyProgressTimer);buildAgencyDots();renderAgencySlide();agencySlideTimer=setInterval(nextAgencySlide,agencyDuration);agencyProgressTimer=setInterval(()=>{agencyElapsed+=100;const bar=$('agencyProgress');if(bar)bar.style.width=Math.min(100,agencyElapsed/agencyDuration*100)+'%'},100)}
 
 

@@ -65,6 +65,21 @@ main{max-width:1380px}.dashboard-cards{max-width:1380px}.grid{grid-template-colu
 .live-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}.live-actions button{flex:0 0 auto}
 @media(max-width:900px){.live-lcd-layout{grid-template-columns:1fr}.live-lcd-form{grid-template-columns:1fr}.live-lcd-form .wide{grid-column:auto}}
 
+
+
+/* ===== Virtual CCTV Monitor V16 ===== */
+.cctv-card{background:linear-gradient(145deg,#09151f,#07101c);border:1px solid #22d3ee35;box-shadow:0 20px 55px #0005}
+.cctv-layout{display:grid;grid-template-columns:minmax(420px,1.25fr) minmax(300px,.75fr);gap:15px;margin-top:14px}
+.cctv-screen{position:relative;min-height:340px;border-radius:18px;overflow:hidden;background:#020617 url('client-room-agency-v8.png') center/cover no-repeat;border:1px solid #334155;box-shadow:inset 0 0 0 1px #ffffff08,0 16px 38px #0005}
+.cctv-screen:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(2,6,23,.08),rgba(2,6,23,.58));pointer-events:none}
+.cctv-rec{position:absolute;z-index:3;left:14px;top:14px;display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:999px;background:#070b14cc;border:1px solid #ffffff20;font-size:11px;font-weight:900}.cctv-rec i{width:9px;height:9px;border-radius:50%;background:#fb7185;box-shadow:0 0 10px #fb7185;animation:cctvRec 1.4s infinite}@keyframes cctvRec{50%{opacity:.4}}
+.cctv-time{position:absolute;z-index:3;right:14px;top:14px;padding:7px 10px;border-radius:9px;background:#070b14cc;font-family:Consolas,monospace;font-size:11px}
+.cctv-info{position:absolute;z-index:3;left:18px;right:18px;bottom:18px;padding:15px;border-radius:15px;background:linear-gradient(90deg,rgba(4,12,24,.94),rgba(7,24,35,.84));border:1px solid #22d3ee35;backdrop-filter:blur(10px)}
+.cctv-info h3{margin:0 0 7px;font-size:21px}.cctv-meta{display:flex;gap:8px;flex-wrap:wrap}.cctv-meta span{padding:5px 8px;border-radius:999px;background:#ffffff0d;border:1px solid #ffffff14;font-size:10px;color:#cbd5e1}.cctv-action{margin-top:9px;color:#67e8f9;font-weight:800;font-size:13px}
+.cctv-side{display:flex;flex-direction:column;gap:12px}.cctv-list{max-height:210px;overflow:auto;padding-right:3px}.cctv-person{padding:11px;border-radius:13px;border:1px solid #ffffff14;background:#0a1524;margin-bottom:8px;cursor:pointer;transition:.18s}.cctv-person:hover,.cctv-person.active{border-color:#22d3ee88;background:#0d2535;transform:translateY(-1px)}.cctv-person-head{display:flex;align-items:center;justify-content:space-between;gap:8px}.online-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#34d399;box-shadow:0 0 9px #34d399;margin-right:6px}.offline-dot{background:#64748b;box-shadow:none}.cctv-log{max-height:145px;overflow:auto}.cctv-log-row{padding:8px 9px;border-left:2px solid #334155;margin:0 0 7px 4px;background:#ffffff05;border-radius:0 9px 9px 0;font-size:11px}.cctv-notice{font-size:10px;color:#94a3b8;margin-top:8px}.cctv-counter{display:inline-flex;gap:7px;align-items:center;padding:6px 10px;border-radius:999px;background:#064e3b;color:#a7f3d0;font-size:11px;font-weight:900}
+@media(max-width:980px){.cctv-layout{grid-template-columns:1fr}.cctv-screen{min-height:310px}}
+@media(max-width:600px){.cctv-screen{min-height:260px}.cctv-info h3{font-size:17px}.cctv-layout{display:block}.cctv-side{margin-top:12px}}
+
 </style>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
@@ -76,7 +91,7 @@ main{max-width:1380px}.dashboard-cards{max-width:1380px}.grid{grid-template-colu
 <header>
 <div>
   <b style="font-size:18px">Digital Agency by Chandan Das</b>
-  <div class="muted">Client Room Admin V11 — Access, Projects, Chat & Settings</div>
+  <div class="muted">Client Room Admin V16 — CCTV, Access, Projects, Chat & Settings</div>
 </div>
 <div class="row" style="flex:0 0 auto">
   <a href="client-room.html" target="_blank" style="text-decoration:none"><button class="secondary">Client Room দেখুন</button></a>
@@ -98,6 +113,31 @@ main{max-width:1380px}.dashboard-cards{max-width:1380px}.grid{grid-template-colu
   <div class="dash"><span>Total Projects</span><b id="totalProjects">0</b></div>
   <div class="dash"><span>New Corrections</span><b id="newCorrections">0</b></div>
   <div class="dash"><span>Demo Gate PIN</span><b id="dashDemoPin" style="color:#67e8f9">1234</b></div>
+</div>
+
+<div class="card cctv-card" id="cctvCard">
+  <div class="cardtop">
+    <div><h2 style="margin-bottom:5px">📹 Client Room Virtual CCTV</h2><div class="muted">Client Room-এ কে ঢুকেছে, online status এবং current activity live দেখুন</div></div>
+    <span id="cctvOnlineCount" class="cctv-counter"><span class="online-dot"></span>0 ONLINE</span>
+  </div>
+  <div class="cctv-layout">
+    <div>
+      <div class="cctv-screen" id="cctvScreen">
+        <div class="cctv-rec"><i></i> VIRTUAL CCTV • LIVE</div>
+        <div class="cctv-time" id="cctvClock">--:--:--</div>
+        <div class="cctv-info">
+          <h3 id="cctvName">কোনো client online নেই</h3>
+          <div class="cctv-meta"><span id="cctvPin">PIN: —</span><span id="cctvDevice">Device: —</span><span id="cctvEntered">Entered: —</span></div>
+          <div class="cctv-action" id="cctvAction">Waiting for room entry…</div>
+        </div>
+      </div>
+      <div class="cctv-notice">🔒 এটি শুধু virtual room activity monitor। Client-এর device camera বা microphone ব্যবহার করা হয় না।</div>
+    </div>
+    <div class="cctv-side">
+      <div class="card" style="margin:0;padding:13px"><div class="cardtop"><h3 style="margin:0">Online Visitors</h3><button class="secondary" style="padding:7px 9px" onclick="refreshCctvMonitor()">↻</button></div><div id="cctvVisitors" class="cctv-list" style="margin-top:10px"><div class="muted">Waiting…</div></div></div>
+      <div class="card" style="margin:0;padding:13px"><h3>Recent Entry Log</h3><div id="cctvLog" class="cctv-log"><div class="muted">No entry yet</div></div></div>
+    </div>
+  </div>
 </div>
 
 <div class="card room-settings-card" id="roomSettingsCard">
@@ -258,6 +298,7 @@ function checkSession(){
      loadClients();
      loadRoomSettings();
      subscribeLiveLcdAdmin();
+     startCctvMonitor();
    }else{
      $('login').style.display='block';
      $('app').style.display='none';
@@ -517,6 +558,31 @@ async function updateV2Status(col,id,status){await db.collection(col).doc(id).up
 async function deleteV2Doc(col,id){if(!confirm('Delete করবেন?'))return;await db.collection(col).doc(id).delete();loadAdminV2Data()}
 
 
+
+
+
+// ===== VIRTUAL CCTV MONITOR V16 =====
+let cctvUnsub=null,cctvSessions=[],selectedCctvId=null,cctvClockTimer=null;
+function cctvTs(v){return v&&typeof v.toDate==='function'?v.toDate():v?new Date(v):null}
+function cctvTime(v){const d=cctvTs(v);return d&&!isNaN(d)?d.toLocaleString('en-IN',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit',second:'2-digit'}):'—'}
+function cctvIsOnline(s){const d=cctvTs(s.last_seen);return s.online===true&&d&&(Date.now()-d.getTime()<45000)}
+function startCctvMonitor(){
+ if(cctvUnsub)cctvUnsub();
+ cctvUnsub=db.collection('room_presence').onSnapshot(snap=>{cctvSessions=snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(cctvTs(b.last_seen)?.getTime()||0)-(cctvTs(a.last_seen)?.getTime()||0));renderCctvMonitor()},e=>{$('cctvVisitors').innerHTML=`<div class="muted">CCTV permission error: ${escapeHtml(e.message)}</div>`});
+ clearInterval(cctvClockTimer);cctvClockTimer=setInterval(()=>{const c=$('cctvClock');if(c)c.textContent=new Date().toLocaleTimeString('en-IN')},1000)
+}
+function refreshCctvMonitor(){renderCctvMonitor()}
+function selectCctvSession(id){selectedCctvId=id;renderCctvMonitor()}
+function renderCctvMonitor(){
+ if(!$('cctvVisitors'))return;
+ const online=cctvSessions.filter(cctvIsOnline),recent=cctvSessions.slice(0,12);
+ $('cctvOnlineCount').innerHTML=`<span class="online-dot"></span>${online.length} ONLINE`;
+ if(!selectedCctvId||!cctvSessions.some(x=>x.id===selectedCctvId))selectedCctvId=(online[0]||recent[0]||{}).id||null;
+ const current=cctvSessions.find(x=>x.id===selectedCctvId)||online[0]||recent[0];
+ $('cctvVisitors').innerHTML=online.length?online.map(s=>`<div class="cctv-person ${s.id===selectedCctvId?'active':''}" onclick="selectCctvSession('${s.id}')"><div class="cctv-person-head"><b><span class="online-dot"></span>${escapeHtml(s.client_name||'Guest')}</b><small>${escapeHtml(s.device||'')}</small></div><div class="tiny" style="margin-top:5px">PIN ${escapeHtml(s.client_pin||'—')} • ${escapeHtml(s.current_action||'Inside Room')}</div></div>`).join(''):'<div class="muted">কোনো client এখন online নেই</div>';
+ $('cctvLog').innerHTML=recent.length?recent.map(s=>`<div class="cctv-log-row"><b>${escapeHtml(s.client_name||'Guest')}</b> — ${escapeHtml(s.current_action||'Room visit')}<div class="tiny">${cctvTime(s.last_seen)} • ${cctvIsOnline(s)?'ONLINE':'OFFLINE'}</div></div>`).join(''):'<div class="muted">No entry yet</div>';
+ if(current){$('cctvName').textContent=current.client_name||'Guest';$('cctvPin').textContent='PIN: '+(current.client_pin||'—');$('cctvDevice').textContent='Device: '+(current.device||'—');$('cctvEntered').textContent='Entered: '+cctvTime(current.entered_at);$('cctvAction').textContent=(cctvIsOnline(current)?'● LIVE — ':'○ LAST ACTIVITY — ')+(current.current_action||'Inside Client Room')}else{$('cctvName').textContent='কোনো client online নেই';$('cctvPin').textContent='PIN: —';$('cctvDevice').textContent='Device: —';$('cctvEntered').textContent='Entered: —';$('cctvAction').textContent='Waiting for room entry…'}
+}
 
 // ===== CLIENT ROOM V11 SETTINGS =====
 const defaultRoomSettings={

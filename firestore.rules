@@ -68,5 +68,12 @@ service cloud.firestore {
       allow read, create: if true;
       allow update, delete: if isAdmin();
     }
+
+
+    // Virtual CCTV / room presence. This tracks website activity only — no camera or microphone data.
+    match /room_presence/{presenceId} {
+      allow create, update: if true;
+      allow read, delete: if isAdmin();
+    }
   }
 }
