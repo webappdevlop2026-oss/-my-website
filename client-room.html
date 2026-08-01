@@ -143,120 +143,27 @@ header a{color:#cbd5e1;text-decoration:none}.brand{font-weight:900;background:li
 /* ===== V21 Reception + Waiting Hall + Cabin PIN ===== */
 #waitingHall,#cabinGate{position:fixed;inset:56px 0 0;display:none;background:#07101b;color:#fff;z-index:120;overflow:auto}
 .waiting-stage{min-height:calc(100vh - 56px);display:grid;grid-template-columns:minmax(0,1.5fr) minmax(320px,.7fr);gap:18px;padding:18px;background:radial-gradient(circle at 15% 20%,#164e6330,transparent 36%),linear-gradient(180deg,#07101b,#030712)}
-.waiting-office{position:relative;aspect-ratio:3/2;min-height:0;border:1px solid #ffffff18;border-radius:24px;overflow:hidden;background:#111;box-shadow:0 24px 70px #0008}
-.waiting-office img{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;display:block}
+.waiting-office{position:relative;min-height:620px;border:1px solid #ffffff18;border-radius:24px;overflow:hidden;background:#111;box-shadow:0 24px 70px #0008}
+.waiting-office img{width:100%;height:100%;object-fit:cover;display:block}
 .waiting-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(2,6,23,.76))}
-.waiting-lcd{position:absolute;z-index:4;left:20.28%;top:27.15%;width:5.78%;height:23.35%;border-radius:2px;background:linear-gradient(160deg,#061225,#0a2440);border:0;box-shadow:inset 0 0 0 1px rgba(103,232,249,.18);overflow:hidden;padding:4.5% 7%;display:flex;flex-direction:column;justify-content:center;text-align:left}
-.waiting-lcd:before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 70% 15%,rgba(34,211,238,.18),transparent 40%);pointer-events:none}.waiting-lcd h3{position:relative;margin:0 0 6%;font-size:clamp(5px,.57vw,10px);line-height:1.08;color:#67e8f9;white-space:pre-line;overflow-wrap:anywhere}.waiting-lcd p{position:relative;margin:0;color:#dbeafe;font-size:clamp(3.5px,.34vw,6px);line-height:1.35;overflow-wrap:anywhere}.waiting-lcd .adline{position:relative;margin-top:8%;padding-top:7%;border-top:1px solid #ffffff20;color:#facc15;font-size:clamp(3.5px,.33vw,6px);line-height:1.25;font-weight:800;overflow-wrap:anywhere}
+.waiting-lcd{position:absolute;left:18.5%;top:23%;width:19%;height:29%;border-radius:10px;background:linear-gradient(150deg,#071426,#0e2a45);border:1px solid #38bdf855;box-shadow:0 0 24px #0ea5e944;overflow:hidden;padding:16px;display:flex;flex-direction:column;justify-content:center}
+.waiting-lcd h3{margin:0 0 8px;font-size:clamp(14px,1.5vw,24px);color:#67e8f9}.waiting-lcd p{margin:0;color:#dbeafe;font-size:clamp(9px,.85vw,14px);line-height:1.5}.waiting-lcd .adline{margin-top:14px;padding-top:12px;border-top:1px solid #ffffff1c;color:#facc15;font-weight:800}
 .waiting-bottom{position:absolute;left:22px;right:22px;bottom:18px;display:flex;gap:12px;align-items:center;justify-content:space-between;background:#06111de8;border:1px solid #ffffff1c;border-radius:18px;padding:14px 16px;backdrop-filter:blur(12px)}
 .waiting-bottom strong{font-size:18px}.status-pill{padding:8px 12px;border-radius:999px;background:#0f766e;color:#ccfbf1;font-weight:900;font-size:12px}
 .reception-card{align-self:start;background:linear-gradient(180deg,#0d1728,#08111f);border:1px solid #ffffff17;border-radius:24px;padding:20px;box-shadow:0 24px 70px #0007;position:sticky;top:18px}
 .reception-card h2{margin:0 0 8px}.queue-ticket{margin-top:14px;padding:14px;border-radius:16px;background:#020617;border:1px solid #ffffff16}.queue-ticket b{color:#67e8f9}.assign-box{display:none;margin-top:16px;padding:15px;border-radius:16px;background:#082f49;border:1px solid #0ea5e9}.assign-box.on{display:block}.cabin-name{font-size:20px;font-weight:900;color:#fff}.cabin-note{color:#bae6fd;margin-top:6px;line-height:1.5}.collect-pin{margin-top:12px;padding:10px 12px;border-radius:12px;background:#f59e0b;color:#111827;font-weight:900;text-align:center}
 .cabin-keypad-wrap{min-height:calc(100vh - 56px);display:grid;place-items:center;padding:20px;background:radial-gradient(circle at 50% 20%,#0e749055,transparent 35%),linear-gradient(180deg,#08111f,#020617)}
 .cabin-keypad{width:min(420px,94vw);padding:24px;border-radius:26px;background:#0b1525;border:1px solid #ffffff1c;box-shadow:0 30px 90px #000}.cabin-keypad h2{margin:0 0 8px}.cabin-keypad .room-tag{display:inline-block;padding:6px 10px;border-radius:999px;background:#0f766e;color:#ccfbf1;font-weight:900;font-size:12px}.cabin-dots{display:flex;justify-content:center;gap:14px;margin:22px 0}.cabin-dots i{width:18px;height:18px;border-radius:50%;border:2px solid #64748b}.cabin-dots i.on{background:#22d3ee;border-color:#67e8f9;box-shadow:0 0 14px #22d3ee}.cabin-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.cabin-grid button{height:58px;border:1px solid #ffffff1c;border-radius:14px;background:#111e33;color:#fff;font-size:20px;font-weight:900}.cabin-enter{width:100%;margin-top:12px;padding:14px;border:0;border-radius:14px;background:linear-gradient(90deg,#7c3aed,#06b6d4);color:#fff;font-weight:900}.cabin-msg{text-align:center;min-height:22px;margin-top:10px;color:#fb7185}.assigned-banner{position:absolute;z-index:55;right:16px;top:16px;padding:9px 13px;border-radius:999px;background:#082f49e8;border:1px solid #38bdf855;color:#e0f2fe;font-weight:900;font-size:11px}
-@media(max-width:900px){.waiting-stage{grid-template-columns:1fr;padding:8px}.waiting-office{aspect-ratio:3/2;min-height:0}.reception-card{position:relative;top:auto}.waiting-lcd{left:20.28%;top:27.15%;width:5.78%;height:23.35%;padding:4.5% 7%}.waiting-bottom{left:8px;right:8px;bottom:8px;flex-direction:column;align-items:flex-start}.waiting-bottom strong{font-size:15px}}
+@media(max-width:900px){.waiting-stage{grid-template-columns:1fr;padding:8px}.waiting-office{min-height:520px}.reception-card{position:relative;top:auto}.waiting-lcd{left:15%;top:18%;width:32%;height:30%}.waiting-bottom{left:8px;right:8px;bottom:8px;flex-direction:column;align-items:flex-start}.waiting-bottom strong{font-size:15px}}
 
 
-/* ===== V21.2 exact vertical waiting LCD frame ===== */
-.waiting-lcd{
-  left:19.78%!important;
-  top:26.38%!important;
-  width:6.78%!important;
-  height:25.35%!important;
-  padding:1.05% .62%!important;
-  border-radius:1px!important;
-  background:linear-gradient(180deg,#06152a 0%,#071f39 58%,#05111f 100%)!important;
-  box-shadow:inset 0 0 0 1px rgba(103,232,249,.16)!important;
-  overflow:hidden!important;
-  display:flex!important;
-  flex-direction:column!important;
-  justify-content:center!important;
-  align-items:stretch!important;
-  text-align:left!important;
-  contain:layout paint!important;
-}
-.waiting-lcd:before{opacity:.55!important}
-.waiting-lcd h3{
-  margin:0 0 7%!important;
-  padding:0!important;
-  color:#67e8f9!important;
-  font-size:clamp(4.6px,.49vw,8px)!important;
-  line-height:1.06!important;
-  font-weight:900!important;
-  letter-spacing:0!important;
-  white-space:pre-line!important;
-  overflow:hidden!important;
-  overflow-wrap:anywhere!important;
-  max-width:100%!important;
-}
-.waiting-lcd p{
-  margin:0!important;
-  padding:0!important;
-  color:#e2e8f0!important;
-  font-size:clamp(3.1px,.28vw,4.6px)!important;
-  line-height:1.28!important;
-  overflow:hidden!important;
-  overflow-wrap:anywhere!important;
-  max-width:100%!important;
-}
-.waiting-lcd .adline{
-  margin-top:8%!important;
-  padding-top:7%!important;
-  border-top:1px solid rgba(255,255,255,.16)!important;
-  color:#facc15!important;
-  font-size:clamp(3.1px,.27vw,4.5px)!important;
-  line-height:1.22!important;
-  font-weight:900!important;
-  overflow:hidden!important;
-  overflow-wrap:anywhere!important;
-  max-width:100%!important;
-}
-@media(max-width:900px){
- .waiting-lcd{left:19.78%!important;top:26.38%!important;width:6.78%!important;height:25.35%!important;padding:1.05% .62%!important}
- .waiting-lcd h3{font-size:clamp(3.7px,.50vw,6px)!important}
- .waiting-lcd p,.waiting-lcd .adline{font-size:clamp(2.7px,.29vw,4px)!important}
-}
+/* ===== V22 CLEAN OFFICE REBUILD: NO OLD LCD PLAYER ===== */
+.clean-cabin-panel{position:absolute;z-index:48;left:3.2%;bottom:5.5%;width:min(340px,28%);display:flex;gap:12px;align-items:center;padding:14px 16px;border-radius:18px;background:linear-gradient(145deg,rgba(5,15,28,.92),rgba(8,35,55,.88));border:1px solid rgba(103,232,249,.28);box-shadow:0 18px 45px rgba(0,0,0,.34);backdrop-filter:blur(14px)}
+.clean-cabin-icon{width:46px;height:46px;flex:0 0 46px;display:grid;place-items:center;border-radius:14px;background:linear-gradient(135deg,#7c3aed,#06b6d4);font-size:22px;box-shadow:0 8px 22px rgba(6,182,212,.22)}
+.clean-cabin-kicker{font-size:8px;font-weight:900;letter-spacing:1.1px;color:#67e8f9}.clean-cabin-panel h3{margin:3px 0 4px;font-size:17px}.clean-cabin-panel p{margin:0;color:#cbd5e1;font-size:10px;line-height:1.45}
+.agency-lcd,.agency-lcd-bottom,.agency-slide,.live-lcd-overlay{display:none!important}
+@media(max-width:900px){.clean-cabin-panel{left:2%;bottom:3%;width:42%;padding:9px 10px;gap:8px}.clean-cabin-icon{width:34px;height:34px;flex-basis:34px;font-size:17px}.clean-cabin-panel h3{font-size:11px}.clean-cabin-panel p{font-size:7px}.clean-cabin-kicker{font-size:6px}}
 
-/* ===== V21.3 exact INNER vertical LCD screen ===== */
-.waiting-lcd{
-  left:20.18%!important;
-  top:27.05%!important;
-  width:5.55%!important;
-  height:23.35%!important;
-  padding:.78% .36%!important;
-  border-radius:0!important;
-  background:linear-gradient(180deg,#06152b,#061d34 58%,#04101d)!important;
-  overflow:hidden!important;
-  clip-path:inset(0)!important;
-  contain:strict!important;
-}
-.waiting-lcd h3{
-  font-size:clamp(3.7px,.39vw,6px)!important;
-  line-height:1.02!important;
-  margin:0 0 8%!important;
-  max-height:30%!important;
-  overflow:hidden!important;
-  text-align:left!important;
-}
-.waiting-lcd p{
-  font-size:clamp(2.6px,.23vw,3.8px)!important;
-  line-height:1.20!important;
-  max-height:35%!important;
-  overflow:hidden!important;
-}
-.waiting-lcd .adline{
-  font-size:clamp(2.5px,.22vw,3.7px)!important;
-  line-height:1.14!important;
-  margin-top:8%!important;
-  padding-top:7%!important;
-  max-height:24%!important;
-  overflow:hidden!important;
-}
-@media(max-width:900px){
- .waiting-lcd{left:20.18%!important;top:27.05%!important;width:5.55%!important;height:23.35%!important;padding:.78% .36%!important}
- .waiting-lcd h3{font-size:clamp(3px,.39vw,5px)!important}
- .waiting-lcd p,.waiting-lcd .adline{font-size:clamp(2.2px,.22vw,3.3px)!important}
-}
 </style>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
@@ -311,17 +218,15 @@ header a{color:#cbd5e1;text-decoration:none}.brand{font-weight:900;background:li
 <section id="world">
  <div class="stage-wrap"><div class="scene" id="scene">
   <img class="room-photo" src="client-office-final-v21.png" alt="Digital Agency By Chandan Das Client Room"><div class="assigned-banner" id="insideCabinBadge">Assigned Cabin</div>
-  <div class="hint">LCD frame-এর ভিতরে Digital Agency services autoplay হবে • নিচের button থেকে Project Status, Chat, Correction ও Meeting খুলুন</div>
+  <div class="hint">আপনার নির্ধারিত cabin খুলেছে • নিচের প্রয়োজনীয় option থেকে Project Status, Chat, Correction ও Meeting ব্যবহার করুন</div>
   <div class="cctv-presence" title="Virtual room activity monitor — device camera is not used"><i></i> CCTV CONNECTING...</div>
-  <div class="agency-lcd" id="agencyLcd" onclick="nextAgencySlide()" title="Click for next service">
-   <div class="agency-slide active"><div class="agency-icon">🚀</div><div class="agency-copy"><div class="agency-kicker">DIGITAL AGENCY</div><h3>Digital Agency By Chandan Das</h3><p>Website, App ও Digital Service—আপনার ব্যবসার জন্য এক জায়গায় সম্পূর্ণ সমাধান।</p><div class="agency-tags"><span>Modern Design</span><span>Fast Delivery</span><span>Support</span></div></div></div>
-   <div class="agency-slide"><div class="agency-icon">🌐</div><div class="agency-copy"><div class="agency-kicker">SERVICE 01</div><h3>Website Development</h3><p>Business website, e-commerce, portfolio ও custom web solution.</p><div class="agency-tags"><span>Responsive</span><span>SEO Ready</span><span>Fast</span></div></div></div>
-   <div class="agency-slide"><div class="agency-icon">📱</div><div class="agency-copy"><div class="agency-kicker">SERVICE 02</div><h3>Mobile App Development</h3><p>Android, iOS ও mobile-friendly application design and development.</p><div class="agency-tags"><span>Android</span><span>iOS</span><span>Modern UI</span></div></div></div>
-   <div class="agency-slide"><div class="agency-icon">📈</div><div class="agency-copy"><div class="agency-kicker">SERVICE 03</div><h3>Digital Marketing</h3><p>SEO, social media, online promotion ও brand growth services.</p><div class="agency-tags"><span>SEO</span><span>Social Media</span><span>Growth</span></div></div></div>
-   <div class="agency-slide"><div class="agency-icon">💻</div><div class="agency-copy"><div class="agency-kicker">SERVICE 04</div><h3>Custom Business Software</h3><p>Billing, admin panel, client portal ও business management tools.</p><div class="agency-tags"><span>Billing</span><span>Admin Panel</span><span>Automation</span></div></div></div>
-
-   <div id="liveLcdOverlay" class="live-lcd-overlay" onclick="event.stopPropagation()"></div>
-   <div class="agency-lcd-bottom"><div class="agency-progress"><b id="agencyProgress"></b></div><div class="agency-dots" id="agencyDots"></div></div>
+  <div class="clean-cabin-panel" id="cleanCabinPanel">
+    <div class="clean-cabin-icon">🏢</div>
+    <div>
+      <div class="clean-cabin-kicker">CABIN ACCESS GRANTED</div>
+      <h3 id="cleanCabinTitle">Assigned Cabin</h3>
+      <p id="cleanCabinText">Reception থেকে দেওয়া cabin PIN সফল হয়েছে। নিচের প্রয়োজনীয় option ব্যবহার করুন।</p>
+    </div>
   </div>
 
   <button class="assistant-hotspot" aria-label="Open assistant" onclick="ringBell()"></button>
@@ -426,6 +331,7 @@ async function enterRoom(pinOverride){
 
 let waitingDocId=null,waitingUnsub=null,assignedCabin='',assignedCabinPin='',cabinPinInput='';
 const cabinLabels={project:'1 • Project Cabin',meeting:'2 • Meeting Cabin',support:'3 • Support Cabin',accounts:'4 • Accounts Cabin'};
+function updateCleanCabinPanel(){const labels={project:'Project Cabin',meeting:'Meeting Cabin',support:'Support Cabin',accounts:'Accounts Cabin'};const notes={project:'Project status, files এবং correction support এখানে ব্যবহার করুন।',meeting:'Meeting booking ও discussion support এখানে ব্যবহার করুন।',support:'Live Chat ও Assistant support এখানে ব্যবহার করুন।',accounts:'Invoice, payment এবং account assistance-এর জন্য Reception/Admin-এর সঙ্গে যোগাযোগ করুন।'};const title=$('cleanCabinTitle'),text=$('cleanCabinText');if(title)title.textContent=labels[assignedCabin]||'Assigned Cabin';if(text)text.textContent=notes[assignedCabin]||'Reception থেকে দেওয়া cabin PIN সফল হয়েছে।';}
 function makeToken(){return 'WT-'+String(Date.now()).slice(-5)}
 async function enterWaitingHall(){
  $('login').classList.add('hide');$('waitingHall').style.display='block';$('exit').classList.remove('hide');
@@ -433,7 +339,7 @@ async function enterWaitingHall(){
  startWaitingMarketing();
 }
 let waitingAdTimer=null,waitingAdIndex=0;
-const waitingAds=[['WELCOME','Reception Desk','Please Wait'],['GROW ONLINE','Web • App • SEO','Free Help'],['PROJECT\nSUPPORT','Update • Fix','Fast • Clear']];
+const waitingAds=[['Welcome to Digital Agency','Reception-এর সঙ্গে যোগাযোগ করুন। আপনার জন্য সঠিক cabin assign করা হবে।','Professional Website • Mobile App'],['Grow Your Business Online','Website, E-commerce, SEO এবং Digital Marketing services।','Free Consultation Available'],['Project Support Desk','Project update, correction, meeting এবং payment assistance।','Fast • Transparent • Professional']];
 function startWaitingMarketing(){clearInterval(waitingAdTimer);const draw=()=>{const a=waitingAds[waitingAdIndex%waitingAds.length];$('outsideLcdTitle').textContent=a[0];$('outsideLcdText').textContent=a[1];$('outsideLcdAd').textContent=a[2];waitingAdIndex++};draw();waitingAdTimer=setInterval(draw,4500)}
 async function checkInReception(){
  const purpose=$('visitPurpose').value,note=$('visitNote').value.trim(),token=$('waitToken').textContent;
@@ -471,7 +377,7 @@ function applyCabinMode(){
  trackRoomAction('Entered '+(cabinLabels[assignedCabin]||assignedCabin));
 }
 
-function openWorld(){$('login').classList.add('hide');$('world').style.display='flex';$('exit').classList.remove('hide');renderDesk();populateReviewProjects();startAgencySlides();startLiveLcdListener();startRoomPresence();setTimeout(speakWelcomeMale,350)}
+function openWorld(){$('login').classList.add('hide');$('world').style.display='flex';$('exit').classList.remove('hide');renderDesk();populateReviewProjects();startRoomPresence();updateCleanCabinPanel();setTimeout(speakWelcomeMale,350)}
 function show(id){$(id)?.classList.add('on');const names={desk:'Project Status',projectReview:'Correction',note:'Questions',meeting:'Meeting',liveChat:'Live Chat'};trackRoomAction(names[id]||('Opened '+id))}function hide(id){$(id)?.classList.remove('on');trackRoomAction('Inside Client Room')}
 function sit(){document.body.classList.add('photo-seat');notifyUser('Client meeting view চালু হয়েছে।')}
 function toggleFullRoom(){trackRoomAction('Full Room View');document.body.classList.toggle('full-room');notifyUser(document.body.classList.contains('full-room')?'Full Room view চালু হয়েছে':'Normal view চালু হয়েছে')}
