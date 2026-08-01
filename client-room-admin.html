@@ -512,16 +512,18 @@ async function updateRequestStatus(id,status){
 
 
 let adminChatUnsub=null;
+function adminChatTimestamp(value){if(!value)return 0;if(typeof value.toMillis==='function')return value.toMillis();if(typeof value.seconds==='number')return value.seconds*1000;return 0}
 function subscribeAdminChat(){
  const box=$('adminChatMessages'),status=$('adminChatStatus');
  if(adminChatUnsub){adminChatUnsub();adminChatUnsub=null}
  if(!selectedClient){status.textContent='Client select করুন';box.innerHTML='<div class="muted">Client select করলে live chat দেখা যাবে।</div>';return}
  status.textContent='Live connected: '+selectedClient.client_name;
- adminChatUnsub=db.collection('room_chats').where('client_id','==',selectedClient.id).orderBy('created_at','asc').onSnapshot(async snap=>{
-   const rows=snap.docs.map(d=>({id:d.id,...d.data()}));
+ adminChatUnsub=db.collection('room_chats').where('client_id','==',selectedClient.id).onSnapshot(async snap=>{
+   const docs=[...snap.docs].sort((a,b)=>adminChatTimestamp(a.data().created_at)-adminChatTimestamp(b.data().created_at));
+   const rows=docs.map(d=>({id:d.id,...d.data()}));
    box.innerHTML=rows.map(m=>`<div class="admin-chat-msg ${m.sender==='admin'?'admin':'client'}">${escapeHtml(m.message||'')}<small>${m.sender==='admin'?'Admin':escapeHtml(selectedClient.client_name)} • ${m.created_at?.toDate?m.created_at.toDate().toLocaleString():''}</small></div>`).join('')||'<div class="muted">এখনও কোনো message নেই।</div>';
    box.scrollTop=box.scrollHeight;
-   for(const d of snap.docs){const x=d.data();if(x.sender==='client'&&x.read_by_admin!==true)await d.ref.update({read_by_admin:true})}
+   for(const d of docs){const x=d.data();if(x.sender==='client'&&x.read_by_admin!==true)await d.ref.update({read_by_admin:true})}
  },e=>{status.textContent='Chat error';box.innerHTML='<div class="muted">'+escapeHtml(e.message)+'</div>'});
 }
 async function sendAdminChat(){
