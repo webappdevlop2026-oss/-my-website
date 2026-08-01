@@ -1,0 +1,15 @@
+CLIENT ROOM ADMIN V11
+
+Upload/replace these files in GitHub root:
+1. client-room.html
+2. client-room-admin.html
+3. agency-control-2026.html
+4. sw.js
+5. firestore.rules (code must also be published in Firebase Console > Firestore Database > Rules)
+
+Admin URLs:
+/client-room-admin.html
+/agency-control-2026.html
+
+Default Demo PIN: 1234
+Room settings are saved in Firestore collection: room_settings, document: main

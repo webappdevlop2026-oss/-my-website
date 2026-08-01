@@ -3,7 +3,7 @@
 <head><meta name="robots" content="noindex, nofollow">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Agency Control 2026 | Digital Agency by Chandan Das</title>
+<title>Client Room Admin V11 | Digital Agency by Chandan Das</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#07101d;color:#fff;font-family:Segoe UI,Tahoma,sans-serif}
 header{padding:18px 24px;background:#0b1323;border-bottom:1px solid #ffffff18;display:flex;justify-content:space-between;align-items:center}
@@ -37,6 +37,20 @@ button{border:0;border-radius:10px;padding:10px 13px;background:#7c3aed;color:#f
 .admin-feature-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.admin-feature-grid .card{margin-bottom:0}.file-row,.admin-data-row{padding:12px;border-radius:12px;background:#07111f;border:1px solid #ffffff12;margin-top:8px}.tiny{font-size:11px;color:#94a3b8}.upload-progress{height:8px;border-radius:999px;background:#ffffff12;overflow:hidden;margin-top:8px}.upload-progress b{display:block;height:100%;width:0;background:linear-gradient(90deg,#7c3aed,#22d3ee)}
 @media(max-width:900px){.admin-feature-grid{grid-template-columns:1fr}}
 
+
+/* ===== Client Room Admin V11 UI ===== */
+body{background:radial-gradient(circle at 20% 0,#15264a55,transparent 35%),linear-gradient(180deg,#050914,#091321)}
+header{position:sticky;top:0;z-index:50;background:#07101dee;backdrop-filter:blur(16px);box-shadow:0 12px 35px #0004}
+main{max-width:1380px}.dashboard-cards{max-width:1380px}.grid{grid-template-columns:390px 1fr}
+.card{box-shadow:0 14px 36px #0003}.dash{position:relative;overflow:hidden}.dash:after{content:'';position:absolute;width:80px;height:80px;border-radius:50%;right:-20px;top:-20px;background:#22d3ee14}
+.room-settings-card{background:linear-gradient(145deg,#111d36,#0b1629);border:1px solid #38bdf833}
+.settings-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.settings-grid .wide{grid-column:1/-1}.settings-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}
+.status-pill{display:inline-flex;align-items:center;gap:6px;padding:5px 9px;border-radius:999px;font-size:11px;font-weight:800}.status-on{background:#14532d;color:#bbf7d0}.status-off{background:#7f1d1d;color:#fecaca}
+.client{transition:.2s}.client:hover{transform:translateY(-2px);border-color:#38bdf855}.client-head{display:flex;align-items:center;justify-content:space-between;gap:8px}.client-code{font-family:Consolas,monospace;letter-spacing:.5px;color:#7dd3fc}.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.toolbar button{flex:0 0 auto}
+.copy-btn{background:#0369a1}.warning{background:#b45309}.outline{background:transparent;border:1px solid #ffffff28}
+@media(max-width:1000px){.settings-grid{grid-template-columns:1fr 1fr}.grid{grid-template-columns:1fr}}
+@media(max-width:640px){.settings-grid{grid-template-columns:1fr}.settings-grid .wide{grid-column:auto}.dashboard-cards{grid-template-columns:1fr 1fr}.row>*{min-width:0}}
+
 </style>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
@@ -48,7 +62,7 @@ button{border:0;border-radius:10px;padding:10px 13px;background:#7c3aed;color:#f
 <header>
 <div>
   <b style="font-size:18px">Digital Agency by Chandan Das</b>
-  <div class="muted">Agency Control 2026 — Client Room Management</div>
+  <div class="muted">Client Room Admin V11 — Access, Projects, Chat & Settings</div>
 </div>
 <div class="row" style="flex:0 0 auto">
   <a href="client-room.html" target="_blank" style="text-decoration:none"><button class="secondary">Client Room দেখুন</button></a>
@@ -69,15 +83,38 @@ button{border:0;border-radius:10px;padding:10px 13px;background:#7c3aed;color:#f
   <div class="dash"><span>Total Clients</span><b id="totalClients">0</b></div>
   <div class="dash"><span>Total Projects</span><b id="totalProjects">0</b></div>
   <div class="dash"><span>New Corrections</span><b id="newCorrections">0</b></div>
-  <div class="dash"><span>Live Sync</span><b style="color:#4ade80">ON</b></div>
+  <div class="dash"><span>Demo Gate PIN</span><b id="dashDemoPin" style="color:#67e8f9">1234</b></div>
 </div>
+
+<div class="card room-settings-card" id="roomSettingsCard">
+  <div class="cardtop">
+    <div><h2 style="margin-bottom:5px">🚪 Client Room Settings</h2><div class="muted">Gate PIN, male welcome voice এবং agency LCD autoplay এখান থেকে control করুন</div></div>
+    <span id="roomSettingsState" class="status-pill status-on">● Connected</span>
+  </div>
+  <div class="settings-grid" style="margin-top:14px">
+    <div><label class="tiny">Demo PIN (4 digits)</label><input id="settingDemoPin" class="field" inputmode="numeric" maxlength="4" placeholder="1234"></div>
+    <div><label class="tiny">Autoplay seconds</label><input id="settingAutoplay" class="field" type="number" min="2" max="20" step="0.5" placeholder="4.5"></div>
+    <div><label class="tiny">Room status</label><select id="settingRoomActive" class="field"><option value="true">Active</option><option value="false">Maintenance</option></select></div>
+    <div class="wide"><label class="tiny">Bengali male welcome message</label><textarea id="settingWelcomeBn" class="field" rows="2"></textarea></div>
+    <div class="wide"><label class="tiny">Hindi male welcome message</label><textarea id="settingWelcomeHi" class="field" rows="2"></textarea></div>
+    <div class="wide"><label class="tiny">English male welcome message</label><textarea id="settingWelcomeEn" class="field" rows="2"></textarea></div>
+  </div>
+  <div class="settings-actions">
+    <button onclick="saveRoomSettings()">💾 Save Room Settings</button>
+    <button class="secondary" onclick="loadRoomSettings()">↻ Reload</button>
+    <a href="client-room.html?v=1100" target="_blank"><button class="copy-btn" type="button">🚪 Open Client Gate</button></a>
+  </div>
+  <div id="roomSettingsMsg" class="muted" style="margin-top:9px"></div>
+</div>
+
 <div class="grid">
 <section>
 <div class="card">
 <h3>নতুন Client</h3>
 <input id="clientName" class="field" placeholder="Client name">
 <input id="clientPhone" class="field" placeholder="Mobile number">
-<input id="clientCode" class="field" placeholder="Pass code">
+<input id="clientEmail" class="field" type="email" placeholder="Email (optional)">
+<div class="row"><input id="clientCode" class="field" placeholder="Unique Client Code"><input id="clientExpiry" class="field" type="date" title="Access expiry"></div>
 <div class="row"><button class="secondary" onclick="generateCode()">Generate Code</button><button onclick="saveClient()">Client Add</button></div>
 </div>
 <div class="card">
@@ -91,6 +128,11 @@ button{border:0;border-radius:10px;padding:10px 13px;background:#7c3aed;color:#f
 <div class="card">
 <h2 id="selectedTitle">Client select করুন</h2>
 <div id="selectedInfo" class="muted"></div>
+<div id="selectedActions" class="toolbar" style="display:none">
+  <button class="copy-btn" onclick="copyClientAccess()">🔗 Copy Access</button>
+  <button class="warning" onclick="toggleClientActive()">⏯ Enable / Disable</button>
+  <button class="danger" onclick="deleteSelectedClient()">🗑 Delete Client</button>
+</div>
 </div>
 
 <div id="projectForm" class="card" style="display:none">
@@ -169,6 +211,7 @@ function checkSession(){
      $('login').style.display='none';
      $('app').style.display='block';
      loadClients();
+     loadRoomSettings();
    }else{
      $('login').style.display='block';
      $('app').style.display='none';
@@ -195,12 +238,14 @@ async function saveClient(){
    await db.collection('room_clients').add({
      client_name:name,
      client_phone:$('clientPhone').value.trim(),
+     client_email:$('clientEmail').value.trim(),
+     access_expiry:$('clientExpiry').value||'',
      client_code:code,
      is_active:true,
      created_at:firebase.firestore.FieldValue.serverTimestamp(),
      updated_at:firebase.firestore.FieldValue.serverTimestamp()
    });
-   $('clientName').value='';$('clientPhone').value='';$('clientCode').value='';
+   $('clientName').value='';$('clientPhone').value='';$('clientEmail').value='';$('clientCode').value='';$('clientExpiry').value='';
    loadClients();
  }catch(e){alert(e.message)}
 }
@@ -218,14 +263,15 @@ function renderClients(){
  $('clients').innerHTML='';
  clients.filter(c=>(c.client_name+' '+c.client_code+' '+(c.client_phone||'')).toLowerCase().includes(q)).forEach(c=>{
    const d=document.createElement('div');d.className='client'+(selectedClient?.id===c.id?' active':'');
-   d.innerHTML=`<b>${escapeHtml(c.client_name)}</b><div class="muted">${escapeHtml(c.client_code)} • ${escapeHtml(c.client_phone||'')}</div>`;
+   d.innerHTML=`<div class="client-head"><b>${escapeHtml(c.client_name)}</b><span class="status-pill ${c.is_active!==false?'status-on':'status-off'}">${c.is_active!==false?'Active':'Disabled'}</span></div><div class="muted"><span class="client-code">${escapeHtml(c.client_code)}</span> • ${escapeHtml(c.client_phone||'No phone')}</div>`;
    d.onclick=()=>selectClient(c);$('clients').appendChild(d);
  });
 }
 function selectClient(c){
  selectedClient=c;renderClients();
  $('selectedTitle').textContent=c.client_name;
- $('selectedInfo').innerHTML=`Pass Code: <b>${escapeHtml(c.client_code)}</b> &nbsp; Mobile: ${escapeHtml(c.client_phone||'-')}`;
+ $('selectedInfo').innerHTML=`Access Code: <b class="client-code">${escapeHtml(c.client_code)}</b> &nbsp; Mobile: ${escapeHtml(c.client_phone||'-')} &nbsp; Email: ${escapeHtml(c.client_email||'-')} &nbsp; Status: <b>${c.is_active!==false?'Active':'Disabled'}</b>`;
+ $('selectedActions').style.display='flex';
  $('projectForm').style.display='block';$('v2AdminFeatures').style.display='grid';loadProjects();loadCorrectionRequests();subscribeAdminChat();refreshDashboardTotals();loadAdminV2Data();
 }
 async function loadProjects(){
@@ -286,7 +332,7 @@ async function saveProject(){
    }
    clearProjectForm();
    loadProjects();
-   alert('Project update save হয়েছে। Client Room-এর Project Status-এ update দেখা যাবে।');
+   alert('Project update save হয়েছে। Client Room live refresh হবে।');
  }catch(e){alert(e.message)}
 }
 async function deleteProject(id){
@@ -378,6 +424,35 @@ async function loadMeetingsApprovals(){adminMeetings=await adminCollection('room
 function renderMeetingsApprovals(){$('adminMeetings').innerHTML=adminMeetings.map(m=>`<div class="admin-data-row"><b>${escapeHtml(m.meeting_date||'')} ${escapeHtml(m.meeting_time||'')} — ${escapeHtml(m.meeting_type||'Meeting')}</b><div class="tiny">${escapeHtml(m.note||'')} • ${escapeHtml(m.status||'Requested')}</div><div class="row" style="margin-top:7px"><button class="success" onclick="updateV2Status('room_meetings','${m.id}','Confirmed')">Confirm</button><button class="secondary" onclick="updateV2Status('room_meetings','${m.id}','Completed')">Complete</button></div></div>`).join('')||'<div class="muted">No meeting requests</div>';$('adminApprovals').innerHTML=adminApprovals.map(x=>`<div class="admin-data-row"><b>${escapeHtml(x.action||'Approval')}</b><div>${escapeHtml(x.message||'')}</div><div class="tiny">${escapeHtml(x.status||'Submitted')} • ${adminDate(x.created_at)}</div><div class="row" style="margin-top:7px"><button class="success" onclick="updateV2Status('room_approvals','${x.id}','Acknowledged')">Acknowledge</button><button class="secondary" onclick="updateV2Status('room_approvals','${x.id}','Completed')">Complete</button></div></div>`).join('')||'<div class="muted">No approvals</div>'}
 async function updateV2Status(col,id,status){await db.collection(col).doc(id).update({status,updated_at:firebase.firestore.FieldValue.serverTimestamp()});loadAdminV2Data()}
 async function deleteV2Doc(col,id){if(!confirm('Delete করবেন?'))return;await db.collection(col).doc(id).delete();loadAdminV2Data()}
+
+
+
+// ===== CLIENT ROOM V11 SETTINGS =====
+const defaultRoomSettings={
+ demo_pin:'1234',autoplay_seconds:4.5,room_active:true,
+ welcome_bn:'ডিজিটাল এজেন্সি বাই চন্দন দাসের ক্লায়েন্ট রুমে আপনাকে আন্তরিক স্বাগতম। এখানে আমাদের ডিজিটাল সার্ভিস, প্রজেক্ট আপডেট, মিটিং, লাইভ চ্যাট এবং কারেকশন সুবিধা ব্যবহার করতে পারবেন।',
+ welcome_hi:'डिजिटल एजेंसी बाय चंदन दास के क्लाइंट रूम में आपका हार्दिक स्वागत है। यहाँ आप हमारी डिजिटल सेवाएँ, प्रोजेक्ट अपडेट, मीटिंग, लाइव चैट और करेक्शन सुविधा उपयोग कर सकते हैं।',
+ welcome_en:'A warm welcome to the Client Room of Digital Agency by Chandan Das. Here you can explore our digital services, project updates, meetings, live chat, and correction support.'
+};
+async function loadRoomSettings(){
+ const msg=$('roomSettingsMsg');
+ try{
+  const doc=await db.collection('room_settings').doc('main').get();
+  const s={...defaultRoomSettings,...(doc.exists?doc.data():{})};
+  $('settingDemoPin').value=s.demo_pin||'1234';$('settingAutoplay').value=s.autoplay_seconds||4.5;$('settingRoomActive').value=String(s.room_active!==false);
+  $('settingWelcomeBn').value=s.welcome_bn||defaultRoomSettings.welcome_bn;$('settingWelcomeHi').value=s.welcome_hi||defaultRoomSettings.welcome_hi;$('settingWelcomeEn').value=s.welcome_en||defaultRoomSettings.welcome_en;
+  $('dashDemoPin').textContent=s.demo_pin||'1234';$('roomSettingsState').textContent=s.room_active!==false?'● Active':'● Maintenance';$('roomSettingsState').className='status-pill '+(s.room_active!==false?'status-on':'status-off');
+  if(msg)msg.textContent=doc.exists?'Settings loaded from Firebase':'Default settings loaded — Save করলে Firebase-এ তৈরি হবে';
+ }catch(e){if(msg)msg.textContent='Settings load error: '+e.message}
+}
+async function saveRoomSettings(){
+ const pin=$('settingDemoPin').value.trim();if(!/^\d{4}$/.test(pin))return alert('Demo PIN ঠিক 4 digit হতে হবে');
+ const payload={demo_pin:pin,autoplay_seconds:Math.min(20,Math.max(2,Number($('settingAutoplay').value||4.5))),room_active:$('settingRoomActive').value==='true',welcome_bn:$('settingWelcomeBn').value.trim(),welcome_hi:$('settingWelcomeHi').value.trim(),welcome_en:$('settingWelcomeEn').value.trim(),updated_at:firebase.firestore.FieldValue.serverTimestamp()};
+ try{await db.collection('room_settings').doc('main').set(payload,{merge:true});$('roomSettingsMsg').textContent='✅ Room settings saved';loadRoomSettings()}catch(e){alert('Save হয়নি: '+e.message)}
+}
+function copyClientAccess(){if(!selectedClient)return;const url=`${location.origin}/client-room.html?code=${encodeURIComponent(selectedClient.client_code)}`;navigator.clipboard?.writeText(`Client Room: ${url}\nAccess Code: ${selectedClient.client_code}`);alert('Client access link ও code copy হয়েছে')}
+async function toggleClientActive(){if(!selectedClient)return;const next=selectedClient.is_active===false;await db.collection('room_clients').doc(selectedClient.id).update({is_active:next,updated_at:firebase.firestore.FieldValue.serverTimestamp()});selectedClient.is_active=next;loadClients();selectClient(selectedClient)}
+async function deleteSelectedClient(){if(!selectedClient||!confirm(`${selectedClient.client_name} client delete করবেন?`))return;await db.collection('room_clients').doc(selectedClient.id).delete();selectedClient=null;$('selectedTitle').textContent='Client select করুন';$('selectedInfo').textContent='';$('selectedActions').style.display='none';$('projectForm').style.display='none';$('v2AdminFeatures').style.display='none';loadClients()}
 
 function escapeHtml(v){const d=document.createElement('div');d.textContent=v??'';return d.innerHTML}
 checkSession();
