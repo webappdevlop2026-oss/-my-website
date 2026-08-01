@@ -247,7 +247,7 @@ async function writeRoomPresence(extra={}){
 async function startRoomPresence(){
  roomCurrentAction='Entered Client Room';
  await writeRoomPresence({entered_at:firebase.firestore.FieldValue.serverTimestamp(),online:true,current_action:roomCurrentAction});
- clearInterval(roomPresenceTimer);roomPresenceTimer=setInterval(()=>writeRoomPresence({online:true}),12000);
+ clearInterval(roomPresenceTimer);roomPresenceTimer=setInterval(()=>writeRoomPresence({online:true}),8000);setTimeout(()=>writeRoomPresence({online:true}),1500);setTimeout(()=>writeRoomPresence({online:true}),4000);
 }
 function trackRoomAction(action){roomCurrentAction=action;writeRoomPresence({current_action:action,online:true})}
 function closeRoomPresence(){
@@ -255,7 +255,7 @@ function closeRoomPresence(){
  try{db.collection('room_presence').doc(roomPresenceId).set({online:false,current_action:'Left Client Room',left_at:firebase.firestore.FieldValue.serverTimestamp(),last_seen:firebase.firestore.FieldValue.serverTimestamp()},{merge:true})}catch(e){}
 }
 window.addEventListener('beforeunload',closeRoomPresence);
-document.addEventListener('visibilitychange',()=>{if(client)writeRoomPresence({online:document.visibilityState==='visible',current_action:document.visibilityState==='visible'?roomCurrentAction:'Tab Hidden'})});
+document.addEventListener('visibilitychange',()=>{if(client)writeRoomPresence({online:true,current_action:document.visibilityState==='visible'?roomCurrentAction:'Client Room Open in Background'})});
 
 async function enterRoom(pinOverride){
  const pin=String(pinOverride||gatePin||'').trim();

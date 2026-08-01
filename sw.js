@@ -1,5 +1,5 @@
-/* v16.0.0 build:2026-08-01-virtual-cctv */
-const CACHE_NAME='digital-agency-chandan-v1600-virtual-cctv';
+/* v17.0.0 build:2026-08-01-virtual-cctv */
+const CACHE_NAME='digital-agency-chandan-v1700-virtual-cctv';
 const CORE=['/','/index.html','/manifest.json','/slide-free-offer-main.webp','/slide-client-room.webp','/slide-beginner-help.webp','/slide-free-tools.webp'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE_NAME).then(c=>c.addAll(CORE)));self.skipWaiting()});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ns=>Promise.all(ns.filter(n=>n!==CACHE_NAME).map(n=>caches.delete(n)))));self.clients.claim()});

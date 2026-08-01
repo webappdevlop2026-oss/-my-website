@@ -565,11 +565,11 @@ async function deleteV2Doc(col,id){if(!confirm('Delete করবেন?'))return
 let cctvUnsub=null,cctvSessions=[],selectedCctvId=null,cctvClockTimer=null;
 function cctvTs(v){return v&&typeof v.toDate==='function'?v.toDate():v?new Date(v):null}
 function cctvTime(v){const d=cctvTs(v);return d&&!isNaN(d)?d.toLocaleString('en-IN',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit',second:'2-digit'}):'—'}
-function cctvIsOnline(s){const d=cctvTs(s.last_seen);return s.online===true&&d&&(Date.now()-d.getTime()<45000)}
+function cctvIsOnline(s){const d=cctvTs(s.last_seen);return !!(d&&(Date.now()-d.getTime()<65000)&&s.current_action!=='Left Client Room')}
 function startCctvMonitor(){
  if(cctvUnsub)cctvUnsub();
  cctvUnsub=db.collection('room_presence').onSnapshot(snap=>{cctvSessions=snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(cctvTs(b.last_seen)?.getTime()||0)-(cctvTs(a.last_seen)?.getTime()||0));renderCctvMonitor()},e=>{$('cctvVisitors').innerHTML=`<div class="muted">CCTV permission error: ${escapeHtml(e.message)}</div>`});
- clearInterval(cctvClockTimer);cctvClockTimer=setInterval(()=>{const c=$('cctvClock');if(c)c.textContent=new Date().toLocaleTimeString('en-IN')},1000)
+ clearInterval(cctvClockTimer);cctvClockTimer=setInterval(()=>{const c=$('cctvClock');if(c)c.textContent=new Date().toLocaleTimeString('en-IN');renderCctvMonitor()},5000)
 }
 function refreshCctvMonitor(){renderCctvMonitor()}
 function selectCctvSession(id){selectedCctvId=id;renderCctvMonitor()}

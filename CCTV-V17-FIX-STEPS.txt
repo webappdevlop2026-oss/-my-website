@@ -1,0 +1,4 @@
+1. GitHub root-এ client-room.html, client-room-admin.html, agency-control-2026.html, sw.js replace করুন.
+2. Firebase Console > Firestore Database > Rules-এ firestore.rules code paste করে Publish করুন.
+3. Admin Panel Logout/Login করুন.
+4. Client Room অন্য tab/mobile-এ PIN দিয়ে খুলুন. একই browser-এর অন্য tab হলেও ONLINE দেখাবে.
