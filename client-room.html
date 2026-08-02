@@ -18,7 +18,11 @@ header a{color:#cbd5e1;text-decoration:none}.brand{font-weight:900;background:li
 .stage-wrap{position:relative;flex:1;min-height:0;display:grid;place-items:center;padding:10px 14px;overflow:hidden}
 .stage-wrap:before{content:"";position:absolute;inset:-40px;background:url('client-office-final-v21.png') center/cover no-repeat;filter:blur(32px) brightness(.36);transform:scale(1.12)}
 .scene{position:relative;z-index:2;height:min(calc(100vh - 56px - 72px - 20px),calc((100vw - 28px)*2/3));max-width:calc(100vw - 28px);aspect-ratio:3/2;overflow:hidden;border-radius:6px;box-shadow:0 24px 80px #000a;background:#111;transition:transform .35s ease}
-.scene.cabin-focus{transition:transform 1.5s cubic-bezier(.22,.61,.36,1);transform:scale(1.32)}
+.scene.cabin-focus{transition:transform 1.6s cubic-bezier(.22,.61,.36,1);transform:scale(1.55)}
+.room-spotlight{position:absolute;inset:0;z-index:5;pointer-events:none;opacity:0;transition:opacity 1.3s ease;background:radial-gradient(ellipse 230px 200px at var(--sx,50%) var(--sy,50%),transparent 0%,transparent 30%,rgba(2,6,23,.6) 60%,rgba(2,6,23,.94) 100%)}
+.scene.cabin-focus .room-spotlight{opacity:1}
+.scene.cabin-focus .cabin-lcd:not(.active){opacity:0;pointer-events:none}
+.scene.cabin-focus .assistant-hotspot,.scene.cabin-focus .client-hotspot{opacity:0}
 .room-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block;background:#111}
 .photo-seat .scene{transform:scale(1.025)}
 .hint{position:absolute;z-index:20;left:12px;top:12px;max-width:430px;padding:8px 11px;border-radius:12px;background:#070b14c9;border:1px solid #ffffff20;color:#e2e8f0;font-size:11px;line-height:1.4;backdrop-filter:blur(8px)}
@@ -161,11 +165,11 @@ header a{color:#cbd5e1;text-decoration:none}.brand{font-weight:900;background:li
 .cabin-lcd .cl-bar b{display:block;height:100%;background:linear-gradient(90deg,#7c3aed,#22d3ee)}
 .cabin-lcd.active{opacity:1;border-color:#22d3ee;box-shadow:0 0 16px #22d3ee88,inset 0 0 10px #000a;animation:cabinLcdGlow 2.4s ease-in-out infinite}
 @keyframes cabinLcdGlow{0%,100%{box-shadow:0 0 12px #22d3ee66,inset 0 0 10px #000a}50%{box-shadow:0 0 22px #22d3eecc,inset 0 0 10px #000a}}
-.cabin-lcd-project{left:8%;top:13%;width:11%;height:15%}
-.cabin-lcd-meeting{left:1.5%;top:39%;width:11%;height:14%}
-.cabin-lcd-support{left:64%;top:13%;width:10%;height:14%}
-.cabin-lcd-accounts{left:85%;top:13%;width:10%;height:14%}
-.cabin-lcd-working{left:70%;top:44%;width:13%;height:15%}
+.cabin-lcd-project{left:8.5%;top:15%;width:11%;height:15%}
+.cabin-lcd-meeting{left:3%;top:39%;width:11%;height:14%}
+.cabin-lcd-support{left:64%;top:15%;width:9.5%;height:14%}
+.cabin-lcd-accounts{left:82%;top:15%;width:9.5%;height:14%}
+.cabin-lcd-working{left:70%;top:44%;width:12%;height:15%}
 @media(max-width:900px){.cabin-lcd h4{font-size:7px}.cabin-lcd p{font-size:5px}.cabin-lcd .cl-kicker{font-size:4.5px}}
 .waiting-bottom{position:absolute;left:22px;right:22px;bottom:18px;display:flex;gap:12px;align-items:center;justify-content:space-between;background:#06111de8;border:1px solid #ffffff1c;border-radius:18px;padding:14px 16px;backdrop-filter:blur(12px)}
 .waiting-bottom strong{font-size:18px}.status-pill{padding:8px 12px;border-radius:999px;background:#0f766e;color:#ccfbf1;font-weight:900;font-size:12px}
@@ -241,7 +245,7 @@ header a{color:#cbd5e1;text-decoration:none}.brand{font-weight:900;background:li
   <div class="cabin-lcd cabin-lcd-meeting" id="cabinLcdMeeting"><div class="cl-kicker">2 • Meeting Cabin LCD</div><h4>Meeting Support</h4><p id="cabinLcdMeetingText">Meeting book করতে নিচের Meeting option ব্যবহার করুন।</p></div>
   <div class="cabin-lcd cabin-lcd-support" id="cabinLcdSupport"><div class="cl-kicker">3 • Support Cabin LCD</div><h4>Technical Support</h4><p id="cabinLcdSupportText">Live Chat বা Assistant থেকে সাহায্য নিন।</p></div>
   <div class="cabin-lcd cabin-lcd-accounts" id="cabinLcdAccounts"><div class="cl-kicker">4 • Accounts Cabin LCD</div><h4>Billing & Payment</h4><p id="cabinLcdAccountsText">Invoice ও payment তথ্য Project Status-এ দেখুন।</p></div>
-  <div class="cabin-lcd cabin-lcd-working" id="cabinLcdWorking"><div class="cl-kicker">5 • Project Working (Staff)</div><h4>Team Active</h4><p id="cabinLcdWorkingText">Development team আপনার project-এ কাজ করছে।</p></div>
+  <div class="cabin-lcd cabin-lcd-working" id="cabinLcdWorking"><div class="cl-kicker">5 • Project Working (Staff)</div><h4>Team Active</h4><p id="cabinLcdWorkingText">Development team আপনার project-এ কাজ করছে।</p></div><div class="room-spotlight" id="roomSpotlight"></div>
   <div class="hint">আপনার নির্ধারিত cabin খুলেছে • নিচের প্রয়োজনীয় option থেকে Project Status, Chat, Correction ও Meeting ব্যবহার করুন</div>
   <div class="cctv-presence" title="Virtual room activity monitor — device camera is not used"><i></i> CCTV CONNECTING...</div>
   <div class="clean-cabin-panel" id="cleanCabinPanel">
@@ -407,7 +411,6 @@ async function submitCabinPin(){
  if(cabinPinInput!==assignedCabinPin){$('cabinPinMessage').textContent='Cabin PIN সঠিক নয়';clearCabinPin();return}
  try{if(waitingDocId&&client.id!=='demo')await db.collection('room_waiting_queue').doc(waitingDocId).update({status:'Entered',entered_at:firebase.firestore.FieldValue.serverTimestamp(),updated_at:firebase.firestore.FieldValue.serverTimestamp()})}catch(e){}
  $('cabinGate').style.display='none';openWorld();$('insideCabinBadge').textContent=cabinLabels[assignedCabin]||assignedCabin;applyCabinMode();
- focusOnCabin(assignedCabin);
  setTimeout(announceCabinLcd,1600);
 }
 function applyCabinMode(){
@@ -418,8 +421,33 @@ function applyCabinMode(){
  if(assignedCabin==='meeting'){showByText('Meeting');setTimeout(()=>show('meeting'),500)}
  if(assignedCabin==='support'){showByText('Live Chat');showByText('Correction')}
  if(assignedCabin==='accounts'){showByText('Project Status');notifyUser('Accounts Cabin: invoice ও payment তথ্য Client Desk-এ দেখুন')}
+ applyRoomPhoto(assignedCabin);
  highlightAssignedCabinLcd();
  trackRoomAction('Entered '+(cabinLabels[assignedCabin]||assignedCabin));
+}
+const roomDedicatedPhoto={project:'room-project.png',meeting:'room-meeting.png',support:'room-support.png',accounts:'room-accounts.png'};
+const roomDedicatedLcdBox={
+ project:{left:'36%',top:'35%',width:'24%',height:'18%'},
+ meeting:{left:'46%',top:'34%',width:'15%',height:'18%'},
+ support:{left:'53%',top:'33%',width:'15%',height:'25%'},
+ accounts:{left:'52%',top:'35%',width:'15%',height:'23%'}
+};
+const lcdIdByCabin={project:'cabinLcdProject',meeting:'cabinLcdMeeting',support:'cabinLcdSupport',accounts:'cabinLcdAccounts',working:'cabinLcdWorking'};
+function applyRoomPhoto(cabin){
+ const scene=$('scene'),photo=document.querySelector('.room-photo');if(!scene||!photo)return;
+ const dedicated=roomDedicatedPhoto[cabin];
+ document.querySelectorAll('.cabin-lcd').forEach(el=>{el.style.display='none';el.style.left='';el.style.top='';el.style.width='';el.style.height=''});
+ const activeEl=$(lcdIdByCabin[cabin]);
+ if(dedicated){
+   photo.src=dedicated;
+   scene.classList.remove('cabin-focus');scene.style.transform='';
+   const box=roomDedicatedLcdBox[cabin];
+   if(activeEl){activeEl.style.display='flex';if(box){activeEl.style.left=box.left;activeEl.style.top=box.top;activeEl.style.width=box.width;activeEl.style.height=box.height}}
+ }else{
+   photo.src='client-office-final-v21.png';
+   if(activeEl)activeEl.style.display='flex';
+   focusOnCabin(cabin);
+ }
 }
 
 function openWorld(){$('login').classList.add('hide');$('world').style.display='flex';$('exit').classList.remove('hide');renderDesk();renderCabinLCDs();populateReviewProjects();startRoomPresence();updateCleanCabinPanel();setTimeout(speakWelcomeMale,350)}
@@ -437,7 +465,11 @@ const cabinLcdSupportCopy={meeting:'Meeting book করতে নিচের Me
 const cabinFocusOrigin={project:'14% 21%',meeting:'7% 46%',support:'69% 20%',accounts:'90% 20%',working:'77% 52%'};
 function focusOnCabin(cabin){
  const scene=$('scene');if(!scene)return;
- scene.style.transformOrigin=cabinFocusOrigin[cabin]||'50% 50%';
+ const origin=cabinFocusOrigin[cabin]||'50% 50%';
+ const [sx,sy]=origin.split(' ');
+ scene.style.transformOrigin=origin;
+ scene.style.setProperty('--sx',sx);
+ scene.style.setProperty('--sy',sy);
  scene.classList.remove('cabin-focus');void scene.offsetWidth;scene.classList.add('cabin-focus');
 }
 const cabinLcdVoice={
