@@ -157,7 +157,7 @@ header a{color:#cbd5e1;text-decoration:none}.brand{font-weight:900;background:li
 /* ===== Per-Cabin LCD Screens (V29) — each cabin's own wall screen inside the office photo.
    left/top/width/height are % of the photo box. Nudge these numbers if a screen doesn't
    line up with the monitor in client-office-final-v21.png on your own image crop. ===== */
-.cabin-lcd{box-sizing:border-box;position:absolute;border-radius:6px;background:linear-gradient(150deg,#050c1a,#0b1f33);border:1px solid #1e3a5f;box-shadow:inset 0 0 10px #000a;overflow:hidden;padding:clamp(3px,.6%,7px);display:flex;flex-direction:column;justify-content:center;gap:1px;opacity:.72;transition:opacity .3s,box-shadow .3s,border-color .3s}
+.cabin-lcd{z-index:6;box-sizing:border-box;position:absolute;border-radius:6px;background:linear-gradient(150deg,#050c1a,#0b1f33);border:1px solid #1e3a5f;box-shadow:inset 0 0 10px #000a;overflow:hidden;padding:clamp(3px,.6%,7px);display:flex;flex-direction:column;justify-content:center;gap:1px;opacity:.72;transition:opacity .3s,box-shadow .3s,border-color .3s}
 .cabin-lcd .cl-kicker{font-size:clamp(4.5px,.55vw,8px);font-weight:800;letter-spacing:.3px;color:#67e8f9;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .cabin-lcd h4{margin:0;font-size:clamp(6.5px,.9vw,12px);color:#f1f5f9;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .cabin-lcd p{margin:0;font-size:clamp(5px,.68vw,9px);color:#94a3b8;line-height:1.25;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
@@ -429,8 +429,8 @@ const roomDedicatedPhoto={project:'room-project.png',meeting:'room-meeting.png',
 const roomDedicatedLcdBox={
  project:{left:'38.5%',top:'37%',width:'19%',height:'13.5%'},
  meeting:{left:'46%',top:'32%',width:'15%',height:'21%'},
- support:{left:'55.5%',top:'35%',width:'10.5%',height:'20%'},
- accounts:{left:'54.5%',top:'37%',width:'10%',height:'18.5%'}
+ support:{left:'47%',top:'52%',width:'15%',height:'17%'},
+ accounts:{left:'45%',top:'52%',width:'15%',height:'17%'}
 };
 const lcdIdByCabin={project:'cabinLcdProject',meeting:'cabinLcdMeeting',support:'cabinLcdSupport',accounts:'cabinLcdAccounts',working:'cabinLcdWorking'};
 function applyRoomPhoto(cabin){
