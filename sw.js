@@ -1,6 +1,55 @@
-/* v32.0.0 existing-room-lcd-live */
-const CACHE_NAME='digital-agency-chandan-v3200-existing-room-lcd-live';
-const CORE=['/','/index.html','/manifest.json','/slide-free-offer-main.webp','/slide-client-room.webp','/slide-beginner-help.webp','/slide-free-tools.webp'];
-self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE_NAME).then(c=>c.addAll(CORE)));self.skipWaiting()});
-self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ns=>Promise.all(ns.filter(n=>n!==CACHE_NAME).map(n=>caches.delete(n)))));self.clients.claim()});
-self.addEventListener('fetch',e=>{const r=e.request;if(r.method!=='GET')return;const p=new URL(r.url).pathname;if(p==='/client-room.html'||p==='/room-project.png'||p==='/room-meeting.png'||p==='/room-support.png'||p==='/room-accounts.png'||p==='/client-office-final-v21.png'||p==='/client-room-gate-v10.png'||p==='/client-room-admin.html'||p==='/agency-control-2026.html'){e.respondWith(fetch(r,{cache:'no-store'}).catch(()=>caches.match(r)));return}if(r.mode==='navigate'){e.respondWith(fetch(r).then(x=>{const y=x.clone();caches.open(CACHE_NAME).then(c=>c.put(r,y));return x}).catch(()=>caches.match(r).then(x=>x||caches.match('/index.html'))));return}e.respondWith(caches.match(r).then(x=>x||fetch(r).then(y=>{if(y&&y.status===200){const z=y.clone();caches.open(CACHE_NAME).then(c=>c.put(r,z))}return y})))})
+/* v33.0.0 build: 2026-08-03-final-five-cabin-office */
+const CACHE_NAME='digital-agency-chandan-v3300-final-office';
+const CORE=['/','/index.html','/manifest.json'];
+
+self.addEventListener('install',event=>{
+  event.waitUntil(caches.open(CACHE_NAME).then(cache=>cache.addAll(CORE)));
+  self.skipWaiting();
+});
+
+self.addEventListener('activate',event=>{
+  event.waitUntil(
+    caches.keys().then(names=>Promise.all(names.filter(name=>name!==CACHE_NAME).map(name=>caches.delete(name))))
+  );
+  self.clients.claim();
+});
+
+self.addEventListener('fetch',event=>{
+  const request=event.request;
+  if(request.method!=='GET') return;
+  const path=new URL(request.url).pathname;
+  const alwaysFresh=[
+    '/client-room.html',
+    '/client-office-final-v21.png',
+    '/client-room-gate-v10.png',
+    '/client-room-admin.html',
+    '/agency-control-2026.html',
+    '/room-project.png',
+    '/room-meeting.png',
+    '/room-support.png',
+    '/room-accounts.png'
+  ];
+  if(alwaysFresh.includes(path)){
+    event.respondWith(fetch(request,{cache:'no-store'}).catch(()=>caches.match(request)));
+    return;
+  }
+  if(request.mode==='navigate'){
+    event.respondWith(
+      fetch(request).then(response=>{
+        const copy=response.clone();
+        caches.open(CACHE_NAME).then(cache=>cache.put(request,copy));
+        return response;
+      }).catch(()=>caches.match(request).then(response=>response||caches.match('/index.html')))
+    );
+    return;
+  }
+  event.respondWith(
+    caches.match(request).then(cached=>cached||fetch(request).then(response=>{
+      if(response&&response.status===200){
+        const copy=response.clone();
+        caches.open(CACHE_NAME).then(cache=>cache.put(request,copy));
+      }
+      return response;
+    }))
+  );
+});
