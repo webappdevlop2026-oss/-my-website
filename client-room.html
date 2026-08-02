@@ -136,6 +136,18 @@ header a{color:#cbd5e1;text-decoration:none}.brand{font-weight:900;background:li
 .live-lcd-message-client h3{font-size:18px;margin:0 0 7px}.live-lcd-message-client p{font-size:9px;line-height:1.45;margin:0;color:#dbeafe}.live-lcd-close-note{position:absolute;right:7px;bottom:5px;font-size:6px;color:#94a3b8}
 @media(max-width:900px){.live-lcd-message-client{padding:8px}.live-lcd-message-client h3{font-size:10px;margin-bottom:3px}.live-lcd-message-client p{font-size:6px}.live-lcd-badge{font-size:5px;padding:3px 5px;margin-bottom:4px}}
 
+/* V31 — Admin live content plays inside the room photo's existing LCD */
+.cabin-lcd{cursor:pointer}
+.cabin-lcd .room-live-screen{position:absolute;inset:0;z-index:20;display:none;background:#020617;overflow:hidden;border-radius:inherit}
+.cabin-lcd .room-live-screen.on{display:block}
+.cabin-lcd .room-live-screen iframe,.cabin-lcd .room-live-screen img,.cabin-lcd .room-live-screen video{width:100%;height:100%;display:block;border:0;object-fit:contain;background:#000}
+.cabin-lcd .room-live-screen .live-lcd-message-client{position:absolute;inset:0;padding:7%;box-sizing:border-box}
+.cabin-lcd .room-live-screen .live-lcd-message-client h3{font-size:clamp(6px,1.05vw,15px);margin:0 0 4px}
+.cabin-lcd .room-live-screen .live-lcd-message-client p{font-size:clamp(4px,.65vw,9px);line-height:1.25}
+.cabin-lcd .room-live-screen .live-lcd-badge{font-size:clamp(3px,.45vw,6px);padding:2px 4px;margin-bottom:3px}
+.cabin-lcd .room-live-screen .live-lcd-close-note{font-size:clamp(3px,.4vw,5px);right:3px;bottom:2px}
+
+
 
 
 /* ===== Virtual CCTV presence indicator V18 ===== */
@@ -157,20 +169,13 @@ header a{color:#cbd5e1;text-decoration:none}.brand{font-weight:900;background:li
 /* ===== Per-Cabin LCD Screens (V29) — each cabin's own wall screen inside the office photo.
    left/top/width/height are % of the photo box. Nudge these numbers if a screen doesn't
    line up with the monitor in client-office-final-v21.png on your own image crop. ===== */
-.cabin-lcd{z-index:6;box-sizing:border-box;position:absolute;border-radius:6px;background:linear-gradient(150deg,#050c1a,#0b1f33);border:1px solid #1e3a5f;box-shadow:inset 0 0 10px #000a;overflow:hidden;padding:clamp(3px,.6%,7px);display:flex;flex-direction:column;justify-content:center;gap:1px;opacity:.72;transition:opacity .3s,box-shadow .3s,border-color .3s}
+.cabin-lcd{box-sizing:border-box;position:absolute;border-radius:6px;background:linear-gradient(150deg,#050c1a,#0b1f33);border:1px solid #1e3a5f;box-shadow:inset 0 0 10px #000a;overflow:hidden;padding:clamp(3px,.6%,7px);display:flex;flex-direction:column;justify-content:center;gap:1px;opacity:.72;transition:opacity .3s,box-shadow .3s,border-color .3s}
 .cabin-lcd .cl-kicker{font-size:clamp(4.5px,.55vw,8px);font-weight:800;letter-spacing:.3px;color:#67e8f9;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .cabin-lcd h4{margin:0;font-size:clamp(6.5px,.9vw,12px);color:#f1f5f9;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .cabin-lcd p{margin:0;font-size:clamp(5px,.68vw,9px);color:#94a3b8;line-height:1.25;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .cabin-lcd .cl-bar{margin-top:3px;height:3px;border-radius:999px;background:#1e293b;overflow:hidden}
 .cabin-lcd .cl-bar b{display:block;height:100%;background:linear-gradient(90deg,#7c3aed,#22d3ee)}
-.cabin-lcd.active{opacity:1;border-color:#22d3ee;box-shadow:0 0 16px #22d3ee88,inset 0 0 10px #000a;animation:cabinLcdGlow 2.4s ease-in-out infinite;cursor:pointer}
-.cabin-lcd.active:hover{box-shadow:0 0 26px #22d3eecc,inset 0 0 10px #000a;transform:scale(1.03)}
-.cabin-lcd .lcd-live{position:absolute;top:4px;right:5px;width:5px;height:5px;border-radius:50%;background:#f87171;box-shadow:0 0 6px #f87171;animation:lcdLiveBlink 1.4s ease-in-out infinite}
-@keyframes lcdLiveBlink{0%,100%{opacity:1}50%{opacity:.25}}
-.cabin-lcd .lcd-play{display:none;margin-top:2px;font-size:clamp(4px,.5vw,7px);font-weight:800;letter-spacing:.4px;color:#22d3ee}
-.cabin-lcd.active .lcd-play{display:block}
-.cabin-lcd.lcd-flash{animation:lcdFlash .4s ease}
-@keyframes lcdFlash{0%{filter:brightness(1)}40%{filter:brightness(2.4)}100%{filter:brightness(1)}}
+.cabin-lcd.active{opacity:1;border-color:#22d3ee;box-shadow:0 0 16px #22d3ee88,inset 0 0 10px #000a;animation:cabinLcdGlow 2.4s ease-in-out infinite}
 @keyframes cabinLcdGlow{0%,100%{box-shadow:0 0 12px #22d3ee66,inset 0 0 10px #000a}50%{box-shadow:0 0 22px #22d3eecc,inset 0 0 10px #000a}}
 .cabin-lcd-project{left:8.5%;top:15%;width:11%;height:15%}
 .cabin-lcd-meeting{left:3%;top:39%;width:11%;height:14%}
@@ -191,7 +196,7 @@ header a{color:#cbd5e1;text-decoration:none}.brand{font-weight:900;background:li
 .clean-cabin-panel{position:absolute;z-index:48;left:3.2%;bottom:5.5%;width:min(340px,28%);display:flex;gap:12px;align-items:center;padding:14px 16px;border-radius:18px;background:linear-gradient(145deg,rgba(5,15,28,.92),rgba(8,35,55,.88));border:1px solid rgba(103,232,249,.28);box-shadow:0 18px 45px rgba(0,0,0,.34);backdrop-filter:blur(14px)}
 .clean-cabin-icon{width:46px;height:46px;flex:0 0 46px;display:grid;place-items:center;border-radius:14px;background:linear-gradient(135deg,#7c3aed,#06b6d4);font-size:22px;box-shadow:0 8px 22px rgba(6,182,212,.22)}
 .clean-cabin-kicker{font-size:8px;font-weight:900;letter-spacing:1.1px;color:#67e8f9}.clean-cabin-panel h3{margin:3px 0 4px;font-size:17px}.clean-cabin-panel p{margin:0;color:#cbd5e1;font-size:10px;line-height:1.45}
-.agency-lcd,.agency-lcd-bottom,.agency-slide,.live-lcd-overlay{display:none!important}
+.agency-lcd,.agency-lcd-bottom,.agency-slide{display:none!important}
 @media(max-width:900px){.clean-cabin-panel{left:2%;bottom:3%;width:42%;padding:9px 10px;gap:8px}.clean-cabin-icon{width:34px;height:34px;flex-basis:34px;font-size:17px}.clean-cabin-panel h3{font-size:11px}.clean-cabin-panel p{font-size:7px}.clean-cabin-kicker{font-size:6px}}
 
 </style>
@@ -248,11 +253,11 @@ header a{color:#cbd5e1;text-decoration:none}.brand{font-weight:900;background:li
 <section id="world">
  <div class="stage-wrap"><div class="scene" id="scene">
   <img class="room-photo" src="client-office-final-v21.png" alt="Digital Agency By Chandan Das Client Room"><div class="assigned-banner" id="insideCabinBadge">Assigned Cabin</div>
-  <div class="cabin-lcd cabin-lcd-project" id="cabinLcdProject" onclick="playCabinLcd('project')"><i class="lcd-live"></i><div class="cl-kicker">1 • Project Cabin LCD</div><h4 id="cabinLcdProjectTitle">Project</h4><p id="cabinLcdProjectText">—</p><div class="cl-bar"><b id="cabinLcdProjectBar" style="width:0%"></b></div><span class="lcd-play">▶ TAP TO OPEN</span></div>
-  <div class="cabin-lcd cabin-lcd-meeting" id="cabinLcdMeeting" onclick="playCabinLcd('meeting')"><i class="lcd-live"></i><div class="cl-kicker">2 • Meeting Cabin LCD</div><h4>Meeting Support</h4><p id="cabinLcdMeetingText">Meeting book করুন এখান থেকে</p><span class="lcd-play">▶ TAP TO OPEN</span></div>
-  <div class="cabin-lcd cabin-lcd-support" id="cabinLcdSupport" onclick="playCabinLcd('support')"><i class="lcd-live"></i><div class="cl-kicker">3 • Support Cabin LCD</div><h4>Technical Support</h4><p id="cabinLcdSupportText">Live Chat বা Assistant থেকে সাহায্য নিন।</p><span class="lcd-play">▶ TAP TO OPEN</span></div>
-  <div class="cabin-lcd cabin-lcd-accounts" id="cabinLcdAccounts" onclick="playCabinLcd('accounts')"><i class="lcd-live"></i><div class="cl-kicker">4 • Accounts Cabin LCD</div><h4>Billing & Payment</h4><p id="cabinLcdAccountsText">Invoice ও payment তথ্য Project Status-এ দেখুন।</p><span class="lcd-play">▶ TAP TO OPEN</span></div>
-  <div class="cabin-lcd cabin-lcd-working" id="cabinLcdWorking" onclick="playCabinLcd('working')"><i class="lcd-live"></i><div class="cl-kicker">5 • Project Working (Staff)</div><h4>Team Active</h4><p id="cabinLcdWorkingText">Development team আপনার project-এ কাজ করছে।</p><span class="lcd-play">▶ TAP TO OPEN</span></div><div class="room-spotlight" id="roomSpotlight"></div>
+  <div class="cabin-lcd cabin-lcd-project" id="cabinLcdProject"><div class="cl-kicker">1 • Project Cabin LCD</div><h4 id="cabinLcdProjectTitle">Project</h4><p id="cabinLcdProjectText">—</p><div class="cl-bar"><b id="cabinLcdProjectBar" style="width:0%"></b></div></div>
+  <div class="cabin-lcd cabin-lcd-meeting" id="cabinLcdMeeting"><div class="cl-kicker">2 • Meeting Cabin LCD</div><h4>Meeting Support</h4><p id="cabinLcdMeetingText">Meeting book করুন এখান থেকে</p></div>
+  <div class="cabin-lcd cabin-lcd-support" id="cabinLcdSupport"><div class="cl-kicker">3 • Support Cabin LCD</div><h4>Technical Support</h4><p id="cabinLcdSupportText">Live Chat বা Assistant থেকে সাহায্য নিন।</p></div>
+  <div class="cabin-lcd cabin-lcd-accounts" id="cabinLcdAccounts"><div class="cl-kicker">4 • Accounts Cabin LCD</div><h4>Billing & Payment</h4><p id="cabinLcdAccountsText">Invoice ও payment তথ্য Project Status-এ দেখুন।</p></div>
+  <div class="cabin-lcd cabin-lcd-working" id="cabinLcdWorking"><div class="cl-kicker">5 • Project Working (Staff)</div><h4>Team Active</h4><p id="cabinLcdWorkingText">Development team আপনার project-এ কাজ করছে।</p></div><div class="room-spotlight" id="roomSpotlight"></div>
   <div class="hint">আপনার নির্ধারিত cabin খুলেছে • নিচের প্রয়োজনীয় option থেকে Project Status, Chat, Correction ও Meeting ব্যবহার করুন</div>
   <div class="cctv-presence" title="Virtual room activity monitor — device camera is not used"><i></i> CCTV CONNECTING...</div>
   <div class="clean-cabin-panel" id="cleanCabinPanel">
@@ -434,10 +439,10 @@ function applyCabinMode(){
 }
 const roomDedicatedPhoto={project:'room-project.png',meeting:'room-meeting.png',support:'room-support.png',accounts:'room-accounts.png'};
 const roomDedicatedLcdBox={
- project:{left:'38.5%',top:'37%',width:'19%',height:'13.5%'},
- meeting:{left:'46%',top:'32%',width:'15%',height:'21%'},
- support:{left:'47%',top:'52%',width:'15%',height:'17%'},
- accounts:{left:'45%',top:'52%',width:'15%',height:'17%'}
+ project:{left:'38.5%',top:'35.2%',width:'19.0%',height:'16.8%'},
+ meeting:{left:'39.6%',top:'35.8%',width:'21.6%',height:'19.1%'},
+ support:{left:'38.6%',top:'35.7%',width:'19.0%',height:'16.0%'},
+ accounts:{left:'54.4%',top:'35.8%',width:'19.0%',height:'16.0%'}
 };
 const lcdIdByCabin={project:'cabinLcdProject',meeting:'cabinLcdMeeting',support:'cabinLcdSupport',accounts:'cabinLcdAccounts',working:'cabinLcdWorking'};
 function applyRoomPhoto(cabin){
@@ -449,7 +454,13 @@ function applyRoomPhoto(cabin){
    photo.src=dedicated;
    scene.classList.remove('cabin-focus');scene.style.transform='';
    const box=roomDedicatedLcdBox[cabin];
-   if(activeEl){activeEl.style.display='flex';if(box){activeEl.style.left=box.left;activeEl.style.top=box.top;activeEl.style.width=box.width;activeEl.style.height=box.height}}
+   if(activeEl){
+     activeEl.style.display='flex';
+     activeEl.dataset.room=cabin;
+     activeEl.onclick=()=>openCabinLcdHelp(cabin);
+     if(!activeEl.querySelector('.room-live-screen')){const live=document.createElement('div');live.className='room-live-screen';activeEl.appendChild(live)}
+     if(box){activeEl.style.left=box.left;activeEl.style.top=box.top;activeEl.style.width=box.width;activeEl.style.height=box.height}
+   }
  }else{
    photo.src='client-office-final-v21.png';
    if(activeEl)activeEl.style.display='flex';
@@ -457,7 +468,15 @@ function applyRoomPhoto(cabin){
  }
 }
 
-function openWorld(){$('login').classList.add('hide');$('world').style.display='flex';$('exit').classList.remove('hide');renderDesk();renderCabinLCDs();populateReviewProjects();startRoomPresence();updateCleanCabinPanel();setTimeout(speakWelcomeMale,350)}
+function openCabinLcdHelp(cabin){
+ trackRoomAction('LCD Help - '+cabin);
+ if(cabin==='project'){show('desk');notifyUser('Project LCD: status, progress ও files দেখুন')}
+ else if(cabin==='meeting'){show('meeting');notifyUser('Meeting LCD: meeting schedule করুন')}
+ else if(cabin==='support'){openLiveChat();notifyUser('Support LCD: Live Chat খোলা হয়েছে')}
+ else if(cabin==='accounts'){show('desk');notifyUser('Accounts LCD: invoice ও payment তথ্য দেখুন')}
+}
+
+function openWorld(){$('login').classList.add('hide');$('world').style.display='flex';$('exit').classList.remove('hide');renderDesk();renderCabinLCDs();populateReviewProjects();startRoomPresence();updateCleanCabinPanel();startLiveLcdListener();setTimeout(speakWelcomeMale,350)}
 function show(id){$(id)?.classList.add('on');const names={desk:'Project Status',projectReview:'Correction',note:'Questions',meeting:'Meeting',liveChat:'Live Chat'};trackRoomAction(names[id]||('Opened '+id))}function hide(id){$(id)?.classList.remove('on');trackRoomAction('Inside Client Room')}
 function sit(){document.body.classList.add('photo-seat');notifyUser('Client meeting view চালু হয়েছে।')}
 function toggleFullRoom(){trackRoomAction('Full Room View');document.body.classList.toggle('full-room');notifyUser(document.body.classList.contains('full-room')?'Full Room view চালু হয়েছে':'Normal view চালু হয়েছে')}
@@ -489,14 +508,6 @@ function announceCabinLcd(){
  if(!assignedCabin||!cabinLcdVoice[assignedCabin])return;
  const v=cabinLcdVoice[assignedCabin];
  speakThreeLanguages(v[0],v[1],v[2]);
-}
-function playCabinLcd(cabin){
- if(cabin!==assignedCabin)return;
- const el=$(lcdIdByCabin[cabin]);if(el){el.classList.add('lcd-flash');setTimeout(()=>el.classList.remove('lcd-flash'),400)}
- if(cabin==='project'||cabin==='accounts')show('desk');
- else if(cabin==='meeting')show('meeting');
- else if(cabin==='support')openLiveChat();
- else if(cabin==='working')notifyUser('Development team আপনার project নিয়ে কাজ করছে। Update দেখতে Project Status খুলুন।');
 }
 function renderCabinLCDs(){
  const p=projects&&projects.length?projects[0]:null;
@@ -550,28 +561,41 @@ function startAgencySlides(){if(liveLcdActive)return;clearInterval(agencySlideTi
 
 
 
-// ===== Live to LCD Client Listener V14 =====
+// ===== Live to Existing Room LCD V31 =====
 let liveLcdUnsub=null,liveLcdActive=false;
 function isLiveTargetForThisClient(data){
   if(!data||data.active!==true)return false;
   const target=String(data.target_client_id||'all');
-  return target==='all'||target===''||(client&&String(client.id)===target);
+  const roomTarget=String(data.target_room||data.room||'all').toLowerCase();
+  const clientOk=target==='all'||target===''||(client&&String(client.id)===target);
+  const roomOk=roomTarget==='all'||roomTarget===''||roomTarget===String(assignedCabin||'').toLowerCase();
+  return clientOk&&roomOk;
 }
 function stopAgencySlideTimers(){clearInterval(agencySlideTimer);clearInterval(agencyProgressTimer)}
+function currentRoomLiveScreen(){
+ const active=$(lcdIdByCabin[assignedCabin]);
+ if(!active)return null;
+ let screen=active.querySelector('.room-live-screen');
+ if(!screen){screen=document.createElement('div');screen.className='room-live-screen';active.appendChild(screen)}
+ return screen;
+}
 function showAdminLiveOnLcd(data){
-  const box=$('liveLcdOverlay');if(!box)return;liveLcdActive=true;stopAgencySlideTimers();box.innerHTML='';box.classList.add('on');
+  const box=currentRoomLiveScreen();if(!box)return;
+  liveLcdActive=true;stopAgencySlideTimers();box.innerHTML='';box.classList.add('on');
   const type=String(data.type||'message'),url=String(data.url||'').trim(),title=String(data.title||'Live Update'),message=String(data.message||'');
   if(type==='image'&&/^https?:\/\//i.test(url)){const img=document.createElement('img');img.src=url;img.alt=title;box.appendChild(img)}
   else if(type==='video'&&/^https?:\/\//i.test(url)){const v=document.createElement('video');v.src=url;v.controls=true;v.autoplay=true;v.muted=true;v.loop=true;v.playsInline=true;box.appendChild(v)}
   else if(type==='website'&&/^https?:\/\//i.test(url)){const f=document.createElement('iframe');f.src=url;f.title=title;f.allow='autoplay; fullscreen';box.appendChild(f)}
-  else{const wrap=document.createElement('div');wrap.className='live-lcd-message-client';const inner=document.createElement('div');inner.className='inner';const badge=document.createElement('div');badge.className='live-lcd-badge';badge.innerHTML='<i></i> LIVE FROM ADMIN';const h=document.createElement('h3');h.textContent=title;const p=document.createElement('p');p.textContent=message;inner.append(badge,h,p);wrap.appendChild(inner);box.appendChild(wrap)}
-  const note=document.createElement('div');note.className='live-lcd-close-note';note.textContent='Admin live broadcast';box.appendChild(note);
+  else{const wrap=document.createElement('div');wrap.className='live-lcd-message-client';const inner=document.createElement('div');inner.className='inner';const badge=document.createElement('div');badge.className='live-lcd-badge';badge.innerHTML='<i></i> LIVE';const h=document.createElement('h3');h.textContent=title;const p=document.createElement('p');p.textContent=message;inner.append(badge,h,p);wrap.appendChild(inner);box.appendChild(wrap)}
+  const note=document.createElement('div');note.className='live-lcd-close-note';note.textContent='Admin live';box.appendChild(note);
 }
 function hideAdminLiveFromLcd(){
-  const box=$('liveLcdOverlay');if(!box)return;const was=liveLcdActive;liveLcdActive=false;box.classList.remove('on');box.innerHTML='';if(was)startAgencySlides();
+  liveLcdActive=false;
+  document.querySelectorAll('.room-live-screen').forEach(box=>{box.classList.remove('on');box.innerHTML=''});
 }
 function startLiveLcdListener(){
   if(liveLcdUnsub)liveLcdUnsub();
+  if(typeof db==='undefined')return;
   liveLcdUnsub=db.collection('room_live_lcd').doc('main').onSnapshot(doc=>{const data=doc.exists?doc.data():{};if(isLiveTargetForThisClient(data))showAdminLiveOnLcd(data);else hideAdminLiveFromLcd()},e=>console.warn('Live LCD listener',e));
 }
 
