@@ -1,5 +1,5 @@
-/* v31.0.0 existing-room-lcd-live */
-const CACHE_NAME='digital-agency-chandan-v3100-existing-room-lcd-live';
+/* v32.0.0 existing-room-lcd-live */
+const CACHE_NAME='digital-agency-chandan-v3200-existing-room-lcd-live';
 const CORE=['/','/index.html','/manifest.json','/slide-free-offer-main.webp','/slide-client-room.webp','/slide-beginner-help.webp','/slide-free-tools.webp'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE_NAME).then(c=>c.addAll(CORE)));self.skipWaiting()});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ns=>Promise.all(ns.filter(n=>n!==CACHE_NAME).map(n=>caches.delete(n)))));self.clients.claim()});

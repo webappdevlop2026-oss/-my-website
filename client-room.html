@@ -199,6 +199,51 @@ header a{color:#cbd5e1;text-decoration:none}.brand{font-weight:900;background:li
 .agency-lcd,.agency-lcd-bottom,.agency-slide{display:none!important}
 @media(max-width:900px){.clean-cabin-panel{left:2%;bottom:3%;width:42%;padding:9px 10px;gap:8px}.clean-cabin-icon{width:34px;height:34px;flex-basis:34px;font-size:17px}.clean-cabin-panel h3{font-size:11px}.clean-cabin-panel p{font-size:7px}.clean-cabin-kicker{font-size:6px}}
 
+
+/* V32: Existing photo LCD becomes the real live screen — no floating card */
+.scene .cabin-lcd.photo-lcd{
+  padding:0!important;
+  gap:0!important;
+  border:0!important;
+  border-radius:1px!important;
+  background:#07111f!important;
+  box-shadow:none!important;
+  opacity:1!important;
+  animation:none!important;
+  overflow:hidden!important;
+  display:block!important;
+  cursor:pointer;
+}
+.scene .cabin-lcd.photo-lcd::before,
+.scene .cabin-lcd.photo-lcd::after{display:none!important}
+.scene .cabin-lcd.photo-lcd>.cl-kicker,
+.scene .cabin-lcd.photo-lcd>h4,
+.scene .cabin-lcd.photo-lcd>p,
+.scene .cabin-lcd.photo-lcd>.cl-bar{
+  position:relative;z-index:2;box-sizing:border-box;margin:0;
+}
+.scene .cabin-lcd.photo-lcd>.cl-kicker{
+  padding:5% 6% 1%;font-size:clamp(4px,.48vw,7px);line-height:1.05;
+  color:#7dd3fc;background:linear-gradient(180deg,#061426 0%,transparent 100%);
+}
+.scene .cabin-lcd.photo-lcd>h4{
+  padding:0 6%;font-size:clamp(7px,.82vw,12px);line-height:1.1;color:#fff;
+}
+.scene .cabin-lcd.photo-lcd>p{
+  padding:2% 6% 0;font-size:clamp(4px,.55vw,8px);line-height:1.15;color:#dbeafe;
+  -webkit-line-clamp:2;
+}
+.scene .cabin-lcd.photo-lcd>.cl-bar{
+  position:absolute;left:6%;right:6%;bottom:8%;height:3px;background:#163047;border-radius:99px;
+}
+.scene .cabin-lcd.photo-lcd>.cl-bar b{background:#22d3ee}
+.scene .cabin-lcd.photo-lcd .room-live-screen{border:0!important;border-radius:0!important;background:#020617!important}
+.scene .cabin-lcd.photo-lcd .live-lcd-message-client{padding:5%!important}
+.scene .cabin-lcd.photo-lcd .live-lcd-badge{display:none!important}
+.scene .cabin-lcd.photo-lcd .live-lcd-close-note{display:none!important}
+.scene .cabin-lcd.photo-lcd .live-lcd-message-client h3{font-size:clamp(7px,.9vw,13px)!important;line-height:1.08;margin:0 0 3%!important}
+.scene .cabin-lcd.photo-lcd .live-lcd-message-client p{font-size:clamp(4px,.55vw,8px)!important;line-height:1.18!important}
+
 </style>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
@@ -439,16 +484,16 @@ function applyCabinMode(){
 }
 const roomDedicatedPhoto={project:'room-project.png',meeting:'room-meeting.png',support:'room-support.png',accounts:'room-accounts.png'};
 const roomDedicatedLcdBox={
- project:{left:'38.5%',top:'35.2%',width:'19.0%',height:'16.8%'},
- meeting:{left:'39.6%',top:'35.8%',width:'21.6%',height:'19.1%'},
- support:{left:'38.6%',top:'35.7%',width:'19.0%',height:'16.0%'},
- accounts:{left:'54.4%',top:'35.8%',width:'19.0%',height:'16.0%'}
+ project:{left:'39.05%',top:'35.55%',width:'19.45%',height:'16.15%'},
+ meeting:{left:'39.75%',top:'36.25%',width:'21.35%',height:'18.35%'},
+ support:{left:'38.95%',top:'36.15%',width:'18.55%',height:'15.25%'},
+ accounts:{left:'54.75%',top:'36.20%',width:'18.50%',height:'15.20%'}
 };
 const lcdIdByCabin={project:'cabinLcdProject',meeting:'cabinLcdMeeting',support:'cabinLcdSupport',accounts:'cabinLcdAccounts',working:'cabinLcdWorking'};
 function applyRoomPhoto(cabin){
  const scene=$('scene'),photo=document.querySelector('.room-photo');if(!scene||!photo)return;
  const dedicated=roomDedicatedPhoto[cabin];
- document.querySelectorAll('.cabin-lcd').forEach(el=>{el.style.display='none';el.style.left='';el.style.top='';el.style.width='';el.style.height=''});
+ document.querySelectorAll('.cabin-lcd').forEach(el=>{el.classList.remove('photo-lcd');el.style.display='none';el.style.left='';el.style.top='';el.style.width='';el.style.height=''});
  const activeEl=$(lcdIdByCabin[cabin]);
  if(dedicated){
    photo.src=dedicated;
@@ -456,6 +501,7 @@ function applyRoomPhoto(cabin){
    const box=roomDedicatedLcdBox[cabin];
    if(activeEl){
      activeEl.style.display='flex';
+     activeEl.classList.add('photo-lcd');
      activeEl.dataset.room=cabin;
      activeEl.onclick=()=>openCabinLcdHelp(cabin);
      if(!activeEl.querySelector('.room-live-screen')){const live=document.createElement('div');live.className='room-live-screen';activeEl.appendChild(live)}
