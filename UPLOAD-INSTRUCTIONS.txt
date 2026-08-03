@@ -1,0 +1,12 @@
+Upload these files to your website repository:
+- index.html
+- KAKABABU-User-QR.png
+- KAKABABU-Vendor-QR.png
+
+Recommended folder:
+downloads/kakababu/
+
+Final URL:
+https://www.digitalagencybychandandas.in/downloads/kakababu/
+
+APK files do not need to be uploaded again. Buttons and QR codes use GitHub Release direct links.
