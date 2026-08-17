@@ -1,0 +1,22 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isAdmin() { return request.auth != null; }
+    match /agency_projects/{id} { allow read, create, update, delete: if isAdmin(); }
+    match /client_feedback/{id} { allow create: if true; allow read, update, delete: if isAdmin(); }
+    match /room_settings/{id} { allow read: if true; allow create, update, delete: if isAdmin(); }
+    match /room_live_lcd/{id} { allow read: if true; allow create, update, delete: if isAdmin(); }
+    match /room_clients/{id} { allow read: if true; allow create, update, delete: if isAdmin(); }
+    match /room_projects/{id} { allow read: if true; allow create, update, delete: if isAdmin(); }
+    match /room_feature_requests/{id} { allow read: if true; allow create: if true; allow update, delete: if isAdmin(); }
+    match /room_files/{id} { allow read: if true; allow create, update, delete: if isAdmin(); }
+    match /room_chats/{id} { allow read: if true; allow create: if true; allow update, delete: if isAdmin(); }
+    match /room_chat_status/{id} { allow read: if true; allow create, update: if true; allow delete: if isAdmin(); }
+    match /room_invoices/{id} { allow read: if true; allow create, update, delete: if isAdmin(); }
+    match /room_notifications/{id} { allow read: if true; allow create, update, delete: if isAdmin(); }
+    match /room_meetings/{id} { allow read, create: if true; allow update, delete: if isAdmin(); }
+    match /room_approvals/{id} { allow read, create: if true; allow update, delete: if isAdmin(); }
+    match /room_waiting_queue/{id} { allow read, create: if true; allow update, delete: if isAdmin(); }
+    match /room_presence/{id} { allow read, create, update: if true; allow delete: if isAdmin(); }
+  }
+}

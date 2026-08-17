@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mock Test Teacher App View</title>
+
+<style>
+:root{--green:#109447;--green2:#1db65a;--bg:#eef4fb;--ink:#172235;--muted:#687489;--line:#dce6f1}
+*{box-sizing:border-box}body{margin:0;font-family:Arial;background:var(--bg);color:var(--ink);overflow:hidden}
+.top{height:64px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 4vw}.top b{font-size:20px}.top small{display:block;color:var(--muted)}.top a{padding:11px 14px;background:#e5f7eb;color:#0b7d38;border-radius:11px;text-decoration:none;font-weight:900}
+.layout{height:calc(100vh - 64px);display:grid;grid-template-columns:minmax(330px,420px) 1fr;gap:20px;max-width:1280px;margin:auto;padding:14px 18px}.device{display:grid;place-items:center}.phone{height:min(780px,calc(100vh - 92px));aspect-ratio:9/19.35;background:#121b26;border:9px solid #121b26;border-radius:38px;overflow:hidden}.inner{height:100%;background:#f4f8f5;border-radius:27px;display:flex;flex-direction:column;overflow:hidden}.status{height:28px;background:#fff;display:flex;justify-content:space-between;align-items:center;padding:0 15px;font-size:11px;font-weight:800}.bar{background:linear-gradient(135deg,var(--green),var(--green2));color:#fff;padding:14px}.scroll{flex:1;overflow:auto;padding:13px}.nav{display:grid;grid-template-columns:repeat(4,1fr);background:#fff;border-top:1px solid #dce6f1}.nav button{border:0;background:transparent;padding:9px 3px;font-size:9px;color:#687489}.nav button.active{color:var(--green);font-weight:900}.nav b{display:block;font-size:17px}
+.hero{background:linear-gradient(135deg,var(--green),var(--green2));color:#fff;border-radius:17px;padding:16px}.stats{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:10px}.stat,.card{background:#fff;border-radius:13px;padding:12px;box-shadow:0 4px 14px #173a5e10}.stat small,.card small{color:var(--muted);font-size:9px}.stat strong{display:block;font-size:19px;margin-top:4px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:10px}.tile{background:#fff;border:1px solid var(--line);border-radius:13px;padding:13px;cursor:pointer}.tile span{font-size:23px}.tile b{display:block;margin-top:6px;font-size:11px}.side{overflow:auto;padding:4px}.features{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:14px}.feature{background:#fff;border:1px solid var(--line);border-radius:11px;padding:11px;font-size:11px}.screens{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}.screens button{border:1px solid var(--line);background:#fff;border-radius:10px;padding:11px;text-align:left;font-weight:800}
+@media(max-width:780px){body{overflow:auto}.top,.side{display:none}.layout{display:block;height:100vh;padding:0}.device{height:100vh}.phone{height:100vh;width:100%;border:0;border-radius:0;aspect-ratio:auto}.inner{border-radius:0}}
+</style>
+
+<script id="single-pin-mocktest-guard">
+(function(){
+  const main="CLIENT-KOL-2026-ID483921.html";
+  if(sessionStorage.getItem("client483921Unlocked")!=="yes"){
+    location.replace(main);
+    return;
+  }
+  sessionStorage.setItem("client483921Project","mocktest");
+})();
+</script>
+
+
+</head>
+<body>
+<header class="top"><div><b>Mock Test Teacher App View</b><small>Digital Agency by Chandan Das</small></div><a href="mock-test-project-view.html" onclick="sessionStorage.setItem('client483921Project','mocktest')">← Mock Test Home</a></header>
+<main class="layout"><section class="device"><div class="phone"><div class="inner"><div class="status"><span>9:41</span><span>4G 🔋</span></div><div class="bar"><b>Teacher App</b><small style="display:block">Question & Test Management</small></div><div id="screen" class="scroll"></div><div class="nav"><button class="active" onclick="show('home')"><b>🏠</b>Home</button><button onclick="show('questions')"><b>❓</b>Questions</button><button onclick="show('tests')"><b>📝</b>Tests</button><button onclick="show('results')"><b>📊</b>Results</button></div></div></div></section>
+<aside class="side"><h1>Teacher App</h1><p style="color:var(--muted)">আলাদা Android-style teacher management app preview</p><div class="features"><div class="feature">✅ Teacher Login</div><div class="feature">✅ Question Bank</div><div class="feature">✅ Create Test</div><div class="feature">✅ Bulk Upload</div><div class="feature">✅ PDF Notes</div><div class="feature">✅ Student Results</div><div class="feature">✅ Class / Group</div><div class="feature">✅ Reports</div><div class="feature">✅ Profile & Settings</div></div><h2>All Screens</h2><div class="screens"><button onclick="show('home')">Teacher Dashboard</button><button onclick="show('questions')">Question Bank</button><button onclick="show('tests')">Create Test</button><button onclick="show('bulk')">Bulk Upload</button><button onclick="show('notes')">PDF Notes</button><button onclick="show('results')">Student Results</button></div></aside></main>
+<script>
+function show(p){
+let h='';
+if(p==='home')h='<div class="hero"><h3>Hello, Teacher 👩‍🏫</h3><p>Manage questions, tests and student performance</p></div><div class="stats"><div class="stat"><small>Questions</small><strong>1,250</strong></div><div class="stat"><small>Tests</small><strong>48</strong></div><div class="stat"><small>Students</small><strong>620</strong></div><div class="stat"><small>Avg Score</small><strong>71%</strong></div></div><div class="grid"><div class="tile" onclick="show(\'questions\')"><span>➕</span><b>Add Question</b></div><div class="tile" onclick="show(\'bulk\')"><span>📤</span><b>Bulk Upload</b></div><div class="tile" onclick="show(\'tests\')"><span>📝</span><b>Create Test</b></div><div class="tile" onclick="show(\'notes\')"><span>📄</span><b>PDF Notes</b></div><div class="tile" onclick="show(\'results\')"><span>📊</span><b>Student Results</b></div><div class="tile" onclick="show(\'results\')"><span>📈</span><b>Reports</b></div></div>';
+if(p==='questions')h='<div class="hero"><h3>Question Bank</h3><p>Add, edit and organise MCQ questions</p></div><div class="card"><b>Indian Polity MCQ</b><small style="display:block;margin-top:5px">Edit • Preview • Delete</small></div><div class="card"><b>Mathematics Set 01</b><small style="display:block;margin-top:5px">Edit • Preview • Delete</small></div><div class="card"><b>General Science MCQ</b><small style="display:block;margin-top:5px">Edit • Preview • Delete</small></div>';
+if(p==='tests')h='<div class="hero"><h3>Create Test</h3><p>Select exam, subject, marks and duration</p></div><div class="card"><b>SSC CGL Mock 05</b><small style="display:block">100 Questions • 60 Minutes • -0.25 Negative</small></div><div class="card"><b>Publish Test</b><small style="display:block">Draft → Review → Publish</small></div>';
+if(p==='bulk')h='<div class="hero"><h3>Bulk Upload</h3><p>CSV / Excel question upload</p></div><div class="card"><b>Upload File</b><small style="display:block">Validate rows before publishing</small></div><div class="card"><b>Recent Upload</b><small style="display:block">250 questions • Completed</small></div>';
+if(p==='notes')h='<div class="hero"><h3>PDF Notes</h3><p>Upload and manage study materials</p></div><div class="card"><b>Indian Polity Notes.pdf</b></div><div class="card"><b>Math Formula Sheet.pdf</b></div><div class="card"><b>Current Affairs July.pdf</b></div>';
+if(p==='results')h='<div class="hero"><h3>Student Results</h3><p>Test performance and weak-topic analysis</p></div><div class="card"><b>Rahul Kumar — 82%</b><small style="display:block">Accuracy • Time • Topic Analysis</small></div><div class="card"><b>Sangita Das — 76%</b><small style="display:block">Accuracy • Time • Topic Analysis</small></div><div class="card"><b>Amit Sharma — 69%</b><small style="display:block">Accuracy • Time • Topic Analysis</small></div>';
+document.getElementById('screen').innerHTML=h;
+}
+show('home');
+</script></body></html>

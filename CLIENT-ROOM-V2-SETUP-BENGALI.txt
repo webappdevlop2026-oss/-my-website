@@ -1,0 +1,36 @@
+CLIENT ROOM V2 UPDATE — DIGITAL AGENCY BY CHANDAN DAS
+======================================================
+
+UPDATED FILES
+1. client-room.html — Real Room + Smart Mobile Dashboard
+2. agency-control-2026.html — Files, Invoice, Notification, Meeting & Approval Admin
+3. client-room-admin.html — redirects to Agency Control V2
+4. firestore.rules — new V2 collection permissions
+5. storage.rules — admin file upload permissions
+6. firebase-client.js — existing connection (unchanged, included in full package)
+
+NEW FEATURES
+- Realistic office decor and interactive 3D room
+- Desktop Real Room / Smart Dashboard switch
+- Mobile-first dashboard
+- Project status and live preview
+- APK/PDF/ZIP/image file download area
+- Invoice and payment status
+- Notifications and updates
+- Project approval / correction request
+- Meeting request
+- Existing live chat, voice, LCD and correction features retained
+
+IMPORTANT FIREBASE STEPS
+A. Firebase Console > Firestore Database > Rules
+   Replace current rules with firestore.rules and Publish.
+B. Firebase Console > Storage > Rules
+   Replace current rules with storage.rules and Publish.
+C. Use agency-control-2026.html for Client Room management.
+
+DEMO CLIENT CODE
+DEMO-3D
+
+Business Contact
+WhatsApp: 7549459770
+Call: 9735474770

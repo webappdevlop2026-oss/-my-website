@@ -1,0 +1,589 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KAKABABU Admin Panel Review v2</title><meta name="robots" content="noindex,nofollow">
+<style>
+:root{--bg:#08111f;--panel:#0f1b2e;--card:#13233a;--line:#233954;--text:#f5f8ff;--muted:#9eb0c8;--blue:#3b82f6;--purple:#7c3aed;--green:#10b981;--orange:#f59e0b;--red:#ef4444}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text)}
+header{height:68px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 22px;background:#0a1424;position:sticky;top:0;z-index:10}
+.brand{font-size:20px;font-weight:900}.brand small{display:block;color:var(--muted);font-size:11px;margin-top:3px}
+.header-actions{display:flex;gap:8px}.header-actions a,.header-actions button{border:0;border-radius:10px;padding:10px 13px;text-decoration:none;font-weight:800;cursor:pointer;background:#1d2b40;color:#fff}
+.layout{display:grid;grid-template-columns:235px 1fr;min-height:calc(100vh - 68px)}
+aside{border-right:1px solid var(--line);padding:18px 12px;background:#0a1424}
+aside button{width:100%;border:0;background:transparent;color:#c8d4e5;padding:12px 13px;border-radius:10px;text-align:left;font-weight:800;cursor:pointer;margin-bottom:6px}
+aside button.active,aside button:hover{background:linear-gradient(90deg,#2563eb,#7c3aed);color:#fff}
+main{padding:20px;min-width:0}
+.page{display:none}.page.active{display:block}
+.page-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:16px}.page-head h1{margin:0;font-size:27px}.page-head p{margin:5px 0 0;color:var(--muted)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}.stat small{color:var(--muted)}.stat strong{display:block;font-size:27px;margin-top:7px}
+.grid{display:grid;grid-template-columns:1.2fr .8fr;gap:14px;margin-top:14px}.box{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px}
+.box h3{margin-top:0}.list{display:grid;gap:9px}.item{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;display:flex;align-items:center;gap:10px}.icon{width:40px;height:40px;border-radius:11px;background:#1c3150;display:grid;place-items:center}.grow{flex:1}.item b{font-size:13px}.item small{display:block;color:var(--muted);font-size:10px;margin-top:3px}
+.chip{font-size:9px;font-weight:900;border-radius:999px;padding:5px 8px}.green{background:#0c513b;color:#8cf1c9}.orange{background:#5a3c0c;color:#ffd58a}.red{background:#5b1f24;color:#ffb0b4}.blue{background:#143f7c;color:#b9d7ff}
+.table-wrap{overflow:auto}.table{width:100%;border-collapse:collapse;min-width:700px}.table th,.table td{padding:11px;border-bottom:1px solid var(--line);text-align:left;font-size:12px}.table th{color:#9eb0c8}
+.btn{border:0;border-radius:9px;padding:8px 10px;font-weight:800;cursor:pointer;background:#2563eb;color:#fff}.btn.alt{background:#25364e}.btn.good{background:#0f9f6e}.btn.bad{background:#c43e46}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap}.toolbar input,.toolbar select{background:#07111e;border:1px solid var(--line);color:#fff;border-radius:10px;padding:10px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.service-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
+.notice{margin-top:15px;padding:13px;border-radius:12px;background:#3f320e;border:1px solid #7d641a;color:#ffe5a8}
+.toast{position:fixed;right:20px;bottom:20px;background:#fff;color:#172235;border-radius:999px;padding:10px 14px;font-weight:800;opacity:0;transition:.2s}.toast.show{opacity:1}
+@media(max-width:900px){.layout{grid-template-columns:1fr}aside{display:flex;overflow:auto;border-right:0;border-bottom:1px solid var(--line)}aside button{width:auto;white-space:nowrap}.stats,.cards{grid-template-columns:1fr 1fr}.grid{grid-template-columns:1fr}}
+@media(max-width:560px){header{height:auto;padding:12px}.header-actions{display:none}.stats,.cards{grid-template-columns:1fr}main{padding:12px}}
+</style>
+
+<style id="kaka-v2-polish">
+:root{--v2blue:#1459a6;--v2blue2:#2f80ed;--v2ink:#132238;--v2muted:#66768a;--v2line:#dce6f1}
+html{scroll-behavior:smooth}body{background:linear-gradient(180deg,#edf4fb 0,#f8fbff 48%,#eef4fb 100%)!important}
+.kaka-v2-loader{position:fixed;inset:0;z-index:1000000;background:linear-gradient(135deg,#071322,#123963);display:grid;place-items:center;transition:opacity .35s,visibility .35s}
+.kaka-v2-loader.hide{opacity:0;visibility:hidden}.kaka-v2-loader-card{text-align:center;color:#fff}.kaka-v2-spinner{width:58px;height:58px;border:5px solid #ffffff35;border-top-color:#fff;border-radius:50%;animation:kakaSpin .8s linear infinite;margin:0 auto 14px}@keyframes kakaSpin{to{transform:rotate(360deg)}}
+.kaka-v2-topline{background:linear-gradient(135deg,#071a31,#174c82);color:#fff;padding:12px 18px;text-align:center;box-shadow:0 8px 24px #173b611c}.kaka-v2-topline strong{display:block;font-size:20px}.kaka-v2-topline span{display:block;color:#c9ddf2;font-size:12px;margin-top:3px}
+#kakababuProjectChoices{border:1px solid #dce6f1!important;box-shadow:0 18px 48px #20476c16!important;background:linear-gradient(180deg,#fff,#f9fcff)!important}
+#kakababuProjectChoices .btn{min-width:210px;margin:5px;box-shadow:0 10px 25px #1456a024;transition:.2s ease}#kakababuProjectChoices .btn:hover{transform:translateY(-2px);box-shadow:0 14px 30px #1456a035}
+.kaka-v2-status{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:14px}.kaka-v2-status span{padding:7px 10px;border-radius:999px;background:#e8f8ef;color:#08794c;font-size:11px;font-weight:800;border:1px solid #bfe8d2}
+.form{border:1px solid #dce6f1!important;box-shadow:0 18px 45px #244b7612!important}.section{background:#fbfdff}.submit{box-shadow:0 10px 24px #1456a02c;transition:.2s}.submit:hover{transform:translateY(-1px)}
+@media(max-width:700px){.kaka-v2-topline strong{font-size:17px}#kakababuProjectChoices .btn{display:block;width:100%;margin:8px 0}}
+</style>
+<style id="admin-v2-extra">header{box-shadow:0 8px 24px #0002}.stat,.box,.service-card{transition:.18s}.stat:hover,.service-card:hover{transform:translateY(-2px);border-color:#3b82f6}.notice{line-height:1.55}</style>
+<style id="client-phase3-admin-css">
+.approval-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.approval-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px}
+.approval-card h3{margin:0 0 7px}.meta{color:var(--muted);font-size:11px;line-height:1.55}
+.action-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.btn.reject{background:#fee6e7;color:#a72e34}.btn.approve{background:#dcf8ea;color:#08794c}
+@media(max-width:850px){.approval-grid{grid-template-columns:1fr}}
+</style>
+
+
+<style id="admin-verification-management-css">
+.verify-toolbar{
+  display:flex;gap:8px;flex-wrap:wrap;margin:12px 0
+}
+.verify-toolbar button{
+  border:0;border-radius:9px;padding:9px 11px;font-weight:800;cursor:pointer
+}
+.verify-filter{background:#eaf2fb;color:#174c82}
+.verify-filter.active{background:#155aa8;color:#fff}
+.verify-card{
+  background:#fff;border:1px solid var(--line);border-radius:15px;padding:14px;
+  box-shadow:0 6px 18px rgba(20,50,80,.06)
+}
+.verify-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.verify-title{display:flex;gap:10px;align-items:center}
+.verify-icon{
+  width:44px;height:44px;border-radius:12px;background:#eef5ff;
+  display:grid;place-items:center;font-size:22px
+}
+.verify-meta{font-size:11px;color:var(--muted);line-height:1.55;margin-top:8px}
+.verify-docs{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:10px}
+.doc-item{
+  border:1px solid var(--line);border-radius:10px;padding:9px;background:#f9fbfe;
+  font-size:10px
+}
+.doc-item b{display:block;margin-bottom:4px}
+.doc-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}
+.doc-actions button{
+  border:0;border-radius:8px;padding:7px 9px;font-size:9px;font-weight:800;cursor:pointer
+}
+.view-doc{background:#eaf2fb;color:#174c82}
+.edit-doc{background:#fff3d8;color:#9a6200}
+.manage-doc{background:#e9f8f0;color:#08794c}
+.note-area{width:100%;min-height:68px;border:1px solid #d6e0eb;border-radius:10px;padding:9px;margin-top:10px}
+.status-badge{display:inline-block;padding:6px 9px;border-radius:999px;font-size:9px;font-weight:900}
+.status-pending{background:#fff0d7;color:#9a6200}
+.status-approved{background:#dcf8ea;color:#08794c}
+.status-rejected{background:#fee6e7;color:#a72e34}
+.modal-backdrop{
+  position:fixed;inset:0;background:rgba(4,12,24,.72);display:none;
+  align-items:center;justify-content:center;z-index:9999;padding:18px
+}
+.modal-backdrop.show{display:flex}
+.doc-modal{
+  width:min(760px,100%);max-height:90vh;overflow:auto;background:#fff;
+  border-radius:18px;padding:18px;color:#172235
+}
+.doc-preview{
+  background:#f4f7fb;border:1px solid #dce6f1;border-radius:12px;padding:16px;
+  min-height:260px;margin:12px 0
+}
+.modal-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.modal-actions button{
+  border:0;border-radius:9px;padding:9px 12px;font-weight:800;cursor:pointer
+}
+@media(max-width:760px){
+  .verify-docs{grid-template-columns:1fr}
+  .verify-head{display:block}
+}
+</style>
+
+
+<style id="phase5-admin-css">
+.moderation-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px;margin-bottom:10px}
+.moderation-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}
+</style>
+
+
+<style id="admin-professional-service-ui-css">
+.admin-service-list{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.admin-service-card{background:#fff;border:1px solid var(--line);border-radius:15px;padding:14px}
+.admin-service-card h3{margin:0 0 5px}.admin-service-card .meta{line-height:1.6}
+.admin-service-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+@media(max-width:850px){.admin-service-list{grid-template-columns:1fr}}
+</style>
+
+
+<style id="final-demo-completion-admin-css">
+.admin-form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.audit-item{background:#fff;border:1px solid var(--line);border-radius:12px;padding:11px;margin-bottom:8px}
+@media(max-width:850px){.admin-form-grid{grid-template-columns:1fr}}
+</style>
+
+
+<style id="final-clean-ui-css">
+html,body{max-width:100%;overflow-x:hidden}
+button,input,select,textarea{font-family:inherit}
+button{touch-action:manipulation}
+input,select,textarea{max-width:100%}
+.card,.row,.field,.dynamic-panel,.service-detail-card,.vendor-service-card,.approval-card{
+  overflow-wrap:anywhere
+}
+.btn,.full-btn,.small-btn,.action{
+  min-height:40px
+}
+.field label{line-height:1.35}
+img{max-width:100%}
+@media(max-width:480px){
+  .wrap,.screen,.content{max-width:100%}
+  .grid2,.inline-grid,.money-grid,.filter-row{min-width:0}
+}
+</style>
+
+
+<style id="fixed-viewport-scroll-admin">
+html,body{height:100%;overflow:hidden!important}
+body{display:flex;flex-direction:column}
+header{
+  position:relative!important;
+  top:auto!important;
+  flex:0 0 68px
+}
+.layout{
+  flex:1;
+  height:calc(100dvh - 68px)!important;
+  min-height:0!important;
+  overflow:hidden;
+  grid-template-rows:minmax(0,1fr)
+}
+aside{
+  height:100%;
+  min-height:0;
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  scrollbar-width:thin
+}
+main{
+  height:100%;
+  min-height:0;
+  overflow-y:auto;
+  overflow-x:hidden;
+  overscroll-behavior:contain;
+  -webkit-overflow-scrolling:touch
+}
+.page{min-height:0}
+.table-wrap{overscroll-behavior:contain}
+@media(max-width:900px){
+  .layout{
+    height:calc(100dvh - 68px)!important;
+    grid-template-columns:1fr;
+    grid-template-rows:auto minmax(0,1fr)
+  }
+  aside{
+    height:auto;
+    max-height:62px;
+    overflow-x:auto;
+    overflow-y:hidden;
+    white-space:nowrap;
+    flex-wrap:nowrap
+  }
+  main{height:100%;overflow-y:auto}
+}
+@media(max-width:560px){
+  header{flex:0 0 auto;min-height:58px}
+  .layout{height:calc(100dvh - 58px)!important}
+  aside{max-height:58px}
+}
+</style>
+
+
+<script id="single-pin-app-guard">
+(function(){
+  if(sessionStorage.getItem('client483921Unlocked')!=='yes'){
+    location.replace('CLIENT-KOL-2026-ID483921.html');
+  }
+})();
+</script>
+
+</head>
+<body><div class="kaka-v2-loader" id="kakaV2Loader"><div class="kaka-v2-loader-card"><div class="kaka-v2-spinner"></div><b>KAKABABU Project Preview</b><div style="margin-top:5px;font-size:12px;color:#c9ddf2">Loading secure client demo...</div></div></div>
+<header>
+<div class="brand">KAKABABU Admin Panel Demo<small>Client-safe project view • No login required</small></div>
+<div class="header-actions"><a href="kakababu-project-v2.html">← Project Home</a><button onclick="restart()">Restart Demo</button></div>
+</header>
+<div class="layout">
+<aside id="nav"></aside>
+<main>
+<section id="dashboard" class="page active"></section>
+<section id="users" class="page"></section>
+<section id="vendors" class="page"></section>
+<section id="orders" class="page"></section>
+<section id="services" class="page"></section>
+<section id="vehicles" class="page"></section><section id="verificationCenter" class="page"></section><section id="categoryManagement" class="page"></section><section id="settlementManagement" class="page"></section><section id="refundManagement" class="page"></section><section id="notificationManagement" class="page"></section><section id="auditLog" class="page"></section><section id="professionalServices" class="page"></section><section id="bookingManagement" class="page"></section><section id="reviewManagement" class="page"></section><section id="gstManagement" class="page"></section><section id="mentors" class="page"></section><section id="payments" class="page"></section>
+<section id="approvals" class="page"></section>
+<section id="notifications" class="page"></section>
+<section id="settings" class="page"></section>
+</main>
+</div>
+<div id="toast" class="toast"></div>
+<script>
+const pages=[
+['dashboard','📊 Dashboard'],['users','👥 Users'],['vendors','🏪 Vendors'],['orders','📦 Orders'],
+['services','🧰 Services'],['vehicles','🚗 Vehicles'],['verificationCenter','🗂️ Document Verification'],['categoryManagement','🗂️ Category Management'],['settlementManagement','💰 Settlements'],['refundManagement','↩️ Refunds'],['notificationManagement','🔔 Notifications'],['auditLog','📜 Audit Log'],['professionalServices','🧰 Service Management'],['bookingManagement','📦 Booking Management'],['reviewManagement','⭐ Review Moderation'],['gstManagement','🧾 GST Management'],['mentors','🧑‍🏫 Mentors'],['payments','💰 Payments'],['approvals','✅ Approvals'],['notifications','🔔 Notifications'],['settings','⚙️ Settings']
+];
+let vendorPending=3,orderPending=8,paymentPending=18500;
+
+
+
+
+
+const DEMO_KEYS={
+  bookings:'kakababu_demo_bookings',
+  services:'kakababu_demo_services',
+  documents:'kakababu_demo_documents',
+  notifications:'kakababu_demo_notifications',
+  vendors:'kakababu_demo_vendors',
+  users:'kakababu_demo_users'
+};
+function demoRead(key,fallback=[]){
+  try{
+    const value=JSON.parse(localStorage.getItem(key)||'null');
+    return value===null?fallback:value;
+  }catch(e){return fallback}
+}
+function demoWrite(key,value){
+  localStorage.setItem(key,JSON.stringify(value));
+}
+
+let categoryManagement=[
+ {category:'Education',sub:['Online Tutor','Offline Tutor','Uniform Booking','Admission','Re-Admission']},
+ {category:'Home Service',sub:['AC Repair','Electrician','Plumber','Cleaning']},
+ {category:'Transportation',sub:['Driver','Car Rental','Bike Rental']}
+];
+let settlementManagement=[
+ {vendor:'Smart Tutor Hub',amount:12500,status:'Pending'},
+ {vendor:'City Car Rental',amount:8200,status:'Approved'}
+];
+let refundManagement=[
+ {booking:'KB782145',user:'Sangita Das',amount:499,status:'Pending'}
+];
+let notificationManagement=[
+ {title:'Booking Update',message:'Your booking is confirmed',status:'Draft'}
+];
+let auditLogs=[{time:new Date().toLocaleString(),action:'Admin panel loaded'}];
+
+function addAudit(action){auditLogs.unshift({time:new Date().toLocaleString(),action});renderCompletionAdmin()}
+function adminBookings(){return demoRead(DEMO_KEYS.bookings,bookingManagement||[])}
+function adminDocuments(){return demoRead(DEMO_KEYS.documents,(verificationRecords[0]&&verificationRecords[0].docs)||[])}
+
+function renderCompletionAdmin(){
+  const c=document.getElementById('categoryManagement');
+  const s=document.getElementById('settlementManagement');
+  const r=document.getElementById('refundManagement');
+  const n=document.getElementById('notificationManagement');
+  const a=document.getElementById('auditLog');
+  if(c)c.innerHTML=`<div class="page-head"><div><h1>Category & Sub-category Management</h1><p>Add, edit and delete service categories</p></div></div>${categoryManagement.map((x,i)=>`<div class="simple-admin-item"><h3>${x.category}</h3><p class="meta">${x.sub.join(', ')}</p><div class="simple-admin-actions"><button class="btn" onclick="const v=prompt('Edit category',categoryManagement[${i}].category);if(v){categoryManagement[${i}].category=v;addAudit('Category edited')}">Edit</button><button class="btn" onclick="const v=prompt('Add sub-category');if(v){categoryManagement[${i}].sub.push(v);addAudit('Sub-category added')}">Add Sub-category</button><button class="btn reject" onclick="categoryManagement.splice(${i},1);addAudit('Category deleted')">Delete</button></div></div>`).join('')}<button class="btn approve" onclick="const v=prompt('New category');if(v){categoryManagement.push({category:v,sub:[]});addAudit('Category added')}">Add Category</button>`;
+  if(s)s.innerHTML=`<div class="page-head"><div><h1>Payment Settlement</h1><p>Approve or reject vendor settlement</p></div></div>${settlementManagement.map((x,i)=>`<div class="simple-admin-item"><h3>${x.vendor}</h3><p class="meta">₹${x.amount} • ${x.status}</p><button class="btn approve" onclick="settlementManagement[${i}].status='Approved';addAudit('Settlement approved')">Approve</button><button class="btn reject" onclick="settlementManagement[${i}].status='Rejected';addAudit('Settlement rejected')">Reject</button></div>`).join('')}`;
+  if(r)r.innerHTML=`<div class="page-head"><div><h1>Refund & Cancellation</h1><p>Manage refund requests</p></div></div>${refundManagement.map((x,i)=>`<div class="simple-admin-item"><h3>${x.booking}</h3><p class="meta">${x.user} • ₹${x.amount} • ${x.status}</p><button class="btn approve" onclick="refundManagement[${i}].status='Approved';addAudit('Refund approved')">Approve</button><button class="btn reject" onclick="refundManagement[${i}].status='Rejected';addAudit('Refund rejected')">Reject</button></div>`).join('')}`;
+  if(n)n.innerHTML=`<div class="page-head"><div><h1>Notification Management</h1><p>Create and send demo notifications</p></div></div><div class="admin-form-grid"><input id="notifyTitle" placeholder="Notification title"><input id="notifyMessage" placeholder="Message"></div><button class="btn approve" onclick="const list=demoRead(DEMO_KEYS.notifications,[]);list.unshift({title:notifyTitle.value,message:notifyMessage.value,date:new Date().toLocaleString()});demoWrite(DEMO_KEYS.notifications,list);addAudit('Notification sent');toast('Demo notification sent')">Send Notification</button>`;
+  if(a)a.innerHTML=`<div class="page-head"><div><h1>Audit Log</h1><p>Admin changes and actions</p></div></div>${auditLogs.map(x=>`<div class="audit-item"><b>${x.action}</b><p class="meta">${x.time}</p></div>`).join('')}`;
+}
+
+let professionalServices=[
+ {name:'Online Tutor',vendor:'Smart Tutor Hub',category:'Education',price:899,rating:4.8,status:'Active'},
+ {name:'AC Repair',vendor:'Cool Care Service',category:'Home Service',price:499,rating:4.7,status:'Pending'},
+ {name:'Outstation Driver',vendor:'City Car Rental',category:'Transportation',price:899,rating:4.6,status:'Active'},
+ {name:'Uniform Booking',vendor:'School Dress House',category:'Education',price:1080,rating:4.5,status:'Pending'}
+];
+function renderProfessionalServices(){
+ const page=document.getElementById('professionalServices');
+ if(!page)return;
+ page.innerHTML=`<div class="page-head"><div><h1>Service Management</h1><p>View, edit, approve and manage all service listings</p></div></div><div class="admin-service-list">${professionalServices.map((s,i)=>`<div class="admin-service-card"><h3>${s.name}</h3><div class="meta">Vendor: ${s.vendor}<br>Category: ${s.category}<br>Price: ₹${s.price}<br>Rating: ⭐ ${s.rating}<br>Status: ${s.status}</div><div class="admin-service-actions"><button class="btn" onclick="toast('Service details opened')">View</button><button class="btn" onclick="toast('Edit service opened')">Edit</button><button class="btn approve" onclick="professionalServices[${i}].status='Active';renderProfessionalServices()">Approve</button><button class="btn reject" onclick="professionalServices[${i}].status='Rejected';renderProfessionalServices()">Reject</button></div></div>`).join('')}</div>`;
+}
+
+let bookingManagement=[
+ {id:'KB782145',user:'Sangita Das',service:'Online Tutor',amount:1179,status:'Pending'},
+ {id:'KB782146',user:'Rahul Kumar',service:'AC Repair',amount:637,status:'Confirmed'}
+];
+let reviewManagement=[
+ {user:'Sangita Das',service:'Online Tutor',rating:5,text:'Very helpful service',status:'Pending'},
+ {user:'Amit Kumar',service:'AC Repair',rating:4,text:'Good service',status:'Approved'}
+];
+let gstManagement=[
+ {service:'Online Tutor',vendor:'Smart Tutor Hub',mode:'GST Extra 18%',status:'Active'},
+ {service:'AC Repair',vendor:'Cool Care Service',mode:'No GST',status:'Active'}
+];
+function updateBookingAdmin(i,status){bookingManagement[i].status=status;toast('Booking '+status.toLowerCase());renderPhase5Management()}
+function updateReviewAdmin(i,status){reviewManagement[i].status=status;toast('Review '+status.toLowerCase());renderPhase5Management()}
+function updateGSTAdmin(i){
+  const next=prompt('GST mode: GST Included / GST Extra 18% / No GST',gstManagement[i].mode);
+  if(next){gstManagement[i].mode=next;renderPhase5Management()}
+}
+function renderPhase5Management(){
+  const b=document.getElementById('bookingManagement');
+  const r=document.getElementById('reviewManagement');
+  const g=document.getElementById('gstManagement');
+  if(b)b.innerHTML=`<div class="page-head"><div><h1>Booking Management</h1><p>Confirm, cancel and manage user bookings</p></div></div>${bookingManagement.map((x,i)=>`<div class="moderation-card"><b>${x.id} — ${x.service}</b><p class="meta">${x.user} • ₹${x.amount} • ${x.status}</p><div class="moderation-actions"><button class="btn approve" onclick="updateBookingAdmin(${i},'Confirmed')">Confirm</button><button class="btn reject" onclick="updateBookingAdmin(${i},'Cancelled')">Cancel</button></div></div>`).join('')}`;
+  if(r)r.innerHTML=`<div class="page-head"><div><h1>Rating & Review Moderation</h1><p>Approve, reject and remove reviews</p></div></div>${reviewManagement.map((x,i)=>`<div class="moderation-card"><b>${x.user} — ⭐ ${x.rating}</b><p class="meta">${x.service}<br>${x.text}<br>Status: ${x.status}</p><div class="moderation-actions"><button class="btn approve" onclick="updateReviewAdmin(${i},'Approved')">Approve</button><button class="btn reject" onclick="updateReviewAdmin(${i},'Rejected')">Reject</button></div></div>`).join('')}`;
+  if(g)g.innerHTML=`<div class="page-head"><div><h1>GST Management</h1><p>Control service-wise GST mode</p></div></div>${gstManagement.map((x,i)=>`<div class="moderation-card"><b>${x.service}</b><p class="meta">${x.vendor}<br>GST Mode: ${x.mode}</p><button class="btn" onclick="updateGSTAdmin(${i})">Edit GST</button></div>`).join('')}`;
+}
+
+let verificationFilter='All';
+let verificationRecords=[
+  {
+    id:'VER-VEH-1001',type:'Vehicle',name:'Honda City',owner:'City Car Rental',
+    status:'Pending',notes:'',
+    docs:[
+      {name:'Vehicle RC',file:'WB00AB1234-RC.pdf',status:'Uploaded'},
+      {name:'Insurance',file:'HondaCity-Insurance.pdf',status:'Uploaded'},
+      {name:'PUC',file:'HondaCity-PUC.pdf',status:'Uploaded'},
+      {name:'Driver Licence',file:'Rakesh-Licence.pdf',status:'Uploaded'}
+    ]
+  },
+  {
+    id:'VER-MEN-1002',type:'Mentor',name:'Anirban Sir',owner:'Smart Tutor Hub',
+    status:'Pending',notes:'',
+    docs:[
+      {name:'Qualification Certificate',file:'MSc-Mathematics.pdf',status:'Uploaded'},
+      {name:'Profile Photo',file:'anirban-profile.jpg',status:'Uploaded'},
+      {name:'Identity Proof',file:'anirban-id.pdf',status:'Uploaded'}
+    ]
+  },
+  {
+    id:'VER-BNK-1003',type:'Bank',name:'Vendor Bank Account',owner:'KAKABABU Partner',
+    status:'Approved',notes:'Verified with bank proof.',
+    docs:[
+      {name:'Cancelled Cheque',file:'cancelled-cheque.jpg',status:'Uploaded'},
+      {name:'Passbook',file:'passbook-front.jpg',status:'Uploaded'},
+      {name:'PAN Card',file:'pan-card.pdf',status:'Uploaded'}
+    ]
+  }
+];
+
+function statusClass(status){
+  if(status==='Approved') return 'status-approved';
+  if(status==='Rejected') return 'status-rejected';
+  return 'status-pending';
+}
+
+function setVerificationFilter(filter){
+  verificationFilter=filter;
+  renderCompletionAdmin();renderProfessionalServices();renderPhase5Management();renderVerificationCenter();
+}
+
+function updateVerificationStatus(index,status){
+  const filtered=verificationRecords.filter(r=>verificationFilter==='All'||r.status===verificationFilter);
+  const record=filtered[index];
+  if(!record)return;
+  const realIndex=verificationRecords.findIndex(r=>r.id===record.id);
+  verificationRecords[realIndex].status=status;demoWrite(DEMO_KEYS.documents,verificationRecords);
+  const note=document.getElementById('note-'+record.id);
+  if(note) verificationRecords[realIndex].notes=note.value.trim();
+  toast(record.type+' verification '+status.toLowerCase());
+  renderVerificationCenter();
+}
+
+function editVerificationRecord(id){
+  const r=verificationRecords.find(x=>x.id===id);
+  if(!r)return;
+  const name=prompt('Edit name/title',r.name);
+  if(name!==null&&name.trim())r.name=name.trim();
+  const owner=prompt('Edit vendor/owner',r.owner);
+  if(owner!==null&&owner.trim())r.owner=owner.trim();
+  renderVerificationCenter();
+}
+
+function manageVerificationRecord(id){
+  const r=verificationRecords.find(x=>x.id===id);
+  if(!r)return;
+  const note=prompt('Admin management note',r.notes||'');
+  if(note!==null)r.notes=note;
+  renderVerificationCenter();
+}
+
+function viewDocument(recordId,docIndex){
+  const r=verificationRecords.find(x=>x.id===recordId);
+  if(!r)return;
+  const d=r.docs[docIndex];
+  const modal=document.getElementById('documentModal');
+  document.getElementById('modalTitle').textContent=d.name;
+  document.getElementById('modalMeta').innerHTML=`Record: ${r.id}<br>Owner: ${r.owner}<br>File: ${d.file}<br>Status: ${d.status}`;
+  document.getElementById('modalPreview').innerHTML=`
+    <div style="text-align:center;padding:30px">
+      <div style="font-size:58px">📄</div>
+      <h3>${d.name}</h3>
+      <p>${d.file}</p>
+      <p class="meta">Uploaded document preview will appear here.</p>
+    </div>`;
+  modal.classList.add('show');
+}
+
+function editDocument(recordId,docIndex){
+  const r=verificationRecords.find(x=>x.id===recordId);
+  if(!r)return;
+  const d=r.docs[docIndex];
+  const file=prompt('Edit document file name',d.file);
+  if(file!==null&&file.trim())d.file=file.trim();
+  const status=prompt('Document status: Uploaded / Verified / Reupload Required',d.status);
+  if(status!==null&&status.trim())d.status=status.trim();
+  renderVerificationCenter();
+}
+
+function manageDocument(recordId,docIndex){
+  const r=verificationRecords.find(x=>x.id===recordId);
+  if(!r)return;
+  const d=r.docs[docIndex];
+  const action=prompt('Enter management action: Verify / Reupload / Remove',d.status);
+  if(action===null)return;
+  if(action.toLowerCase().includes('verify'))d.status='Verified';
+  else if(action.toLowerCase().includes('reupload'))d.status='Reupload Required';
+  else if(action.toLowerCase().includes('remove'))d.status='Removed';
+  renderVerificationCenter();
+}
+
+function closeDocumentModal(){
+  document.getElementById('documentModal').classList.remove('show');
+}
+
+
+function mergeSharedVendorDocuments(){
+  const shared=demoRead(DEMO_KEYS.documents,[]);
+  if(!Array.isArray(shared)||!shared.length)return;
+  const docs=shared.map(d=>({
+    name:d.name||'Vendor Document',
+    file:d.file||'No file uploaded',
+    status:d.status||'Pending'
+  }));
+  const existing=verificationRecords.find(r=>r.id==='VER-VENDOR-SHARED');
+  if(existing)existing.docs=docs;
+  else verificationRecords.unshift({
+    id:'VER-VENDOR-SHARED',
+    type:'Vendor',
+    name:'Vendor Uploaded Documents',
+    owner:'KAKABABU Partner',
+    status:docs.every(d=>d.status==='Approved')?'Approved':'Pending',
+    notes:'Documents uploaded from Vendor App.',
+    docs
+  });
+}
+
+function renderVerificationCenter(){
+  mergeSharedVendorDocuments();
+  const page=document.getElementById('verificationCenter');
+  if(!page)return;
+  const records=verificationRecords.filter(r=>verificationFilter==='All'||r.status===verificationFilter);
+  page.innerHTML=`<div class="page-head"><div><h1>Document Verification & Management</h1><p>Vendor, vehicle, driver, mentor, qualification and bank documents</p></div></div>
+  <div class="verify-toolbar">
+    ${['All','Pending','Approved','Rejected'].map(f=>`<button class="verify-filter ${verificationFilter===f?'active':''}" onclick="setVerificationFilter('${f}')">${f}</button>`).join('')}
+  </div>
+  <div class="approval-grid">
+    ${records.map((r,i)=>`<div class="verify-card">
+      <div class="verify-head">
+        <div class="verify-title"><div class="verify-icon">${r.type==='Vehicle'?'🚗':r.type==='Mentor'?'🧑‍🏫':'🏦'}</div><div><h3>${r.name}</h3><div class="verify-meta">${r.id}<br>${r.owner}</div></div></div>
+        <span class="status-badge ${statusClass(r.status)}">${r.status}</span>
+      </div>
+      <div class="verify-docs">
+        ${r.docs.map((d,di)=>`<div class="doc-item"><b>${d.name}</b><span>${d.file}</span><br><small>Status: ${d.status}</small>
+          <div class="doc-actions">
+            <button class="view-doc" onclick="viewDocument('${r.id}',${di})">View</button>
+            <button class="edit-doc" onclick="editDocument('${r.id}',${di})">Edit</button>
+            <button class="manage-doc" onclick="manageDocument('${r.id}',${di})">Manage</button>
+          </div>
+        </div>`).join('')}
+      </div>
+      <textarea id="note-${r.id}" class="note-area" placeholder="Admin verification note">${r.notes||''}</textarea>
+      <div class="action-row">
+        <button class="btn approve" onclick="updateVerificationStatus(${i},'Approved')">Approve</button>
+        <button class="btn reject" onclick="updateVerificationStatus(${i},'Rejected')">Reject</button>
+        <button class="btn" onclick="editVerificationRecord('${r.id}')">Edit Record</button>
+        <button class="btn" onclick="manageVerificationRecord('${r.id}')">Manage</button>
+      </div>
+    </div>`).join('')}
+  </div>`;
+}
+
+let vehicleApprovals=[
+ {name:'Honda City',number:'WB 00 AB 1234',vendor:'City Car Rental',driver:'Rakesh Kumar',licence:'WB20XX1234',status:'Pending'},
+ {name:'Mahindra Bolero',number:'WB 42 CD 5678',vendor:'One Connect Transport',driver:'Amit Das',licence:'WB42YY5678',status:'Approved'}
+];
+let mentorApprovals=[
+ {name:'Anirban Sir',subject:'Mathematics',qualification:'M.Sc Mathematics',status:'Pending'},
+ {name:'Riya Maam',subject:'English',qualification:'M.A English',status:'Approved'}
+];
+let serviceApprovals=[
+ {name:'Out Station Driver',vendor:'City Car Rental',category:'Transportation Service',status:'Pending'},
+ {name:'Online Tutor',vendor:'Smart Tutor Hub',category:'Education Service',status:'Pending'}
+];
+function setApproval(type,index,status){
+  const list=type==='vehicle'?vehicleApprovals:type==='mentor'?mentorApprovals:serviceApprovals;
+  list[index].status=status;
+  toast(type+' '+status.toLowerCase());
+  render();
+}
+function approvalButtons(type,index,status){
+  if(status==='Approved')return '<span class="chip green">Approved</span>';
+  if(status==='Rejected')return '<span class="chip red">Rejected</span>';
+  return `<div class="action-row"><button class="btn approve" onclick="setApproval('${type}',${index},'Approved')">Approve</button><button class="btn reject" onclick="setApproval('${type}',${index},'Rejected')">Reject</button></div>`;
+}
+
+const toast=t=>{let x=document.getElementById('toast');x.textContent=t;x.classList.add('show');setTimeout(()=>x.classList.remove('show'),1700)}
+function show(id){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('aside button').forEach(x=>x.classList.toggle('active',x.dataset.id===id))}
+function renderNav(){document.getElementById('nav').innerHTML=pages.map((p,i)=>`<button data-id="${p[0]}" class="${i===0?'active':''}" onclick="show('${p[0]}')">${p[1]}</button>`).join('')}
+function card(icon,title,sub,status,cls='blue'){return `<div class="item"><div class="icon">${icon}</div><div class="grow"><b>${title}</b><small>${sub}</small></div><span class="chip ${cls}">${status}</span></div>`}
+function render(){
+dashboard.innerHTML=`<div class="page-head"><div><h1>Admin Dashboard</h1><p>KAKABABU document verification, approval and management overview</p></div><button class="btn" onclick="toast('Dashboard refreshed')">↻ Refresh</button></div>
+<div class="stats"><div class="stat"><small>Total Users</small><strong>1,248</strong></div><div class="stat"><small>Active Vendors</small><strong>86</strong></div><div class="stat"><small>Pending Orders</small><strong>${orderPending}</strong></div><div class="stat"><small>Monthly Revenue</small><strong>₹84,650</strong></div></div>
+<div class="grid"><div class="box"><h3>Recent Orders</h3><div class="list">${card('🔧','AC Repair Booking','Rahul Kumar • Dumka','Pending','orange')}${card('📚','Home Tutor Booking','Sangita Das • Birbhum','Confirmed','green')}${card('🚗','Car Rental','Amit Sharma • Asansol','Payment Due','red')}</div></div><div class="box"><h3>Quick Actions</h3><div class="list">${card('🏪','Vehicle & Service Approvals',(vehicleApprovals.filter(x=>x.status==='Pending').length+serviceApprovals.filter(x=>x.status==='Pending').length)+' pending','Review','orange')}${card('💰','Settlement Queue','₹'+paymentPending,'Process','blue')}${card('🔔','Send Announcement','All users & vendors','Open','green')}</div></div></div>`;
+users.innerHTML=`<div class="page-head"><div><h1>User Management</h1><p>Search, view and manage registered users</p></div></div><div class="box table-wrap"><table class="table"><tr><th>User</th><th>Contact</th><th>Bookings</th><th>Status</th><th>Action</th></tr>${[['Sangita Das','7549459770',12,'Active'],['Rahul Kumar','9876543210',4,'Active'],['Amit Sharma','9123456780',2,'Blocked']].map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td><span class="chip ${r[3]==='Active'?'green':'red'}">${r[3]}</span></td><td><button class="btn alt" onclick="toast('User details opened')">View</button></td></tr>`).join('')}</table></div>`;
+vendors.innerHTML=`<div class="page-head"><div><h1>Vendor Management</h1><p>KYC, service and availability management</p></div></div><div class="cards">${[['Raju Service Center','Electrician • Dumka','Verified'],['Smart Tutor Hub','Education • Birbhum','Pending'],['City Car Rental','Rental • Asansol','Verified']].map(v=>`<div class="service-card"><h3>${v[0]}</h3><p style="color:var(--muted)">${v[1]}</p><span class="chip ${v[2]==='Verified'?'green':'orange'}">${v[2]}</span><div style="margin-top:12px"><button class="btn" onclick="toast('Vendor profile opened')">Manage</button></div></div>`).join('')}</div>`;
+orders.innerHTML=`<div class="page-head"><div><h1>Order Management</h1><p>Track and update all service bookings</p></div></div><div class="box table-wrap"><table class="table"><tr><th>Order ID</th><th>Service</th><th>User</th><th>Amount</th><th>Status</th><th>Action</th></tr>${[['KB260801','AC Repair','Rahul','₹499','Pending'],['KB260799','Home Tutor','Sangita','₹1200','Confirmed'],['KB260780','Car Rental','Amit','₹2800','Completed']].map((r,i)=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td><span class="chip ${i===0?'orange':i===1?'blue':'green'}">${r[4]}</span></td><td><button class="btn good" onclick="toast('Order status updated')">Update</button></td></tr>`).join('')}</table></div>`;
+services.innerHTML=`<div class="page-head"><div><h1>Service Management</h1><p>Categories, pricing and availability</p></div><button class="btn" onclick="toast('Add service dialog opened')">+ Add Service</button></div><div class="cards">${[['Home Services','48 vendors','Active'],['Education','26 vendors','Active'],['Rental','12 vendors','Active'],['Entertainment','9 vendors','Active'],['Delivery','17 vendors','Active'],['Partner Services','11 vendors','Review']].map(x=>`<div class="service-card"><h3>${x[0]}</h3><p style="color:var(--muted)">${x[1]}</p><span class="chip ${x[2]==='Active'?'green':'orange'}">${x[2]}</span></div>`).join('')}</div>`;
+
+vehicles.innerHTML=`<div class="page-head"><div><h1>Vehicle & Driver Verification</h1><p>Vehicle number, driver, licence and document approval</p></div></div>
+<div class="approval-grid">${vehicleApprovals.map((v,i)=>`<div class="approval-card"><h3>🚗 ${v.name}</h3><div class="meta">Vehicle No: ${v.number}<br>Vendor: ${v.vendor}<br>Driver: ${v.driver}<br>Licence No: ${v.licence}<br>Documents: RC • Insurance • PUC • Licence Copy</div>${approvalButtons('vehicle',i,v.status)}</div>`).join('')}</div>`;
+mentors.innerHTML=`<div class="page-head"><div><h1>Mentor & Qualification Approval</h1><p>Teacher profile and certificate verification</p></div></div>
+<div class="approval-grid">${mentorApprovals.map((m,i)=>`<div class="approval-card"><h3>🧑‍🏫 ${m.name}</h3><div class="meta">Subject: ${m.subject}<br>Qualification: ${m.qualification}<br>Certificate: Uploaded<br>Profile Photo: Uploaded</div>${approvalButtons('mentor',i,m.status)}</div>`).join('')}</div>`;
+
+payments.innerHTML=`<div class="page-head"><div><h1>Payment & Settlement</h1><p>Revenue, commission and vendor payouts</p></div></div><div class="stats"><div class="stat"><small>Gross Revenue</small><strong>₹1,12,500</strong></div><div class="stat"><small>Commission</small><strong>₹27,850</strong></div><div class="stat"><small>Vendor Settlement</small><strong>₹66,150</strong></div><div class="stat"><small>Pending</small><strong>₹${paymentPending}</strong></div></div><div class="box" style="margin-top:14px"><button class="btn good" onclick="paymentPending=0;toast('Demo settlement processed');render()">Process Pending Settlement</button></div>`;
+approvals.innerHTML=`<div class="page-head"><div><h1>Approval Center</h1><p>Vendor KYC, vehicle, mentor and service approval</p></div></div>
+<div class="approval-grid">
+${serviceApprovals.map((s,i)=>`<div class="approval-card"><h3>🧰 ${s.name}</h3><div class="meta">Vendor: ${s.vendor}<br>Category: ${s.category}<br>Pricing/GST: Submitted<br>Terms & Policy: Accepted</div>${approvalButtons('service',i,s.status)}</div>`).join('')}
+</div>`;
+notifications.innerHTML=`<div class="page-head"><div><h1>Notifications</h1><p>Send updates to users and vendors</p></div></div><div class="box"><div class="toolbar"><select><option>All Users</option><option>All Vendors</option><option>Selected City</option></select><input placeholder="Notification title"><input placeholder="Message"></div><button class="btn" style="margin-top:12px" onclick="toast('Demo notification sent')">Send Notification</button></div>`;
+settings.innerHTML=`<div class="page-head"><div><h1>App Settings</h1><p>Demo configuration controls</p></div></div><div class="cards">${[['Booking Commission','12%'],['Vendor Registration Fee','₹299'],['Cancellation Window','2 hours'],['Support Number','9735474770'],['WhatsApp','7549459770'],['Maintenance Mode','Off']].map(x=>`<div class="service-card"><small style="color:var(--muted)">${x[0]}</small><h3>${x[1]}</h3><button class="btn alt" onclick="toast('Setting edit opened')">Edit</button></div>`).join('')}</div><div class="notice"><b>Client Demo:</b> এই page শুধু KAKABABU Admin Panel-এর feature flow দেখানোর জন্য। আপনার আসল agency admin login বা private data এখানে নেই।</div>`;
+}
+function restart(){vendorPending=3;orderPending=8;paymentPending=18500;render();show('dashboard');toast('Admin demo restarted')}
+renderNav();render();
+</script>
+<script id="kaka-v2-loader-js">window.addEventListener('load',()=>setTimeout(()=>document.getElementById('kakaV2Loader')?.classList.add('hide'),350));</script>
+<div id="documentModal" class="modal-backdrop" onclick="if(event.target===this)closeDocumentModal()">
+  <div class="doc-modal">
+    <h2 id="modalTitle">Document Preview</h2>
+    <div id="modalMeta" class="meta"></div>
+    <div id="modalPreview" class="doc-preview"></div>
+    <div class="modal-actions">
+      <button onclick="window.print()">Print</button>
+      <button onclick="closeDocumentModal()">Close Preview</button>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

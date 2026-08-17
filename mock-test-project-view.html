@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mock Test Project Preview</title>
+<meta name="robots" content="noindex,nofollow">
+
+<style>
+:root{--bg:#eef4fb;--ink:#172235;--muted:#687489;--line:#dce6f1;--blue:#155aa8;--green:#109447;--purple:#7429c9}
+*{box-sizing:border-box}body{margin:0;font-family:Arial;background:var(--bg);color:var(--ink)}
+header{background:linear-gradient(135deg,#0f3f74,#2f80ed);color:#fff;padding:28px 16px;text-align:center}
+header h1{margin:0 0 7px}header p{margin:0;opacity:.92}
+.wrap{max-width:1150px;margin:auto;padding:24px 16px 44px}
+.top-row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.client-id{background:#fff;border:1px solid var(--line);border-radius:12px;padding:11px 14px;font-weight:900}
+.back{background:#eaf2fb;color:#174b80;padding:11px 14px;border-radius:11px;text-decoration:none;font-weight:900}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:24px;box-shadow:0 14px 36px #244b7614;display:flex;flex-direction:column;min-height:430px}
+.icon{width:84px;height:84px;border-radius:50%;display:grid;place-items:center;font-size:40px;margin:0 auto 12px}
+.student .icon{background:#dceaff}.teacher .icon{background:#ddf4e4}.admin .icon{background:#eadcfb}
+.card h2{text-align:center;margin:4px 0}.student h2{color:var(--blue)}.teacher h2{color:var(--green)}.admin h2{color:var(--purple)}
+.sub{text-align:center;color:var(--muted);margin-bottom:13px}
+.features{background:#f8fbff;border:1px solid #edf2f7;border-radius:13px;padding:13px;flex:1}
+.features div{margin:9px 0;font-size:13px}.features div:before{content:"✓";margin-right:8px;font-weight:900}
+.student .features div:before{color:var(--blue)}.teacher .features div:before{color:var(--green)}.admin .features div:before{color:var(--purple)}
+.btn{display:block;margin-top:14px;padding:13px;border-radius:11px;color:#fff;text-align:center;text-decoration:none;font-weight:900}
+.student .btn{background:linear-gradient(135deg,#155aa8,#2f80ed)}
+.teacher .btn{background:linear-gradient(135deg,#0e8d3d,#19b458)}
+.admin .btn{background:linear-gradient(135deg,#6f28bf,#9b4ae6)}
+.note{margin-top:18px;background:#fff5d7;border:1px solid #ecd17a;padding:14px;border-radius:13px;line-height:1.55}
+@media(max-width:850px){.cards{grid-template-columns:1fr}}
+</style>
+
+
+<script id="single-pin-mocktest-guard">
+(function(){
+  const main="CLIENT-KOL-2026-ID483921.html";
+  if(sessionStorage.getItem("client483921Unlocked")!=="yes"){
+    location.replace(main);
+    return;
+  }
+  sessionStorage.setItem("client483921Project","mocktest");
+})();
+</script>
+
+
+</head>
+<body>
+<header>
+<h1>Mock Test Project Preview</h1>
+<p>Student App, Teacher App এবং Admin Panel—৩টি আলাদা project view</p>
+</header>
+<main class="wrap">
+<div class="top-row">
+<div class="client-id">CLIENT-KOL-2026-ID483921</div>
+<a class="back" href="CLIENT-KOL-2026-ID483921.html">← Client Dashboard</a>
+</div>
+<section class="cards">
+<article class="card student">
+<div class="icon">📱</div><h2>Student App</h2><div class="sub">Android Mobile App View</div>
+<div class="features"><div>Login / Register / OTP</div><div>Exam Selection</div><div>Live Test with Timer</div><div>Auto Save & Question Palette</div><div>Submit & Result Analysis</div><div>Leaderboard & Progress</div><div>Referral & Rewards</div></div>
+<a class="btn" href="mock-test-student-app-view.html" onclick="sessionStorage.setItem('client483921Project','mocktest')">Open Student App</a>
+</article>
+<article class="card teacher">
+<div class="icon">👩‍🏫</div><h2>Teacher App</h2><div class="sub">Android Mobile App View</div>
+<div class="features"><div>Teacher Login</div><div>Question Bank</div><div>Create Test</div><div>Bulk Upload</div><div>PDF Notes</div><div>Student Results</div><div>Reports & Analytics</div></div>
+<a class="btn" href="mock-test-teacher-app-view.html" onclick="sessionStorage.setItem('client483921Project','mocktest')">Open Teacher App</a>
+</article>
+<article class="card admin">
+<div class="icon">🖥️</div><h2>Admin Panel</h2><div class="sub">Full Web Dashboard View</div>
+<div class="features"><div>Dashboard & Analytics</div><div>User Management</div><div>Teacher Management</div><div>Exam & Test Management</div><div>Payments & Plans</div><div>Referral & Rewards</div><div>Reports & Settings</div></div>
+<a class="btn" href="mock-test-admin-panel-view.html" onclick="sessionStorage.setItem('client483921Project','mocktest')">Open Admin Panel</a>
+</article>
+</section>
+<div class="note"><b>Demo Notice:</b> Student ও Teacher—দুটি আলাদা mobile app view। Admin Panel আলাদা full web dashboard view।</div>
+</main>
+</body>
+</html>

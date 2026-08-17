@@ -1,0 +1,337 @@
+<!doctype html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bangla Calendar App Preview</title>
+<script>(function(){if(sessionStorage.getItem('banglaCalendarDemoUnlocked')!=='yes'||sessionStorage.getItem('banglaSelectedView')!=='app')location.replace('CLIENT-ID684273.html')})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Poppins:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+ --p:#9a1750;--p2:#e84c8a;--p3:#c2185b;
+ --gold:#c9962f;--gold2:#f0d28a;
+ --bg:#f4eef1;--ink:#26202a;--muted:#7a7086;--card:#fff;
+ --line:#ecdfe6;--shadow:0 10px 28px #6a1a4014;--shadow-sm:0 4px 14px #6a1a400f;
+ --r-lg:20px;--r-md:15px;--r-sm:11px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:'Hind Siliguri','Poppins',Arial,sans-serif;background:var(--bg);color:var(--ink);overflow:hidden;-webkit-font-smoothing:antialiased}
+h1,h2,h3,.appbar h2,.brand,.btn,.tile b,.list-btn b,.nav b{font-family:'Poppins','Hind Siliguri',Arial,sans-serif}
+.top{height:66px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 4vw}
+.brand{font-weight:800;font-size:14px;letter-spacing:.01em}.brand small{display:block;color:var(--muted);font-size:11px;font-weight:500;margin-top:2px}
+.top a{padding:10px 15px;background:linear-gradient(135deg,#fff0f6,#fde3ee);color:var(--p);border-radius:999px;text-decoration:none;font-weight:700;font-size:13px;transition:.2s;border:1px solid #f5d3e2}
+.top a:hover{transform:translateY(-1px);box-shadow:var(--shadow-sm)}
+.layout{height:calc(100vh - 66px);display:grid;grid-template-columns:minmax(330px,420px) 1fr;gap:24px;max-width:1280px;margin:auto;padding:16px 18px}
+.device{display:grid;place-items:center}
+.phone{height:min(790px,calc(100vh - 96px));aspect-ratio:9/19.4;background:#181017;border:9px solid #181017;border-radius:42px;overflow:hidden;box-shadow:0 26px 60px #45102e3d,0 2px 0 #ffffff10 inset;position:relative}
+.inner{height:100%;background:#fdf8fa;border-radius:32px;display:flex;flex-direction:column;overflow:hidden}
+.status{height:28px;background:#fff;display:flex;justify-content:space-between;align-items:center;padding:0 17px;font-size:11px;font-weight:700;color:#443a4a}
+.appbar{padding:15px 16px;background:linear-gradient(120deg,var(--p) 0%,var(--p3) 55%,var(--p2) 100%);color:#fff;display:flex;gap:11px;align-items:center;position:relative;overflow:hidden}
+.appbar::after{content:"";position:absolute;inset:0;background-image:radial-gradient(circle,#ffffff28 1px,transparent 1.4px);background-size:13px 13px;opacity:.5;pointer-events:none}
+.appbar button{border:0;background:#ffffff22;color:#fff;width:34px;height:34px;border-radius:50%;font-size:17px;position:relative;z-index:1;transition:.15s}
+.appbar button:active{transform:scale(.9);background:#ffffff38}
+.appbar h2{font-size:16.5px;margin:0;font-weight:700;position:relative;z-index:1}
+.appbar p{font-size:10.5px;margin:3px 0 0;opacity:.88;position:relative;z-index:1}
+.scroll{flex:1;overflow:auto;padding:14px;animation:screenIn .28s ease}
+@keyframes screenIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.nav{display:grid;grid-template-columns:repeat(5,1fr);background:#fff;border-top:1px solid var(--line);padding:6px 8px 8px;position:relative}
+.nav button{border:0;background:transparent;padding:7px 2px;font-size:9.5px;color:var(--muted);font-weight:600;border-radius:12px;transition:.18s}
+.nav b{display:block;font-size:18px;margin-bottom:2px;transition:.18s}
+.nav .active{color:var(--p);font-weight:800;background:#fdeef4}
+.nav .active b{transform:translateY(-1px) scale(1.08)}
+.hero{background:linear-gradient(125deg,var(--p) 0%,var(--p3) 60%,var(--p2) 120%);color:#fff;border-radius:var(--r-lg);padding:19px;position:relative;overflow:hidden;box-shadow:var(--shadow)}
+.hero::before{content:"";position:absolute;right:-24px;top:-24px;width:120px;height:120px;border-radius:50%;background:#ffffff14}
+.hero::after{content:"";position:absolute;left:-30px;bottom:-40px;width:140px;height:140px;border-radius:50%;border:1px solid #ffffff22}
+.hero h3{margin:0 0 5px;font-size:20px;font-weight:700;position:relative}
+.hero p{margin:0;font-size:11.5px;opacity:.92;position:relative}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.tile,.card{background:#fff;border-radius:var(--r-md);padding:14px;box-shadow:var(--shadow-sm);border:1px solid #f4e9ee;transition:.18s}
+.tile{cursor:pointer}.tile:active{transform:scale(.97);box-shadow:var(--shadow-sm)}
+.tile span{font-size:21px;display:inline-grid;place-items:center;width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,#fdeef4,#fde0eb)}
+.tile b{display:block;margin-top:8px;font-size:12px;font-weight:600;line-height:1.3}
+.tile small,.card small{color:var(--muted);font-size:9.5px}
+.row{display:flex;align-items:center;gap:10px;margin-bottom:9px}
+.icon{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,#fdeef4,#fbd9e8);display:grid;place-items:center;font-size:19px;flex-shrink:0}
+.grow{flex:1}
+.chip{font-size:9.5px;padding:5px 9px;border-radius:999px;background:linear-gradient(135deg,#fde6ef,#fbd7e6);color:#8f1247;font-weight:700}
+.field{margin-bottom:11px}
+.field label{display:block;font-size:10.5px;font-weight:700;margin-bottom:6px;color:#57506080}
+.field label{color:var(--muted)}
+.field input,.field select{width:100%;padding:11px;border:1.5px solid var(--line);border-radius:var(--r-sm);font:inherit;font-size:13px;transition:.15s;background:#fff}
+.field input:focus,.field select:focus{outline:none;border-color:var(--p2);box-shadow:0 0 0 3px #e84c8a1f}
+.btn{width:100%;border:0;border-radius:var(--r-sm);padding:13px;background:linear-gradient(120deg,var(--p),var(--p3));color:#fff;font-weight:700;font-size:13.5px;letter-spacing:.01em;box-shadow:0 8px 18px #9a175030;transition:.15s;cursor:pointer}
+.btn:active{transform:translateY(1px) scale(.99);box-shadow:0 4px 10px #9a175030}
+.side{overflow:auto;padding:4px}
+.side h1{font-weight:800;font-size:23px;letter-spacing:-.01em}
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+.feature{background:#fff;border:1px solid var(--line);border-radius:var(--r-sm);padding:12px;font-size:11px;font-weight:500;transition:.15s}
+.feature:hover{border-color:#f0c3d8;box-shadow:var(--shadow-sm)}
+.quick{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+.quick button{border:0;border-radius:999px;padding:9px 13px;background:linear-gradient(135deg,#fff0f6,#fde3ee);color:var(--p);font-weight:700;font-size:12px;border:1px solid #f5d3e2;cursor:pointer;transition:.15s}
+.quick button:hover{transform:translateY(-1px);box-shadow:var(--shadow-sm)}
+.note{background:linear-gradient(135deg,#fff8e6,#fef3d2);border:1px solid var(--gold2);padding:14px;border-radius:var(--r-sm);font-size:11.5px;line-height:1.6;color:#5c4a12}
+@media(max-width:780px){body{overflow:auto}.top,.side{display:none}.layout{display:block;height:100vh;padding:0}.device{height:100vh}.phone{height:100vh;width:100%;aspect-ratio:auto;border:0;border-radius:0}.inner{border-radius:0}.features{grid-template-columns:1fr 1fr}}
+</style>
+<style id="calendar-interactive-enhancement-css">
+.searchbar{display:flex;gap:8px;margin-bottom:11px}
+.searchbar input{flex:1;border:1.5px solid var(--line);border-radius:var(--r-sm);padding:11px;font:inherit;font-size:13px;background:#fff}
+.searchbar input:focus{outline:none;border-color:var(--p2);box-shadow:0 0 0 3px #e84c8a1f}
+.searchbar button{border:0;border-radius:var(--r-sm);background:linear-gradient(120deg,var(--p),var(--p3));color:#fff;padding:0 15px;font-weight:700;cursor:pointer}
+.section-title{display:flex;align-items:center;justify-content:space-between;margin:14px 0 9px}
+.section-title h3{margin:0;font-size:14.5px;font-weight:700}.section-title button{border:0;background:transparent;color:var(--p);font-weight:700;font-size:12px;cursor:pointer}
+.list-btn{width:100%;border:0;background:#fff;border-radius:var(--r-md);padding:13px;box-shadow:var(--shadow-sm);border:1px solid #f4e9ee;text-align:left;margin-bottom:9px;transition:.15s;cursor:pointer}
+.list-btn:active{transform:scale(.98)}
+.list-btn b{display:block;font-size:12.5px;font-weight:600}.list-btn small{color:var(--muted);font-size:9.5px}
+.toast{position:absolute;left:50%;bottom:74px;transform:translateX(-50%);background:#26202a;color:#fff;padding:10px 16px;border-radius:999px;font-size:11px;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:20;box-shadow:0 10px 24px #00000030}
+.toast.show{opacity:1;bottom:78px}
+.switch{position:relative;width:42px;height:24px;background:#e2dae2;border-radius:999px;cursor:pointer;transition:.2s}
+.switch.on{background:linear-gradient(120deg,var(--p),var(--p3))}.switch::after{content:"";position:absolute;width:18px;height:18px;background:#fff;border-radius:50%;left:3px;top:3px;transition:.2s;box-shadow:0 2px 5px #0002}.switch.on::after{left:21px}
+.big-date{text-align:center;padding:20px 16px}.big-date strong{display:block;font-size:44px;color:var(--p);font-weight:800;font-family:'Poppins',sans-serif}.big-date span{font-size:13px;color:var(--muted);font-weight:500}
+.detail-line{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid #f0e6eb;font-size:11.5px}
+.detail-line:last-child{border-bottom:0}
+.detail-line b{font-weight:600}
+.note-input{width:100%;min-height:90px;border:1.5px solid var(--line);border-radius:var(--r-sm);padding:11px;resize:vertical;font:inherit;font-size:13px}
+.note-input:focus{outline:none;border-color:var(--p2);box-shadow:0 0 0 3px #e84c8a1f}
+</style>
+
+
+<style id="calendar-demo-extra-update-css">
+.progress-wrap{background:#fff;border-radius:var(--r-md);padding:13px;margin-bottom:11px;box-shadow:var(--shadow-sm);border:1px solid #f4e9ee}
+.progress-wrap b{font-size:12.5px;font-weight:700}
+.progress-bar{height:9px;background:#f0e6eb;border-radius:999px;overflow:hidden;margin-top:8px}
+.progress-bar span{display:block;height:100%;width:82%;background:linear-gradient(90deg,var(--p),var(--p2));border-radius:999px}
+.quick-chip{display:inline-block;padding:5px 9px;border-radius:999px;background:#f4e7ee;color:#9b174d;font-size:8.5px;font-weight:700;margin:3px}
+</style>
+
+</head><body>
+<header class="top"><div class="brand">Digital Agency by Chandan Das<small>Bangla Calendar App — Interactive Preview</small></div><a href="CLIENT-ID684273.html">← Project Page</a></header>
+<main class="layout"><section class="device"><div class="phone"><div class="inner"><div class="status"><span>9:41</span><span>4G 🔋</span></div><div id="bar" class="appbar"></div><div id="screen" class="scroll"></div><div id="nav" class="nav"></div><div id="toast" class="toast"></div></div></div></section>
+<aside class="side"><h1>বাংলা ক্যালেন্ডার অ্যাপ</h1><p style="color:var(--muted);font-size:13px;line-height:1.6">Demo V4 source-এর feature অনুযায়ী Android-style interactive project preview। বাম দিকের phone-এ tap/click করে পুরো app ঘুরে দেখুন।</p><div class="features" id="features"></div><div class="quick"><button onclick="go('home')">🏠 Home</button><button onclick="go('calendar')">📅 Calendar</button><button onclick="go('festival')">🎉 Festival</button><button onclick="go('various')">▦ Various</button><button onclick="go('settings')">⚙️ Settings</button></div><div class="note"><b>Demo Notice:</b> Accurate live Panchang, weather API, phone sensor compass, widget ও real local notification final production version-এ connect হবে।</div></aside></main>
+<script>
+let page='home',dark=false,month=0,selected=17,lastPage='home';
+let reminderItems=[
+ {title:'উৎসব রিমাইন্ডার',on:true},
+ {title:'একাদশী রিমাইন্ডার',on:true},
+ {title:'পূর্ণিমা/অমাবস্যা',on:true},
+ {title:'প্রতিদিন সকাল পঞ্জিকা',on:false}
+];
+const months=['শ্রাবণ ১৪৩৩','ভাদ্র ১৪৩৩','আশ্বিন ১৪৩৩'];
+const festivals=[
+ {name:'পূর্ণিমা',date:'৮ আগস্ট ২০২৬',icon:'🌕',detail:'শ্রাবণ পূর্ণিমা • শুভ সময় ১০:২৫–১১:৪০'},
+ {name:'স্বাধীনতা দিবস',date:'১৫ আগস্ট ২০২৬',icon:'🇮🇳',detail:'জাতীয় ছুটি'},
+ {name:'জন্মাষ্টমী',date:'১৮ আগস্ট ২০২৬',icon:'🪈',detail:'শ্রীকৃষ্ণ জন্মাষ্টমী'},
+ {name:'একাদশী',date:'২১ আগস্ট ২০২৬',icon:'🙏',detail:'উপবাস ও পারণ সময়'},
+ {name:'অমাবস্যা',date:'২৩ আগস্ট ২০২৬',icon:'🌑',detail:'অমাবস্যা তিথি'},
+ {name:'বিশ্বকর্মা পূজা',date:'১৭ সেপ্টেম্বর ২০২৬',icon:'🛠️',detail:'পূজা ও ছুটি'},
+ {name:'মহালয়া',date:'১০ অক্টোবর ২০২৬',icon:'🪔',detail:'দেবীপক্ষের সূচনা'},
+ {name:'দুর্গাপূজা',date:'১৮ অক্টোবর ২০২৬',icon:'🌺',detail:'ষষ্ঠী থেকে দশমী'}
+];
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>t.classList.remove('show'),1600)}
+function renderAppBar(t,s){document.getElementById('bar').innerHTML=`<button onclick="${page==='home'?"showToast('আপনি Home-এ আছেন')":"go(lastPage||'home')"}">←</button><div><h2>${t}</h2><p>${s||''}</p></div>`}
+function nav(){const x=[['home','🏠','আজ'],['calendar','📅','ক্যালেন্ডার'],['festival','🎉','উৎসব'],['various','▦','বিবিধ'],['settings','⚙️','সেটিংস']];document.getElementById('nav').innerHTML=x.map(i=>`<button class="${page===i[0]?'active':''}" onclick="go('${i[0]}')"><b>${i[1]}</b>${i[2]}</button>`).join('')}
+function go(p){if(page!==p)lastPage=page;page=p;render();document.getElementById('screen').scrollTop=0}
+function home(){
+ renderAppBar('বাংলা ক্যালেন্ডার','Interactive Mobile Demo');
+ document.getElementById('screen').innerHTML=`
+ <div class="searchbar"><input id="globalSearch" placeholder="উৎসব, তিথি বা feature খুঁজুন"><button onclick="searchDemo()">🔍</button></div>
+ <div class="hero"><h3>১৭ শ্রাবণ ১৪৩৩</h3><p>সোমবার • ৩ আগস্ট ২০২৬</p><p style="margin-top:12px">☀️ সূর্যোদয় ০৫:১২ • 🌙 সূর্যাস্ত ০৬:৪৯</p></div>
+ <div class="progress-wrap"><b>Project Demo Progress</b><small style="display:block;color:var(--muted);margin-top:4px">Interactive screens completed: 82%</small><div class="progress-bar"><span></span></div></div>
+ <div class="quick" style="margin:4px 0 2px"><button onclick="go('favorites')">🔖 Favorites</button><button onclick="go('ekadashiPurnima')">🌙 Ekadashi/Purnima</button><button onclick="shareApp()">📤 Share App</button></div>
+ <div class="section-title"><h3>Quick Features</h3><button onclick="go('various')">সব দেখুন</button></div>
+ <div class="grid">${[
+ ['📖','আজকের পঞ্জিকা','তিথি, নক্ষত্র','panchang'],
+ ['🌦','আবহাওয়া','31°C আংশিক মেঘলা','weather'],
+ ['⭐','দৈনিক রাশিফল','১২ রাশি','horoscope'],
+ ['🔔','রিমাইন্ডার','উৎসব ও একাদশী','reminder'],
+ ['📝','ব্যক্তিগত নোট','আজকের note save','notes'],
+ ['🎂','জন্মরাশি','তারিখ দিয়ে হিসাব','birthsign']
+ ].map(x=>`<div class="tile" onclick="go('${x[3]}')"><span>${x[0]}</span><b>${x[1]}</b><small>${x[2]}</small></div>`).join('')}</div>
+ <div class="section-title"><h3>Upcoming</h3><button onclick="go('festival')">View All</button></div>
+ ${festivals.slice(0,3).map((x,i)=>`<button class="list-btn" onclick="festivalDetail(${i})"><b>${x.icon} ${x.name}</b><small>${x.date} • বিস্তারিত দেখতে click করুন</small></button>`).join('')}`;
+}
+function searchDemo(){
+ const q=(document.getElementById('globalSearch')?.value||'').trim().toLowerCase();
+ if(!q){showToast('Search text লিখুন');return}
+ if(q.includes('উৎসব')||q.includes('পূজা')||q.includes('festival'))go('festival');
+ else if(q.includes('পঞ্জিকা')||q.includes('তিথি'))go('panchang');
+ else if(q.includes('রাশি'))go('horoscope');
+ else if(q.includes('রিমাইন্ডার'))go('reminder');
+ else showToast('Demo search result পাওয়া গেছে');
+}
+function calendar(){
+ renderAppBar(months[month],'বাংলা ও ইংরেজি তারিখ');
+ let d='';for(let i=1;i<=31;i++)d+=`<button onclick="selected=${i};calendar()" style="border:0;border-radius:10px;padding:9px 3px;background:${i===selected?'#c2185b':'#fff'};color:${i===selected?'#fff':'#202332'}">${i}<small style="display:block">${i+14}</small></button>`;
+ document.getElementById('screen').innerHTML=`<div class="card"><div style="display:flex;justify-content:space-between;align-items:center"><button onclick="month=Math.max(0,month-1);calendar()">‹</button><b>${months[month]}</b><button onclick="month=Math.min(2,month+1);calendar()">›</button></div><div style="display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-top:12px">${d}</div></div><div class="card big-date" onclick="go('dayDetail')"><strong>${selected}</strong><span>${months[month]}</span><small style="display:block;margin-top:8px">দশমী • রোহিণী • শুভ দিন<br>Full details দেখতে click করুন</small></div>`;
+}
+function dayDetail(){
+ renderAppBar('দিনের বিস্তারিত',`${selected} ${months[month]}`);
+ document.getElementById('screen').innerHTML=`<div class="card"><div class="detail-line"><b>বাংলা তারিখ</b><span>${selected} ${months[month]}</span></div><div class="detail-line"><b>ইংরেজি তারিখ</b><span>${selected+14} আগস্ট ২০২৬</span></div><div class="detail-line"><b>তিথি</b><span>দশমী</span></div><div class="detail-line"><b>নক্ষত্র</b><span>রোহিণী</span></div><div class="detail-line"><b>রাহুকাল</b><span>৭:৩০–৯:০০</span></div><div class="detail-line"><b>শুভ সময়</b><span>১০:২৫–১১:৪০</span></div></div><button class="btn" onclick="showToast('Reminder added')">🔔 এই দিনের reminder দিন</button>`;
+}
+function festival(){
+ renderAppBar('উৎসব ও ছুটি','২০২৬');
+ document.getElementById('screen').innerHTML=festivals.map((x,i)=>`<button class="list-btn" style="display:flex;align-items:center;justify-content:space-between;gap:8px" onclick="festivalDetail(${i})"><span><b>${x.icon} ${x.name}</b><small style="display:block">${x.date} • ${x.detail}</small></span><span onclick="toggleFav('${x.name}',event)" style="font-size:18px;line-height:1">${isFav(x.name)?'⭐':'☆'}</span></button>`).join('');
+}
+function festivalDetail(i){
+ const x=festivals[i];lastPage='festival';page='festivalDetail';
+ renderAppBar(x.name,x.date);
+ document.getElementById('screen').innerHTML=`<div class="card" style="text-align:center"><div style="font-size:58px">${x.icon}</div><h3>${x.name}</h3><p class="small">${x.date}</p><p>${x.detail}</p><button class="btn" style="background:${isFav(x.name)?'#a5124d':'var(--p)'}" onclick="toggleFav('${x.name}',event)">${isFav(x.name)?'⭐ Favorite করা আছে':'☆ Favorite করুন'}</button></div><div class="card"><b>উৎসব তথ্য</b><small style="display:block;margin-top:7px;line-height:1.6">এই screen-এ final version-এ পূজার সময়, নিয়ম, পারণ, ছুটি এবং share option থাকবে।</small></div><button class="btn" onclick="showToast('${x.name} reminder saved')">🔔 Reminder সেট করুন</button>`;
+ nav();
+}
+function readFavorites(){try{return JSON.parse(localStorage.getItem('calendarFavFestivals')||'[]')}catch(e){return[]}}
+function isFav(name){return readFavorites().includes(name)}
+function toggleFav(name,e){
+ if(e)e.stopPropagation();
+ let list=readFavorites();
+ if(list.includes(name)){list=list.filter(x=>x!==name);showToast('Favorites থেকে সরানো হয়েছে')}
+ else{list.unshift(name);showToast('⭐ Favorites-এ যোগ হয়েছে')}
+ localStorage.setItem('calendarFavFestivals',JSON.stringify(list));
+ if(page==='festival')festival();
+ else if(page==='festivalDetail')festivalDetail(festivals.findIndex(f=>f.name===name));
+ else if(page==='favorites')favorites();
+}
+function favorites(){
+ renderAppBar('Favorites','Saved festivals ও দিন');
+ const list=readFavorites();
+ document.getElementById('screen').innerHTML=list.length?list.map(name=>{
+  const idx=festivals.findIndex(f=>f.name===name);
+  const x=idx>-1?festivals[idx]:{icon:'🔖',date:''};
+  return `<button class="list-btn" onclick="${idx>-1?`festivalDetail(${idx})`:''}"><b>${x.icon} ${name}</b><small>${x.date}</small></button>`;
+ }).join(''):'<div class="card">এখনো কোনো Favorite নেই। উৎসব তালিকা থেকে ☆ আইকনে tap করে যোগ করুন।</div>';
+}
+function ekadashiPurnima(){
+ renderAppBar('Ekadashi ও পূর্ণিমা','তিথি তালিকা');
+ const keys=['পূর্ণিমা','একাদশী','অমাবস্যা'];
+ const list=festivals.filter(x=>keys.some(k=>x.name.includes(k)));
+ document.getElementById('screen').innerHTML=(list.length?list:festivals).map(x=>`<button class="list-btn" onclick="festivalDetail(${festivals.indexOf(x)})"><b>${x.icon} ${x.name}</b><small>${x.date} • ${x.detail}</small></button>`).join('')+`<div class="card"><small class="small">Final version-এ প্রতি মাসের সম্পূর্ণ Ekadashi ও Purnima তালিকা reminder সহ পাওয়া যাবে।</small></div>`;
+}
+function various(){
+ renderAppBar('বিবিধ','Utility features');
+ const tiles=[
+  ['💍','বিবাহ মুহূর্ত',null],['🏠','গৃহপ্রবেশ',null],['🧮','বয়স হিসাব','ageCalc'],['🔄','তারিখ পরিবর্তন',null],
+  ['💰','ঋণ হিসাব','loanCalc'],['🧭','কম্পাস','compassDemo'],['🌦','আবহাওয়া','weather'],['⭐','জন্মরাশি','birthsign'],
+  ['🔖','Favorites','favorites'],['🌙','Ekadashi/পূর্ণিমা','ekadashiPurnima']
+ ];
+ document.getElementById('screen').innerHTML=`<div class="grid">${tiles.map(x=>`<div class="tile" onclick="${x[2]?`go('${x[2]}')`:`utility('${x[1]}')`}"><span>${x[0]}</span><b>${x[1]}</b></div>`).join('')}</div>`;
+}
+function ageCalc(){
+ renderAppBar('বয়স হিসাব','Age Calculator');
+ document.getElementById('screen').innerHTML=`<div class="card"><div class="field"><label>জন্মতারিখ</label><input id="ageDob" type="date" value="1995-08-03"></div><button class="btn" onclick="computeAge()">বয়স হিসাব করুন</button></div><div id="ageResult"></div>`;
+}
+function computeAge(){
+ const v=document.getElementById('ageDob').value;
+ if(!v){showToast('তারিখ নির্বাচন করুন');return}
+ const dob=new Date(v),now=new Date();
+ let y=now.getFullYear()-dob.getFullYear(),m=now.getMonth()-dob.getMonth(),d=now.getDate()-dob.getDate();
+ if(d<0){m--;d+=new Date(now.getFullYear(),now.getMonth(),0).getDate();}
+ if(m<0){y--;m+=12;}
+ document.getElementById('ageResult').innerHTML=`<div class="card big-date"><strong>${y}</strong><span>বছর ${m} মাস ${d} দিন</span></div>`;
+}
+function loanCalc(){
+ renderAppBar('ঋণ হিসাব','EMI Calculator');
+ document.getElementById('screen').innerHTML=`<div class="card">
+ <div class="field"><label>ঋণের পরিমাণ (₹)</label><input id="loanAmt" type="number" value="500000"></div>
+ <div class="field"><label>বার্ষিক সুদের হার (%)</label><input id="loanRate" type="number" value="9.5" step="0.1"></div>
+ <div class="field"><label>মেয়াদ (বছর)</label><input id="loanYears" type="number" value="5"></div>
+ <button class="btn" onclick="computeEmi()">EMI হিসাব করুন</button></div><div id="emiResult"></div>`;
+}
+function computeEmi(){
+ const p=parseFloat(document.getElementById('loanAmt').value)||0;
+ const annualRate=parseFloat(document.getElementById('loanRate').value)||0;
+ const years=parseFloat(document.getElementById('loanYears').value)||0;
+ if(p<=0||years<=0){showToast('সঠিক তথ্য দিন');return}
+ const r=annualRate/12/100,n=years*12;
+ const emi=r===0?p/n:(p*r*Math.pow(1+r,n))/(Math.pow(1+r,n)-1);
+ const total=emi*n,interest=total-p;
+ document.getElementById('emiResult').innerHTML=`<div class="card big-date"><strong>₹${Math.round(emi).toLocaleString('en-IN')}</strong><span>মাসিক EMI</span></div><div class="card"><div class="detail-line"><b>মোট প্রদান</b><span>₹${Math.round(total).toLocaleString('en-IN')}</span></div><div class="detail-line"><b>মোট সুদ</b><span>₹${Math.round(interest).toLocaleString('en-IN')}</span></div></div>`;
+}
+function compassDemo(){
+ renderAppBar('কম্পাস','Drag করে ঘুরান');
+ document.getElementById('screen').innerHTML=`<div class="card" style="text-align:center">
+ <svg id="compassSvg" width="180" height="180" viewBox="0 0 180 180" style="touch-action:none;cursor:grab">
+  <circle cx="90" cy="90" r="85" fill="#fff" stroke="#dccbd4" stroke-width="2"/>
+  <text x="90" y="22" text-anchor="middle" font-size="13" font-weight="900" fill="#c2185b">N</text>
+  <text x="90" y="168" text-anchor="middle" font-size="13" font-weight="900">S</text>
+  <text x="18" y="95" text-anchor="middle" font-size="13" font-weight="900">W</text>
+  <text x="162" y="95" text-anchor="middle" font-size="13" font-weight="900">E</text>
+  <g id="needle"><polygon points="90,30 82,90 98,90" fill="#c2185b"/><polygon points="90,150 82,90 98,90" fill="#202332"/></g>
+ </svg>
+ <div style="margin-top:10px;font-weight:900" id="compassDeg">0°</div>
+ <small class="small">Demo compass — ঘুরিয়ে দেখুন। Final app-এ device sensor ব্যবহার হবে।</small></div>`;
+ initCompassDrag();
+}
+function initCompassDrag(){
+ const svg=document.getElementById('compassSvg'),needle=document.getElementById('needle'),deg=document.getElementById('compassDeg');
+ let dragging=false;
+ function angleFromEvent(e){
+  const rect=svg.getBoundingClientRect();
+  const cx=rect.left+rect.width/2,cy=rect.top+rect.height/2;
+  const clientX=e.touches?e.touches[0].clientX:e.clientX;
+  const clientY=e.touches?e.touches[0].clientY:e.clientY;
+  const rad=Math.atan2(clientX-cx,-(clientY-cy));
+  return (rad*180/Math.PI+360)%360;
+ }
+ function move(e){
+  if(!dragging)return;
+  const a=angleFromEvent(e);
+  needle.setAttribute('transform',`rotate(${a} 90 90)`);
+  deg.textContent=Math.round(a)+'°';
+ }
+ svg.addEventListener('mousedown',()=>dragging=true);
+ svg.addEventListener('touchstart',()=>dragging=true);
+ window.addEventListener('mouseup',()=>dragging=false);
+ window.addEventListener('touchend',()=>dragging=false);
+ window.addEventListener('mousemove',move);
+ window.addEventListener('touchmove',move);
+}
+function shareApp(){
+ const text='Bangla Calendar App demo দেখুন — Digital Agency by Chandan Das';
+ const url=location.href;
+ if(navigator.share){navigator.share({title:'Bangla Calendar App',text,url}).catch(()=>{});}
+ else if(navigator.clipboard){navigator.clipboard.writeText(text+' '+url);showToast('Link copied — share করুন')}
+ else{showToast('Share সমর্থিত নয় এই browser-এ')}
+}
+function utility(name){
+ renderAppBar(name,'Working interactive demo');
+ document.getElementById('screen').innerHTML=`<div class="card"><div class="field"><label>তারিখ / তথ্য নির্বাচন করুন</label><input id="utilityDate" type="date" value="2026-08-03"></div><button class="btn" onclick="showToast('${name} result তৈরি হয়েছে')">হিসাব / ফলাফল দেখুন</button></div><div class="card"><b>Demo Result</b><small style="display:block;margin-top:7px">Input পরিবর্তন করে button click করুন। Final app-এ accurate calculation engine যুক্ত হবে।</small></div>`;
+}
+function settings(){
+ renderAppBar('সেটিংস','App preferences');
+ const rows=[
+ ['ডার্ক মোড',dark],['বাংলা সংখ্যা',true],['২য় ও ৪র্থ শনিবার ছুটি',true],['উৎসব নোটিফিকেশন',true],['বিশুদ্ধ সিদ্ধান্ত পদ্ধতি',false]
+ ];
+ document.getElementById('screen').innerHTML=rows.map((x,i)=>`<div class="card row"><div class="grow"><b>${x[0]}</b></div><div class="switch ${x[1]?'on':''}" onclick="${i===0?'toggleDark(this)':'this.classList.toggle(\'on\');showToast(\'Setting updated\')'}"></div></div>`).join('')+`<div class="card"><b>Language</b><select onchange="showToast('Language changed')"><option>বাংলা</option><option>English</option><option>Hindi</option></select></div><div class="card"><b>Interactive Preview</b><small style="display:block;margin-top:5px">No APK download • Client presentation only</small></div><button class="btn" style="margin-top:10px" onclick="shareApp()">📤 Share App</button><button class="btn" style="margin-top:10px;background:linear-gradient(120deg,#174979,#2f80ed)" onclick="go('featureRequest')">➕ Feature Request পাঠান</button>`;
+}
+function toggleDark(el){dark=!dark;el.classList.toggle('on',dark);document.querySelector('.inner').style.filter=dark?'invert(.88) hue-rotate(170deg)':'none';showToast(dark?'Dark mode on':'Dark mode off')}
+function panchang(){renderAppBar('আজকের পঞ্জিকা','১৭ শ্রাবণ ১৪৩৩');document.getElementById('screen').innerHTML=['তিথি: দশমী','নক্ষত্র: রোহিণী','যোগ: ধ্রুব','করণ: বণিজ','রাহুকাল: ৭:৩০–৯:০০','শুভ সময়: ১০:২৫–১১:৪০'].map(x=>`<div class="card">${x}</div>`).join('')+`<button class="btn" onclick="showToast('Panchang shared')">📤 Share Panchang</button>`}
+function horoscope(){renderAppBar('দৈনিক রাশিফল','১২ রাশি');document.getElementById('screen').innerHTML=`<div class="grid">${['মেষ','বৃষ','মিথুন','কর্কট','সিংহ','কন্যা','তুলা','বৃশ্চিক','ধনু','মকর','কুম্ভ','মীন'].map(x=>`<div class="tile" onclick="horoscopeDetail('${x}')">⭐<b>${x}</b></div>`).join('')}</div>`}
+function horoscopeDetail(name){renderAppBar(name+' রাশিফল','আজকের ফল');document.getElementById('screen').innerHTML=`<div class="card"><h3>${name}</h3><p>আজ কাজের অগ্রগতি হবে। অর্থনৈতিক সিদ্ধান্তে সতর্ক থাকুন। পরিবারের সঙ্গে ভালো সময় কাটবে।</p></div><div class="card"><div class="detail-line"><b>শুভ রং</b><span>নীল</span></div><div class="detail-line"><b>শুভ সংখ্যা</b><span>৫</span></div><div class="detail-line"><b>শুভ সময়</b><span>১১:২০ AM</span></div></div>`}
+function reminder(){renderAppBar('রিমাইন্ডার','Notification settings');document.getElementById('screen').innerHTML=reminderItems.map((x,i)=>`<div class="card row"><div class="grow"><b>${x.title}</b></div><div class="switch ${x.on?'on':''}" onclick="reminderItems[${i}].on=!reminderItems[${i}].on;reminder()"></div></div>`).join('')+`<button class="btn" onclick="customReminder()">+ নতুন reminder</button>`}
+function customReminder(){const name=prompt('Reminder-এর নাম লিখুন','ব্যক্তিগত অনুষ্ঠান');if(name){reminderItems.push({title:name,on:true});reminder();showToast('Reminder added')}}
+function notes(){renderAppBar('ব্যক্তিগত নোট','Local demo save');const saved=localStorage.getItem('calendarDemoNote')||'';document.getElementById('screen').innerHTML=`<div class="card"><label style="display:block;font-weight:800;font-size:10px;margin-bottom:6px">আজকের নোট</label><textarea id="noteText" class="note-input" placeholder="আপনার নোট লিখুন">${saved}</textarea><button class="btn" style="margin-top:10px" onclick="localStorage.setItem('calendarDemoNote',document.getElementById('noteText').value);showToast('Note saved')">Save Note</button></div>`}
+function weather(){renderAppBar('আবহাওয়া','কলকাতা');document.getElementById('screen').innerHTML=`<div class="hero"><h3>31°C</h3><p>আংশিক মেঘলা</p><p style="margin-top:12px">বৃষ্টির সম্ভাবনা 35% • বাতাস 11 km/h</p></div><div class="grid">${['আজ 31°','মঙ্গল 30°','বুধ 29°','বৃহস্পতি 31°'].map(x=>`<div class="card">${x}</div>`).join('')}</div>`}
+function birthsign(){renderAppBar('জন্মরাশি','তারিখ দিয়ে হিসাব');document.getElementById('screen').innerHTML=`<div class="card"><div class="field"><label>জন্মতারিখ</label><input type="date" value="1995-08-03"></div><button class="btn" onclick="showToast('আপনার রাশি: সিংহ')">রাশি দেখুন</button></div>`}
+
+function featureRequest(){
+ renderAppBar('Feature Request','Client suggestion');
+ document.getElementById('screen').innerHTML=`<div class="card"><div class="field"><label>Feature Name</label><input id="reqFeature" placeholder="Enter feature name"></div><div class="field"><label>Details</label><textarea id="reqDetails" class="note-input" placeholder="Describe your feature request"></textarea></div><button class="btn" onclick="saveFeatureRequest()">Submit Request</button></div>`;
+}
+function saveFeatureRequest(){
+ const f=document.getElementById('reqFeature')?.value.trim();
+ const d=document.getElementById('reqDetails')?.value.trim();
+ if(!f||!d){showToast('সব field পূরণ করুন');return}
+ const list=JSON.parse(localStorage.getItem('calendarFeatureRequests')||'[]');
+ list.unshift({feature:f,details:d,date:new Date().toLocaleString()});
+ localStorage.setItem('calendarFeatureRequests',JSON.stringify(list));
+ showToast('Feature request saved');
+}
+
+function render(){({home,calendar,dayDetail,festival,various,settings,panchang,horoscope,reminder,notes,weather,birthsign,featureRequest,ageCalc,loanCalc,compassDemo,favorites,ekadashiPurnima}[page]||home)();nav()}
+document.getElementById('features').innerHTML=['Clickable Home','বাংলা Calendar','Day Details','Panchang','Festival Details','Reminder Create','Horoscope Details','Personal Notes','Weather Preview','Birth Sign','Age Calculator','EMI Loan Calculator','Interactive Compass','Favorites/Bookmark','Ekadashi/Purnima Tracker','Share App','Dark Mode','Language','Search','Mobile Navigation','Feature Request'].map(x=>`<div class="feature">✅ ${x}</div>`).join('');
+render();
+</script>
+<script id="app-preview-diagnostic">
+window.addEventListener('error', function(e){
+  const screen = document.getElementById('screen');
+  if(screen){
+    screen.innerHTML = '<div style="padding:16px;background:#fff0f0;color:#b42318;border-radius:12px"><b>App preview error:</b><br>'+String(e.message||'Unknown error')+'</div>';
+  }
+});
+</script>
+</body></html>

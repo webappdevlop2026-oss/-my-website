@@ -1,0 +1,43 @@
+Upload/replace these 5 files in GitHub repository root:
+
+1. CLIENT-ID684273.html
+2. bangla-calendar-app-project-view.html
+3. admin-panel.html   (NEW FILE — must be uploaded, not just replaced)
+4. CLIENT-ASN-2026-ID684273.html
+5. bangla-calendar.html
+
+All 5 files must sit in the SAME folder — admin-panel.html and
+bangla-calendar-app-project-view.html are opened as relative links
+from CLIENT-ID684273.html, so the links will break if paths differ.
+
+New updates in this version:
+- Admin Panel is now a SEPARATE full web-view page (admin-panel.html),
+  not just a preview inside the mobile phone frame
+  - Sidebar navigation: Dashboard, Calendar / Festival / Panchang /
+    Horoscope / Notification / Banner / User Management, Client
+    Feedback Inbox, Feature Requests, Settings
+  - Client Feedback Inbox and Feature Requests automatically show
+    real feedback/requests submitted from the client dashboard form
+    and mobile demo (shared via browser localStorage)
+  - Add / Delete demo data for festivals, users, banners, etc.
+    (browser-only demo storage, no live backend)
+  - Protected by the same Client PIN as the rest of the demo
+- New interactive features inside the mobile app demo:
+  - Favorites / Bookmark festivals (star icon to save)
+  - Ekadashi / Purnima tracker screen
+  - Real working Age Calculator (actual date math)
+  - Real working EMI / Loan Calculator (actual formula)
+  - Interactive drag-to-rotate Compass
+  - Share App (Web Share API with clipboard fallback)
+  - Quick-access shortcuts added to Home screen
+  - "Open Full Admin Panel (Web View)" button added inside the
+    in-phone Admin Panel Preview screen
+- Client Project Dashboard (CLIENT-ID684273.html) updated with a
+  second button: "Open Admin Panel (Web View)"
+- Professional Client Feedback Form (existing, retained)
+- Feedback type, screen/module and priority (existing, retained)
+- Submitted feedback history (existing, retained)
+- Local feedback save and delete (existing, retained)
+- Project progress card (existing, retained)
+- Existing interactive calendar features retained
+- APK download remains disabled

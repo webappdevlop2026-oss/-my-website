@@ -1,0 +1,666 @@
+<!doctype html>
+<html lang="bn">
+<head><meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Client Room Admin V11 | Digital Agency by Chandan Das</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#07101d;color:#fff;font-family:Segoe UI,Tahoma,sans-serif}
+header{padding:18px 24px;background:#0b1323;border-bottom:1px solid #ffffff18;display:flex;justify-content:space-between;align-items:center}
+main{max-width:1200px;margin:auto;padding:20px}.grid{display:grid;grid-template-columns:360px 1fr;gap:18px}
+.card{background:#0d1728;border:1px solid #ffffff16;border-radius:18px;padding:18px;margin-bottom:16px}
+h2,h3{margin-top:0}.field{width:100%;padding:11px 12px;margin:6px 0;border:1px solid #ffffff1c;border-radius:10px;background:#050b16;color:#fff}
+button{border:0;border-radius:10px;padding:10px 13px;background:#7c3aed;color:#fff;font-weight:800;cursor:pointer}
+.secondary{background:#1e293b}.danger{background:#be123c}.success{background:#0f766e}
+.client{padding:12px;border:1px solid #ffffff14;border-radius:12px;margin:8px 0;cursor:pointer}.client.active{border-color:#22d3ee;background:#0e749033}
+.row{display:flex;gap:8px;flex-wrap:wrap}.row>*{flex:1}.project{padding:14px;border:1px solid #ffffff14;border-radius:14px;margin:10px 0;background:#ffffff08}
+.badge{display:inline-block;padding:4px 8px;border-radius:999px;background:#164e63;font-size:11px}
+.request-card{padding:13px;border:1px solid #ffffff14;border-radius:13px;margin:9px 0;background:#ffffff08}
+.request-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}
+.request-actions button{padding:7px 10px;font-size:12px}
+.live-badge{display:inline-block;padding:4px 8px;border-radius:999px;background:#166534;color:#dcfce7;font-size:11px;margin-left:6px}
+.muted{color:#94a3b8;font-size:13px}#login{max-width:420px;margin:80px auto}
+.dashboard-cards{max-width:1200px;margin:0 auto 18px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.dash{padding:16px;border-radius:16px;background:linear-gradient(145deg,#111c30,#0b1323);border:1px solid #ffffff16}
+.dash span{display:block;color:#94a3b8;font-size:12px;margin-bottom:8px}.dash b{font-size:24px}
+@media(max-width:800px){.grid{grid-template-columns:1fr}.dashboard-cards{grid-template-columns:repeat(2,1fr)}}
+.cardtop{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.admin-chat-messages{height:360px;overflow-y:auto;padding:12px;background:#050b16;border:1px solid #ffffff14;border-radius:12px;display:flex;flex-direction:column;gap:9px}
+.admin-chat-msg{max-width:78%;padding:10px 12px;border-radius:13px;line-height:1.4}
+.admin-chat-msg.admin{align-self:flex-end;background:linear-gradient(90deg,#7c3aed,#2563eb)}
+.admin-chat-msg.client{align-self:flex-start;background:#172033;border:1px solid #ffffff12}
+.admin-chat-msg small{display:block;margin-top:5px;color:#cbd5e1;font-size:10px}
+.admin-chat-compose{display:flex;gap:8px;margin-top:10px}
+.admin-chat-compose textarea{flex:1;resize:none;border:1px solid #ffffff1c;border-radius:10px;background:#050b16;color:#fff;padding:10px}
+.admin-chat-compose button{border:0;border-radius:10px;padding:0 18px;background:#0f766e;color:#fff;font-weight:900}
+
+.admin-feature-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.admin-feature-grid .card{margin-bottom:0}.file-row,.admin-data-row{padding:12px;border-radius:12px;background:#07111f;border:1px solid #ffffff12;margin-top:8px}.tiny{font-size:11px;color:#94a3b8}.upload-progress{height:8px;border-radius:999px;background:#ffffff12;overflow:hidden;margin-top:8px}.upload-progress b{display:block;height:100%;width:0;background:linear-gradient(90deg,#7c3aed,#22d3ee)}
+@media(max-width:900px){.admin-feature-grid{grid-template-columns:1fr}}
+
+
+/* ===== Client Room Admin V11 UI ===== */
+body{background:radial-gradient(circle at 20% 0,#15264a55,transparent 35%),linear-gradient(180deg,#050914,#091321)}
+header{position:sticky;top:0;z-index:50;background:#07101dee;backdrop-filter:blur(16px);box-shadow:0 12px 35px #0004}
+main{max-width:1380px}.dashboard-cards{max-width:1380px}.grid{grid-template-columns:390px 1fr}
+.card{box-shadow:0 14px 36px #0003}.dash{position:relative;overflow:hidden}.dash:after{content:'';position:absolute;width:80px;height:80px;border-radius:50%;right:-20px;top:-20px;background:#22d3ee14}
+.room-settings-card{background:linear-gradient(145deg,#111d36,#0b1629);border:1px solid #38bdf833}
+.settings-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.settings-grid .wide{grid-column:1/-1}.settings-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}
+.status-pill{display:inline-flex;align-items:center;gap:6px;padding:5px 9px;border-radius:999px;font-size:11px;font-weight:800}.status-on{background:#14532d;color:#bbf7d0}.status-off{background:#7f1d1d;color:#fecaca}
+.client{transition:.2s}.client:hover{transform:translateY(-2px);border-color:#38bdf855}.client-head{display:flex;align-items:center;justify-content:space-between;gap:8px}.client-code{font-family:Consolas,monospace;letter-spacing:.5px;color:#7dd3fc}.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.toolbar button{flex:0 0 auto}
+.copy-btn{background:#0369a1}.warning{background:#b45309}.outline{background:transparent;border:1px solid #ffffff28}
+@media(max-width:1000px){.settings-grid{grid-template-columns:1fr 1fr}.grid{grid-template-columns:1fr}}
+@media(max-width:640px){.settings-grid{grid-template-columns:1fr}.settings-grid .wide{grid-column:auto}.dashboard-cards{grid-template-columns:1fr 1fr}.row>*{min-width:0}}
+
+
+
+/* ===== Live to LCD V14 ===== */
+.live-lcd-card{background:linear-gradient(145deg,#17123a,#0b172b);border:1px solid #8b5cf655;box-shadow:0 18px 45px #0005}
+.live-lcd-layout{display:grid;grid-template-columns:1.2fr .8fr;gap:14px;margin-top:14px}
+.live-lcd-form{display:grid;grid-template-columns:1fr 1fr;gap:10px}.live-lcd-form .wide{grid-column:1/-1}
+.live-lcd-preview{min-height:230px;border-radius:16px;border:1px solid #ffffff1c;background:#030712;overflow:hidden;display:grid;place-items:center;position:relative}
+.live-lcd-preview iframe,.live-lcd-preview img,.live-lcd-preview video{width:100%;height:230px;border:0;object-fit:contain;background:#000}
+.live-lcd-message{padding:24px;text-align:center}.live-lcd-message b{display:block;font-size:22px;margin-bottom:9px}.live-lcd-message p{margin:0;color:#cbd5e1;line-height:1.5}
+.live-status{display:inline-flex;align-items:center;gap:7px;padding:6px 10px;border-radius:999px;font-size:11px;font-weight:900;background:#3f1d2e;color:#fecdd3}.live-status.on{background:#064e3b;color:#a7f3d0;box-shadow:0 0 18px #10b98144}
+.live-dot-admin{width:8px;height:8px;border-radius:50%;background:#fb7185}.live-status.on .live-dot-admin{background:#34d399;box-shadow:0 0 10px #34d399}
+.live-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}.live-actions button{flex:0 0 auto}
+@media(max-width:900px){.live-lcd-layout{grid-template-columns:1fr}.live-lcd-form{grid-template-columns:1fr}.live-lcd-form .wide{grid-column:auto}}
+
+
+
+/* ===== Virtual CCTV Monitor V16 ===== */
+.cctv-card{background:linear-gradient(145deg,#09151f,#07101c);border:1px solid #22d3ee35;box-shadow:0 20px 55px #0005}
+.cctv-layout{display:grid;grid-template-columns:minmax(420px,1.25fr) minmax(300px,.75fr);gap:15px;margin-top:14px}
+.cctv-screen{position:relative;min-height:340px;border-radius:18px;overflow:hidden;background:#020617 url('client-room-agency-v8.png') center/cover no-repeat;border:1px solid #334155;box-shadow:inset 0 0 0 1px #ffffff08,0 16px 38px #0005}
+.cctv-screen:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(2,6,23,.08),rgba(2,6,23,.58));pointer-events:none}
+.cctv-rec{position:absolute;z-index:3;left:14px;top:14px;display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:999px;background:#070b14cc;border:1px solid #ffffff20;font-size:11px;font-weight:900}.cctv-rec i{width:9px;height:9px;border-radius:50%;background:#fb7185;box-shadow:0 0 10px #fb7185;animation:cctvRec 1.4s infinite}@keyframes cctvRec{50%{opacity:.4}}
+.cctv-time{position:absolute;z-index:3;right:14px;top:14px;padding:7px 10px;border-radius:9px;background:#070b14cc;font-family:Consolas,monospace;font-size:11px}
+.cctv-info{position:absolute;z-index:3;left:18px;right:18px;bottom:18px;padding:15px;border-radius:15px;background:linear-gradient(90deg,rgba(4,12,24,.94),rgba(7,24,35,.84));border:1px solid #22d3ee35;backdrop-filter:blur(10px)}
+.cctv-info h3{margin:0 0 7px;font-size:21px}.cctv-meta{display:flex;gap:8px;flex-wrap:wrap}.cctv-meta span{padding:5px 8px;border-radius:999px;background:#ffffff0d;border:1px solid #ffffff14;font-size:10px;color:#cbd5e1}.cctv-action{margin-top:9px;color:#67e8f9;font-weight:800;font-size:13px}
+.cctv-side{display:flex;flex-direction:column;gap:12px}.cctv-list{max-height:210px;overflow:auto;padding-right:3px}.cctv-person{padding:11px;border-radius:13px;border:1px solid #ffffff14;background:#0a1524;margin-bottom:8px;cursor:pointer;transition:.18s}.cctv-person:hover,.cctv-person.active{border-color:#22d3ee88;background:#0d2535;transform:translateY(-1px)}.cctv-person-head{display:flex;align-items:center;justify-content:space-between;gap:8px}.online-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#34d399;box-shadow:0 0 9px #34d399;margin-right:6px}.offline-dot{background:#64748b;box-shadow:none}.cctv-log{max-height:145px;overflow:auto}.cctv-log-row{padding:8px 9px;border-left:2px solid #334155;margin:0 0 7px 4px;background:#ffffff05;border-radius:0 9px 9px 0;font-size:11px}.cctv-notice{font-size:10px;color:#94a3b8;margin-top:8px}.cctv-counter{display:inline-flex;gap:7px;align-items:center;padding:6px 10px;border-radius:999px;background:#064e3b;color:#a7f3d0;font-size:11px;font-weight:900}
+@media(max-width:980px){.cctv-layout{grid-template-columns:1fr}.cctv-screen{min-height:310px}}
+@media(max-width:600px){.cctv-screen{min-height:260px}.cctv-info h3{font-size:17px}.cctv-layout{display:block}.cctv-side{margin-top:12px}}
+
+
+/* ===== V21 Reception Queue ===== */
+.reception-queue{margin:18px 20px;padding:18px;border-radius:22px;background:linear-gradient(180deg,#0b1728,#08111f);border:1px solid #0ea5e955}.queue-head{display:flex;align-items:center;justify-content:space-between;gap:12px}.queue-count{padding:7px 11px;border-radius:999px;background:#0f766e;color:#ccfbf1;font-weight:900}.queue-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:12px;margin-top:14px}.queue-item{padding:14px;border-radius:16px;background:#020617;border:1px solid #ffffff17}.queue-item h4{margin:0 0 7px}.queue-meta{font-size:12px;color:#94a3b8;line-height:1.6}.queue-actions{display:grid;grid-template-columns:1fr 110px;gap:8px;margin-top:10px}.queue-actions select,.queue-actions input{width:100%;padding:10px;border-radius:10px;border:1px solid #ffffff18;background:#0b1324;color:#fff}.queue-buttons{display:flex;gap:8px;flex-wrap:wrap;margin-top:9px}.queue-buttons button{padding:9px 12px}.pin-badge{display:inline-block;padding:5px 8px;border-radius:8px;background:#3b0764;color:#f5d0fe;font-weight:900}.status-waiting{color:#facc15}.status-assigned{color:#67e8f9}.status-entered{color:#86efac}
+
+</style>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js">
+// ===== V21 Reception Queue =====
+let receptionQueueUnsub=null,receptionRows=[];
+function startReceptionQueue(){
+ if(typeof db==='undefined')return;
+ if(receptionQueueUnsub)receptionQueueUnsub();
+ receptionQueueUnsub=db.collection('room_waiting_queue').onSnapshot(s=>{receptionRows=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.created_at?.seconds||0)-(a.created_at?.seconds||0));renderReceptionQueue()},e=>{const box=document.getElementById('receptionQueue');if(box)box.innerHTML='<div class="muted">Queue permission error: '+escapeHtml(e.message)+'</div>'});
+}
+function receptionPin(){return String(Math.floor(1000+Math.random()*9000))}
+function renderReceptionQueue(){
+ const box=document.getElementById('receptionQueue');if(!box)return;
+ const active=receptionRows.filter(r=>!['Completed','Cancelled'].includes(r.status));document.getElementById('waitingQueueCount').textContent=active.filter(r=>r.status==='Waiting').length+' WAITING';
+ box.innerHTML=active.map(r=>{const id=escapeHtml(r.id),status=escapeHtml(r.status||'Waiting'),pin=escapeHtml(r.cabin_pin||'');return `<article class="queue-item"><h4>${escapeHtml(r.client_name||'Client')} <span class="status-${status.toLowerCase()}">• ${status}</span></h4><div class="queue-meta">Token: ${escapeHtml(r.token||'-')} • Main PIN: ${escapeHtml(r.main_pin||'-')}<br>Purpose: ${escapeHtml(r.purpose||'-')}<br>${escapeHtml(r.note||'')}</div><div class="queue-actions"><select id="cabin-${id}"><option value="project" ${r.assigned_cabin==='project'?'selected':''}>1 • Project Cabin</option><option value="meeting" ${r.assigned_cabin==='meeting'?'selected':''}>2 • Meeting Cabin</option><option value="support" ${r.assigned_cabin==='support'?'selected':''}>3 • Support Cabin</option><option value="accounts" ${r.assigned_cabin==='accounts'?'selected':''}>4 • Accounts Cabin</option></select><input id="cpin-${id}" maxlength="4" inputmode="numeric" value="${pin}" placeholder="Cabin PIN"></div><div class="queue-buttons"><button onclick="generateQueuePin('${id}')">Generate PIN</button><button onclick="assignReceptionCabin('${id}')">Assign & Call</button>${pin?`<button class="secondary" onclick="copyQueuePin('${id}')">Copy PIN</button>`:''}<button class="danger" onclick="completeReception('${id}')">Complete</button></div>${pin?`<div style="margin-top:8px">Cabin PIN: <span class="pin-badge">${pin}</span></div>`:''}</article>`}).join('')||'<div class="muted">Waiting Hall-এ কোনো client নেই।</div>';
+}
+function generateQueuePin(id){const el=document.getElementById('cpin-'+id);if(el)el.value=receptionPin()}
+async function assignReceptionCabin(id){const cabin=document.getElementById('cabin-'+id).value,pin=document.getElementById('cpin-'+id).value.trim();if(!/^\d{4}$/.test(pin))return alert('4-digit Cabin PIN দিন');const labels={project:'Project Cabin',meeting:'Meeting Cabin',support:'Support Cabin',accounts:'Accounts Cabin'};await db.collection('room_waiting_queue').doc(id).update({status:'Assigned',assigned_cabin:cabin,cabin_pin:pin,reception_message:`${labels[cabin]}-এ যান। PIN Reception থেকে সংগ্রহ করুন।`,assigned_at:firebase.firestore.FieldValue.serverTimestamp(),updated_at:firebase.firestore.FieldValue.serverTimestamp()})}
+function copyQueuePin(id){const r=receptionRows.find(x=>x.id===id);if(!r)return;navigator.clipboard.writeText(`${r.client_name||'Client'} — ${r.assigned_cabin||'Cabin'} PIN: ${r.cabin_pin||''}`);alert('Cabin PIN copied')}
+async function completeReception(id){await db.collection('room_waiting_queue').doc(id).update({status:'Completed',completed_at:firebase.firestore.FieldValue.serverTimestamp(),updated_at:firebase.firestore.FieldValue.serverTimestamp()})}
+setTimeout(startReceptionQueue,1200);
+
+</script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-storage-compat.js"></script>
+<script src="firebase-client.js"></script>
+</head>
+<body>
+<header>
+<div>
+  <b style="font-size:18px">Digital Agency by Chandan Das</b>
+  <div class="muted">Client Room Admin V18 — CCTV, Access, Projects, Chat & Settings</div>
+</div>
+<div class="row" style="flex:0 0 auto">
+  <a href="client-room.html" target="_blank" style="text-decoration:none"><button class="secondary">Client Room দেখুন</button></a>
+  <button class="secondary" onclick="logout()">Logout</button>
+</div>
+</header>
+
+<section id="login" class="card">
+<h2>Admin Login</h2>
+<input id="email" class="field" type="email" placeholder="Admin email">
+<input id="password" class="field" type="password" placeholder="Password">
+<button onclick="login()">Login</button>
+<div id="loginMsg" class="muted"></div>
+</section>
+
+<main id="app" style="display:none"><section class="reception-queue"><div class="queue-head"><div><h2 style="margin:0">🛎️ Reception & Waiting Hall</h2><div class="muted">Waiting client-কে cabin assign করুন এবং আলাদা 4-digit PIN দিন</div></div><span class="queue-count" id="waitingQueueCount">0 WAITING</span></div><div class="queue-grid" id="receptionQueue"><div class="muted">Waiting queue loading...</div></div></section>
+<div class="dashboard-cards">
+  <div class="dash"><span>Total Clients</span><b id="totalClients">0</b></div>
+  <div class="dash"><span>Total Projects</span><b id="totalProjects">0</b></div>
+  <div class="dash"><span>New Corrections</span><b id="newCorrections">0</b></div>
+  <div class="dash"><span>Demo Gate PIN</span><b id="dashDemoPin" style="color:#67e8f9">1234</b></div>
+</div>
+
+<div class="card cctv-card" id="cctvCard">
+  <div class="cardtop">
+    <div><h2 style="margin-bottom:5px">📹 Client Room Virtual CCTV</h2><div class="muted">Client Room-এ কে ঢুকেছে, online status এবং current activity live দেখুন</div></div>
+    <span id="cctvOnlineCount" class="cctv-counter"><span class="online-dot"></span>0 ONLINE</span>
+  </div>
+  <div class="cctv-layout">
+    <div>
+      <div class="cctv-screen" id="cctvScreen">
+        <div class="cctv-rec"><i></i> VIRTUAL CCTV • LIVE</div>
+        <div class="cctv-time" id="cctvClock">--:--:--</div>
+        <div class="cctv-info">
+          <h3 id="cctvName">কোনো client online নেই</h3>
+          <div class="cctv-meta"><span id="cctvPin">PIN: —</span><span id="cctvDevice">Device: —</span><span id="cctvEntered">Entered: —</span></div>
+          <div class="cctv-action" id="cctvAction">Waiting for room entry…</div>
+        </div>
+      </div>
+      <div class="cctv-notice">🔒 এটি শুধু virtual room activity monitor। Client-এর device camera বা microphone ব্যবহার করা হয় না।</div>
+    </div>
+    <div class="cctv-side">
+      <div class="card" style="margin:0;padding:13px"><div class="cardtop"><h3 style="margin:0">Online Visitors</h3><button class="secondary" style="padding:7px 9px" onclick="refreshCctvMonitor()">↻</button></div><div id="cctvVisitors" class="cctv-list" style="margin-top:10px"><div class="muted">Waiting…</div></div></div>
+      <div class="card" style="margin:0;padding:13px"><h3>Recent Entry Log</h3><div id="cctvLog" class="cctv-log"><div class="muted">No entry yet</div></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="card room-settings-card" id="roomSettingsCard">
+  <div class="cardtop">
+    <div><h2 style="margin-bottom:5px">🚪 Client Room Settings</h2><div class="muted">Gate PIN, male welcome voice এবং agency LCD autoplay এখান থেকে control করুন</div></div>
+    <span id="roomSettingsState" class="status-pill status-on">● Connected</span>
+  </div>
+  <div class="settings-grid" style="margin-top:14px">
+    <div><label class="tiny">Demo PIN (4 digits)</label><input id="settingDemoPin" class="field" inputmode="numeric" maxlength="4" placeholder="1234"></div>
+    <div><label class="tiny">Autoplay seconds</label><input id="settingAutoplay" class="field" type="number" min="2" max="20" step="0.5" placeholder="4.5"></div>
+    <div><label class="tiny">Room status</label><select id="settingRoomActive" class="field"><option value="true">Active</option><option value="false">Maintenance</option></select></div>
+    <div class="wide"><label class="tiny">Bengali male welcome message</label><textarea id="settingWelcomeBn" class="field" rows="2"></textarea></div>
+    <div class="wide"><label class="tiny">Hindi male welcome message</label><textarea id="settingWelcomeHi" class="field" rows="2"></textarea></div>
+    <div class="wide"><label class="tiny">English male welcome message</label><textarea id="settingWelcomeEn" class="field" rows="2"></textarea></div>
+  </div>
+  <div class="settings-actions">
+    <button onclick="saveRoomSettings()">💾 Save Room Settings</button>
+    <button class="secondary" onclick="loadRoomSettings()">↻ Reload</button>
+    <a href="client-room.html?v=1100" target="_blank"><button class="copy-btn" type="button">🚪 Open Client Gate</button></a>
+  </div>
+  <div id="roomSettingsMsg" class="muted" style="margin-top:9px"></div>
+</div>
+
+
+
+<div class="card live-lcd-card" id="liveLcdCard">
+  <div class="cardtop">
+    <div><h2 style="margin-bottom:5px">📡 Live to LCD</h2><div class="muted">Admin থেকে Client Room LCD-তে live message, image, video বা website পাঠান</div></div>
+    <span id="liveLcdStatus" class="live-status"><span class="live-dot-admin"></span><span>OFFLINE</span></span>
+  </div>
+  <div class="live-lcd-layout">
+    <div>
+      <div class="live-lcd-form">
+        <div><label class="tiny">Content Type</label><select id="liveLcdType" class="field" onchange="previewLiveLcdAdmin()"><option value="message">Message</option><option value="image">Image URL</option><option value="video">Video URL</option><option value="website">Website Link</option></select></div>
+        <div><label class="tiny">Target</label><select id="liveLcdTarget" class="field"><option value="all">All Client Rooms</option><option value="selected">Selected Client Only</option></select></div>
+        <div class="wide"><label class="tiny">Title</label><input id="liveLcdTitle" class="field" placeholder="Important Update" oninput="previewLiveLcdAdmin()"></div>
+        <div class="wide"><label class="tiny">Message / Description</label><textarea id="liveLcdMessage" class="field" rows="3" placeholder="LCD-তে যে message দেখাতে চান" oninput="previewLiveLcdAdmin()"></textarea></div>
+        <div class="wide"><label class="tiny">Image / Video / Website URL</label><input id="liveLcdUrl" class="field" placeholder="https://..." oninput="previewLiveLcdAdmin()"></div>
+      </div>
+      <div class="live-actions">
+        <button class="success" onclick="goLiveToLcd()">🔴 Go Live to LCD</button>
+        <button class="secondary" onclick="previewLiveLcdAdmin()">👁 Preview</button>
+        <button class="danger" onclick="stopLiveToLcd()">⏹ Stop Live</button>
+      </div>
+      <div id="liveLcdMsg" class="muted" style="margin-top:9px"></div>
+    </div>
+    <div>
+      <div class="tiny" style="margin-bottom:7px">LCD Preview</div>
+      <div id="liveLcdPreview" class="live-lcd-preview"><div class="live-lcd-message"><b>Live Preview</b><p>Message বা URL লিখুন</p></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="grid">
+<section>
+<div class="card">
+<h3>নতুন Client</h3>
+<input id="clientName" class="field" placeholder="Client name">
+<input id="clientPhone" class="field" placeholder="Mobile number">
+<input id="clientEmail" class="field" type="email" placeholder="Email (optional)">
+<div class="row"><input id="clientPin" class="field" inputmode="numeric" maxlength="4" placeholder="4-digit Client PIN"><input id="clientExpiry" class="field" type="date" title="Access expiry"></div>
+<div class="row"><button class="secondary" onclick="generatePin()">Generate PIN</button><button onclick="saveClient()">Client Add</button></div>
+</div>
+<div class="card">
+<h3>Clients</h3>
+<input id="clientSearch" class="field" placeholder="Search client name, mobile বা PIN..." oninput="renderClients()">
+<div id="clients"></div>
+</div>
+</section>
+
+<section>
+<div class="card">
+<h2 id="selectedTitle">Client select করুন</h2>
+<div id="selectedInfo" class="muted"></div>
+<div id="selectedPinEditor" class="row" style="display:none;margin-top:10px"><input id="selectedClientPin" class="field" inputmode="numeric" maxlength="4" placeholder="Set/Change 4-digit PIN"><button class="secondary" onclick="generateSelectedPin()">Generate</button><button onclick="saveSelectedClientPin()">Save PIN</button></div>
+<div id="selectedActions" class="toolbar" style="display:none">
+  <button class="copy-btn" onclick="copyClientAccess()">🔗 Copy PIN & Link</button>
+  <button class="warning" onclick="toggleClientActive()">⏯ Enable / Disable</button>
+  <button class="danger" onclick="deleteSelectedClient()">🗑 Delete Client</button>
+</div>
+</div>
+
+<div id="projectForm" class="card" style="display:none">
+<h3>Project Add / Update</h3>
+<input id="projectId" type="hidden">
+<div class="row">
+<input id="projectName" class="field" placeholder="Project name">
+<select id="projectType" class="field">
+<option>Website</option><option>Mobile App</option><option>Admin Panel</option><option>Software</option><option>Other</option>
+</select>
+</div>
+<div class="row">
+<select id="projectStatus" class="field">
+<option>Enquiry</option><option>Advance Paid</option><option selected>In Progress</option><option>Testing</option><option>Delivered</option><option>On Hold</option>
+</select>
+<input id="projectProgress" class="field" type="number" min="0" max="100" placeholder="Progress %">
+</div>
+<input id="projectStage" class="field" placeholder="Current stage">
+<textarea id="projectNotes" class="field" rows="3" placeholder="Client-এর জন্য update note"></textarea>
+<div class="row">
+<input id="projectPreview" class="field" placeholder="Website/preview URL">
+<input id="projectVideo" class="field" placeholder="Project video URL">
+</div>
+<div class="row">
+<input id="projectCost" class="field" placeholder="Project cost">
+<input id="projectDelivery" class="field" type="date">
+</div>
+<div class="row"><button onclick="saveProject()">Save Project</button><button class="secondary" onclick="clearProjectForm()">Clear</button></div>
+</div>
+
+<div class="card">
+<h3>Client Projects</h3>
+<div id="projects"></div>
+</div>
+
+<div class="card">
+<h3>Client Correction Requests</h3>
+<button class="secondary" onclick="loadCorrectionRequests()">Refresh Requests</button>
+<div id="correctionRequests" style="margin-top:12px"></div>
+</div>
+
+<div class="admin-feature-grid" id="v2AdminFeatures" style="display:none">
+  <div class="card"><h3>📥 Client File Upload</h3><select id="adminFileProject" class="field"></select><input id="adminFileInput" class="field" type="file"><input id="adminFileNote" class="field" placeholder="File note / version"><button onclick="uploadClientFile()">Upload File</button><div class="upload-progress"><b id="fileUploadBar"></b></div><div id="adminFiles"></div></div>
+  <div class="card"><h3>🧾 Invoice / Payment</h3><select id="invoiceProject" class="field"></select><div class="row"><input id="invoiceNo" class="field" placeholder="Invoice No"><input id="invoiceAmount" class="field" placeholder="Amount e.g. ₹12,000"></div><div class="row"><select id="invoiceStatus" class="field"><option>Due</option><option>Partially Paid</option><option>Paid</option><option>Cancelled</option></select><input id="invoiceDue" class="field" type="date"></div><input id="invoiceUrl" class="field" placeholder="Invoice PDF URL (optional)"><input id="paymentUrl" class="field" placeholder="Payment URL (optional)"><textarea id="invoiceNote" class="field" rows="2" placeholder="Payment note"></textarea><button onclick="saveInvoice()">Save Invoice</button><div id="adminInvoices"></div></div>
+  <div class="card"><h3>🔔 Send Notification</h3><input id="notificationTitle" class="field" placeholder="Notification title"><select id="notificationType" class="field"><option>Update</option><option>Important</option><option>Payment</option><option>Delivery</option><option>Meeting</option></select><textarea id="notificationMessage" class="field" rows="3" placeholder="Client message"></textarea><button onclick="sendNotification()">Send Notification</button><div id="adminNotifications"></div></div>
+  <div class="card"><h3>📅 Meetings & ✅ Approvals</h3><button class="secondary" onclick="loadMeetingsApprovals()">Refresh</button><h4>Meeting Requests</h4><div id="adminMeetings"></div><h4 style="margin-top:14px">Project Approvals</h4><div id="adminApprovals"></div></div>
+</div>
+
+<div class="card">
+<div class="cardtop"><h3>💬 Client Live Chat</h3><span id="adminChatStatus" class="muted">Client select করুন</span></div>
+<div id="adminChatMessages" class="admin-chat-messages"></div>
+<div class="admin-chat-compose"><textarea id="adminChatInput" rows="2" placeholder="Client-কে reply লিখুন..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendAdminChat()}"></textarea><button onclick="sendAdminChat()">Send</button></div>
+</div>
+</section>
+</div>
+</main>
+
+<script>
+let clients=[],selectedClient=null,projectRows=[];
+const $=id=>document.getElementById(id);
+
+async function refreshDashboardTotals(){
+ try{
+   const [pSnap,rSnap]=await Promise.all([
+     db.collection('room_projects').get(),
+     db.collection('room_feature_requests').where('status','==','New').get()
+   ]);
+   $('totalProjects').textContent=pSnap.size;
+   $('newCorrections').textContent=rSnap.size;
+ }catch(e){console.warn(e)}
+}
+
+function checkSession(){
+ auth.onAuthStateChanged(user=>{
+   if(user){
+     $('login').style.display='none';
+     $('app').style.display='block';
+     loadClients();
+     loadRoomSettings();
+     subscribeLiveLcdAdmin();
+     startCctvMonitor();
+   }else{
+     $('login').style.display='block';
+     $('app').style.display='none';
+   }
+ });
+}
+async function login(){
+ try{
+   await auth.signInWithEmailAndPassword($('email').value.trim(),$('password').value);
+   $('loginMsg').textContent='';
+ }catch(e){$('loginMsg').textContent=e.message}
+}
+async function logout(){await auth.signOut();location.reload()}
+
+
+// ===== Live to LCD V14 =====
+let liveLcdAdminUnsub=null;
+function safeUrl(value){
+  const v=String(value||'').trim();
+  return /^https?:\/\//i.test(v)?v:'';
+}
+function previewLiveLcdAdmin(){
+  const box=$('liveLcdPreview');if(!box)return;
+  const type=$('liveLcdType').value,title=$('liveLcdTitle').value.trim()||'Live Update',message=$('liveLcdMessage').value.trim(),url=safeUrl($('liveLcdUrl').value);
+  box.innerHTML='';
+  if(type==='image'&&url){const img=document.createElement('img');img.src=url;img.alt=title;box.appendChild(img);return}
+  if(type==='video'&&url){const v=document.createElement('video');v.src=url;v.controls=true;v.muted=true;v.autoplay=true;v.loop=true;box.appendChild(v);return}
+  if(type==='website'&&url){const f=document.createElement('iframe');f.src=url;f.title=title;box.appendChild(f);return}
+  const wrap=document.createElement('div');wrap.className='live-lcd-message';const b=document.createElement('b');b.textContent=title;const p=document.createElement('p');p.textContent=message||'Admin live message এখানে দেখা যাবে';wrap.append(b,p);box.appendChild(wrap);
+}
+async function goLiveToLcd(){
+  const type=$('liveLcdType').value,title=$('liveLcdTitle').value.trim()||'Live Update',message=$('liveLcdMessage').value.trim(),url=safeUrl($('liveLcdUrl').value),target=$('liveLcdTarget').value;
+  if(type!=='message'&&!url)return alert('Image, Video বা Website-এর valid https URL দিন');
+  if(type==='message'&&!message)return alert('Live message লিখুন');
+  if(target==='selected'&&!selectedClient)return alert('Selected Client Only ব্যবহার করতে আগে Client select করুন');
+  const payload={active:true,type,title,message,url:url||'',target_client_id:target==='selected'?selectedClient.id:'all',target_client_name:target==='selected'?(selectedClient.client_name||'Client'):'All Clients',updated_by:auth.currentUser?.email||'Admin',updated_at:firebase.firestore.FieldValue.serverTimestamp()};
+  try{await db.collection('room_live_lcd').doc('main').set(payload,{merge:true});$('liveLcdMsg').textContent='✅ LCD live করা হয়েছে';previewLiveLcdAdmin()}catch(e){alert('Live করা যায়নি: '+e.message)}
+}
+async function stopLiveToLcd(){
+  try{await db.collection('room_live_lcd').doc('main').set({active:false,updated_by:auth.currentUser?.email||'Admin',updated_at:firebase.firestore.FieldValue.serverTimestamp()},{merge:true});$('liveLcdMsg').textContent='⏹ Live বন্ধ করা হয়েছে'}catch(e){alert('Stop হয়নি: '+e.message)}
+}
+function subscribeLiveLcdAdmin(){
+  if(liveLcdAdminUnsub)liveLcdAdminUnsub();
+  liveLcdAdminUnsub=db.collection('room_live_lcd').doc('main').onSnapshot(doc=>{
+    const s=$('liveLcdStatus');if(!s)return;const d=doc.exists?doc.data():{};const on=d.active===true;s.classList.toggle('on',on);s.querySelector('span:last-child').textContent=on?'LIVE • '+(d.target_client_name||'All Clients'):'OFFLINE';
+  },e=>console.warn('Live LCD admin listener',e));
+}
+
+function currentDemoPin(){return $('settingDemoPin')?.value.trim()||$('dashDemoPin')?.textContent.trim()||'1234'}
+async function uniqueFourDigitPin(excludeClientId=''){
+ for(let i=0;i<80;i++){
+  const pin=String(Math.floor(1000+Math.random()*9000));
+  if(pin===String(currentDemoPin()))continue;
+  const q=await db.collection('room_clients').where('client_pin','==',pin).limit(1).get();
+  if(q.empty||q.docs[0].id===excludeClientId)return pin;
+ }
+ throw new Error('Unique PIN তৈরি করা যায়নি—আবার চেষ্টা করুন');
+}
+async function generatePin(){try{$('clientPin').value=await uniqueFourDigitPin()}catch(e){alert(e.message)}}
+async function generateSelectedPin(){try{$('selectedClientPin').value=await uniqueFourDigitPin(selectedClient?.id||'')}catch(e){alert(e.message)}}
+async function saveClient(){
+ const name=$('clientName').value.trim(),pin=$('clientPin').value.trim();
+ if(!name||!/^\d{4}$/.test(pin))return alert('Client name এবং 4-digit PIN দিন');
+ if(pin===String(currentDemoPin()))return alert('এই PIN Demo PIN হিসেবে ব্যবহার হচ্ছে—অন্য PIN দিন');
+ try{
+   const existing=await db.collection('room_clients').where('client_pin','==',pin).limit(1).get();
+   if(!existing.empty)return alert('এই Client PIN আগে থেকেই আছে');
+   await db.collection('room_clients').add({
+     client_name:name,
+     client_phone:$('clientPhone').value.trim(),
+     client_email:$('clientEmail').value.trim(),
+     access_expiry:$('clientExpiry').value||'',
+     client_pin:pin,
+     client_code:pin,
+     is_active:true,
+     created_at:firebase.firestore.FieldValue.serverTimestamp(),
+     updated_at:firebase.firestore.FieldValue.serverTimestamp()
+   });
+   $('clientName').value='';$('clientPhone').value='';$('clientEmail').value='';$('clientPin').value='';$('clientExpiry').value='';
+   loadClients();
+ }catch(e){alert(e.message)}
+}
+async function loadClients(){
+ try{
+   const snap=await db.collection('room_clients').get();
+   clients=snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.created_at?.seconds||0)-(a.created_at?.seconds||0));
+   $('totalClients').textContent=clients.length;
+   renderClients();
+   refreshDashboardTotals();
+ }catch(e){alert(e.message)}
+}
+function renderClients(){
+ const q=$('clientSearch').value.toLowerCase();
+ $('clients').innerHTML='';
+ clients.filter(c=>(c.client_name+' '+(c.client_pin||c.client_code||'')+' '+(c.client_phone||'')).toLowerCase().includes(q)).forEach(c=>{
+   const d=document.createElement('div');d.className='client'+(selectedClient?.id===c.id?' active':'');
+   d.innerHTML=`<div class="client-head"><b>${escapeHtml(c.client_name)}</b><span class="status-pill ${c.is_active!==false?'status-on':'status-off'}">${c.is_active!==false?'Active':'Disabled'}</span></div><div class="muted">PIN: <span class="client-code">${escapeHtml(c.client_pin||(/^[0-9]{4}$/.test(c.client_code||'')?c.client_code:'Not set'))}</span> • ${escapeHtml(c.client_phone||'No phone')}</div>`;
+   d.onclick=()=>selectClient(c);$('clients').appendChild(d);
+ });
+}
+function selectClient(c){
+ selectedClient=c;renderClients();
+ $('selectedTitle').textContent=c.client_name;
+ const currentPin=c.client_pin||(/^[0-9]{4}$/.test(c.client_code||'')?c.client_code:'');$('selectedInfo').innerHTML=`Client PIN: <b class="client-code">${escapeHtml(currentPin||'Not set')}</b> &nbsp; Mobile: ${escapeHtml(c.client_phone||'-')} &nbsp; Email: ${escapeHtml(c.client_email||'-')} &nbsp; Status: <b>${c.is_active!==false?'Active':'Disabled'}</b>`;$('selectedPinEditor').style.display='flex';$('selectedClientPin').value=currentPin;
+ $('selectedActions').style.display='flex';
+ $('projectForm').style.display='block';$('v2AdminFeatures').style.display='grid';loadProjects();loadCorrectionRequests();subscribeAdminChat();refreshDashboardTotals();loadAdminV2Data();
+}
+async function loadProjects(){
+ try{
+   const snap=await db.collection('room_projects').where('client_id','==',selectedClient.id).get();
+   projectRows=snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.created_at?.seconds||0)-(a.created_at?.seconds||0));
+   renderProjects();
+ }catch(e){alert(e.message)}
+}
+function renderProjects(){
+ $('projects').innerHTML='';
+ if(!projectRows.length){$('projects').innerHTML='<div class="muted">কোনো project নেই</div>';populateAdminProjectSelects();return}
+ projectRows.forEach(p=>{
+   const d=document.createElement('div');d.className='project';
+   d.innerHTML=`<b>${escapeHtml(p.project_name)}</b> <span class="badge">${escapeHtml(p.status||'')}</span>
+   <div class="muted">${escapeHtml(p.current_stage||'')} • ${p.progress_percent||0}%</div>
+   <div class="row" style="margin-top:10px"><button class="secondary">Edit</button><button class="danger">Delete</button></div>`;
+   const btns=d.querySelectorAll('button');btns[0].onclick=()=>editProject(p);btns[1].onclick=()=>deleteProject(p.id);
+   $('projects').appendChild(d);
+ });
+  populateAdminProjectSelects();
+}
+function populateAdminProjectSelects(){
+ const opts=projectRows.map(p=>`<option value="${p.id}">${escapeHtml(p.project_name)}</option>`).join('')||'<option value="">No Project</option>';
+ ['adminFileProject','invoiceProject'].forEach(id=>{const el=$(id);if(el)el.innerHTML=opts});
+}
+function editProject(p){
+ $('projectId').value=p.id;$('projectName').value=p.project_name||'';$('projectType').value=p.project_type||'Website';
+ $('projectStatus').value=p.status||'In Progress';$('projectProgress').value=p.progress_percent||0;$('projectStage').value=p.current_stage||'';
+ $('projectNotes').value=p.notes||'';$('projectPreview').value=p.preview_url||'';$('projectVideo').value=p.video_url||'';
+ $('projectCost').value=p.project_cost||'';$('projectDelivery').value=p.expected_delivery||'';
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+function clearProjectForm(){['projectId','projectName','projectStage','projectNotes','projectPreview','projectVideo','projectCost','projectDelivery'].forEach(id=>$(id).value='');$('projectProgress').value=0}
+async function saveProject(){
+ if(!selectedClient)return;
+ const payload={
+   client_id:selectedClient.id,
+   project_name:$('projectName').value.trim(),
+   project_type:$('projectType').value,
+   status:$('projectStatus').value,
+   progress_percent:Number($('projectProgress').value||0),
+   current_stage:$('projectStage').value.trim(),
+   notes:$('projectNotes').value.trim(),
+   preview_url:$('projectPreview').value.trim()||null,
+   video_url:$('projectVideo').value.trim()||null,
+   project_cost:$('projectCost').value.trim()||null,
+   expected_delivery:$('projectDelivery').value||null,
+   updated_at:firebase.firestore.FieldValue.serverTimestamp()
+ };
+ if(!payload.project_name)return alert('Project name দিন');
+ try{
+   if($('projectId').value){
+     await db.collection('room_projects').doc($('projectId').value).update(payload);
+   }else{
+     payload.created_at=firebase.firestore.FieldValue.serverTimestamp();
+     await db.collection('room_projects').add(payload);
+   }
+   clearProjectForm();
+   loadProjects();
+   alert('Project update save হয়েছে। Client Room live refresh হবে।');
+ }catch(e){alert(e.message)}
+}
+async function deleteProject(id){
+ if(!confirm('Project delete করবেন?'))return;
+ try{await db.collection('room_projects').doc(id).delete();loadProjects()}
+ catch(e){alert(e.message)}
+}
+
+async function loadCorrectionRequests(){
+ if(!selectedClient){
+   $('correctionRequests').innerHTML='<div class="muted">Client select করুন</div>';
+   return;
+ }
+ try{
+   const snap=await db.collection('room_feature_requests').where('client_id','==',selectedClient.id).get();
+   const rows=snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.created_at?.seconds||0)-(a.created_at?.seconds||0));
+   const projectMap=Object.fromEntries(projectRows.map(p=>[p.id,p.project_name]));
+   $('correctionRequests').innerHTML=rows.length?rows.map(r=>`
+   <div class="request-card">
+     <b>${escapeHtml(projectMap[r.project_id]||'General Request')}</b>
+     <span class="live-badge">${escapeHtml(r.status||'New')}</span>
+     <p>${escapeHtml(r.request_text||'')}</p>
+     <div class="muted">${r.created_at?.toDate?r.created_at.toDate().toLocaleString():''}</div>
+     <div class="request-actions">
+       <button class="secondary" onclick="updateRequestStatus('${r.id}','Checking')">Checking</button>
+       <button class="success" onclick="updateRequestStatus('${r.id}','Fixed')">Fixed</button>
+       <button onclick="updateRequestStatus('${r.id}','Completed')">Completed</button>
+     </div>
+   </div>`).join(''):'<div class="muted">কোনো correction request নেই</div>';
+ }catch(e){
+   $('correctionRequests').innerHTML='<div class="muted">'+escapeHtml(e.message)+'</div>';
+ }
+}
+
+async function updateRequestStatus(id,status){
+ try{
+   await db.collection('room_feature_requests').doc(id).update({
+     status,
+     updated_at:firebase.firestore.FieldValue.serverTimestamp()
+   });
+   loadCorrectionRequests();
+   refreshDashboardTotals();
+ }catch(e){alert(e.message)}
+}
+
+
+let adminChatUnsub=null;
+function adminChatTimestamp(value){if(!value)return 0;if(typeof value.toMillis==='function')return value.toMillis();if(typeof value.seconds==='number')return value.seconds*1000;return 0}
+function subscribeAdminChat(){
+ const box=$('adminChatMessages'),status=$('adminChatStatus');
+ if(adminChatUnsub){adminChatUnsub();adminChatUnsub=null}
+ if(!selectedClient){status.textContent='Client select করুন';box.innerHTML='<div class="muted">Client select করলে live chat দেখা যাবে।</div>';return}
+ status.textContent='Live connected: '+selectedClient.client_name;
+ adminChatUnsub=db.collection('room_chats').where('client_id','==',selectedClient.id).onSnapshot(async snap=>{
+   const docs=[...snap.docs].sort((a,b)=>adminChatTimestamp(a.data().created_at)-adminChatTimestamp(b.data().created_at));
+   const rows=docs.map(d=>({id:d.id,...d.data()}));
+   box.innerHTML=rows.map(m=>`<div class="admin-chat-msg ${m.sender==='admin'?'admin':'client'}">${escapeHtml(m.message||'')}<small>${m.sender==='admin'?'Admin':escapeHtml(selectedClient.client_name)} • ${m.created_at?.toDate?m.created_at.toDate().toLocaleString():''}</small></div>`).join('')||'<div class="muted">এখনও কোনো message নেই।</div>';
+   box.scrollTop=box.scrollHeight;
+   for(const d of docs){const x=d.data();if(x.sender==='client'&&x.read_by_admin!==true)await d.ref.update({read_by_admin:true})}
+ },e=>{status.textContent='Chat error';box.innerHTML='<div class="muted">'+escapeHtml(e.message)+'</div>'});
+}
+async function sendAdminChat(){
+ if(!selectedClient)return alert('Client select করুন');
+ const input=$('adminChatInput'),message=input.value.trim();
+ if(!message)return; input.value='';
+ try{
+   await db.collection('room_chats').add({client_id:selectedClient.id,client_name:selectedClient.client_name||'Client',sender:'admin',message,created_at:firebase.firestore.FieldValue.serverTimestamp(),read_by_admin:true,read_by_client:false});
+ }catch(e){alert('Reply পাঠানো যায়নি: '+e.message)}
+}
+
+
+
+// ===== CLIENT ROOM V2 ADMIN FEATURES =====
+let adminFiles=[],adminInvoices=[],adminNotifications=[],adminMeetings=[],adminApprovals=[];
+function adminDate(v){try{return v?.toDate?v.toDate().toLocaleString():v?new Date(v).toLocaleString():''}catch(e){return ''}}
+async function adminCollection(name){if(!selectedClient)return[];const s=await db.collection(name).where('client_id','==',selectedClient.id).get();return s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.created_at?.seconds||0)-(a.created_at?.seconds||0))}
+async function loadAdminV2Data(){if(!selectedClient)return;try{[adminFiles,adminInvoices,adminNotifications,adminMeetings,adminApprovals]=await Promise.all(['room_files','room_invoices','room_notifications','room_meetings','room_approvals'].map(adminCollection));renderAdminFiles();renderAdminInvoices();renderAdminNotifications();renderMeetingsApprovals()}catch(e){console.warn(e)}}
+async function uploadClientFile(){
+ if(!selectedClient)return alert('Client select করুন');const file=$('adminFileInput').files[0],projectId=$('adminFileProject').value;if(!file||!projectId)return alert('Project ও file select করুন');
+ const clean=file.name.replace(/[^a-zA-Z0-9._-]/g,'-'),path=`client-room/${selectedClient.id}/${projectId}/${Date.now()}-${clean}`;const ref=storage.ref(path),task=ref.put(file,{contentType:file.type||'application/octet-stream'});
+ task.on('state_changed',s=>{$('fileUploadBar').style.width=Math.round(s.bytesTransferred/s.totalBytes*100)+'%'},e=>alert(e.message),async()=>{const url=await task.snapshot.ref.getDownloadURL();await db.collection('room_files').add({client_id:selectedClient.id,project_id:projectId,file_name:file.name,file_type:(file.name.split('.').pop()||'FILE').toUpperCase(),file_url:url,storage_path:path,note:$('adminFileNote').value.trim(),created_at:firebase.firestore.FieldValue.serverTimestamp()});$('adminFileInput').value='';$('adminFileNote').value='';$('fileUploadBar').style.width='0';loadAdminV2Data();alert('File upload হয়েছে')});
+}
+function renderAdminFiles(){$('adminFiles').innerHTML=adminFiles.slice(0,8).map(f=>`<div class="file-row"><b>${escapeHtml(f.file_name)}</b><div class="tiny">${escapeHtml(f.note||'')} • ${adminDate(f.created_at)}</div><div class="row" style="margin-top:7px"><a href="${escapeHtml(f.file_url)}" target="_blank"><button class="secondary">Open</button></a><button class="danger" onclick="deleteAdminFile('${f.id}','${String(f.storage_path||'').replace(/'/g,"\\'")}')">Delete</button></div></div>`).join('')||'<div class="muted">No files</div>'}
+async function deleteAdminFile(id,path){if(!confirm('File delete করবেন?'))return;try{if(path)await storage.ref(path).delete().catch(()=>{});await db.collection('room_files').doc(id).delete();loadAdminV2Data()}catch(e){alert(e.message)}}
+async function saveInvoice(){if(!selectedClient)return;const projectId=$('invoiceProject').value,invoiceNo=$('invoiceNo').value.trim(),amount=$('invoiceAmount').value.trim();if(!invoiceNo||!amount)return alert('Invoice no ও amount দিন');await db.collection('room_invoices').add({client_id:selectedClient.id,project_id:projectId,invoice_no:invoiceNo,amount,status:$('invoiceStatus').value,due_date:$('invoiceDue').value||'',invoice_url:$('invoiceUrl').value.trim(),payment_url:$('paymentUrl').value.trim(),note:$('invoiceNote').value.trim(),created_at:firebase.firestore.FieldValue.serverTimestamp(),updated_at:firebase.firestore.FieldValue.serverTimestamp()});['invoiceNo','invoiceAmount','invoiceDue','invoiceUrl','paymentUrl','invoiceNote'].forEach(id=>$(id).value='');loadAdminV2Data();alert('Invoice save হয়েছে')}
+function renderAdminInvoices(){$('adminInvoices').innerHTML=adminInvoices.slice(0,8).map(i=>`<div class="admin-data-row"><b>${escapeHtml(i.invoice_no)} — ${escapeHtml(i.amount)}</b><div class="tiny">${escapeHtml(i.status||'Due')} • Due ${escapeHtml(i.due_date||'-')}</div><div class="row" style="margin-top:7px"><button class="success" onclick="updateInvoiceStatus('${i.id}','Paid')">Paid</button><button class="secondary" onclick="updateInvoiceStatus('${i.id}','Due')">Due</button><button class="danger" onclick="deleteV2Doc('room_invoices','${i.id}')">Delete</button></div></div>`).join('')||'<div class="muted">No invoices</div>'}
+async function updateInvoiceStatus(id,status){await db.collection('room_invoices').doc(id).update({status,updated_at:firebase.firestore.FieldValue.serverTimestamp()});loadAdminV2Data()}
+async function sendNotification(){if(!selectedClient)return;const title=$('notificationTitle').value.trim(),message=$('notificationMessage').value.trim();if(!title||!message)return alert('Title ও message দিন');await db.collection('room_notifications').add({client_id:selectedClient.id,title,message,type:$('notificationType').value,created_at:firebase.firestore.FieldValue.serverTimestamp()});$('notificationTitle').value='';$('notificationMessage').value='';loadAdminV2Data();alert('Notification পাঠানো হয়েছে')}
+function renderAdminNotifications(){$('adminNotifications').innerHTML=adminNotifications.slice(0,6).map(n=>`<div class="admin-data-row"><b>${escapeHtml(n.title)}</b><div class="tiny">${escapeHtml(n.message)} • ${adminDate(n.created_at)}</div><button class="danger" style="margin-top:7px" onclick="deleteV2Doc('room_notifications','${n.id}')">Delete</button></div>`).join('')||'<div class="muted">No notifications</div>'}
+async function loadMeetingsApprovals(){adminMeetings=await adminCollection('room_meetings');adminApprovals=await adminCollection('room_approvals');renderMeetingsApprovals()}
+function renderMeetingsApprovals(){$('adminMeetings').innerHTML=adminMeetings.map(m=>`<div class="admin-data-row"><b>${escapeHtml(m.meeting_date||'')} ${escapeHtml(m.meeting_time||'')} — ${escapeHtml(m.meeting_type||'Meeting')}</b><div class="tiny">${escapeHtml(m.note||'')} • ${escapeHtml(m.status||'Requested')}</div><div class="row" style="margin-top:7px"><button class="success" onclick="updateV2Status('room_meetings','${m.id}','Confirmed')">Confirm</button><button class="secondary" onclick="updateV2Status('room_meetings','${m.id}','Completed')">Complete</button></div></div>`).join('')||'<div class="muted">No meeting requests</div>';$('adminApprovals').innerHTML=adminApprovals.map(x=>`<div class="admin-data-row"><b>${escapeHtml(x.action||'Approval')}</b><div>${escapeHtml(x.message||'')}</div><div class="tiny">${escapeHtml(x.status||'Submitted')} • ${adminDate(x.created_at)}</div><div class="row" style="margin-top:7px"><button class="success" onclick="updateV2Status('room_approvals','${x.id}','Acknowledged')">Acknowledge</button><button class="secondary" onclick="updateV2Status('room_approvals','${x.id}','Completed')">Complete</button></div></div>`).join('')||'<div class="muted">No approvals</div>'}
+async function updateV2Status(col,id,status){await db.collection(col).doc(id).update({status,updated_at:firebase.firestore.FieldValue.serverTimestamp()});loadAdminV2Data()}
+async function deleteV2Doc(col,id){if(!confirm('Delete করবেন?'))return;await db.collection(col).doc(id).delete();loadAdminV2Data()}
+
+
+
+
+
+// ===== VIRTUAL CCTV MONITOR V16 =====
+let cctvUnsub=null,cctvSessions=[],selectedCctvId=null,cctvClockTimer=null;
+function cctvTs(v){return v&&typeof v.toDate==='function'?v.toDate():v?new Date(v):null}
+function cctvLastSeen(s){return cctvTs(s.last_seen)||cctvTs(s.last_seen_ms)}
+function cctvTime(v){const d=cctvTs(v);return d&&!isNaN(d)?d.toLocaleString('en-IN',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit',second:'2-digit'}):'—'}
+function cctvIsOnline(s){const d=cctvLastSeen(s);return !!(d&&(Date.now()-d.getTime()<70000)&&s.online!==false&&s.current_action!=='Left Client Room')}
+function startCctvMonitor(){
+ if(cctvUnsub)cctvUnsub();
+ cctvUnsub=db.collection('room_presence').onSnapshot(snap=>{cctvSessions=snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(cctvLastSeen(b)?.getTime()||0)-(cctvLastSeen(a)?.getTime()||0));renderCctvMonitor()},e=>{$('cctvVisitors').innerHTML=`<div class="muted">CCTV permission error: ${escapeHtml(e.message)}</div>`});
+ clearInterval(cctvClockTimer);cctvClockTimer=setInterval(()=>{const c=$('cctvClock');if(c)c.textContent=new Date().toLocaleTimeString('en-IN');renderCctvMonitor()},5000)
+}
+function refreshCctvMonitor(){renderCctvMonitor()}
+function selectCctvSession(id){selectedCctvId=id;renderCctvMonitor()}
+function renderCctvMonitor(){
+ if(!$('cctvVisitors'))return;
+ const online=cctvSessions.filter(cctvIsOnline),recent=cctvSessions.slice(0,12);
+ $('cctvOnlineCount').innerHTML=`<span class="online-dot"></span>${online.length} ONLINE`;
+ if(!selectedCctvId||!cctvSessions.some(x=>x.id===selectedCctvId))selectedCctvId=(online[0]||recent[0]||{}).id||null;
+ const current=cctvSessions.find(x=>x.id===selectedCctvId)||online[0]||recent[0];
+ $('cctvVisitors').innerHTML=online.length?online.map(s=>`<div class="cctv-person ${s.id===selectedCctvId?'active':''}" onclick="selectCctvSession('${s.id}')"><div class="cctv-person-head"><b><span class="online-dot"></span>${escapeHtml(s.client_name||'Guest')}</b><small>${escapeHtml(s.device||'')}</small></div><div class="tiny" style="margin-top:5px">PIN ${escapeHtml(s.client_pin||'—')} • ${escapeHtml(s.current_action||'Inside Room')}</div></div>`).join(''):'<div class="muted">কোনো client এখন online নেই</div>';
+ $('cctvLog').innerHTML=recent.length?recent.map(s=>`<div class="cctv-log-row"><b>${escapeHtml(s.client_name||'Guest')}</b> — ${escapeHtml(s.current_action||'Room visit')}<div class="tiny">${cctvTime(s.last_seen||s.last_seen_ms)} • ${cctvIsOnline(s)?'ONLINE':'OFFLINE'}</div></div>`).join(''):'<div class="muted">No entry yet</div>';
+ if(current){$('cctvName').textContent=current.client_name||'Guest';$('cctvPin').textContent='PIN: '+(current.client_pin||'—');$('cctvDevice').textContent='Device: '+(current.device||'—');$('cctvEntered').textContent='Entered: '+cctvTime(current.entered_at);$('cctvAction').textContent=(cctvIsOnline(current)?'● LIVE — ':'○ LAST ACTIVITY — ')+(current.current_action||'Inside Client Room')}else{$('cctvName').textContent='কোনো client online নেই';$('cctvPin').textContent='PIN: —';$('cctvDevice').textContent='Device: —';$('cctvEntered').textContent='Entered: —';$('cctvAction').textContent='Waiting for room entry…'}
+}
+
+// ===== CLIENT ROOM V11 SETTINGS =====
+const defaultRoomSettings={
+ demo_pin:'1234',autoplay_seconds:4.5,room_active:true,
+ welcome_bn:'ডিজিটাল এজেন্সি বাই চন্দন দাসের ক্লায়েন্ট রুমে আপনাকে আন্তরিক স্বাগতম। এখানে আমাদের ডিজিটাল সার্ভিস, প্রজেক্ট আপডেট, মিটিং, লাইভ চ্যাট এবং কারেকশন সুবিধা ব্যবহার করতে পারবেন।',
+ welcome_hi:'डिजिटल एजेंसी बाय चंदन दास के क्लाइंट रूम में आपका हार्दिक स्वागत है। यहाँ आप हमारी डिजिटल सेवाएँ, प्रोजेक्ट अपडेट, मीटिंग, लाइव चैट और करेक्शन सुविधा उपयोग कर सकते हैं।',
+ welcome_en:'A warm welcome to the Client Room of Digital Agency by Chandan Das. Here you can explore our digital services, project updates, meetings, live chat, and correction support.'
+};
+async function loadRoomSettings(){
+ const msg=$('roomSettingsMsg');
+ try{
+  const doc=await db.collection('room_settings').doc('main').get();
+  const s={...defaultRoomSettings,...(doc.exists?doc.data():{})};
+  $('settingDemoPin').value=s.demo_pin||'1234';$('settingAutoplay').value=s.autoplay_seconds||4.5;$('settingRoomActive').value=String(s.room_active!==false);
+  $('settingWelcomeBn').value=s.welcome_bn||defaultRoomSettings.welcome_bn;$('settingWelcomeHi').value=s.welcome_hi||defaultRoomSettings.welcome_hi;$('settingWelcomeEn').value=s.welcome_en||defaultRoomSettings.welcome_en;
+  $('dashDemoPin').textContent=s.demo_pin||'1234';$('roomSettingsState').textContent=s.room_active!==false?'● Active':'● Maintenance';$('roomSettingsState').className='status-pill '+(s.room_active!==false?'status-on':'status-off');
+  if(msg)msg.textContent=doc.exists?'Settings loaded from Firebase':'Default settings loaded — Save করলে Firebase-এ তৈরি হবে';
+ }catch(e){if(msg)msg.textContent='Settings load error: '+e.message}
+}
+async function saveRoomSettings(){
+ const pin=$('settingDemoPin').value.trim();if(!/^\d{4}$/.test(pin))return alert('Demo PIN ঠিক 4 digit হতে হবে');
+ const payload={demo_pin:pin,autoplay_seconds:Math.min(20,Math.max(2,Number($('settingAutoplay').value||4.5))),room_active:$('settingRoomActive').value==='true',welcome_bn:$('settingWelcomeBn').value.trim(),welcome_hi:$('settingWelcomeHi').value.trim(),welcome_en:$('settingWelcomeEn').value.trim(),updated_at:firebase.firestore.FieldValue.serverTimestamp()};
+ try{await db.collection('room_settings').doc('main').set(payload,{merge:true});$('roomSettingsMsg').textContent='✅ Room settings saved';loadRoomSettings()}catch(e){alert('Save হয়নি: '+e.message)}
+}
+async function saveSelectedClientPin(){
+ if(!selectedClient)return;
+ const pin=$('selectedClientPin').value.trim();
+ if(!/^\d{4}$/.test(pin))return alert('PIN ঠিক 4 digit হতে হবে');
+ if(pin===String(currentDemoPin()))return alert('Demo PIN-এর সঙ্গে Client PIN একই হতে পারবে না');
+ try{
+  const existing=await db.collection('room_clients').where('client_pin','==',pin).limit(2).get();
+  if(existing.docs.some(d=>d.id!==selectedClient.id))return alert('এই PIN অন্য client ব্যবহার করছে');
+  await db.collection('room_clients').doc(selectedClient.id).update({client_pin:pin,client_code:pin,updated_at:firebase.firestore.FieldValue.serverTimestamp()});
+  selectedClient.client_pin=pin;selectedClient.client_code=pin;
+  const idx=clients.findIndex(c=>c.id===selectedClient.id);if(idx>=0)clients[idx]={...clients[idx],client_pin:pin,client_code:pin};
+  selectClient(selectedClient);alert('Client PIN save হয়েছে');
+ }catch(e){alert(e.message)}
+}
+function copyClientAccess(){
+ if(!selectedClient)return;
+ const pin=selectedClient.client_pin||(/^[0-9]{4}$/.test(selectedClient.client_code||'')?selectedClient.client_code:'');
+ if(!pin)return alert('আগে এই client-এর 4-digit PIN set করুন');
+ const url=`${location.origin}/client-room.html?pin=${encodeURIComponent(pin)}`;
+ navigator.clipboard?.writeText(`Client Room: ${url}\nClient PIN: ${pin}`);
+ alert('Client Room link ও PIN copy হয়েছে');
+}
+async function toggleClientActive(){if(!selectedClient)return;const next=selectedClient.is_active===false;await db.collection('room_clients').doc(selectedClient.id).update({is_active:next,updated_at:firebase.firestore.FieldValue.serverTimestamp()});selectedClient.is_active=next;loadClients();selectClient(selectedClient)}
+async function deleteSelectedClient(){if(!selectedClient||!confirm(`${selectedClient.client_name} client delete করবেন?`))return;await db.collection('room_clients').doc(selectedClient.id).delete();selectedClient=null;$('selectedTitle').textContent='Client select করুন';$('selectedInfo').textContent='';$('selectedActions').style.display='none';$('projectForm').style.display='none';$('v2AdminFeatures').style.display='none';loadClients()}
+
+function escapeHtml(v){const d=document.createElement('div');d.textContent=v??'';return d.innerHTML}
+checkSession();
+</script>
+</body>
+</html>

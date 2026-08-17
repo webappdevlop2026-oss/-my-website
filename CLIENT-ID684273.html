@@ -1,0 +1,311 @@
+<!doctype html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Client Project Dashboard - CLIENT-ID684273</title><meta name="description" content="Bengali Calendar App client project dashboard and interactive project portal."><script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script><style>:root{--p:#c2185b;--p2:#f06292;--bg:#fff7fb;--text:#202332;--muted:#687085;--card:#fff;--line:#eadde5}*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text)}.wrap{max-width:1120px;margin:auto;padding:22px 16px 50px}.hero{background:linear-gradient(135deg,var(--p),var(--p2));color:#fff;border-radius:26px;padding:38px 22px;text-align:center;box-shadow:0 18px 45px rgba(194,24,91,.22)}.brand{display:inline-block;background:#ffffff24;padding:9px 14px;border-radius:999px;font-weight:700;margin-bottom:14px}.hero h1{font-size:40px;margin:0 0 9px}.hero p{font-size:17px;margin:0;opacity:.94}.badge{display:inline-block;background:#fff;color:var(--p);font-weight:800;border-radius:999px;padding:8px 13px;margin-top:15px}.main-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:20px;margin-top:22px}.card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:23px;box-shadow:0 10px 30px #76203b12}.download-card{text-align:center}.app-icon{width:92px;height:92px;border-radius:25px;margin:auto;display:grid;place-items:center;background:linear-gradient(135deg,#fce4ec,#f8bbd0);font-size:48px}.qr{width:205px;height:205px;object-fit:contain;padding:9px;background:#fff;border:1px solid var(--line);border-radius:16px}.btn{display:block;margin:17px auto 0;max-width:330px;text-decoration:none;color:#fff;background:linear-gradient(135deg,var(--p),var(--p2));padding:15px 18px;border-radius:12px;font-weight:900}.small{font-size:12px;color:var(--muted);line-height:1.55}.feature-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.feature{background:#fff8fb;border:1px solid var(--line);padding:11px;border-radius:12px;font-weight:700;font-size:13px}.notice{margin-top:20px;background:#fff6d9;border:1px solid #ebd27b;border-radius:15px;padding:16px;line-height:1.65}.form{margin-top:24px;background:#fff;border:1px solid var(--line);border-radius:22px;padding:24px;box-shadow:0 10px 30px #76203b12}.form h2{margin:0 0 6px}.form p{margin:0 0 18px;color:var(--muted)}.section{border:1px solid var(--line);border-radius:15px;padding:17px;margin-top:14px}.section h3{margin:0 0 13px}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:13px}.full{grid-column:1/-1}label{display:block;font-size:13px;font-weight:800;margin-bottom:6px}input,select,textarea{width:100%;padding:11px;border:1px solid #dccbd4;border-radius:10px;font:inherit;background:#fff}textarea{min-height:105px;resize:vertical}.checks{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.check{display:flex;align-items:center;gap:7px;background:#fff8fb;border:1px solid var(--line);padding:9px;border-radius:10px;font-size:13px}.check input{width:auto}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}.submit{border:0;background:linear-gradient(135deg,var(--p),var(--p2));color:white;padding:14px 18px;border-radius:11px;font-weight:900;cursor:pointer}.reset{background:#fff;border:1px solid var(--line);padding:14px 18px;border-radius:11px;font-weight:800;cursor:pointer}.contact{text-align:center;margin-top:20px;background:#fff;border:1px solid var(--line);border-radius:17px;padding:18px}.contact a{display:inline-block;margin:5px;text-decoration:none;background:#fff1f6;color:#a5124d;padding:10px 14px;border-radius:10px;font-weight:800}footer{text-align:center;margin-top:20px;color:var(--muted);font-size:13px}@media(max-width:800px){.main-grid,.grid{grid-template-columns:1fr}.full{grid-column:auto}.checks{grid-template-columns:repeat(2,1fr)}.hero h1{font-size:30px}}@media(max-width:480px){.checks,.feature-grid{grid-template-columns:1fr}}</style><style>#pinGate{position:fixed;inset:0;z-index:999999;background:linear-gradient(135deg,#8e0e46,#e91e63);display:flex;align-items:center;justify-content:center;padding:18px}#pinGate .pin-box{width:min(420px,100%);background:#fff;border-radius:24px;padding:30px;box-shadow:0 25px 70px rgba(0,0,0,.3);text-align:center}#pinGate .pin-icon{width:82px;height:82px;border-radius:22px;margin:0 auto 16px;display:grid;place-items:center;background:#fce4ec;font-size:42px}#pinGate h2{margin:0 0 8px;color:#232536}#pinGate p{margin:0 0 18px;color:#687085;line-height:1.5}#pinGate input{width:100%;padding:14px;border:1px solid #d9c9d1;border-radius:12px;font-size:20px;text-align:center;letter-spacing:7px}#pinGate button{width:100%;margin-top:13px;border:0;border-radius:12px;padding:14px;background:linear-gradient(135deg,#c2185b,#f06292);color:#fff;font-size:16px;font-weight:900;cursor:pointer}#pinGate .pin-error{min-height:20px;margin-top:10px;color:#c62828;font-weight:700;font-size:13px}#protectedPage{display:none}</style><script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script><script>const dacFb={apiKey:"AIzaSyAPX-F-CpUVmyn_RlF8My6pzY_QGM4XunU",authDomain:"digital-agency-by-chandan-das.firebaseapp.com",projectId:"digital-agency-by-chandan-das",storageBucket:"digital-agency-by-chandan-das.firebasestorage.app",messagingSenderId:"576373782793",appId:"1:576373782793:web:7ddd852c3c90d78acd7bd8"};if(!firebase.apps.length)firebase.initializeApp(dacFb);const feedbackDb=firebase.firestore();</script>
+<style id="feedback-submit-status-css">
+.submit-status{display:none;margin-top:14px;padding:13px 15px;border-radius:11px;font-weight:700;line-height:1.5}
+.submit-status.show{display:block}
+.submit-status.loading{background:#eaf4ff;color:#0b579f;border:1px solid #9cc8f2}
+.submit-status.success{background:#e8fff2;color:#087443;border:1px solid #8ddcb5}
+.submit-status.error{background:#fff0f0;color:#b42318;border:1px solid #f3aaa5}
+button[disabled]{opacity:.65;cursor:not-allowed}
+</style>
+<style id="client-dashboard-heading-style">
+.client-dashboard-heading{background:linear-gradient(135deg,#174979,#2f80ed);color:#fff;border-radius:10px 10px 0 0;padding:46px 22px 28px;text-align:center;box-shadow:none;margin-bottom:22px}
+.client-dashboard-heading h1{font-size:34px;line-height:1.2;margin:0 0 22px;font-weight:900}
+.client-dashboard-heading p{font-size:16px;line-height:1.55;margin:0 0 10px;color:#fff;opacity:1}
+.client-dashboard-heading .client-id{display:block;font-size:15px;font-weight:900;color:#fff;letter-spacing:.2px}
+@media(max-width:600px){.client-dashboard-heading{padding:34px 16px 24px}.client-dashboard-heading h1{font-size:27px;margin-bottom:16px}.client-dashboard-heading p{font-size:14px}.client-dashboard-heading .client-id{font-size:14px}}
+</style>
+<style id="calendar-client-feedback-css">
+.feedback-section{
+  margin-top:22px;
+  background:#fff;
+  border:1px solid #dce6f1;
+  border-radius:18px;
+  padding:18px;
+  box-shadow:0 8px 24px rgba(24,55,90,.08);
+}
+.feedback-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+}
+.feedback-section label{
+  display:block;
+  font-weight:800;
+  font-size:13px;
+  margin-bottom:6px;
+  color:#17395f;
+}
+.feedback-section input,
+.feedback-section select,
+.feedback-section textarea{
+  width:100%;
+  border:1px solid #ccd9e7;
+  border-radius:11px;
+  padding:11px 12px;
+  font:inherit;
+  box-sizing:border-box;
+}
+.feedback-section textarea{min-height:110px;resize:vertical}
+.feedback-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.feedback-success{
+  display:none;
+  margin-top:12px;
+  padding:11px;
+  border-radius:11px;
+  background:#eaf8ef;
+  border:1px solid #91cba7;
+  color:#176a39;
+  font-weight:800;
+}
+.feedback-history{
+  margin-top:16px;
+  border-top:1px solid #e7edf4;
+  padding-top:14px;
+}
+.feedback-item{
+  background:#f8fbff;
+  border:1px solid #e2eaf3;
+  border-radius:11px;
+  padding:11px;
+  margin-top:8px;
+}
+.feedback-item small{display:block;color:#6c7b8f;margin-top:4px}
+@media(max-width:700px){
+  .feedback-grid{grid-template-columns:1fr}
+}
+</style>
+
+</head><body><div id="pinGate"><div class="pin-box"><div class="pin-icon">🔐</div><h2>Client Demo Access</h2><p>Bengali Calendar App Project দেখতে Client PIN লিখুন।</p><form id="pinForm"><input id="pinInput" type="password" inputmode="numeric" maxlength="12" autocomplete="off" placeholder="Enter PIN" required><button type="submit">Unlock Demo</button><div id="pinError" class="pin-error"></div></form></div></div><div id="protectedPage"><main class="wrap"><section class="client-dashboard-heading">
+<h1>Client Project Dashboard</h1>
+<p>Bengali Calendar App Project — সমস্ত project details এক জায়গায়</p>
+<span class="client-id">CLIENT-ID684273</span>
+</section><section class="main-grid"><article class="card download-card">
+<div class="app-icon">📅</div>
+<h2>Interactive Mobile App Demo</h2>
+<p>Mobile frame-এর ভিতরে Calendar App-এর screen ও feature click করে দেখুন।</p>
+<div style="width:205px;height:205px;margin:10px auto;border-radius:26px;background:linear-gradient(135deg,#c2185b,#f06292);display:grid;place-items:center;color:#fff;font-size:72px;box-shadow:0 12px 28px rgba(194,24,91,.25)">📱</div>
+<div class="small">APK download বন্ধ রাখা হয়েছে। Browser থেকেই interactive demo ব্যবহার করুন।</div>
+<a class="btn" href="bangla-calendar-app-project-view.html" onclick="sessionStorage.setItem('banglaSelectedView','app')">▶ Open Interactive Mobile Demo</a>
+<a class="btn" style="background:linear-gradient(135deg,#174979,#2f80ed);margin-top:10px" href="admin-panel.html" onclick="sessionStorage.setItem('banglaSelectedView','admin')">🖥 Open Admin Panel (Web View)</a>
+<p class="small">No APK • No source code • Client preview only</p>
+</article><article class="card"><h2>Demo Features</h2><div class="feature-grid"><div class="feature">📅 বাংলা Calendar</div><div class="feature">📖 দৈনিক Panchang</div><div class="feature">🎉 Festival & Holidays</div><div class="feature">🌙 Ekadashi / Purnima</div><div class="feature">⭐ Horoscope</div><div class="feature">🎂 Birth Sign</div><div class="feature">🧮 Age Calculator</div><div class="feature">💰 Loan Calculator</div><div class="feature">🧭 Compass Preview</div><div class="feature">🌦 Weather Preview</div><div class="feature">🔔 Reminder Settings</div><div class="feature">🌙 Dark Mode</div><div class="feature">🔍 Search</div><div class="feature">⚙️ Settings</div><div class="feature">📤 Share / Rating</div><div class="feature">🔖 Favorites / Bookmark</div><div class="feature">🖥 Admin Panel (Web View)</div><div class="feature">📱 Mobile-first UI</div></div></article></section><div class="notice"><b>Demo Notice:</b> এই interactive version-এ mobile frame-এর ভিতরে UI, navigation এবং প্রধান feature flow click করে দেখা যাবে। Accurate Panchang calculation, live weather API, real compass sensor, home-screen widget, local notification এবং admin update system Final Version-এ সম্পূর্ণভাবে কার্যকর করা হবে।</div><section class="form"><h2>📝 Client Feedback & Requirement Form</h2><p>Demo দেখার পর প্রয়োজনীয় পরিবর্তন লিখুন। Submit করলে feedback Admin Panel-এ যাবে এবং client-এর কাছে Requirement PDF download হবে।</p><form id="reqForm"><div class="section"><h3>1. Client Details</h3><div class="grid"><div><label>Client Name *</label><input id="name" required></div><div><label>Mobile Number *</label><input id="mobile" required></div><div><label>Company Name</label><input id="company"></div><div><label>Email</label><input id="email" type="email"></div></div></div><div class="section"><h3>2. Demo Review</h3><div class="grid"><div><label>Overall Rating</label><select id="rating"><option>5 - Excellent</option><option>4 - Very Good</option><option>3 - Good</option><option>2 - Needs Improvement</option><option>1 - Poor</option></select></div><div><label>Priority</label><select id="priority"><option>Urgent</option><option selected>Medium</option><option>Later</option></select></div><div class="full"><label>Demo Feedback</label><textarea id="feedback" placeholder="Demo কেমন লেগেছে লিখুন"></textarea></div></div></div><div class="section"><h3>3. Client Decision / Next Step</h3><p style="margin:0 0 12px;color:var(--muted)">Demo দেখার পর নিচের প্রযোজ্য option নির্বাচন করুন:</p><div class="checks" id="decisionChecks"><label class="check"><input type="checkbox" value="ভালো হয়েছে, একটু UI change করুন"> ভালো হয়েছে, একটু UI change করুন</label><label class="check"><input type="checkbox" value="এই feature-গুলো add করুন"> এই feature-গুলো add করুন</label><label class="check"><input type="checkbox" value="Final quotation দিন"> Final quotation দিন</label><label class="check"><input type="checkbox" value="Demo approved, final work start করুন"> Demo approved, final work start করুন</label></div><div style="margin-top:12px"><label>Decision Details</label><textarea id="decisionDetails" placeholder="কোন UI change, কোন feature add অথবা quotation সংক্রান্ত বিস্তারিত লিখুন"></textarea></div></div><div class="section"><h3>4. Required Changes</h3><div class="grid"><div class="full"><label>কোন feature রাখতে হবে?</label><textarea id="keep"></textarea></div><div class="full"><label>কোন feature পরিবর্তন করতে হবে?</label><textarea id="change"></textarea></div><div class="full"><label>কোন feature বাদ দিতে হবে?</label><textarea id="remove"></textarea></div><div class="full"><label>নতুন কী feature যোগ করতে হবে?</label><textarea id="newFeature"></textarea></div><div class="full"><label>Design / Color / Logo Changes</label><textarea id="design"></textarea></div></div></div><div class="section"><h3>5. Final Version Features</h3><div class="checks" id="checks"><label class="check"><input type="checkbox" value="Accurate Panchang"> Accurate Panchang</label><label class="check"><input type="checkbox" value="Live Weather"> Live Weather</label><label class="check"><input type="checkbox" value="Real Compass"> Real Compass</label><label class="check"><input type="checkbox" value="Notifications"> Notifications</label><label class="check"><input type="checkbox" value="Home Widget"> Home Widget</label><label class="check"><input type="checkbox" value="Admin Panel"> Admin Panel</label><label class="check"><input type="checkbox" value="Multi Language"> Multi Language</label><label class="check"><input type="checkbox" value="Offline Data"> Offline Data</label><label class="check"><input type="checkbox" value="Daily Horoscope"> Daily Horoscope</label><label class="check"><input type="checkbox" value="Ads Integration"> Ads Integration</label><label class="check"><input type="checkbox" value="Share App"> Share App</label><label class="check"><input type="checkbox" value="App Store Publish"> Store Publish</label></div></div><div class="section"><h3>6. Extra Details</h3><textarea id="extra" placeholder="Special instructions, business rules, future ideas অথবা অন্য যেকোনো বিস্তারিত লিখুন"></textarea></div><div class="section"><label class="check"><input id="confirm" type="checkbox" required> I confirm that these are my requested changes for the Bangla Calendar project.</label></div><div id="feedbackSubmitStatus" class="submit-status"></div><div class="actions"><button id="feedbackSubmitButton" class="submit" type="submit">📄 Submit & Download Requirement PDF</button><button class="reset" type="reset">Clear Form</button></div></form></section><section class="contact"><h3>Business Contact</h3><a href="https://wa.me/917549459770">💬 WhatsApp: 7549459770</a><a href="tel:+919735474770">📞 Call: 9735474770</a></section><footer>Digital Agency by Chandan Das • Client ID: CLIENT-ID684273</footer>
+<section class="feedback-section" id="clientFeedbackSection">
+  <h2>📝 Client Feedback Form</h2>
+  <p>Interactive demo দেখে আপনার feedback, feature request বা correction লিখুন।</p>
+
+  <div class="feedback-grid">
+    <div>
+      <label for="fbName">Client Name</label>
+      <input id="fbName" placeholder="Your name">
+    </div>
+    <div>
+      <label for="fbType">Feedback Type</label>
+      <select id="fbType">
+        <option>UI Feedback</option>
+        <option>Feature Request</option>
+        <option>Bug Report</option>
+        <option>Content Correction</option>
+        <option>Final Approval</option>
+      </select>
+    </div>
+    <div>
+      <label for="fbScreen">Screen / Module</label>
+      <select id="fbScreen">
+        <option>Home</option>
+        <option>Calendar</option>
+        <option>Panchang</option>
+        <option>Festival</option>
+        <option>Horoscope</option>
+        <option>Reminder</option>
+        <option>Settings</option>
+        <option>Admin Panel</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div>
+      <label for="fbPriority">Priority</label>
+      <select id="fbPriority">
+        <option>Normal</option>
+        <option>Important</option>
+        <option>Urgent</option>
+      </select>
+    </div>
+  </div>
+
+  <div style="margin-top:12px">
+    <label for="fbMessage">Feedback / Requirement</label>
+    <textarea id="fbMessage" placeholder="Write feedback, correction or requested feature..."></textarea>
+  </div>
+
+  <div class="feedback-actions">
+    <button class="btn" onclick="submitCalendarFeedback()">Submit Feedback</button>
+    <button class="btn" style="background:#eef4fb;color:#174c82" onclick="clearCalendarFeedbackForm()">Clear</button>
+  </div>
+
+  <div id="fbSuccess" class="feedback-success">✅ Feedback saved successfully.</div>
+
+  <div class="feedback-history">
+    <h3>Submitted Feedback</h3>
+    <div id="feedbackHistory"></div>
+  </div>
+</section>
+
+</main><script>const val=id=>(document.getElementById(id)?.value||'').trim();const reqId='BC-REQ-'+new Date().toISOString().slice(0,10).replaceAll('-','')+'-'+Math.floor(1000+Math.random()*9000);document.getElementById('reqForm').addEventListener('submit',e=>{e.preventDefault();if(!window.jspdf){alert('PDF library load হয়নি। Internet connection check করুন।');return;}const{jsPDF}=window.jspdf;const doc=new jsPDF();let y=18;const add=(label,value)=>{if(y>275){doc.addPage();y=18;}doc.setFont('helvetica','bold');doc.text(label+':',15,y);doc.setFont('helvetica','normal');const lines=doc.splitTextToSize(value||'-',132);doc.text(lines,60,y);y+=Math.max(7,lines.length*6);};doc.setFillColor(194,24,91);doc.roundedRect(10,10,190,27,4,4,'F');doc.setTextColor(255,255,255);doc.setFont('helvetica','bold');doc.setFontSize(17);doc.text('BANGLA CALENDAR CLIENT REQUIREMENT',105,21,{align:'center'});doc.setFontSize(10);doc.setFont('helvetica','normal');doc.text('Digital Agency by Chandan Das | '+reqId,105,29,{align:'center'});doc.setTextColor(35,40,55);doc.setFontSize(10);y=46;add('Client Name',val('name'));add('Mobile',val('mobile'));add('Company',val('company'));add('Email',val('email'));add('Rating',val('rating'));add('Priority',val('priority'));add('Demo Feedback',val('feedback'));const decisions=[...document.querySelectorAll('#decisionChecks input:checked')].map(x=>x.value).join(',');add('Client Decision',decisions);add('Decision Details',val('decisionDetails'));add('Keep Features',val('keep'));add('Change Features',val('change'));add('Remove Features',val('remove'));add('New Features',val('newFeature'));add('Design Changes',val('design'));const selected=[...document.querySelectorAll('#checks input:checked')].map(x=>x.value).join(',');add('Selected Final Features',selected);add('Extra Details',val('extra'));doc.setFontSize(8);doc.setTextColor(100,105,120);doc.text('WhatsApp:7549459770 | Call:9735474770',105,290,{align:'center'});const safe=(val('name')||'Client').replace(/[^a-zA-Z0-9_-]/g,'_');doc.save('Bangla_Calendar_Requirement_'+safe+'_'+reqId+'.pdf');});</script></div><script id="pin-gate-script">(function(){const EXPECTED_HASH="38c02f46b57855590f8cdd17c1b2704e72c3effbb92833b46fec0f2a52cc61aa";const gate=document.getElementById("pinGate");const page=document.getElementById("protectedPage");const form=document.getElementById("pinForm");const input=document.getElementById("pinInput");const error=document.getElementById("pinError");function unlock(){gate.style.display="none";page.style.display="block";sessionStorage.setItem("banglaCalendarDemoUnlocked","yes");}if(sessionStorage.getItem("banglaCalendarDemoUnlocked")==="yes"){unlock();}else{setTimeout(()=>input.focus(),100);}async function sha256(text){const data=new TextEncoder().encode(text);const hashBuffer=await crypto.subtle.digest("SHA-256",data);return Array.from(new Uint8Array(hashBuffer)).map(b=>b.toString(16).padStart(2,"0")).join("");}form.addEventListener("submit",async function(e){e.preventDefault();error.textContent="Checking...";const hash=await sha256(input.value.trim());if(hash===EXPECTED_HASH){error.textContent="";unlock();}else{error.textContent="Wrong PIN. আবার চেষ্টা করুন।";input.value="";input.focus();}});})();</script><script>document.getElementById('reqForm')?.addEventListener('submit',async function(){try{await feedbackDb.collection('client_feedback').add({project_name:'Bangla Calendar',client_name:(document.getElementById('name')?.value||'').trim(), mobile:(document.getElementById('mobile')?.value||'').trim(), company:(document.getElementById('company')?.value||'').trim(), email:(document.getElementById('email')?.value||'').trim(), rating:(document.getElementById('rating')?.value||'').trim(), priority:(document.getElementById('priority')?.value||'').trim(), feedback:(document.getElementById('feedback')?.value||'').trim(), decision_details:(document.getElementById('decisionDetails')?.value||'').trim(), keep_features:(document.getElementById('keep')?.value||'').trim(), change_features:(document.getElementById('change')?.value||'').trim(), remove_features:(document.getElementById('remove')?.value||'').trim(), new_features:(document.getElementById('newFeature')?.value||'').trim(), design_changes:(document.getElementById('design')?.value||'').trim(), extra:(document.getElementById('extra')?.value||'').trim(),decisions:[...document.querySelectorAll('#decisionChecks input:checked')].map(x=>x.value),selected_features:[...document.querySelectorAll('#checks input:checked')].map(x=>x.value),status:'New',source_page:location.pathname,created_at:firebase.firestore.FieldValue.serverTimestamp()});}catch(e){console.warn('Feedback save failed',e)}});</script>
+<script id="combined-feedback-pdf-submit">
+(function(){
+ const form=document.getElementById('reqForm');
+ if(!form)return;
+ const get=id=>(document.getElementById(id)?.value||'').trim();
+ const checked=selector=>[...document.querySelectorAll(selector)].map(x=>x.value);
+ const statusBox=document.getElementById('feedbackSubmitStatus');
+ const button=document.getElementById('feedbackSubmitButton');
+
+ function status(type,text){
+   statusBox.className='submit-status show '+type;
+   statusBox.textContent=text;
+ }
+ function pdfLine(doc,state,label,value){
+   if(state.y>274){doc.addPage();state.y=18}
+   doc.setFont('helvetica','bold');
+   doc.text(label+':',15,state.y);
+   doc.setFont('helvetica','normal');
+   const lines=doc.splitTextToSize(value||'-',128);
+   doc.text(lines,66,state.y);
+   state.y+=Math.max(7,lines.length*6);
+ }
+ function downloadPdf(payload,requestId){
+   if(!window.jspdf)throw new Error('PDF library load হয়নি। Internet connection check করুন।');
+   const {jsPDF}=window.jspdf;
+   const doc=new jsPDF();
+   const state={y:48};
+   doc.setFillColor(194,24,91);
+   doc.roundedRect(10,10,190,27,4,4,'F');
+   doc.setTextColor(255,255,255);
+   doc.setFont('helvetica','bold');
+   doc.setFontSize(16);
+   doc.text('BANGLA CALENDAR CLIENT REQUIREMENT',105,21,{align:'center'});
+   doc.setFont('helvetica','normal');
+   doc.setFontSize(9);
+   doc.text('Digital Agency by Chandan Das | '+requestId,105,29,{align:'center'});
+   doc.setTextColor(35,40,55);
+   doc.setFontSize(10);
+
+   pdfLine(doc,state,'Client Name',payload.client_name);
+   pdfLine(doc,state,'Mobile',payload.mobile);
+   pdfLine(doc,state,'Company',payload.company);
+   pdfLine(doc,state,'Email',payload.email);
+   pdfLine(doc,state,'Rating',payload.rating);
+   pdfLine(doc,state,'Priority',payload.priority);
+   pdfLine(doc,state,'Client Decision',payload.decisions.join(', '));
+   pdfLine(doc,state,'Decision Details',payload.decision_details);
+   pdfLine(doc,state,'Demo Feedback',payload.feedback);
+   pdfLine(doc,state,'Keep Features',payload.keep_features);
+   pdfLine(doc,state,'Change Features',payload.change_features);
+   pdfLine(doc,state,'Remove Features',payload.remove_features);
+   pdfLine(doc,state,'New Features',payload.new_features);
+   pdfLine(doc,state,'Design Changes',payload.design_changes);
+   pdfLine(doc,state,'Selected Final Features',payload.selected_features.join(', '));
+   pdfLine(doc,state,'Extra Details',payload.extra);
+
+   doc.setFontSize(8);
+   doc.setTextColor(95,100,115);
+   doc.text('WhatsApp: 7549459770 | Call: 9735474770',105,290,{align:'center'});
+   const safe=(payload.client_name||'Client').replace(/[^a-zA-Z0-9_-]/g,'_');
+   doc.save('Bangla_Calendar_Requirement_'+safe+'_'+requestId+'.pdf');
+ }
+
+ form.addEventListener('submit',async function(e){
+   e.preventDefault();
+   e.stopImmediatePropagation();
+   if(!form.reportValidity())return;
+
+   button.disabled=true;
+   button.textContent='Submitting...';
+   status('loading','Feedback Admin Panel-এ পাঠানো হচ্ছে...');
+
+   const requestId='BC-'+Date.now();
+   const payload={
+     request_id:requestId,
+     project_name:'Bangla Calendar',
+     client_name:get('name'),
+     mobile:get('mobile'),
+     company:get('company'),
+     email:get('email'),
+     rating:get('rating'),
+     priority:get('priority'),
+     feedback:get('feedback'),
+     decisions:checked('#decisionChecks input:checked'),
+     decision_details:get('decisionDetails'),
+     keep_features:get('keep'),
+     change_features:get('change'),
+     remove_features:get('remove'),
+     new_features:get('newFeature'),
+     design_changes:get('design'),
+     selected_features:checked('#checks input:checked'),
+     extra:get('extra'),
+     status:'New',
+     source_page:location.pathname,
+     created_at:firebase.firestore.FieldValue.serverTimestamp()
+   };
+
+   try{
+     if(typeof feedbackDb==='undefined')throw new Error('Firebase connection load হয়নি।');
+     const saved=await feedbackDb.collection('client_feedback').add(payload);
+     downloadPdf({...payload,firestore_id:saved.id},requestId);
+     status('success','✅ Feedback Admin Panel-এ পৌঁছেছে এবং Requirement PDF download হয়েছে।');
+   }catch(err){
+     console.error(err);
+     status('error','❌ Submit হয়নি: '+(err.message||'Unknown error')+' আবার চেষ্টা করুন।');
+   }finally{
+     button.disabled=false;
+     button.textContent='📄 Submit to Admin & Download PDF';
+   }
+ },true);
+})();
+</script>
+
+<script id="calendar-client-feedback-js">
+function readCalendarFeedback(){
+  try{return JSON.parse(localStorage.getItem('calendarClientFeedback')||'[]')}catch(e){return[]}
+}
+function renderCalendarFeedback(){
+  const box=document.getElementById('feedbackHistory');
+  if(!box)return;
+  const list=readCalendarFeedback();
+  box.innerHTML=list.length?list.map((x,i)=>`
+    <div class="feedback-item">
+      <b>${x.type} — ${x.screen}</b>
+      <small>${x.name||'Client'} • ${x.priority} • ${x.date}</small>
+      <p>${x.message}</p>
+      <button class="btn" style="padding:7px 10px;background:#feecef;color:#9b2c3b" onclick="deleteCalendarFeedback(${i})">Delete</button>
+    </div>
+  `).join(''):'<p class="small">No feedback submitted yet.</p>';
+}
+function submitCalendarFeedback(){
+  const name=document.getElementById('fbName').value.trim();
+  const type=document.getElementById('fbType').value;
+  const screen=document.getElementById('fbScreen').value;
+  const priority=document.getElementById('fbPriority').value;
+  const message=document.getElementById('fbMessage').value.trim();
+  if(!message){alert('Please write your feedback.');return}
+  const list=readCalendarFeedback();
+  list.unshift({name,type,screen,priority,message,date:new Date().toLocaleString()});
+  localStorage.setItem('calendarClientFeedback',JSON.stringify(list.slice(0,30)));
+  document.getElementById('fbSuccess').style.display='block';
+  document.getElementById('fbMessage').value='';
+  renderCalendarFeedback();
+  setTimeout(()=>document.getElementById('fbSuccess').style.display='none',2500);
+}
+function clearCalendarFeedbackForm(){
+  ['fbName','fbMessage'].forEach(id=>{const e=document.getElementById(id);if(e)e.value=''});
+}
+function deleteCalendarFeedback(i){
+  const list=readCalendarFeedback();
+  list.splice(i,1);
+  localStorage.setItem('calendarClientFeedback',JSON.stringify(list));
+  renderCalendarFeedback();
+}
+document.addEventListener('DOMContentLoaded',renderCalendarFeedback);
+</script>
+
+</body></html>

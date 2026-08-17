@@ -1,0 +1,7 @@
+CLIENT ROOM V12 — PIN ONLY
+
+1. GitHub root-এ client-room.html, client-room-admin.html, agency-control-2026.html এবং sw.js replace করুন।
+2. নতুন client add করার সময় 4-digit PIN দিন বা Generate PIN চাপুন।
+3. পুরোনো CR-... client-এর জন্য client select করে Set/Change 4-digit PIN save করুন।
+4. Demo PIN default 1234; admin Room Settings থেকে বদলানো যাবে।
+5. Client Room-এ এখন কোনো alphanumeric access code নেই—শুধু 4-digit PIN।

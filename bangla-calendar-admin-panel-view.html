@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bengali Calendar Admin Panel Demo</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#eef3f8;color:#172235}
+header{height:68px;background:linear-gradient(90deg,#173d69,#2e78c7);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 24px}
+header h1{font-size:20px;margin:0}header small{opacity:.9}
+.layout{display:grid;grid-template-columns:240px 1fr;height:calc(100vh - 68px)}
+aside{background:#102a48;color:#fff;padding:16px;overflow:auto}
+aside button{width:100%;border:0;background:transparent;color:#dce8f5;text-align:left;padding:11px;border-radius:9px;margin-bottom:5px;font-weight:700;cursor:pointer}
+aside button.active,aside button:hover{background:#24598d;color:#fff}
+main{padding:20px;overflow:auto}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.stat,.card{background:#fff;border:1px solid #d9e4ef;border-radius:14px;padding:15px;box-shadow:0 6px 18px rgba(30,60,90,.07)}
+.stat strong{display:block;font-size:24px;color:#1d5e9e}.stat small{color:#6a788a}
+.table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden}
+.table th,.table td{padding:11px;border-bottom:1px solid #edf1f5;text-align:left;font-size:13px}
+.btn{border:0;border-radius:8px;padding:8px 10px;font-weight:800;cursor:pointer;background:#1d67ad;color:#fff}
+.btn.alt{background:#edf4fb;color:#174c82}.btn.danger{background:#fbe7ea;color:#a22a3d}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.toolbar input,.toolbar select{padding:9px;border:1px solid #ccd8e5;border-radius:8px}
+.notice{background:#fff8df;border:1px solid #ebcc6b;border-radius:10px;padding:10px;margin-bottom:14px}
+@media(max-width:900px){.layout{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2,1fr)}aside{display:flex;overflow-x:auto}aside button{min-width:160px}.layout{height:auto}main{overflow:visible}}
+@media(max-width:560px){.grid{grid-template-columns:1fr}header{padding:0 12px}main{padding:12px}}
+</style>
+</head>
+<body>
+<header>
+<div><h1>Bengali Calendar Admin Panel</h1><small>Interactive Web Demo</small></div>
+<a href="CLIENT-ID684273.html" style="color:#fff;text-decoration:none;font-weight:800">← Client Dashboard</a>
+</header>
+<div class="layout">
+<aside id="menu"></aside>
+<main>
+<div class="notice"><b>Demo Notice:</b> এটি Laravel Blade Admin Panel-এর interactive web preview। কোনো real database পরিবর্তন হবে না।</div>
+<div id="content"></div>
+</main>
+</div>
+<script>
+const modules=[
+ ['dashboard','📊 Dashboard'],['calendar','📅 Calendar Management'],['festival','🎉 Festival Management'],
+ ['panchang','📖 Panchang Management'],['holiday','🏖 Holiday Management'],['horoscope','⭐ Horoscope Management'],
+ ['banner','🖼 Banner Management'],['notification','🔔 Notification Management'],['users','👥 User Management'],['settings','⚙️ Settings']
+];
+let current='dashboard';
+let festivals=[{name:'জন্মাষ্টমী',date:'18-08-2026',status:'Active'},{name:'দুর্গাপূজা',date:'18-10-2026',status:'Active'}];
+let banners=[{title:'Festival Banner',status:'Active'},{title:'Panchang Update',status:'Paused'}];
+function renderMenu(){menu.innerHTML=modules.map(x=>`<button class="${current===x[0]?'active':''}" onclick="current='${x[0]}';render()">${x[1]}</button>`).join('')}
+function dashboard(){content.innerHTML=`<h2>Dashboard</h2><div class="grid"><div class="stat"><strong>12,450</strong><small>Total Users</small></div><div class="stat"><strong>185</strong><small>Festivals</small></div><div class="stat"><strong>365</strong><small>Panchang Days</small></div><div class="stat"><strong>24</strong><small>Notifications</small></div></div><div class="card" style="margin-top:14px"><h3>Recent Activity</h3><p>Festival updated • Panchang published • Banner activated</p></div>`}
+function listPage(title,rows,addLabel){content.innerHTML=`<div class="toolbar"><button class="btn" onclick="alert('${addLabel} form opened')">+ ${addLabel}</button><input placeholder="Search..."><select><option>All Status</option><option>Active</option><option>Paused</option></select></div><h2>${title}</h2><table class="table"><tr><th>Name/Title</th><th>Date/Status</th><th>Action</th></tr>${rows.map((r,i)=>`<tr><td>${r.name||r.title||r}</td><td>${r.date||r.status||'Active'}</td><td><button class="btn alt" onclick="alert('Edit opened')">Edit</button> <button class="btn danger" onclick="alert('Demo delete action')">Delete</button></td></tr>`).join('')}</table>`}
+function render(){
+ renderMenu();
+ if(current==='dashboard')dashboard();
+ else if(current==='festival')listPage('Festival Management',festivals,'Add Festival');
+ else if(current==='banner')listPage('Banner Management',banners,'Add Banner');
+ else if(current==='calendar')listPage('Calendar Management',['বাংলা তারিখ','ইংরেজি তারিখ','Month Settings'],'Add Calendar Entry');
+ else if(current==='panchang')listPage('Panchang Management',['তিথি','নক্ষত্র','যোগ','করণ'],'Add Panchang');
+ else if(current==='holiday')listPage('Holiday Management',['জাতীয় ছুটি','রাজ্য ছুটি','শনিবার ছুটি'],'Add Holiday');
+ else if(current==='horoscope')listPage('Horoscope Management',['মেষ','বৃষ','মিথুন','কর্কট'],'Add Horoscope');
+ else if(current==='notification')content.innerHTML=`<h2>Notification Management</h2><div class="card"><input style="width:100%;padding:10px;margin-bottom:8px" placeholder="Notification title"><textarea style="width:100%;min-height:100px;padding:10px" placeholder="Message"></textarea><button class="btn" style="margin-top:8px" onclick="alert('Demo notification sent')">Send Notification</button></div>`;
+ else if(current==='users')listPage('User Management',[{name:'Sangita Das',status:'Active'},{name:'Rahul Kumar',status:'Active'}],'Add User');
+ else content.innerHTML=`<h2>Settings</h2><div class="card"><p>Language, calendar method, notification defaults, privacy and app configuration.</p><button class="btn" onclick="alert('Settings saved in demo mode')">Save Settings</button></div>`;
+}
+render();
+</script>
+</body></html>

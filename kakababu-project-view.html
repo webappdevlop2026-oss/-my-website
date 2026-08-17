@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KAKABABU Project View</title>
+<style>
+body{margin:0;font-family:Arial;background:#eef4fb;color:#172033}.top{background:linear-gradient(135deg,#0f3e73,#2f80ed);color:white;padding:24px;text-align:center}.switch{display:flex;justify-content:center;gap:10px;padding:16px}.switch button{padding:11px 16px;border:0;border-radius:10px;font-weight:800;cursor:pointer}.active{background:#1456a0;color:white}.inactive{background:white;color:#1456a0}.wrap{max-width:1050px;margin:auto;padding:0 16px 30px;display:grid;grid-template-columns:340px 1fr;gap:20px}.phone{background:#0b1420;border:9px solid #0b1420;border-radius:32px;overflow:hidden;min-height:650px}.screen{background:#f5f8fc;min-height:630px;display:flex;flex-direction:column}.appbar{background:linear-gradient(135deg,#1456a0,#2f80ed);color:white;padding:22px 16px}.content{padding:14px;flex:1}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.tile,.row{background:white;border-radius:14px;padding:14px;box-shadow:0 4px 14px #173a5e12;cursor:pointer}.tile span{font-size:26px}.tile b{display:block;margin-top:6px}.row{margin-bottom:9px;display:flex;gap:10px}.nav{display:grid;grid-template-columns:repeat(4,1fr);background:white;border-top:1px solid #dbe5ef}.nav button{border:0;background:transparent;padding:10px 3px;font-size:11px}.panel{background:white;border-radius:18px;padding:20px}.feature{padding:10px;border:1px solid #dce6f1;border-radius:10px;margin-bottom:8px}.notice{margin-top:14px;background:#fff5d7;border:1px solid #eed27a;padding:12px;border-radius:10px}@media(max-width:780px){.wrap{grid-template-columns:1fr}.phone{width:min(100%,360px);margin:auto}}
+</style></head>
+<body>
+<div class="top"><h1>KAKABABU Project View</h1><p>User App ও Vendor App browser demo</p></div>
+<div class="switch"><button id="u" class="active" onclick="mode='user';render()">📱 User App</button><button id="v" class="inactive" onclick="mode='vendor';render()">🏪 Vendor App</button></div>
+<div class="wrap">
+<div class="phone"><div class="screen"><div id="bar" class="appbar"></div><div id="content" class="content"></div><div id="nav" class="nav"></div></div></div>
+<div class="panel"><h2 id="title"></h2><div id="features"></div><div class="notice"><b>Demo Notice:</b> OTP, payment, GPS, notification ও live database final version-এ working হবে।</div><p><a href="kakababu.html#reqForm">📝 Requirement Form খুলুন</a></p></div>
+</div>
+<script>
+let mode='user',page='home';
+const user={home:['Welcome to KAKABABU','Nearby services, booking ও support এক জায়গায়'],services:['Services','Home Service, Repair, Education, Delivery'],booking:['My Booking','Pending ও completed booking'],support:['Support','Live chat ও call support']};
+const vendor={home:['Vendor Dashboard','Orders, earning ও availability'],orders:['New Orders','Accept, reject ও manage order'],services:['My Services','Price এবং service manage'],profile:['Vendor Profile','KYC, location ও settings']};
+function cards(items){return '<div class="grid">'+items.map(x=>'<div class="tile"><span>'+x[0]+'</span><b>'+x[1]+'</b><small>'+x[2]+'</small></div>').join('')+'</div>'}
+function render(){
+ document.getElementById('u').className=mode==='user'?'active':'inactive';document.getElementById('v').className=mode==='vendor'?'active':'inactive';
+ const data=mode==='user'?user:vendor;
+ if(!data[page])page='home';
+ document.getElementById('bar').innerHTML='<h2>'+(mode==='user'?'KAKABABU':'KAKABABU Vendor')+'</h2><p>'+data[page][0]+'</p>';
+ if(page==='home')document.getElementById('content').innerHTML=mode==='user'?cards([['🛍️','Services','Browse'],['📅','Booking','Track'],['🏪','Vendors','Nearby'],['💬','Support','Help']]):cards([['📦','Orders','4 pending'],['🧰','Services','Manage'],['💰','Earnings','₹3,450'],['👤','Profile','KYC']]);
+ else document.getElementById('content').innerHTML='<div class="row"><div>✅</div><div><b>'+data[page][0]+'</b><br><small>'+data[page][1]+'</small></div></div><div class="row"><div>⚙️</div><div><b>Demo Action</b><br><small>Button and workflow preview</small></div></div>';
+ const tabs=mode==='user'?['home','services','booking','support']:['home','orders','services','profile'];
+ document.getElementById('nav').innerHTML=tabs.map(t=>'<button onclick="page=\''+t+'\';render()">'+t+'</button>').join('');
+ document.getElementById('title').textContent=mode==='user'?'User App Features':'Vendor App Features';
+ document.getElementById('features').innerHTML=Object.values(data).map(x=>'<div class="feature">✅ '+x[0]+'</div>').join('');
+}
+render();
+</script></body></html>

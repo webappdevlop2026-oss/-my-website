@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KAKABABU Vendor App Project View</title>
+<meta name="description" content="Interactive KAKABABU Vendor App project preview based on the supplied Flutter demo source.">
+<style>
+:root{--blue:#1256a0;--blue2:#2d83df;--orange:#ff8a00;--bg:#eef3f9;--ink:#172235;--muted:#687489;--line:#dbe4ef;--card:#fff;--green:#0a9d65;--red:#d64045}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--ink)}
+body{overflow:hidden}
+.topbar{height:64px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 4.5vw;gap:14px}
+.brand{font-weight:900;font-size:20px}.brand small{display:block;font-size:11px;color:var(--muted);margin-top:2px}
+.top-actions{display:flex;gap:9px}.top-actions a,.top-actions button{border:0;border-radius:12px;padding:12px 15px;text-decoration:none;font-weight:800;cursor:pointer}
+.soft{background:#eaf2fb;color:#184c7f}.orange{background:var(--orange);color:#fff}
+.layout{height:calc(100vh - 64px);display:grid;grid-template-columns:minmax(330px,420px) 1fr;gap:20px;max-width:1280px;margin:auto;padding:14px 18px}
+.device-zone{display:grid;place-items:center;min-height:0}
+.phone{height:min(780px,calc(100vh - 92px));aspect-ratio:9/19.35;background:#121b26;border:9px solid #121b26;border-radius:37px;box-shadow:0 22px 52px #24364c33;overflow:hidden;position:relative}
+.phone-inner{height:100%;background:#f4f7fb;border-radius:27px;overflow:hidden;display:flex;flex-direction:column}
+.status{height:28px;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 16px;font-size:11px;font-weight:800;flex:0 0 auto}
+.appbar{background:#fff;border-bottom:1px solid #e1e7ef;padding:12px 14px;display:flex;align-items:center;gap:11px;flex:0 0 auto}
+.appbar .back{width:38px;height:38px;border-radius:50%;border:0;background:#f0f4f9;font-size:19px;cursor:pointer}
+.appbar-title{flex:1}.appbar-title h2{font-size:17px;margin:0}.appbar-title p{font-size:10px;color:var(--muted);margin:3px 0 0}
+.bell{border:0;background:transparent;font-size:21px;cursor:pointer}
+.phone-scroll{flex:1;overflow:auto;padding:13px;scrollbar-width:thin}
+.phone-scroll::-webkit-scrollbar{width:4px}.phone-scroll::-webkit-scrollbar-thumb{background:#bdc8d5;border-radius:8px}
+.bottom-nav{background:#fff;border-top:1px solid #dce4ed;display:grid;grid-template-columns:repeat(5,1fr);flex:0 0 auto}
+.bottom-nav button{border:0;background:transparent;padding:8px 2px 7px;font-size:9px;color:#657386;cursor:pointer}.bottom-nav button b{display:block;font-size:17px;margin-bottom:2px}.bottom-nav button.active{color:var(--blue);font-weight:800}
+.hero{background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff;border-radius:18px;padding:17px;margin-bottom:12px}.hero h3{margin:0 0 5px;font-size:18px}.hero p{margin:0;font-size:11px;opacity:.9}
+.online-row{background:#fff;border-radius:14px;padding:12px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 4px 15px #1936530d;margin-bottom:11px}.switch{width:49px;height:27px;border-radius:999px;background:#cdd6e0;padding:3px;cursor:pointer}.switch i{display:block;width:21px;height:21px;border-radius:50%;background:#fff;transition:.2s}.switch.on{background:var(--green)}.switch.on i{transform:translateX(22px)}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:11px}.stat{background:#fff;border-radius:13px;padding:12px;box-shadow:0 4px 15px #1936530d}.stat small{color:var(--muted);font-size:10px}.stat strong{display:block;font-size:20px;margin-top:5px}
+.actions-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.action{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:13px;text-align:left;cursor:pointer}.action span{font-size:24px}.action b{display:block;margin-top:7px;font-size:12px}.action small{color:var(--muted);font-size:9px}
+.section-title{font-size:14px;margin:14px 0 8px}.card{background:#fff;border-radius:14px;padding:13px;margin-bottom:9px;box-shadow:0 4px 14px #1936530b}.row{display:flex;align-items:center;gap:10px}.icon{width:39px;height:39px;border-radius:11px;background:#eaf3fd;display:grid;place-items:center;font-size:20px}.grow{flex:1}.row b{font-size:12px}.row small{display:block;color:var(--muted);font-size:9px;margin-top:3px}
+.chip{font-size:9px;border-radius:999px;padding:5px 8px;font-weight:800}.upcoming{background:#fff0d7;color:#a85f00}.completed{background:#dcf8ea;color:#08794c}.cancelled{background:#fee6e7;color:#a72e34}
+.btn-row{display:flex;gap:7px;margin-top:10px}.mini{flex:1;border:0;border-radius:9px;padding:8px;font-size:10px;font-weight:800;cursor:pointer}.accept{background:#daf7e9;color:#08794c}.reject{background:#fee7e8;color:#aa3037}.primary{background:var(--blue);color:#fff}.outline{background:#eef4fb;color:#174c82}
+.field{margin-bottom:10px}.field label{display:block;font-size:10px;font-weight:800;margin-bottom:5px}.field input,.field select,.field textarea{width:100%;border:1px solid #d5dee9;border-radius:11px;padding:10px;background:#fff;font:inherit;font-size:11px}.field textarea{min-height:66px;resize:none}
+.full-btn{width:100%;border:0;border-radius:11px;padding:12px;background:var(--blue);color:#fff;font-weight:900;cursor:pointer}.ghost{background:#edf4fb;color:#174d83}
+.check{display:flex;align-items:center;gap:7px;font-size:10px;margin:8px 0}.check input{accent-color:var(--blue)}
+.profile-head{text-align:center;background:#fff;border-radius:15px;padding:16px;margin-bottom:10px}.avatar{width:67px;height:67px;border-radius:50%;background:linear-gradient(135deg,#bfe0ff,#62a9ee);display:grid;place-items:center;font-size:32px;margin:auto}.profile-head h3{margin:9px 0 3px}.profile-head p{margin:0;color:var(--muted);font-size:10px}
+.menu-item{background:#fff;border-radius:12px;padding:12px;margin-bottom:8px;display:flex;align-items:center;gap:10px;cursor:pointer}.menu-item span{font-size:20px}.menu-item b{font-size:11px}.menu-item small{display:block;color:var(--muted);font-size:9px;margin-top:2px}
+.side{min-width:0;overflow:auto;padding:4px 4px 25px}.side-head{display:flex;align-items:center;justify-content:space-between;gap:10px}.side h1{font-size:27px;margin:5px 0 4px}.side p{color:var(--muted);margin:0}
+.feature-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:14px 0}.feature{background:#fff;border:1px solid var(--line);padding:11px;border-radius:12px;font-size:11px}
+.quick{display:flex;gap:7px;flex-wrap:wrap;margin:13px 0}.quick button{border:0;border-radius:999px;padding:8px 11px;background:#eaf2fb;color:#183f68;font-weight:800;font-size:10px;cursor:pointer}
+.screen-list{display:grid;grid-template-columns:1fr 1fr;gap:8px}.screen-list button{text-align:left;border:1px solid var(--line);background:#fff;border-radius:11px;padding:11px;font-weight:800;cursor:pointer}
+.note{margin-top:15px;background:#fff5d7;border:1px solid #ecd27d;border-radius:13px;padding:13px;font-size:11px;line-height:1.55}
+.toast{position:absolute;left:50%;bottom:62px;transform:translateX(-50%);background:#172235;color:#fff;border-radius:999px;padding:8px 12px;font-size:10px;opacity:0;pointer-events:none;transition:.2s;z-index:20;white-space:nowrap}.toast.show{opacity:1}
+@media(max-width:780px){
+ body{overflow:auto;background:#f4f7fb}.topbar{display:none}.layout{display:block;height:100vh;padding:0}.side{display:none}.device-zone{height:100vh}.phone{height:100vh;width:100%;aspect-ratio:auto;border:0;border-radius:0;box-shadow:none}.phone-inner{border-radius:0}
+}
+</style>
+
+
+
+
+<script id="kakababu-view-access-guard">
+(function(){
+  const unlocked=sessionStorage.getItem("kakababuProjectUnlocked")==="yes";
+  const selected=sessionStorage.getItem("kakaSelectedView");
+  if(!unlocked || selected!=="vendor"){
+    location.replace("kakababu.html");
+  }
+})();
+</script>
+</head>
+<body>
+
+
+
+
+
+<header class="topbar">
+<div class="brand">KAKABABU Vendor App View<small>Digital Agency by Chandan Das</small></div>
+<div class="top-actions"><a class="soft" href="kakababu.html">← Feedback Page</a><button class="orange" onclick="restartDemo()">Restart Demo</button></div>
+</header>
+<main class="layout">
+<section class="device-zone">
+<div class="phone">
+<div class="phone-inner">
+<div class="status"><span>9:41</span><span>●●● 4G 🔋</span></div>
+<div id="appbar" class="appbar"></div>
+<div id="screen" class="phone-scroll"></div>
+<div id="bottom" class="bottom-nav"></div>
+</div>
+<div id="toast" class="toast"></div>
+</div>
+</section>
+<aside class="side">
+<div class="side-head"><div><h1>KAKABABU Vendor App</h1><p>Uploaded Flutter demo source অনুযায়ী interactive project preview</p></div></div>
+<div class="feature-strip">
+<div class="feature">✅ Login & Registration</div><div class="feature">✅ Dashboard & Online Status</div><div class="feature">✅ Add Service</div>
+<div class="feature">✅ Add Vehicle</div><div class="feature">✅ Booking Status</div><div class="feature">✅ Past Booking</div>
+<div class="feature">✅ Online Service Link</div><div class="feature">✅ Payment Summary</div><div class="feature">✅ KYC & Bank</div>
+</div>
+<div class="quick">
+<button onclick="go('login')">Login</button><button onclick="go('home')">Dashboard</button><button onclick="go('addService')">Add Service</button><button onclick="go('addVehicle')">Add Vehicle</button><button onclick="go('status')">Booking Status</button><button onclick="go('profile')">Profile</button>
+</div>
+<h2>All Screens</h2>
+<div class="screen-list">
+<button onclick="go('login')">Vendor Login</button><button onclick="go('signup')">Vendor Registration</button>
+<button onclick="go('home')">Vendor Dashboard</button><button onclick="go('addService')">Add Your Service</button>
+<button onclick="go('addVehicle')">Add Your Vehicle</button><button onclick="go('status')">Booking Status</button>
+<button onclick="go('past')">Past Booking</button><button onclick="go('online')">Online Service Link</button>
+<button onclick="go('profile')">Vendor Profile</button><button onclick="go('payment')">Payment Summary</button>
+<button onclick="go('kyc')">Aadhaar KYC</button><button onclick="go('bank')">Bank Account</button>
+</div>
+<div class="note"><b>Source-based Demo:</b> এই Project View-এ supplied Vendor Flutter source-এর screen ও demo behaviour দেখানো হয়েছে। Image picker, Aadhaar verification, bank verification, live chat এবং backend production version-এ real service-এর সঙ্গে connect হবে।</div>
+</aside>
+</main>
+<script>
+let current='login',online=true,kyc=false,bank=false;
+let services=[{name:'Home Electrician',cat:'Additional Services',price:499,active:true},{name:'Offline Tutor - Class 8',cat:'Education',price:1200,active:true}];
+let vehicles=[{name:'Maruti Swift',type:'Car Hatchback',fuel:'Petrol',approved:true}];
+let bookings=[
+{id:'KBV-260801',customer:'Rahul Kumar',service:'Home Electrician',date:'03 Aug 2026, 10:30 AM',amount:499,status:'Upcoming'},
+{id:'KBV-260799',customer:'Sangita Das',service:'Offline Tutor - Class 8',date:'02 Aug 2026, 5:00 PM',amount:1200,status:'Completed'},
+{id:'KBV-260780',customer:'Amit Sharma',service:'Maruti Swift Rental',date:'01 Aug 2026, 9:00 AM',amount:2800,status:'Cancelled'}];
+
+const $=id=>document.getElementById(id);
+function toast(msg){$('toast').textContent=msg;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),1800)}
+function appbar(title,sub,back=true){$('appbar').innerHTML=`${back?'<button class="back" onclick="historyBack()">←</button>':''}<div class="appbar-title"><h2>${title}</h2><p>${sub||''}</p></div><button class="bell" onclick="toast('No new critical notification')">🔔</button>`}
+function historyBack(){go(current==='login'?'login':'home')}
+function bottom(active){const items=[['home','🏠','Home'],['status','📊','Status'],['past','🕘','Past'],['online','🔗','Online'],['profile','👤','Profile']];$('bottom').innerHTML=items.map(i=>`<button class="${active===i[0]?'active':''}" onclick="go('${i[0]}')"><b>${i[1]}</b>${i[2]}</button>`).join('')}
+function noBottom(){$('bottom').innerHTML=''}
+function go(page){current=page;render();$('screen').scrollTop=0}
+
+function loginScreen(){
+ appbar('KAKABABU VENDOR','Manage services, rentals and bookings',false);noBottom();
+ $('screen').innerHTML=`<div class="profile-head"><div class="avatar">🏪</div><h3>KAKABABU VENDOR</h3><p>Demo login: any email/password</p></div>
+ <div class="field"><label>Email or contact number</label><input value="vendor@example.com"></div>
+ <div class="field"><label>Password</label><input type="password" value="123456"></div>
+ <button class="full-btn" onclick="go('home')">LOGIN</button><button class="full-btn ghost" style="margin-top:8px" onclick="go('signup')">Create vendor account</button>`;
+}
+function signupScreen(){
+ appbar('Vendor registration','Create KAKABABU partner account');noBottom();
+ $('screen').innerHTML=`${['Name','Email','Contact number','State','City','Password'].map((x,i)=>`<div class="field"><label>${x}</label><input ${i===5?'type="password"':''} placeholder="${x}"></div>`).join('')}<button class="full-btn" onclick="toast('Registration saved in demo mode');go('login')">SIGN UP</button>`;
+}
+function homeScreen(){
+ appbar('Vendor Dashboard','Dumka • Vendor ID KBV1025',false);bottom('home');
+ const pending=bookings.filter(x=>x.status==='Upcoming').length,total=bookings.reduce((a,b)=>a+b.amount,0);
+ $('screen').innerHTML=`<div class="hero"><h3>Hello, KAKABABU Partner</h3><p>Manage services, rentals and bookings</p></div>
+ <div class="online-row"><div><b style="font-size:12px">${online?'ONLINE':'OFFLINE'}</b><small style="display:block;color:var(--muted);font-size:9px">${online?'Customers can see your services':'Your services are temporarily hidden'}</small></div><div class="switch ${online?'on':''}" onclick="online=!online;homeScreen()"><i></i></div></div>
+ <div class="stats"><div class="stat"><small>Upcoming bookings</small><strong>${pending}</strong></div><div class="stat"><small>Total payment</small><strong>₹${total}</strong></div><div class="stat"><small>Active services</small><strong>${services.length}</strong></div><div class="stat"><small>Rental vehicles</small><strong>${vehicles.length}</strong></div></div>
+ <div class="actions-grid"><button class="action" onclick="go('addService')"><span>🧰</span><b>Add Service</b><small>Service details and pricing</small></button><button class="action" onclick="go('addVehicle')"><span>🚗</span><b>Add Vehicle</b><small>Rental listing</small></button><button class="action" onclick="go('status')"><span>📊</span><b>Booking Status</b><small>Upcoming and ongoing</small></button><button class="action" onclick="go('payment')"><span>💰</span><b>Payment Summary</b><small>Settlement details</small></button></div>
+ <h3 class="section-title">Active services (${services.length})</h3>${services.map(s=>`<div class="card row"><div class="icon">🛠️</div><div class="grow"><b>${s.name}</b><small>${s.cat} • ₹${s.price}</small></div><span class="chip completed">Active</span></div>`).join('')}`;
+}
+function addServiceScreen(){
+ appbar('Add your service','Create a new vendor service');noBottom();
+ $('screen').innerHTML=`<div class="field"><label>Service name</label><input id="svcName" value="Home Cleaning"></div>
+ <div class="field"><label>Category</label><select id="svcCat"><option>Additional Services</option><option>Education Service</option><option>Entertainment Service</option></select></div>
+ <div class="field"><label>Sub-category</label><select><option>Home Service</option><option>Offline Tutor</option><option>Dance Online</option><option>Yoga Online</option><option>Zumba Online</option></select></div>
+ <div class="field"><label>Description / additional information</label><textarea>Professional service with verified vendor support.</textarea></div>
+ <div class="field"><label>Service city</label><input value="Dumka"></div>
+ <div class="field"><label>Payment term</label><select><option>Per Visit</option><option>Weekly</option><option>Monthly</option><option>Yearly</option></select></div>
+ <div class="field"><label>Original price ₹</label><input id="svcPrice" type="number" value="799"></div>
+ <div class="field"><label>Discount %</label><input type="number" value="10"></div>
+ <button class="full-btn ghost" onclick="toast('Reference image picker will open in production')">📷 Upload reference images</button>
+ <label class="check"><input type="checkbox" checked> Accept terms and conditions</label><label class="check"><input type="checkbox" checked> Accept vendor user policy</label>
+ <button class="full-btn" onclick="addService()">ADD SERVICE</button>`;
+}
+function addService(){const name=$('svcName').value||'New Service',price=Number($('svcPrice').value)||0;services.push({name,cat:$('svcCat').value,price,active:true});toast('Service added successfully');setTimeout(()=>go('home'),500)}
+function addVehicleScreen(){
+ appbar('Add your vehicle','Rental listing for customer booking');noBottom();
+ $('screen').innerHTML=`<div class="card"><label class="check"><input type="checkbox" checked> RC verification completed</label><small style="color:var(--muted)">Vehicle cannot be submitted without RC</small></div>
+ <div class="field"><label>Vehicle type</label><select id="vehType"><option>Bike</option><option>Car Hatchback</option><option>Car Sedan</option><option>Car SUV</option><option>Mini Bus</option><option>Luxury Bus</option></select></div>
+ <div class="field"><label>Vehicle display name</label><input id="vehName" value="Honda City"></div>
+ <div class="field"><label>Description / features</label><textarea>Clean vehicle, AC, music system and verified documents.</textarea></div>
+ <div class="field"><label>Fuel module</label><select><option>Petrol</option><option>Diesel</option><option>EV</option><option>CNG</option></select></div>
+ <div class="field"><label>Mode of operation</label><select><option>Self Drive</option><option>With Driver</option><option>Both</option></select></div>
+ <div class="field"><label>Delivery option</label><select><option>Self Pickup</option><option>Home Delivery</option><option>Both</option></select></div>
+ <div class="field"><label>Minimum booking hours</label><select><option>2 hours</option><option>4 hours</option><option>8 hours</option><option>12 hours</option></select></div>
+ <button class="full-btn ghost" onclick="toast('Up to 10 vehicle images can be uploaded in production')">📷 Upload up to 10 vehicle images</button>
+ <label class="check"><input type="checkbox" checked> Insurance uploaded</label><label class="check"><input type="checkbox" checked> PUC uploaded</label><label class="check"><input type="checkbox" checked> Accept terms and vendor policy</label>
+ <button class="full-btn" onclick="addVehicle()">SUBMIT VEHICLE</button>`;
+}
+function addVehicle(){vehicles.push({name:$('vehName').value||'New Vehicle',type:$('vehType').value,fuel:'Petrol',approved:false});toast('Vehicle submitted for admin approval');setTimeout(()=>go('home'),600)}
+function statusScreen(){
+ appbar('Booking Status','Manage active customer bookings',false);bottom('status');
+ $('screen').innerHTML=`${bookings.filter(b=>b.status!=='Completed'&&b.status!=='Cancelled').map((b,i)=>bookingCard(b,i,true)).join('')||'<div class="card">No bookings in this status</div>'}`;
+}
+function bookingCard(b,i,manage){return `<div class="card"><div class="row"><div class="icon">📦</div><div class="grow"><b>${b.service}</b><small>${b.customer} • ${b.id}</small><small>${b.date} • ₹${b.amount}</small></div><span class="chip ${b.status.toLowerCase()}">${b.status}</span></div>${manage?`<div class="btn-row"><button class="mini accept" onclick="setBooking(${i},'Completed')">Complete</button><button class="mini reject" onclick="setBooking(${i},'Cancelled')">Cancel</button><button class="mini outline" onclick="toast('Customer chat opened. Contact number remains hidden.')">Chat</button></div>`:''}</div>`}
+function setBooking(i,status){bookings[i].status=status;toast('Booking status updated');statusScreen()}
+function pastScreen(){
+ appbar('Past Booking','Completed and cancelled history',false);bottom('past');
+ $('screen').innerHTML=`${bookings.filter(b=>b.status==='Completed'||b.status==='Cancelled').map((b,i)=>bookingCard(b,i,false)).join('')}<button class="full-btn ghost" onclick="toast('Booking report download started in demo mode')">⬇ Download booking report</button>`;
+}
+function onlineScreen(){
+ appbar('Online Service Link','Send Zoom / Google Meet link',false);bottom('online');
+ $('screen').innerHTML=`<div class="hero"><h3>Online Link</h3><p>Send a meeting link to an online-service customer.</p></div>
+ <div class="field"><label>Select booking</label><select><option>Offline Tutor - Class 8</option><option>Dance Online</option><option>Yoga Online</option></select></div>
+ <div class="field"><label>Zoom / Google Meet URL</label><input value="https://meet.google.com/demo-link"></div>
+ <button class="full-btn" onclick="toast('Online link updated and sent to user')">SEND ONLINE LINK</button>`;
+}
+function paymentScreen(){
+ appbar('Payment summary','Vendor earning and settlement');noBottom();
+ $('screen').innerHTML=`<div class="hero"><h3>₹3,450</h3><p>Total payment in demo period</p></div>
+ <div class="card"><div class="row"><div class="grow"><b>Gross booking value</b></div><b>₹4,000</b></div></div>
+ <div class="card"><div class="row"><div class="grow"><b>Commission deducted</b></div><b>- ₹550</b></div></div>
+ <div class="card"><div class="row"><div class="grow"><b>Payment settled</b></div><span class="chip completed">₹2,600</span></div></div>
+ <div class="card"><div class="row"><div class="grow"><b>Payment pending</b></div><span class="chip upcoming">₹850</span></div></div>
+ <button class="full-btn ghost" onclick="toast('Settlement report generated in demo mode')">Download payment report</button>`;
+}
+function profileScreen(){
+ appbar('Profile','Vendor account and verification',false);bottom('profile');
+ $('screen').innerHTML=`<div class="profile-head"><div class="avatar">🏪</div><h3>KAKABABU Partner</h3><p>vendor@example.com • 9876543210</p><p>Dumka • Vendor ID KBV1025</p></div>
+ <div class="menu-item" onclick="toast('Profile photo picker will open in production')"><span>📷</span><div><b>CHANGE PROFILE PIC</b><small>Profile picture</small></div></div>
+ <div class="menu-item" onclick="go('kyc')"><span>🪪</span><div><b>Verify KYC — Aadhaar</b><small>${kyc?'Verified':'Verification pending'}</small></div></div>
+ <div class="menu-item" onclick="go('bank')"><span>🏦</span><div><b>Bank account</b><small>${bank?'Bank account added':'Add settlement account'}</small></div></div>
+ <div class="menu-item" onclick="go('payment')"><span>💰</span><div><b>Payment summary</b><small>Settlement and commission</small></div></div>
+ <div class="menu-item" onclick="toast('Block service date & time opened')"><span>📅</span><div><b>Block service date & time</b><small>Manage availability</small></div></div>
+ <div class="menu-item" onclick="toast('Support ticket created in demo mode')"><span>🎧</span><div><b>Customer support</b><small>Create a support ticket</small></div></div>
+ <div class="menu-item" onclick="toast('Terms & vendor policy opened')"><span>📄</span><div><b>Terms & vendor policy</b><small>KAKABABU Vendor v1.0.0</small></div></div>
+ <button class="full-btn" style="background:var(--red)" onclick="toast('Delete vendor account confirmation opened')">Delete vendor account</button>`;
+}
+function kycScreen(){
+ appbar('Verify KYC — Aadhaar','Demo identity verification');noBottom();
+ $('screen').innerHTML=`<div class="profile-head"><div class="avatar">🪪</div><h3>${kyc?'KYC Verified':'KYC Verification'}</h3><p>Aadhaar verification demo</p></div><div class="field"><label>Aadhaar number</label><input value="XXXX XXXX 1234"></div><button class="full-btn" onclick="kyc=true;toast('Demo Aadhaar KYC verified');setTimeout(()=>go('profile'),500)">VERIFY KYC</button>`;
+}
+function bankScreen(){
+ appbar('Bank account','Settlement details');noBottom();
+ $('screen').innerHTML=`<div class="field"><label>Account holder name</label><input value="KAKABABU Partner"></div><div class="field"><label>Account number</label><input value="1234567890"></div><div class="field"><label>IFSC</label><input value="DEMO0001234"></div><button class="full-btn" onclick="bank=true;toast('Demo bank details saved');setTimeout(()=>go('profile'),500)">SAVE BANK DETAILS</button>`;
+}
+function render(){({login:loginScreen,signup:signupScreen,home:homeScreen,addService:addServiceScreen,addVehicle:addVehicleScreen,status:statusScreen,past:pastScreen,online:onlineScreen,profile:profileScreen,payment:paymentScreen,kyc:kycScreen,bank:bankScreen}[current]||loginScreen)()}
+function restartDemo(){current='login';online=true;kyc=false;bank=false;render();toast('Vendor demo restarted')}
+render();
+</script>
+
+
+
+</body>
+</html>

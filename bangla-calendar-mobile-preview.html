@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Bengali Calendar Mobile App</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:Inter,Arial,sans-serif;background:#f4f6fb;color:#1d2430}
+body{display:flex;flex-direction:column}
+.status{height:30px;flex:0 0 30px;background:#fff;position:relative;display:flex;align-items:center;justify-content:space-between;padding:0 12px;font-size:11px;font-weight:900}
+.notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:108px;height:18px;background:#18212c;border-radius:0 0 12px 12px}
+.icons{display:flex;gap:4px;align-items:center}.battery{width:8px;height:13px;border:1.5px solid #18212c;border-radius:2px;position:relative}.battery:after{content:"";position:absolute;inset:1px;background:#2cc84d;border-radius:1px}.battery:before{content:"";position:absolute;right:-3px;top:3px;width:2px;height:5px;background:#18212c}
+.app{flex:1;min-height:0;position:relative;background:#f4f6fb;overflow:hidden}
+.topbar{height:70px;background:#fff;border-bottom:1px solid #e6eaf0;display:flex;align-items:center;justify-content:space-between;padding:0 14px}
+.topbar .left{display:flex;align-items:center;gap:10px}.menu{width:38px;height:38px;border:0;border-radius:50%;background:#fff1f3;color:#c62828;font-size:20px}.brand b{display:block;font-size:16px}.brand small{font-size:9px;color:#7b818b}.loc{border:0;background:#fff1f3;color:#c62828;padding:7px 9px;border-radius:999px;font-size:10px;font-weight:800}
+.content{position:absolute;left:0;right:0;top:70px;bottom:68px;overflow-y:auto;scrollbar-width:none;padding:14px}.content::-webkit-scrollbar{display:none}
+.hero{background:linear-gradient(135deg,#c62828,#ff6b6b);color:#fff;border-radius:22px;padding:18px;box-shadow:0 10px 28px #c6282830;position:relative;overflow:hidden}
+.hero .eyebrow{font-size:10px;opacity:.85}.bigdate{font-size:34px;font-weight:900;margin:5px 0}.hero p{margin:0;font-size:11px;line-height:1.6}.avatar{position:absolute;right:14px;bottom:12px;width:72px;height:84px;border-radius:18px;background:linear-gradient(#ffecb3,#ffcc80);display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:6px}.head{width:35px;height:35px;border-radius:50%;background:#8d6e63;margin-bottom:4px}.body{width:45px;height:22px;border-radius:12px 12px 4px 4px;background:#5d4037}
+.quick{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}.q{background:#fff;border:1px solid #eceff3;border-radius:18px;padding:13px 7px;text-align:center;box-shadow:0 6px 18px #0000000c}.q .ic{width:48px;height:48px;border-radius:50%;margin:auto auto 7px;background:linear-gradient(135deg,#c62828,#ff6b6b);display:grid;place-items:center;color:#fff;font-size:20px}.q b{font-size:11px}
+.card{margin-top:12px;background:#fff;border:1px solid #eaedf2;border-radius:18px;padding:14px;box-shadow:0 7px 20px #0000000c}.row{display:flex;align-items:center;justify-content:space-between;gap:10px}.ring{width:74px;height:74px;border-radius:50%;background:conic-gradient(#c62828 0 75%,#f4cbd2 75%);display:grid;place-items:center;position:relative;flex:0 0 74px}.ring:after{content:"";position:absolute;inset:9px;background:#fff;border-radius:50%}.ring b{position:relative;z-index:2;color:#c62828;font-size:13px}.card h3{margin:0 0 5px;font-size:13px}.card p{margin:0;font-size:10px;color:#6f7782;line-height:1.5}
+.section-title{display:flex;justify-content:space-between;align-items:center;margin:15px 1px 8px}.section-title b{font-size:13px}.section-title button{border:0;background:transparent;color:#c62828;font-size:10px;font-weight:900}
+.people{display:flex;gap:9px;overflow-x:auto;scrollbar-width:none}.people::-webkit-scrollbar{display:none}.person{min-width:165px;background:#fff;border:1px solid #eaedf2;border-radius:15px;padding:9px}.person .pic{height:82px;border-radius:12px;background:linear-gradient(135deg,#fff0f3,#ffe0e5);display:grid;place-items:center;font-size:38px}.person b{display:block;font-size:10px;margin-top:6px}.person small{font-size:8px;color:#777}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px}.list{background:#fff;border:1px solid #eaedf2;border-radius:14px;padding:11px;font-size:11px;font-weight:750}
+.page{display:none}.page.active{display:block}
+.bottom{position:absolute;left:0;right:0;bottom:0;height:68px;background:#fff;border-top:1px solid #e3e7ed;display:flex;justify-content:space-around;align-items:center}.bottom button{border:0;background:transparent;color:#969ca4;font-size:9px;min-width:58px}.bottom button span{display:block;font-size:18px;margin-bottom:2px}.bottom button.active{color:#c62828;font-weight:900}
+.drawerOverlay{position:absolute;inset:0;background:#0006;z-index:50;display:none}.drawerOverlay.show{display:block}.drawer{position:absolute;top:0;bottom:0;left:0;width:82%;background:#fff;z-index:51;transform:translateX(-102%);transition:.22s;padding:16px;overflow:auto}.drawer.open{transform:translateX(0)}.drawerHead{background:linear-gradient(135deg,#c62828,#ff6b6b);color:#fff;border-radius:18px;padding:16px;margin-bottom:10px}.drawer button{width:100%;text-align:left;border:0;background:#fff;padding:11px;border-radius:10px;font-weight:800;color:#2f343b}.drawer button:active{background:#fff2f4}
+.sheet{position:absolute;left:12px;right:12px;bottom:80px;background:#fff;border-radius:18px;padding:15px;box-shadow:0 20px 60px #0004;z-index:70;transform:translateY(140%);transition:.22s}.sheet.open{transform:translateY(0)}.sheet h3{margin:0 0 6px}.sheet p{margin:0;color:#727984;font-size:11px;line-height:1.5}.sheet .ok{margin-top:12px;width:100%;border:0;background:#c62828;color:#fff;padding:10px;border-radius:10px;font-weight:900}
+</style>
+
+<style id="mobile-scroll-bottom-fix">
+html,body,.app{
+  overscroll-behavior:none!important;
+}
+.content{
+  overscroll-behavior:contain!important;
+  -webkit-overflow-scrolling:touch;
+  padding-bottom:16px!important;
+}
+
+/* Bottom navigation always clean and above content */
+.bottom{
+  z-index:30!important;
+  overflow:hidden!important;
+  border-radius:0 0 26px 26px!important;
+}
+
+/* The hidden sheet must be 100% outside the visible phone.
+   Previously a white/red piece could remain visible at the bottom. */
+.sheet{
+  transform:translateY(calc(100% + 140px))!important;
+  opacity:0!important;
+  visibility:hidden!important;
+  pointer-events:none!important;
+}
+.sheet.open{
+  transform:translateY(0)!important;
+  opacity:1!important;
+  visibility:visible!important;
+  pointer-events:auto!important;
+}
+
+/* clip every UI layer to the phone screen */
+.app{
+  overflow:hidden!important;
+  border-radius:0 0 27px 27px!important;
+}
+</style>
+
+
+<style id="final-internal-app-scroll">
+html,body{
+  width:100%!important;height:100%!important;
+  overflow:hidden!important;
+  overscroll-behavior:none!important;
+}
+body{touch-action:none!important}
+.app{
+  height:calc(100% - 30px)!important;
+  min-height:0!important;
+  overflow:hidden!important;
+}
+.content{
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+  overscroll-behavior:none!important;
+  touch-action:pan-y!important;
+  -webkit-overflow-scrolling:touch!important;
+  scrollbar-width:none!important;
+}
+.content::-webkit-scrollbar{display:none!important}
+.status,.topbar,.bottom{
+  flex-shrink:0!important;
+}
+.bottom{
+  position:absolute!important;
+  bottom:0!important;
+  left:0!important;
+  right:0!important;
+}
+</style>
+
+</head>
+<body>
+<div class="status"><span>9:41</span><span class="notch"></span><span class="icons">••• 4G <i class="battery"></i></span></div>
+<div class="app">
+ <div class="topbar">
+  <div class="left"><button class="menu" onclick="openDrawer()">☰</button><div class="brand"><b>বঙ্গ ক্যালেন্ডার</b><small>বাংলা পঞ্জিকা</small></div></div>
+  <button class="loc" onclick="showSheet('অবস্থান','ভারতীয় সময় ও স্থানীয় sunrise/sunset দেখানোর demo।')">📍 কলকাতা</button>
+ </div>
+
+ <div class="content">
+  <section class="page active" id="home">
+   <div class="hero">
+    <div class="eyebrow">আজকের তারিখ</div>
+    <div class="bigdate">২১ শ্রাবণ ১৪৩৩</div>
+    <p>০৭ আগস্ট ২০২৬ • শুক্রবার<br>সূর্যোদয় ০৫:১৩ • সূর্যাস্ত ১৮:১০</p>
+    <div class="avatar"><div class="head"></div><div class="body"></div></div>
+   </div>
+   <div class="quick">
+    <button class="q" onclick="go('bangla')"><div class="ic">📅</div><b>ক্যালেন্ডার</b></button>
+    <button class="q" onclick="go('today')"><div class="ic">◉</div><b>আজ</b></button>
+    <button class="q" onclick="go('bibidh')"><div class="ic">✦</div><b>বিবিধ</b></button>
+   </div>
+   <div class="card row" onclick="showSheet('আজকের তিথি','কৃষ্ণ নবমী। পরবর্তী তিথি কৃষ্ণ দশমী।')">
+    <div class="ring"><b>৭৫%</b></div><div><h3>🌙 আজকের তিথি — কৃষ্ণ নবমী</h3><p>তিথি, নক্ষত্র, যোগ, করণ, রাহুকাল ও শুভ সময় দেখুন।</p></div>
+   </div>
+   <div class="section-title"><b>আজকের বিশেষ ব্যক্তিত্ব</b><button onclick="go('today')">সব দেখুন</button></div>
+   <div class="people">
+    <div class="person" onclick="showSheet('আজকের জন্মদিন','আজকের দিনে জন্ম নেওয়া বিশিষ্ট ব্যক্তির ছবি, জীবন ও অবদান।')"><div class="pic">🎂</div><b>আজকের জন্মদিন</b><small>বিশিষ্ট ব্যক্তিত্ব</small></div>
+    <div class="person" onclick="showSheet('আজকের মৃত্যুদিন','আজকের দিনে প্রয়াত স্মরণীয় ব্যক্তির পরিচিতি।')"><div class="pic">🕯️</div><b>আজকের মৃত্যুদিন</b><small>স্মরণীয় ব্যক্তিত্ব</small></div>
+    <div class="person" onclick="showSheet('খেলোয়াড়','আজকের উল্লেখযোগ্য ভারতীয় খেলোয়াড় ও অর্জন।')"><div class="pic">🏅</div><b>খেলোয়াড়</b><small>আজকের তারকা</small></div>
+   </div>
+  </section>
+
+  <section class="page" id="bangla">
+   <div class="card"><h3>📅 বাংলা ক্যালেন্ডার — শ্রাবণ ১৪৩৩</h3><p>বাংলা তারিখ, তিথি ও উৎসবসহ মাসিক calendar preview।</p></div>
+   <div class="grid2" style="margin-top:10px">
+    <div class="list">রবি<br><b>১৮</b></div><div class="list">সোম<br><b>১৯</b></div><div class="list">মঙ্গল<br><b>২০</b></div><div class="list" style="border-color:#c62828;color:#c62828">বুধ<br><b>২১</b></div>
+    <div class="list">বৃহঃ<br><b>২২</b></div><div class="list">শুক্র<br><b>২৩</b></div><div class="list">শনি<br><b>২৪</b></div><div class="list">রবি<br><b>২৫</b></div>
+   </div>
+  </section>
+
+  <section class="page" id="today">
+   <div class="card"><h3>◉ আজকের সম্পূর্ণ তথ্য</h3><p>বাংলা/ইংরেজি তারিখ, তিথি, নক্ষত্র, sunrise/sunset, শুভ সময় ও আজকের বিশেষ দিন।</p></div>
+   <div class="card"><h3>📜 আজকের ইতিহাস</h3><p>জন্মদিন, মৃত্যুদিন, মহাপুরুষ, বিজ্ঞানী, সাহিত্যিক ও খেলোয়াড়ের daily content।</p></div>
+   <div class="card"><h3>🌙 পঞ্জিকা</h3><p>তিথি: কৃষ্ণ নবমী<br>নক্ষত্র: রোহিণী<br>রাহুকাল: 07:30–09:00<br>শুভ সময়: 10:25–11:40</p></div>
+  </section>
+
+  <section class="page" id="bibidh">
+   <div class="section-title"><b>বিবিধ</b></div>
+   <div class="grid2">
+    <button class="list" onclick="showSheet('উৎসব ও ছুটি','পূজা-পার্বণ, সরকারি ও ঐচ্ছিক ছুটির তালিকা।')">🎉 উৎসব ও ছুটি</button>
+    <button class="list" onclick="showSheet('একাদশী / পূর্ণিমা','একাদশী, পূর্ণিমা, অমাবস্যা ও ব্রত।')">🙏 একাদশী / পূর্ণিমা</button>
+    <button class="list" onclick="showSheet('রাশিফল','১২ রাশির দৈনিক রাশিফল।')">⭐ রাশিফল</button>
+    <button class="list" onclick="showSheet('রিমাইন্ডার','উৎসব ও ব্যক্তিগত reminder preview।')">🔔 Reminder</button>
+    <button class="list" onclick="showSheet('নোট','Personal notes save করার preview।')">📝 Notes</button>
+    <button class="list" onclick="showSheet('Favorites','Saved items/bookmarks preview।')">🔖 Favorites</button>
+    <button class="list" onclick="showSheet('Search','Calendar, festival, tithi search preview।')">🔎 Search</button>
+    <button class="list" onclick="showSheet('Share App','Native share flow production app-এ connect হবে।')">↗ Share App</button>
+   </div>
+  </section>
+
+  <section class="page" id="settings">
+   <div class="card"><h3>⚙ সেটিংস</h3><p>ভাষা, অবস্থান, notification, dark mode ও app preferences।</p></div>
+   <div class="card"><div class="row"><b>ভাষা</b><span>বাংলা ›</span></div></div>
+   <div class="card"><div class="row"><b>অবস্থান</b><span>কলকাতা ›</span></div></div>
+   <div class="card"><div class="row"><b>নোটিফিকেশন</b><span>On ›</span></div></div>
+   <div class="card"><div class="row"><b>ডার্ক মোড</b><span>Off ›</span></div></div>
+  </section>
+ </div>
+
+ <nav class="bottom">
+  <button class="active" data-page="home" onclick="go('home')"><span>◉</span>এক নজরে</button>
+  <button data-page="bangla" onclick="go('bangla')"><span>বা</span>বাংলা</button>
+  <button data-page="today" onclick="go('today')"><span>En</span>ইংরেজী</button>
+  <button data-page="bibidh" onclick="go('bibidh')"><span>✦</span>বিবিধ</button>
+  <button data-page="settings" onclick="go('settings')"><span>⚙</span>সেটিংস</button>
+ </nav>
+
+ <div class="drawerOverlay" id="ov" onclick="closeDrawer()"></div>
+ <aside class="drawer" id="drawer">
+  <div class="drawerHead"><b style="font-size:18px">বঙ্গ ক্যালেন্ডার</b><br><small>Interactive Mobile Preview</small></div>
+  <button onclick="go('home');closeDrawer()">🏠 এক নজরে</button>
+  <button onclick="go('bangla');closeDrawer()">📅 বাংলা ক্যালেন্ডার</button>
+  <button onclick="go('today');closeDrawer()">🗓 আজকের তথ্য</button>
+  <button onclick="go('bibidh');closeDrawer()">✦ বিবিধ</button>
+  <button onclick="go('settings');closeDrawer()">⚙ সেটিংস</button>
+  <button onclick="showSheet('উৎসব ও ছুটি','Festival & Holiday preview');closeDrawer()">🎉 উৎসব ও ছুটি</button>
+  <button onclick="showSheet('রিমাইন্ডার','Reminder preview');closeDrawer()">🔔 Reminder</button>
+  <button onclick="showSheet('About','Bengali Calendar client interactive demo.');closeDrawer()">ℹ About</button>
+ </aside>
+
+ <div class="sheet" id="sheet"><h3 id="st"></h3><p id="sp"></p><button class="ok" onclick="closeSheet()">ঠিক আছে</button></div>
+</div>
+<script>
+function go(id){
+ document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+ document.querySelectorAll('.bottom button').forEach(x=>x.classList.toggle('active',x.dataset.page===id));
+ document.querySelector('.content').scrollTop=0;
+}
+function openDrawer(){drawer.classList.add('open');ov.classList.add('show')}
+function closeDrawer(){drawer.classList.remove('open');ov.classList.remove('show')}
+function showSheet(t,p){st.textContent=t;sp.textContent=p;sheet.classList.add('open')}
+function closeSheet(){sheet.classList.remove('open')}
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,263 @@
+<!doctype html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>KAKABABU Project Review v2</title><meta name="robots" content="noindex,nofollow"><script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script><style>body{margin:0;font-family:Arial;background:#f4f7fb;color:#172033}.wrap{max-width:1100px;margin:auto;padding:20px}.hero{background:linear-gradient(135deg,#0e3f78,#2f80ed);color:#fff;padding:34px 20px;border-radius:22px;text-align:center}.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:20px}.card,.form{background:#fff;border-radius:18px;padding:22px;box-shadow:0 8px 24px #00000012}.qr{width:180px}.btn{display:inline-block;background:#1456a0;color:#fff;padding:13px 18px;border-radius:10px;text-decoration:none;font-weight:700}.section{border:1px solid #e5e9f0;border-radius:14px;padding:16px;margin-top:14px}.fg{display:grid;grid-template-columns:1fr 1fr;gap:12px}label{font-weight:700;font-size:13px;display:block;margin-bottom:6px}input,select,textarea{width:100%;padding:10px;border:1px solid #d9e0ea;border-radius:9px;box-sizing:border-box}textarea{min-height:95px}.full{grid-column:1/-1}.checks{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.check{background:#f8fafc;padding:9px;border-radius:9px}.submit{margin-top:16px;background:#1456a0;color:white;border:0;padding:14px 18px;border-radius:10px;font-weight:700;cursor:pointer}.note{background:#fff7df;border:1px solid #efd58b;padding:14px;border-radius:12px;margin-top:18px}@media(max-width:750px){.grid,.fg{grid-template-columns:1fr}.checks{grid-template-columns:1fr 1fr}}</style><script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script><script>const dacFb={apiKey:"AIzaSyAPX-F-CpUVmyn_RlF8My6pzY_QGM4XunU",authDomain:"digital-agency-by-chandan-das.firebaseapp.com",projectId:"digital-agency-by-chandan-das",storageBucket:"digital-agency-by-chandan-das.firebasestorage.app",messagingSenderId:"576373782793",appId:"1:576373782793:web:7ddd852c3c90d78acd7bd8"};if(!firebase.apps.length)firebase.initializeApp(dacFb);const feedbackDb=firebase.firestore();</script>
+<style id="feedback-submit-status-css">
+.submit-status{display:none;margin-top:14px;padding:13px 15px;border-radius:11px;font-weight:700;line-height:1.5}
+.submit-status.show{display:block}
+.submit-status.loading{background:#eaf4ff;color:#0b579f;border:1px solid #9cc8f2}
+.submit-status.success{background:#e8fff2;color:#087443;border:1px solid #8ddcb5}
+.submit-status.error{background:#fff0f0;color:#b42318;border:1px solid #f3aaa5}
+button[disabled]{opacity:.65;cursor:not-allowed}
+</style>
+
+<style id="kakababu-secure-gate-css">
+#kakaSecureGate{position:fixed;inset:0;z-index:999999;background:linear-gradient(135deg,#071322,#123963);display:flex;align-items:center;justify-content:center;padding:18px;font-family:Arial,Helvetica,sans-serif}
+#kakaSecureGate .gate-card{width:min(440px,100%);background:#fff;border-radius:24px;padding:30px;box-shadow:0 28px 80px rgba(0,0,0,.38);text-align:center}
+#kakaSecureGate .brand-mark{width:82px;height:82px;border-radius:22px;margin:0 auto 15px;display:grid;place-items:center;background:linear-gradient(135deg,#1256a0,#2d83df);color:#fff;font-size:30px;font-weight:900}
+#kakaSecureGate h1{margin:0 0 6px;color:#172235;font-size:25px}
+#kakaSecureGate .brand-line{font-weight:900;color:#1256a0;margin-bottom:8px}
+#kakaSecureGate p{margin:0 0 18px;color:#687489;line-height:1.55}
+#kakaSecureGate input{width:100%;border:1px solid #d5dfeb;border-radius:12px;padding:14px;text-align:center;font-size:21px;letter-spacing:7px;outline:none}
+#kakaSecureGate input:focus{border-color:#2d83df;box-shadow:0 0 0 3px #2d83df22}
+#kakaSecureGate button{width:100%;border:0;border-radius:12px;padding:14px;margin-top:12px;background:linear-gradient(135deg,#1256a0,#2d83df);color:#fff;font-size:16px;font-weight:900;cursor:pointer}
+#kakaSecureGate .gate-error{min-height:20px;margin-top:10px;color:#c62828;font-weight:800;font-size:13px}
+#kakaProtectedContent{display:none}
+.kaka-brand-banner{background:linear-gradient(135deg,#071322,#123963);color:#fff;padding:14px 18px;text-align:center;border-bottom:1px solid #ffffff22}
+.kaka-brand-banner strong{display:block;font-size:20px;letter-spacing:.2px}
+.kaka-brand-banner span{display:block;margin-top:4px;color:#c7dcf3;font-size:12px}
+</style>
+
+
+<style id="kaka-v2-polish">
+:root{--v2blue:#1459a6;--v2blue2:#2f80ed;--v2ink:#132238;--v2muted:#66768a;--v2line:#dce6f1}
+html{scroll-behavior:smooth}body{background:linear-gradient(180deg,#edf4fb 0,#f8fbff 48%,#eef4fb 100%)!important}
+.kaka-v2-loader{position:fixed;inset:0;z-index:1000000;background:linear-gradient(135deg,#071322,#123963);display:grid;place-items:center;transition:opacity .35s,visibility .35s}
+.kaka-v2-loader.hide{opacity:0;visibility:hidden}.kaka-v2-loader-card{text-align:center;color:#fff}.kaka-v2-spinner{width:58px;height:58px;border:5px solid #ffffff35;border-top-color:#fff;border-radius:50%;animation:kakaSpin .8s linear infinite;margin:0 auto 14px}@keyframes kakaSpin{to{transform:rotate(360deg)}}
+.kaka-v2-topline{background:linear-gradient(135deg,#071a31,#174c82);color:#fff;padding:12px 18px;text-align:center;box-shadow:0 8px 24px #173b611c}.kaka-v2-topline strong{display:block;font-size:20px}.kaka-v2-topline span{display:block;color:#c9ddf2;font-size:12px;margin-top:3px}
+#kakababuProjectChoices{border:1px solid #dce6f1!important;box-shadow:0 18px 48px #20476c16!important;background:linear-gradient(180deg,#fff,#f9fcff)!important}
+#kakababuProjectChoices .btn{min-width:210px;margin:5px;box-shadow:0 10px 25px #1456a024;transition:.2s ease}#kakababuProjectChoices .btn:hover{transform:translateY(-2px);box-shadow:0 14px 30px #1456a035}
+.kaka-v2-status{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:14px}.kaka-v2-status span{padding:7px 10px;border-radius:999px;background:#e8f8ef;color:#08794c;font-size:11px;font-weight:800;border:1px solid #bfe8d2}
+.form{border:1px solid #dce6f1!important;box-shadow:0 18px 45px #244b7612!important}.section{background:#fbfdff}.submit{box-shadow:0 10px 24px #1456a02c;transition:.2s}.submit:hover{transform:translateY(-1px)}
+@media(max-width:700px){.kaka-v2-topline strong{font-size:17px}#kakababuProjectChoices .btn{display:block;width:100%;margin:8px 0}}
+</style>
+
+<script id="client-main-url-only-guard">
+(function(){
+  const main="CLIENT-KOL-2026-ID483921.html";
+  const unlocked=sessionStorage.getItem("client483921Unlocked")==="yes";
+  const project=sessionStorage.getItem("client483921Project");
+  if(!unlocked || project!=="kakababu"){
+    location.replace(main);
+  }
+})();
+</script>
+
+
+<style id="client-dashboard-back-css">
+.client-dashboard-back{
+  position:fixed;top:12px;left:12px;z-index:9998;
+  padding:11px 14px;border-radius:11px;
+  background:#155aa8;color:#fff;text-decoration:none;
+  font-weight:900;box-shadow:0 10px 24px rgba(21,90,168,.25)
+}
+@media(max-width:700px){
+  .client-dashboard-back{position:static;display:block;margin:10px 12px;text-align:center}
+}
+</style>
+
+</head><body><a class="client-dashboard-back" href="CLIENT-KOL-2026-ID483921.html">← Back to Client Dashboard</a><div class="kaka-v2-loader" id="kakaV2Loader"><div class="kaka-v2-loader-card"><div class="kaka-v2-spinner"></div><b>KAKABABU Project Preview</b><div style="margin-top:5px;font-size:12px;color:#c9ddf2">Loading secure client demo...</div></div></div>
+
+<div id="kakaSecureGate">
+  <div class="gate-card">
+    <div class="brand-mark">DA</div>
+    <div class="brand-line">Digital Agency by Chandan Das</div>
+    <h1>KAKABABU Project Review</h1>
+    <p>Secure client project preview দেখতে Access PIN লিখুন।</p>
+    <form id="kakaPinForm">
+      <input id="kakaPinInput" type="password" inputmode="numeric" maxlength="8" autocomplete="off" placeholder="Enter PIN" required>
+      <button type="submit">Unlock Project Demo</button>
+      <div id="kakaPinError" class="gate-error"></div>
+    </form>
+  </div>
+</div>
+<div id="kakaProtectedContent">
+
+<div class="kaka-brand-banner">
+  <strong>Digital Agency by Chandan Das</strong>
+  <span>Independent Freelance Website, Mobile App & Software Developer • Serving West Bengal & All India</span>
+</div>
+<section id="kakababuProjectChoices" class="card" style="text-align:center;margin:24px auto;max-width:1100px;padding:34px 22px;border-radius:24px">
+  <div style="font-size:58px;margin-bottom:10px">📱</div>
+  <h2 style="margin:0 0 9px;font-size:30px">KAKABABU Project Review</h2>
+  <p style="margin:0 auto 22px;max-width:760px;line-height:1.65">
+    নিচের যেকোনো option খুলে updated User App, Vendor App অথবা Admin Panel review করুন।
+  </p>
+  <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap">
+    <a class="btn" href="kakababu-user-v2.html" onclick="sessionStorage.setItem('kakaSelectedView','user')">📱 User App</a>
+    <a class="btn" href="kakababu-vendor-v2.html" onclick="sessionStorage.setItem('kakaSelectedView','vendor')">🏪 Vendor App</a>
+    <a class="btn" href="kakababu-admin-v2.html" onclick="sessionStorage.setItem('kakaSelectedView','admin')">🖥️ Admin Panel</a>
+  </div>
+<div class="kaka-v2-status"><span>✓ UI Polished</span><span>✓ Navigation Improved</span><span>✓ Mobile Responsive</span><span>✓ Review Ready</span></div></section>
+
+<main class="wrap">
+<div class="note"><b>Demo Notice:</b> এটি demo/testing version। Live database, OTP, payment, notification ও admin sync final version-এ যুক্ত হবে।</div><section class="form"><h2>📝 Client Requirement Form</h2><p>Submit করলে requirement Admin Panel-এ যাবে এবং client-এর কাছে PDF download হবে।</p><form id="f"><div class="section"><h3>Client Details</h3><div class="fg"><div><label>Client Name *</label><input id="name" required></div><div><label>Company</label><input id="company"></div><div><label>Mobile *</label><input id="mobile" required></div><div><label>Email</label><input id="email"></div></div></div><div class="section"><h3>Project Details</h3><div class="fg"><div><label>Project Name</label><input id="project" value="KAKABABU"></div><div><label>Platform</label><select id="platform"><option>Android</option><option>Android + iOS</option><option>Android + iOS + Web Admin</option></select></div><div><label>Budget</label><input id="budget"></div><div><label>Delivery Date</label><input id="date" type="date"></div></div></div><div class="section"><h3>Changes Required</h3><div class="fg"><div class="full"><label>User App Changes</label><textarea id="user"></textarea></div><div class="full"><label>Vendor App Changes</label><textarea id="vendor"></textarea></div><div class="full"><label>Admin Panel Changes</label><textarea id="admin"></textarea></div><div class="full"><label>Design Changes</label><textarea id="design"></textarea></div></div></div><div class="section"><h3>Features Needed</h3><div class="checks" id="features"><label class="check"><input type="checkbox" value="OTP Login"> OTP Login</label><label class="check"><input type="checkbox" value="Payment Gateway"> Payment</label><label class="check"><input type="checkbox" value="GPS Location"> GPS</label><label class="check"><input type="checkbox" value="Live Tracking"> Live Tracking</label><label class="check"><input type="checkbox" value="Notification"> Notification</label><label class="check"><input type="checkbox" value="Live Chat"> Live Chat</label><label class="check"><input type="checkbox" value="Multi Language"> Multi Language</label><label class="check"><input type="checkbox" value="Reports"> Reports</label><label class="check"><input type="checkbox" value="Analytics"> Analytics</label></div></div><div class="section"><h3>Reference & Extra Details</h3><div class="fg"><div><label>Priority</label><select id="priority"><option>Urgent</option><option selected>Medium</option><option>Later</option></select></div><div><label>Reference Link</label><input id="reference"></div><div class="full"><label>Extra Details / Other Requirements</label><textarea id="extra" placeholder="Business rules, future ideas, special instructions, anything else..."></textarea></div><div class="full"><label>Attachment Names</label><input id="files" type="file" multiple></div></div></div><div class="section"><label><input id="confirm" type="checkbox" required> I confirm these are my requested changes.</label></div><div id="feedbackSubmitStatus" class="submit-status"></div><button id="feedbackSubmitButton" class="submit" type="submit">📄 Submit to Admin & Download PDF</button></form></section></main><script>eval(atob('ZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignY29udGV4dG1lbnUnLGU9PmUucHJldmVudERlZmF1bHQoKSk7IGRvY3VtZW50LmFkZEV2ZW50TGlzdGVuZXIoJ2tleWRvd24nLGU9PnsgY29uc3Qgaz1lLmtleS50b0xvd2VyQ2FzZSgpOyBpZigoZS5jdHJsS2V5JiZrPT09J3UnKXx8ZS5rZXk9PT0nRjEyJ3x8KGUuY3RybEtleSYmZS5zaGlmdEtleSYmKGs9PT0naSd8fGs9PT0naid8fGs9PT0nYycpKSl7IGUucHJldmVudERlZmF1bHQoKTsgfSB9KTsgY29uc3QgcmlkPSdSRVEtJytuZXcgRGF0ZSgpLnRvSVNPU3RyaW5nKCkuc2xpY2UoMCwxMCkucmVwbGFjZUFsbCgnLScsJycpKyctJytNYXRoLmZsb29yKDEwMDArTWF0aC5yYW5kb20oKSo5MDAwKTsgY29uc3Qgdj1pZD0+KGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKGlkKT8udmFsdWV8fCcnKS50cmltKCk7IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdmJykuYWRkRXZlbnRMaXN0ZW5lcignc3VibWl0JyxlPT57IGUucHJldmVudERlZmF1bHQoKTsgaWYoIXdpbmRvdy5qc3BkZil7YWxlcnQoJ1BERiBsaWJyYXJ5IGxvYWQg4Ka54Kef4Kao4Ka/4KWkIEludGVybmV0IGNoZWNrIOCmleCmsOCngeCmqOClpCcpO3JldHVybjt9IGNvbnN0IHtqc1BERn09d2luZG93LmpzcGRmOyBjb25zdCBkPW5ldyBqc1BERigpOyBsZXQgeT0xODsgY29uc3QgbGluZT0obGFiZWwsdmFsdWUpPT57aWYoeT4yNzUpe2QuYWRkUGFnZSgpO3k9MTh9IGQuc2V0Rm9udCgnaGVsdmV0aWNhJywnYm9sZCcpO2QudGV4dChsYWJlbCsnOicsMTUseSk7ZC5zZXRGb250KCdoZWx2ZXRpY2EnLCdub3JtYWwnKTtsZXQgYT1kLnNwbGl0VGV4dFRvU2l6ZSh2YWx1ZXx8Jy0nLDEzMCk7ZC50ZXh0KGEsNjAseSk7eSs9TWF0aC5tYXgoNyxhLmxlbmd0aCo2KTt9OyBkLnNldEZvbnRTaXplKDE3KTtkLnNldEZvbnQoJ2hlbHZldGljYScsJ2JvbGQnKTtkLnRleHQoJ0tBS0FCQUJVIENMSUVOVCBSRVFVSVJFTUVOVCcsMTA1LDE1LHthbGlnbjonY2VudGVyJ30pOyBkLnNldEZvbnRTaXplKDEwKTtkLnNldEZvbnQoJ2hlbHZldGljYScsJ25vcm1hbCcpO2QudGV4dCgnRGlnaXRhbCBBZ2VuY3kgYnkgQ2hhbmRhbiBEYXMgfCAnK3JpZCwxMDUsMjIse2FsaWduOidjZW50ZXInfSk7eT0zMjsgbGluZSgnQ2xpZW50IE5hbWUnLHYoJ25hbWUnKSk7bGluZSgnQ29tcGFueScsdignY29tcGFueScpKTtsaW5lKCdNb2JpbGUnLHYoJ21vYmlsZScpKTtsaW5lKCdFbWFpbCcsdignZW1haWwnKSk7IGxpbmUoJ1Byb2plY3QnLHYoJ3Byb2plY3QnKSk7bGluZSgnUGxhdGZvcm0nLHYoJ3BsYXRmb3JtJykpO2xpbmUoJ0J1ZGdldCcsdignYnVkZ2V0JykpO2xpbmUoJ0RlbGl2ZXJ5IERhdGUnLHYoJ2RhdGUnKSk7IGxpbmUoJ1VzZXIgQXBwIENoYW5nZXMnLHYoJ3VzZXInKSk7bGluZSgnVmVuZG9yIEFwcCBDaGFuZ2VzJyx2KCd2ZW5kb3InKSk7bGluZSgnQWRtaW4gUGFuZWwgQ2hhbmdlcycsdignYWRtaW4nKSk7bGluZSgnRGVzaWduIENoYW5nZXMnLHYoJ2Rlc2lnbicpKTsgY29uc3QgZnM9Wy4uLmRvY3VtZW50LnF1ZXJ5U2VsZWN0b3JBbGwoJyNmZWF0dXJlcyBpbnB1dDpjaGVja2VkJyldLm1hcCh4PT54LnZhbHVlKS5qb2luKCcsICcpOyBsaW5lKCdGZWF0dXJlcycsZnMpO2xpbmUoJ1ByaW9yaXR5Jyx2KCdwcmlvcml0eScpKTtsaW5lKCdSZWZlcmVuY2UnLHYoJ3JlZmVyZW5jZScpKTtsaW5lKCdFeHRyYSBEZXRhaWxzJyx2KCdleHRyYScpKTsgY29uc3QgZm49Wy4uLmRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdmaWxlcycpLmZpbGVzXS5tYXAoeD0+eC5uYW1lKS5qb2luKCcsICcpO2xpbmUoJ0F0dGFjaG1lbnRzJyxmbik7IGQudGV4dCgnV2hhdHNBcHA6IDc1NDk0NTk3NzAgfCBDYWxsOiA5NzM1NDc0NzcwJywxMDUsMjkwLHthbGlnbjonY2VudGVyJ30pOyBkLnNhdmUoJ0tBS0FCQUJVX1JlcXVpcmVtZW50XycrKHYoJ25hbWUnKXx8J0NsaWVudCcpLnJlcGxhY2UoL1teYS16QS1aMC05Xy1dL2csJ18nKSsnLnBkZicpOyB9KTs='))</script><script>document.getElementById('f')?.addEventListener('submit',async function(){try{await feedbackDb.collection('client_feedback').add({project_name:'KAKABABU',client_name:(document.getElementById('name')?.value||'').trim(), mobile:(document.getElementById('mobile')?.value||'').trim(), company:(document.getElementById('company')?.value||'').trim(), email:(document.getElementById('email')?.value||'').trim(), project_type:(document.getElementById('project')?.value||'').trim(), platform:(document.getElementById('platform')?.value||'').trim(), budget:(document.getElementById('budget')?.value||'').trim(), expected_date:(document.getElementById('date')?.value||'').trim(), user_app:(document.getElementById('user')?.value||'').trim(), vendor_app:(document.getElementById('vendor')?.value||'').trim(), admin_panel:(document.getElementById('admin')?.value||'').trim(), design_changes:(document.getElementById('design')?.value||'').trim(), new_features:(document.getElementById('features')?.value||'').trim(), priority:(document.getElementById('priority')?.value||'').trim(), reference:(document.getElementById('reference')?.value||'').trim(), extra:(document.getElementById('extra')?.value||'').trim(),selected_features:[],status:'New',source_page:location.pathname,created_at:firebase.firestore.FieldValue.serverTimestamp()});}catch(e){console.warn('Feedback save failed',e)}});</script>
+<script id="combined-feedback-pdf-submit">
+(function(){
+ const form=document.getElementById('f');
+ if(!form)return;
+ const get=id=>(document.getElementById(id)?.value||'').trim();
+ const selectedFeatures=()=>[...document.querySelectorAll('#features input:checked')].map(x=>x.value);
+ const statusBox=document.getElementById('feedbackSubmitStatus');
+ const button=document.getElementById('feedbackSubmitButton');
+
+ function status(type,text){
+   statusBox.className='submit-status show '+type;
+   statusBox.textContent=text;
+ }
+ function pdfLine(doc,state,label,value){
+   if(state.y>274){doc.addPage();state.y=18}
+   doc.setFont('helvetica','bold');
+   doc.text(label+':',15,state.y);
+   doc.setFont('helvetica','normal');
+   const lines=doc.splitTextToSize(value||'-',128);
+   doc.text(lines,66,state.y);
+   state.y+=Math.max(7,lines.length*6);
+ }
+ function downloadPdf(payload,requestId){
+   if(!window.jspdf)throw new Error('PDF library load হয়নি। Internet connection check করুন।');
+   const {jsPDF}=window.jspdf;
+   const doc=new jsPDF();
+   const state={y:48};
+   doc.setFillColor(20,86,160);
+   doc.roundedRect(10,10,190,27,4,4,'F');
+   doc.setTextColor(255,255,255);
+   doc.setFont('helvetica','bold');
+   doc.setFontSize(17);
+   doc.text('KAKABABU CLIENT REQUIREMENT',105,21,{align:'center'});
+   doc.setFont('helvetica','normal');
+   doc.setFontSize(9);
+   doc.text('Digital Agency by Chandan Das | '+requestId,105,29,{align:'center'});
+   doc.setTextColor(35,40,55);
+   doc.setFontSize(10);
+
+   pdfLine(doc,state,'Client Name',payload.client_name);
+   pdfLine(doc,state,'Mobile',payload.mobile);
+   pdfLine(doc,state,'Company',payload.company);
+   pdfLine(doc,state,'Email',payload.email);
+   pdfLine(doc,state,'Project',payload.project_type);
+   pdfLine(doc,state,'Platform',payload.platform);
+   pdfLine(doc,state,'Budget',payload.budget);
+   pdfLine(doc,state,'Expected Date',payload.expected_date);
+   pdfLine(doc,state,'User App Changes',payload.user_app);
+   pdfLine(doc,state,'Vendor App Changes',payload.vendor_app);
+   pdfLine(doc,state,'Admin Panel Changes',payload.admin_panel);
+   pdfLine(doc,state,'Design Changes',payload.design_changes);
+   pdfLine(doc,state,'Selected Features',payload.selected_features.join(', '));
+   pdfLine(doc,state,'Priority',payload.priority);
+   pdfLine(doc,state,'Reference',payload.reference);
+   pdfLine(doc,state,'Extra Details',payload.extra);
+   pdfLine(doc,state,'Attachments',payload.attachment_names.join(', '));
+
+   doc.setFontSize(8);
+   doc.setTextColor(95,100,115);
+   doc.text('WhatsApp: 7549459770 | Call: 9735474770',105,290,{align:'center'});
+   const safe=(payload.client_name||'Client').replace(/[^a-zA-Z0-9_-]/g,'_');
+   doc.save('KAKABABU_Requirement_'+safe+'_'+requestId+'.pdf');
+ }
+
+ form.addEventListener('submit',async function(e){
+   e.preventDefault();
+   e.stopImmediatePropagation();
+   if(!form.reportValidity())return;
+
+   button.disabled=true;
+   button.textContent='Submitting...';
+   status('loading','Feedback Admin Panel-এ পাঠানো হচ্ছে...');
+
+   const requestId='KB-'+Date.now();
+   const attachments=[...(document.getElementById('files')?.files||[])].map(f=>f.name);
+   const payload={
+     request_id:requestId,
+     project_name:'KAKABABU',
+     client_name:get('name'),
+     mobile:get('mobile'),
+     company:get('company'),
+     email:get('email'),
+     project_type:get('project'),
+     platform:get('platform'),
+     budget:get('budget'),
+     expected_date:get('date'),
+     user_app:get('user'),
+     vendor_app:get('vendor'),
+     admin_panel:get('admin'),
+     design_changes:get('design'),
+     selected_features:selectedFeatures(),
+     priority:get('priority'),
+     reference:get('reference'),
+     extra:get('extra'),
+     attachment_names:attachments,
+     status:'New',
+     source_page:location.pathname,
+     created_at:firebase.firestore.FieldValue.serverTimestamp()
+   };
+
+   try{
+     if(typeof feedbackDb==='undefined')throw new Error('Firebase connection load হয়নি।');
+     const saved=await feedbackDb.collection('client_feedback').add(payload);
+     downloadPdf({...payload,firestore_id:saved.id},requestId);
+     status('success','✅ Feedback Admin Panel-এ পৌঁছেছে এবং Requirement PDF download হয়েছে।');
+   }catch(err){
+     console.error(err);
+     status('error','❌ Submit হয়নি: '+(err.message||'Unknown error')+' আবার চেষ্টা করুন।');
+   }finally{
+     button.disabled=false;
+     button.textContent='📄 Submit to Admin & Download PDF';
+   }
+ },true);
+})();
+</script>
+
+</div>
+
+<script id="kakababu-secure-gate-js">
+(function(){
+  const EXPECTED="e609d533127c0ec82085faf4f164a2957f866ece2ac65d7401f2c7285eade435";
+  const gate=document.getElementById("kakaSecureGate");
+  const content=document.getElementById("kakaProtectedContent");
+  const form=document.getElementById("kakaPinForm");
+  const input=document.getElementById("kakaPinInput");
+  const error=document.getElementById("kakaPinError");
+
+  function unlock(){
+    gate.style.display="none";
+    content.style.display="block";
+    sessionStorage.setItem("kakababuProjectUnlocked","yes");sessionStorage.removeItem("kakaSelectedView");
+  }
+
+  if(sessionStorage.getItem("kakababuProjectUnlocked")==="yes"){
+    unlock();
+  } else {
+    setTimeout(()=>input.focus(),100);
+  }
+
+  async function sha256(text){
+    const bytes=new TextEncoder().encode(text);
+    const buffer=await crypto.subtle.digest("SHA-256",bytes);
+    return Array.from(new Uint8Array(buffer)).map(b=>b.toString(16).padStart(2,"0")).join("");
+  }
+
+  form.addEventListener("submit",async function(e){
+    e.preventDefault();
+    error.textContent="Checking...";
+    const hash=await sha256(input.value.trim());
+    if(hash===EXPECTED){
+      error.textContent="";
+      unlock();
+    }else{
+      error.textContent="Wrong PIN. আবার চেষ্টা করুন।";
+      input.value="";
+      input.focus();
+    }
+  });
+})();
+</script>
+
+<script id="kaka-v2-loader-js">window.addEventListener('load',()=>setTimeout(()=>document.getElementById('kakaV2Loader')?.classList.add('hide'),350));</script></body></html>

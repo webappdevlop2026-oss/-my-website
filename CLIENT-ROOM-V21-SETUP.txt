@@ -1,0 +1,13 @@
+CLIENT ROOM V21 — RECEPTION + CABIN PIN
+
+Flow:
+Main Client PIN → Waiting Hall → Reception Check-in → Admin assigns Cabin + 4-digit PIN → Client enters Cabin PIN → Assigned cabin opens.
+
+Cabins:
+1 Project Cabin
+2 Meeting Cabin
+3 Support Cabin
+4 Accounts Cabin
+5 Project Working Cabin — Staff Only (not assignable to clients)
+
+Upload all files to GitHub root. Then publish firestore.rules in Firebase Console.

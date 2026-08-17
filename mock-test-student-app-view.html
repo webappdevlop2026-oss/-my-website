@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mock Test Student App View</title>
+<meta name="robots" content="noindex,nofollow">
+
+<style>
+:root{--blue:#155aa8;--blue2:#2f80ed;--orange:#ff8900;--bg:#eef3f9;--ink:#172235;--muted:#687489;--line:#dbe4ef;--card:#fff;--green:#0a9d65;--red:#d64045;--purple:#7c3aed}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--ink)}
+body{overflow:hidden}
+.topbar{height:64px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 4.5vw;gap:14px}
+.brand{font-weight:900;font-size:20px}.brand small{display:block;font-size:11px;color:var(--muted);margin-top:2px}
+.top-actions{display:flex;gap:9px}.top-actions a,.top-actions button{border:0;border-radius:12px;padding:12px 15px;text-decoration:none;font-weight:800;cursor:pointer}
+.soft{background:#eaf2fb;color:#184c7f}.orange{background:var(--orange);color:#fff}
+.layout{height:calc(100vh - 64px);display:grid;grid-template-columns:minmax(330px,420px) 1fr;gap:20px;max-width:1280px;margin:auto;padding:14px 18px}
+.device-zone{display:grid;place-items:center;min-height:0}
+.phone{height:min(780px,calc(100vh - 92px));aspect-ratio:9/19.35;background:#121b26;border:9px solid #121b26;border-radius:37px;box-shadow:0 22px 52px #24364c33;overflow:hidden;position:relative}
+.phone-inner{height:100%;background:#f4f7fb;border-radius:27px;overflow:hidden;display:flex;flex-direction:column}
+.status{height:28px;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 16px;font-size:11px;font-weight:800;flex:0 0 auto}
+.appbar{background:#fff;border-bottom:1px solid #e1e7ef;padding:12px 14px;display:flex;align-items:center;gap:11px;flex:0 0 auto}
+.appbar .back{width:38px;height:38px;border-radius:50%;border:0;background:#f0f4f9;font-size:19px;cursor:pointer}
+.appbar-title{flex:1}.appbar-title h2{font-size:17px;margin:0}.appbar-title p{font-size:10px;color:var(--muted);margin:3px 0 0}
+.phone-scroll{flex:1;overflow:auto;padding:13px;scrollbar-width:thin}
+.phone-scroll::-webkit-scrollbar{width:4px}.phone-scroll::-webkit-scrollbar-thumb{background:#bdc8d5;border-radius:8px}
+.bottom-nav{background:#fff;border-top:1px solid #dce4ed;display:grid;grid-template-columns:repeat(5,1fr);flex:0 0 auto}
+.bottom-nav button{border:0;background:transparent;padding:8px 2px 7px;font-size:9px;color:#657386;cursor:pointer}.bottom-nav button b{display:block;font-size:17px;margin-bottom:2px}.bottom-nav button.active{color:var(--blue);font-weight:800}
+.hero{background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff;border-radius:18px;padding:17px;margin-bottom:12px}.hero h3{margin:0 0 5px;font-size:18px}.hero p{margin:0;font-size:11px;opacity:.9}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:11px}.stat{background:#fff;border-radius:13px;padding:12px;box-shadow:0 4px 15px #1936530d}.stat small{color:var(--muted);font-size:10px}.stat strong{display:block;font-size:20px;margin-top:5px}
+.actions-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.action{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:13px;text-align:left;cursor:pointer}.action span{font-size:24px}.action b{display:block;margin-top:7px;font-size:12px}.action small{color:var(--muted);font-size:9px}
+.section-title{font-size:14px;margin:14px 0 8px}.card{background:#fff;border-radius:14px;padding:13px;margin-bottom:9px;box-shadow:0 4px 14px #1936530b}
+.row{display:flex;align-items:center;gap:10px}.icon{width:39px;height:39px;border-radius:11px;background:#eaf3fd;display:grid;place-items:center;font-size:20px}.grow{flex:1}.row b{font-size:12px}.row small{display:block;color:var(--muted);font-size:9px;margin-top:3px}
+.chip{font-size:9px;border-radius:999px;padding:5px 8px;font-weight:800}.green{background:#dcf8ea;color:#08794c}.blue{background:#e4efff;color:#174c82}.orange-chip{background:#fff0d7;color:#a85f00}.red{background:#fee6e7;color:#a72e34}
+.btn{width:100%;border:0;border-radius:11px;padding:12px;background:var(--blue);color:#fff;font-weight:900;cursor:pointer}.btn.alt{background:#eaf2fb;color:#174c82}.btn.good{background:var(--green)}.btn.bad{background:var(--red)}
+.field{margin-bottom:10px}.field label{display:block;font-size:10px;font-weight:800;margin-bottom:5px}.field input,.field select{width:100%;border:1px solid #d5dee9;border-radius:11px;padding:10px;background:#fff;font-size:11px}
+.question{background:#fff;border-radius:14px;padding:14px}.question h3{font-size:14px;line-height:1.45;margin:0 0 12px}.option{display:flex;gap:9px;align-items:center;padding:11px;border:1px solid #dce6f1;border-radius:11px;margin-bottom:8px;cursor:pointer}.option.sel{border-color:var(--blue);background:#edf5ff}
+.palette{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:10px}.palette button{border:0;border-radius:9px;padding:8px;background:#eaf2fb;color:#174c82;font-weight:800}.palette button.answered{background:#dcf8ea;color:#08794c}.palette button.active{outline:2px solid var(--blue)}
+.timer{display:flex;justify-content:space-between;align-items:center;background:#fff;border-radius:12px;padding:10px 12px;margin-bottom:10px}.timer strong{color:var(--red)}
+.score-ring{width:110px;height:110px;border-radius:50%;margin:auto;display:grid;place-items:center;background:conic-gradient(var(--green) 0 72%,#e8edf4 72%);position:relative}.score-ring:after{content:"";width:78px;height:78px;border-radius:50%;background:#fff;position:absolute}.score-ring b{z-index:2;font-size:22px}
+.side{min-width:0;overflow:auto;padding:4px 4px 25px}.side h1{font-size:27px;margin:5px 0 4px}.side p{color:var(--muted);margin:0}
+.feature-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:14px 0}.feature{background:#fff;border:1px solid var(--line);padding:11px;border-radius:12px;font-size:11px}
+.panel-switch{display:flex;gap:8px;flex-wrap:wrap;margin:13px 0}.panel-switch button{border:0;border-radius:999px;padding:9px 13px;font-weight:900;cursor:pointer}.student-btn{background:#e7f0ff;color:#155aa8}.teacher-btn{background:#e3f7e8;color:#0d8b3c}.admin-btn{background:#efe4ff;color:#6f2abb}
+.quick{display:flex;gap:7px;flex-wrap:wrap;margin:13px 0}.quick button{border:0;border-radius:999px;padding:8px 11px;background:#eaf2fb;color:#183f68;font-weight:800;font-size:10px;cursor:pointer}
+.screen-list{display:grid;grid-template-columns:1fr 1fr;gap:8px}.screen-list button{text-align:left;border:1px solid var(--line);background:#fff;border-radius:11px;padding:11px;font-weight:800;cursor:pointer}
+.note{margin-top:15px;background:#fff5d7;border:1px solid #ecd27d;border-radius:13px;padding:13px;font-size:11px;line-height:1.55}
+.admin-web{display:none;background:#0b1220;color:#fff;border-radius:16px;overflow:hidden;margin-top:15px}.admin-web.active{display:grid;grid-template-columns:190px 1fr}.admin-menu{background:#111d31;padding:14px}.admin-menu button{width:100%;border:0;background:transparent;color:#cbd6e7;text-align:left;padding:10px;border-radius:9px;margin-bottom:5px}.admin-menu button:first-of-type{background:linear-gradient(90deg,#2563eb,#7c3aed);color:#fff}.admin-main{padding:14px}.web-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.web-stat{background:#14233a;border:1px solid #253a59;border-radius:12px;padding:12px}.web-stat small{color:#9eb0c8}.web-stat strong{display:block;font-size:21px;margin-top:4px}.web-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}.web-box{background:#111e32;border:1px solid #253a59;border-radius:12px;padding:12px}.web-item{background:#172943;border:1px solid #2b405f;border-radius:9px;padding:9px;margin-bottom:7px}
+.toast{position:absolute;left:50%;bottom:62px;transform:translateX(-50%);background:#172235;color:#fff;border-radius:999px;padding:8px 12px;font-size:10px;opacity:0;pointer-events:none;transition:.2s;z-index:20;white-space:nowrap}.toast.show{opacity:1}
+@media(max-width:780px){
+ body{overflow:auto;background:#f4f7fb}.topbar{display:none}.layout{display:block;height:100vh;padding:0}.side{display:none}.device-zone{height:100vh}.phone{height:100vh;width:100%;aspect-ratio:auto;border:0;border-radius:0;box-shadow:none}.phone-inner{border-radius:0}
+}
+</style>
+
+<style id="full-user-journey-css">
+.journey-bar{display:grid;grid-template-columns:repeat(8,1fr);gap:4px;margin:10px 0 12px}
+.journey-step{font-size:8px;text-align:center;padding:7px 2px;border-radius:8px;background:#eaf2fb;color:#174c82;font-weight:900}
+.journey-step.done{background:#dcf8ea;color:#08794c}
+.journey-step.current{background:#155aa8;color:#fff}
+.backend-card{background:#0f1b2e;color:#fff;border-radius:12px;padding:11px;margin-bottom:9px}
+.backend-card b{font-size:11px}.backend-card small{display:block;color:#abc0dc;font-size:9px;margin-top:4px;line-height:1.45}
+.auto-save{display:flex;align-items:center;justify-content:space-between;background:#e8faf2;border:1px solid #bce8d2;color:#08794c;border-radius:10px;padding:8px 10px;font-size:10px;margin-bottom:9px}
+.warning{background:#fff3d8;border:1px solid #e8c05c;color:#8a5c00;border-radius:10px;padding:9px;font-size:10px;margin-bottom:9px}
+.analysis-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
+.analysis-card{background:#fff;border:1px solid #dce6f1;border-radius:11px;padding:10px}
+.analysis-card small{display:block;color:#687489;font-size:9px}.analysis-card strong{display:block;font-size:17px;margin-top:4px}
+.topic-bar{margin:9px 0}.topic-bar b{font-size:10px}.topic-track{height:8px;background:#e7edf4;border-radius:999px;overflow:hidden;margin-top:5px}.topic-track i{display:block;height:100%;background:linear-gradient(90deg,#155aa8,#7c3aed)}
+.share-row{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:10px}.share-row button{border:0;border-radius:10px;padding:9px;background:#eaf2fb;color:#174c82;font-weight:800;font-size:9px}
+.reward-card{background:linear-gradient(135deg,#fff7d7,#ffe4a1);border:1px solid #efcf72;border-radius:13px;padding:12px;margin-bottom:9px}
+.reward-card strong{display:block;font-size:17px}.reward-card small{color:#765500}
+</style>
+
+
+
+<script id="single-pin-mocktest-guard">
+(function(){
+  const main="CLIENT-KOL-2026-ID483921.html";
+  if(sessionStorage.getItem("client483921Unlocked")!=="yes"){
+    location.replace(main);
+    return;
+  }
+  sessionStorage.setItem("client483921Project","mocktest");
+})();
+</script>
+
+
+</head>
+<body>
+<header class="topbar">
+<div class="brand">Mock Test Student App View<small>Digital Agency by Chandan Das</small></div>
+<div class="top-actions"><a class="soft" href="mock-test-project-view.html" onclick="sessionStorage.setItem('client483921Project','mocktest')">← Mock Test Home</a><button class="orange" onclick="restart()">Restart Demo</button></div>
+</header>
+<main class="layout">
+<section class="device-zone">
+<div class="phone">
+<div class="phone-inner">
+<div class="status"><span>9:41</span><span>●●● 4G 🔋</span></div>
+<div id="appbar" class="appbar"></div>
+<div id="screen" class="phone-scroll"></div>
+<div id="bottom" class="bottom-nav"></div>
+</div>
+<div id="toast" class="toast"></div>
+</div>
+</section>
+<aside class="side">
+<h1>Real App-like Project View</h1>
+<p>Mock Test Student App-এর সম্পূর্ণ Android-style interactive browser prototype।</p>
+
+<h3 style="margin-bottom:8px">Included Project Features</h3>
+<div class="feature-strip">
+<div class="feature">✅ Login & Signup</div><div class="feature">✅ Exam Selection</div><div class="feature">✅ Test Details</div>
+<div class="feature">✅ Live Timer</div><div class="feature">✅ Question Palette</div><div class="feature">✅ Auto Save Demo</div>
+<div class="feature">✅ Submit & Score</div><div class="feature">✅ Result Analysis</div><div class="feature">✅ Leaderboard</div>
+<div class="feature">✅ Referral & Rewards</div><div class="feature">✅ Teacher Panel</div><div class="feature">✅ Admin Panel Web View</div><div class="feature">✅ Mobile OTP / Google Login</div><div class="feature">✅ JWT Session Demo</div><div class="feature">✅ Anti-Cheat & Shuffle</div><div class="feature">✅ 10-Min Warning</div><div class="feature">✅ Topic Analysis</div><div class="feature">✅ Share Result Card</div>
+</div>
+
+<div class="panel-switch"><button class="student-btn" onclick="go(&quot;home&quot;)">📱 Student App</button></div>
+
+<div class="quick">
+<button onclick="go('login')">Login</button><button onclick="go('home')">Home</button><button onclick="go('exams')">Exams</button><button onclick="go('test')">Attempt Test</button><button onclick="go('result')">Result</button><button onclick="go('leaderboard')">Leaderboard</button>
+</div>
+
+<h2>All Screens</h2>
+<div class="screen-list">
+<button onclick="go('login')">Login / Register</button><button onclick="go('home')">Student Dashboard</button>
+<button onclick="go('exams')">Exam Selection</button><button onclick="go('tests')">Test List</button>
+<button onclick="go('details')">Test Details</button><button onclick="go('test')">Live Test Attempt</button>
+<button onclick="go('submit')">Submit Confirmation</button><button onclick="go('result')">Result & Analysis</button>
+<button onclick="go('leaderboard')">Leaderboard</button><button onclick="go('referral')">Referral & Rewards</button>
+
+<button onclick="go('onboarding')">Onboarding</button>
+<button onclick="go('backend')">Backend Call Preview</button>
+<button onclick="go('progress')">Progress & Badges</button>
+<button onclick="go('shareResult')">Share Result Card</button>
+
+</div>
+
+<div class="note"><b>Demo Notice:</b> Live database, OTP, payment, notification, anti-cheat এবং production scoring final version-এ backend-এর সঙ্গে connect হবে।</div>
+</aside>
+</main>
+<script>
+let page='login',q=0,timeLeft=600,answers={};let timerId=null;
+const questions=[
+ {q:'ভারতের সংবিধান কার্যকর হয় কবে?',o:['১৫ আগস্ট ১৯৪৭','২৬ জানুয়ারি ১৯৫০','২৬ নভেম্বর ১৯৪৯','২ অক্টোবর ১৯৫০'],a:1},
+ {q:'২৫ × ৪ = কত?',o:['৫০','৭৫','১০০','১২৫'],a:2},
+ {q:'পানির রাসায়নিক সংকেত কী?',o:['CO₂','H₂O','O₂','NaCl'],a:1},
+ {q:'বাংলার রাজধানী কোনটি?',o:['দুর্গাপুর','আসানসোল','কলকাতা','শিলিগুড়ি'],a:2},
+ {q:'ভারতের জাতীয় পশু কোনটি?',o:['সিংহ','বাঘ','হাতি','হরিণ'],a:1}
+];
+const $=id=>document.getElementById(id);
+function toast(t){$('toast').textContent=t;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),1600)}
+function appbar(t,s,showBack=true){
+  const backButton = showBack
+    ? '<button class="back" id="phoneBackButton">←</button>'
+    : '';
+  $('appbar').innerHTML =
+    backButton +
+    '<div class="appbar-title"><h2>' + t + '</h2><p>' + (s || '') + '</p></div>' +
+    '<button id="phoneBellButton" style="border:0;background:transparent;font-size:20px">🔔</button>';
+
+  const backEl = document.getElementById('phoneBackButton');
+  if(backEl) backEl.addEventListener('click', function(){ go('home'); });
+
+  const bellEl = document.getElementById('phoneBellButton');
+  if(bellEl) bellEl.addEventListener('click', function(){ toast('No new notification'); });
+}
+function bottom(active){const items=[['home','🏠','Home'],['exams','📚','Exams'],['test','📝','Test'],['leaderboard','🏆','Rank'],['profile','👤','Profile']];$('bottom').innerHTML=items.map(i=>`<button class="${active===i[0]?'active':''}" onclick="go('${i[0]}')"><b>${i[1]}</b>${i[2]}</button>`).join('')}
+function noBottom(){$('bottom').innerHTML=''}
+function go(p){page=p;render();$('screen').scrollTop=0}
+function login(){appbar('Mock Test App','Student Login',false);noBottom();$('screen').innerHTML=journey(0)+`<div class="hero"><h3>Prepare. Practice. Perform.</h3><p>Competitive exams-এর smart mock test platform</p></div><div class="field"><label>Mobile / Email</label><input value="student@example.com"></div><div class="field"><label>Password</label><input type="password" value="123456"></div><button class="btn" onclick="go('home')">LOGIN</button><button class="btn alt" style="margin-top:8px" onclick="go('onboarding')">REGISTER WITH OTP</button><button class="btn alt" style="margin-top:8px" onclick="toast('Google OAuth demo opened')">CONTINUE WITH GOOGLE</button><button class="btn alt" style="margin-top:8px" onclick="go('backend')">VIEW BACKEND FLOW</button>`}
+function home(){appbar('Student Dashboard','Target Exam: SSC CGL',false);bottom('home');$('screen').innerHTML=journey(1)+`<div class="hero"><h3>Hello, Student 👋</h3><p>আজকের লক্ষ্য: 1 Mock Test + 20 Questions</p></div><div class="stats"><div class="stat"><small>Daily Streak</small><strong>7 Days</strong></div><div class="stat"><small>Tests</small><strong>24</strong></div><div class="stat"><small>Avg Score</small><strong>72%</strong></div><div class="stat"><small>Rank</small><strong>#148</strong></div></div><div class="actions-grid"><button class="action" onclick="go('exams')"><span>📚</span><b>Select Exam</b><small>SSC, Railway, Banking</small></button><button class="action" onclick="go('tests')"><span>📝</span><b>Mock Tests</b><small>Recommended tests</small></button><button class="action" onclick="go('leaderboard')"><span>🏆</span><b>Leaderboard</b><small>Friends & national</small></button><button class="action" onclick="go('referral')"><span>🎁</span><b>Refer & Earn</b><small>Rewards & points</small></button></div><h3 class="section-title">Recent Tests</h3>${['SSC CGL Full Mock 01','Railway NTPC Practice Set','General Knowledge Mini Test'].map((x,i)=>`<div class="card row" onclick="go('details')"><div class="icon">${i?'📘':'📝'}</div><div class="grow"><b>${x}</b><small>${i?25:100} Questions • ${i?20:60} Minutes</small></div><span class="chip ${i?'blue':'green'}">${i?'Practice':'Free'}</span></div>`).join('')}`}
+function exams(){appbar('Select Exam','Choose target exam');bottom('exams');$('screen').innerHTML=`<div class="actions-grid">${[['SSC CGL','Graduate Level'],['SSC CHSL','10+2 Level'],['Railway NTPC','Railway Jobs'],['Banking','IBPS / SBI'],['JSSC','Jharkhand Exams'],['WBPSC','West Bengal PSC']].map(x=>`<button class="action" onclick="go('tests')"><span>📚</span><b>${x[0]}</b><small>${x[1]}</small></button>`).join('')}</div>`}
+function tests(){appbar('Available Tests','SSC CGL');bottom('exams');$('screen').innerHTML=`${[['Full Mock Test 01','100 Questions • 60 Min','Medium'],['Quantitative Aptitude','25 Questions • 20 Min','Hard'],['General Awareness','25 Questions • 15 Min','Easy']].map((x,i)=>`<div class="card"><div class="row"><div class="icon">📝</div><div class="grow"><b>${x[0]}</b><small>${x[1]}</small><small>Negative: 0.25</small></div><span class="chip ${i===1?'red':i===2?'green':'blue'}">${x[2]}</span></div><button class="btn alt" onclick="go('details')">View Details</button></div>`).join('')}`}
+function details(){appbar('Test Details','SSC CGL Full Mock 01');noBottom();$('screen').innerHTML=journey(2)+`<div class="hero"><h3>SSC CGL Full Mock 01</h3><p>Real exam pattern অনুযায়ী complete mock test</p></div><div class="stats"><div class="stat"><small>Questions</small><strong>100</strong></div><div class="stat"><small>Marks</small><strong>200</strong></div><div class="stat"><small>Duration</small><strong>60 Min</strong></div><div class="stat"><small>Negative</small><strong>-0.25</strong></div></div><div class="card"><b>Instructions</b><small style="display:block;margin-top:6px">Submit করার পরে answer পরিবর্তন করা যাবে না।</small></div><button class="btn" onclick="startTest()">START TEST</button>`}
+function startTest(){q=0;answers={};timeLeft=600;go('test');clearInterval(timerId);timerId=setInterval(()=>{timeLeft--;if(page==='test')test();if(timeLeft<=0){clearInterval(timerId);go('submit')}},1000)}
+function test(){appbar('Live Test Attempt','Question '+(q+1)+' of '+questions.length);bottom('test');let x=questions[q],m=String(Math.floor(timeLeft/60)).padStart(2,'0'),s=String(timeLeft%60).padStart(2,'0');$('screen').innerHTML=journey(3)+`<div class="auto-save"><span>☁ Auto-saved 5 seconds ago</span><span>Secure</span></div><div class="warning">🔒 Anti-cheat demo: shuffled options • tab-change detection • 10-minute warning enabled</div><div class="timer"><b>Time Remaining</b><strong>${m}:${s}</strong></div><div class="question"><h3>Q${q+1}. ${x.q}</h3>${x.o.map((o,i)=>`<div class="option ${answers[q]===i?'sel':''}" onclick="answers[${q}]=${i};test()"><b>${String.fromCharCode(65+i)}.</b> ${o}</div>`).join('')}</div><div class="palette">${questions.map((_,i)=>`<button class="${answers[i]!==undefined?'answered':''} ${i===q?'active':''}" onclick="q=${i};test()">${i+1}</button>`).join('')}</div><div class="actions-grid" style="margin-top:10px"><button class="btn alt" onclick="q=Math.max(0,q-1);test()">Previous</button><button class="btn" onclick="q=Math.min(${questions.length-1},q+1);test()">Save & Next</button></div><button class="btn bad" style="margin-top:9px" onclick="go('submit')">SUBMIT TEST</button>`}
+function submit(){appbar('Submit Test','Final confirmation');noBottom();let a=Object.keys(answers).length;$('screen').innerHTML=journey(4)+`<div class="hero"><h3>Submit Confirmation</h3><p>Submit করার পরে re-attempt করা যাবে না।</p></div><div class="stats"><div class="stat"><small>Answered</small><strong>${a}</strong></div><div class="stat"><small>Skipped</small><strong>${questions.length-a}</strong></div></div><button class="btn good" onclick="clearInterval(timerId);go('result')">CONFIRM SUBMIT</button><button class="btn alt" style="margin-top:8px" onclick="go('test')">BACK TO TEST</button>`}
+function score(){let c=0,w=0;questions.forEach((x,i)=>{if(answers[i]===x.a)c++;else if(answers[i]!==undefined)w++});return {c,w,s:c*2-w*.25}}
+function result(){appbar('Result & Analysis','SSC CGL Full Mock 01');noBottom();let r=score(),pct=Math.round(r.c/questions.length*100);$('screen').innerHTML=journey(5)+`<div class="score-ring"><b>${pct}%</b></div><h3 style="text-align:center">Score: ${r.s.toFixed(2)} / 10</h3><div class="stats"><div class="stat"><small>Correct</small><strong>${r.c}</strong></div><div class="stat"><small>Wrong</small><strong>${r.w}</strong></div><div class="stat"><small>Skipped</small><strong>${questions.length-r.c-r.w}</strong></div><div class="stat"><small>Percentile</small><strong>82.4</strong></div></div><button class="btn" onclick="go('leaderboard')">VIEW LEADERBOARD</button>
+<div class="card"><b>Detailed Analysis</b>
+<div class="topic-bar"><b>Mathematics</b><div class="topic-track"><i style="width:82%"></i></div></div>
+<div class="topic-bar"><b>Reasoning</b><div class="topic-track"><i style="width:74%"></i></div></div>
+<div class="topic-bar"><b>General Awareness — Practice More</b><div class="topic-track"><i style="width:48%"></i></div></div>
+<small style="display:block;margin-top:8px">Average time/question: 42 sec • Topper average: 31 sec</small></div>
+<button class="btn alt" onclick="go('progress')">VIEW PROGRESS & BADGES</button>
+<button class="btn alt" style="margin-top:8px" onclick="go('shareResult')">SHARE RESULT CARD</button>
+`}
+function leaderboard(){appbar('Leaderboard','SSC CGL Mock 01');bottom('leaderboard');$('screen').innerHTML=journey(6)+`<div class="hero"><h3>Your Rank</h3><p style="font-size:30px;font-weight:900;margin-top:7px">#148</p><p>National Rank • Percentile 82.4</p></div>${[['1','Aman Kumar','98%'],['2','Riya Sharma','96%'],['3','Sourav Das','94%'],['148','You','72%']].map((x,i)=>`<div class="card row"><div class="icon">${i<3?'🏆':'👤'}</div><div class="grow"><b>#${x[0]} ${x[1]}</b><small>Score: ${x[2]}</small></div><span class="chip ${i<3?'orange-chip':'blue'}">${i<3?'Topper':'You'}</span></div>`).join('')}`}
+function referral(){appbar('Referral & Rewards','Invite friends');noBottom();$('screen').innerHTML=journey(7)+`<div class="hero"><h3>Your Referral Code</h3><p style="font-size:24px;font-weight:900;margin-top:8px">TEST4839</p></div><div class="actions-grid"><button class="action"><span>🎁</span><b>+100 Points</b><small>Friend joins</small></button><button class="action"><span>⭐</span><b>3 Days Premium</b><small>Friend active</small></button><button class="action"><span>💸</span><b>10% Discount</b><small>Next purchase</small></button><button class="action"><span>🏅</span><b>Exclusive Badge</b><small>5 referrals</small></button></div><div class="reward-card"><strong>+100 Points</strong><small>Friend joins and becomes active</small></div><div class="reward-card"><strong>3 Days Premium</strong><small>Successful referral reward</small></div><div class="reward-card"><strong>10% Discount</strong><small>Applicable on next premium purchase</small></div><button class="btn" style="margin-top:12px" onclick="toast('Share options opened: WhatsApp, Telegram, Email')">SHARE REFERRAL LINK</button>`}
+function teacher(){appbar('Teacher Panel','Question & Test Management');noBottom();$('screen').innerHTML=`<div class="stats"><div class="stat"><small>Questions</small><strong>1,250</strong></div><div class="stat"><small>Tests</small><strong>48</strong></div><div class="stat"><small>Students</small><strong>620</strong></div><div class="stat"><small>Avg Score</small><strong>71%</strong></div></div><div class="actions-grid">${[['➕','Add Question'],['📤','Bulk Upload'],['📝','Create Test'],['📄','PDF Notes'],['📊','Student Results'],['📈','Reports']].map(x=>`<button class="action" onclick="toast('${x[1]} opened')"><span>${x[0]}</span><b>${x[1]}</b></button>`).join('')}</div>`}
+function profile(){appbar('Student Profile','Account & Progress',false);bottom('profile');$('screen').innerHTML=`<div class="hero"><h3>Student Name</h3><p>SSC CGL Aspirant • Kolkata</p></div>${['Edit Profile','My Progress','Saved Tests','Purchased Tests','Notification Settings','Language','Help & Support'].map(x=>`<div class="card row"><div class="icon">⚙️</div><div class="grow"><b>${x}</b><small>Open ${x}</small></div></div>`).join('')}`}
+
+function journey(current){
+  const steps=['Login','Exam','Test','Attempt','Submit','Analysis','Rank','Rewards'];
+  return '<div class="journey-bar">'+steps.map((s,i)=>'<div class="journey-step '+(i<current?'done':i===current?'current':'')+'">'+(i+1)+'<br>'+s+'</div>').join('')+'</div>';
+}
+function onboarding(){
+  appbar('Welcome to Mock Test','Onboarding & Target Setup',false);noBottom();
+  $('screen').innerHTML=journey(0)+`
+  <div class="hero"><h3>Start Your Preparation</h3><p>Class, target exam এবং preferred language নির্বাচন করুন।</p></div>
+  <div class="field"><label>Student Name</label><input value="Student Name"></div>
+  <div class="field"><label>Class / Education</label><select><option>Graduation</option><option>Class 10</option><option>Class 12</option></select></div>
+  <div class="field"><label>Target Exam</label><select><option>SSC CGL</option><option>Railway NTPC</option><option>Banking</option><option>Other</option></select></div>
+  <div class="field"><label>Login Method</label><select><option>Mobile OTP</option><option>Google OAuth</option><option>Email + Password</option></select></div>
+  <button class="btn" onclick="go('home')">SAVE & CONTINUE</button>`;
+}
+function backend(){
+  appbar('Backend Flow Preview','API & security demo');noBottom();
+  $('screen').innerHTML=journey(1)+`
+  <div class="backend-card"><b>POST /api/auth/register</b><small>Creates user record → OTP verification → JWT token stored securely.</small></div>
+  <div class="backend-card"><b>GET /api/dashboard</b><small>Returns personalised streak, tests, rank and recommendations.</small></div>
+  <div class="backend-card"><b>GET /api/tests</b><small>Loads filtered exam/subject test list.</small></div>
+  <div class="backend-card"><b>POST /api/attempts</b><small>Creates attempt ID and starts secure test session.</small></div>
+  <div class="backend-card"><b>PATCH /api/attempts/:id/answers</b><small>Auto-saves partial answers every 30 seconds.</small></div>
+  <div class="backend-card"><b>POST /api/attempts/:id/submit</b><small>Validates user and attempt, prevents re-submission, queues scoring.</small></div>
+  <button class="btn" onclick="go('home')">BACK TO APP</button>`;
+}
+function progress(){
+  appbar('Progress & Badges','Learning analytics');noBottom();
+  $('screen').innerHTML=journey(6)+`
+  <div class="hero"><h3>Weekly Progress</h3><p>Score, accuracy, streak and weak-topic tracking</p></div>
+  <div class="analysis-grid">
+    <div class="analysis-card"><small>Weekly Score</small><strong>78%</strong></div>
+    <div class="analysis-card"><small>Current Streak</small><strong>7 Days</strong></div>
+    <div class="analysis-card"><small>XP Points</small><strong>1,250</strong></div>
+    <div class="analysis-card"><small>Badges</small><strong>6</strong></div>
+  </div>
+  <div class="card"><div class="topic-bar"><b>Mathematics</b><div class="topic-track"><i style="width:84%"></i></div></div>
+  <div class="topic-bar"><b>Reasoning</b><div class="topic-track"><i style="width:76%"></i></div></div>
+  <div class="topic-bar"><b>General Awareness</b><div class="topic-track"><i style="width:52%"></i></div></div></div>
+  <div class="reward-card"><strong>🏅 Accuracy Master</strong><small>80%+ accuracy in 5 tests</small></div>
+  <div class="reward-card"><strong>🔥 7-Day Streak</strong><small>Completed daily practice for seven days</small></div>`;
+}
+function shareResult(){
+  appbar('Share Result','Result card preview');noBottom();
+  $('screen').innerHTML=journey(7)+`
+  <div class="hero"><h3>SSC CGL Mock Test</h3><p>Score 72% • Rank #148 • Percentile 82.4</p></div>
+  <div class="card" style="text-align:center"><div class="score-ring"><b>72%</b></div><h3>Great Attempt!</h3><small>Digital Agency by Chandan Das • Mock Test App</small></div>
+  <div class="share-row"><button onclick="toast('WhatsApp share opened')">WhatsApp</button><button onclick="toast('Instagram share opened')">Instagram</button><button onclick="toast('Download card started')">Download</button></div>`;
+}
+
+function toggleAdmin(){document.getElementById('adminWeb').classList.toggle('active');document.getElementById('adminWeb').scrollIntoView({behavior:'smooth',block:'start'})}
+function render(){({login,home,exams,tests,details,test,submit,result,leaderboard,referral,teacher,profile,onboarding,backend,progress,shareResult}[page]||login)()}
+function restart(){clearInterval(timerId);page='login';q=0;answers={};timeLeft=600;render();toast('Demo restarted')}
+render();
+</script>
+</body>
+</html>

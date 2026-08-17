@@ -1,0 +1,6 @@
+V26 FRESH CLIENT OFFICE
+1. Upload all files to website root.
+2. Keep existing firebase-client.js in root.
+3. Publish firestore.rules in Firebase Console.
+4. Open client-room.html?v=2600 and hard refresh.
+Flow: Main Gate -> Hall -> Reception -> Auto Room Code -> Code Verify -> Hall hidden -> Separate full-screen room with one LCD and one speaker.

@@ -1,0 +1,325 @@
+<!doctype html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin Panel — Bangla Calendar App</title>
+<meta name="description" content="Bangla Calendar App — Admin Panel web view demo (interactive, browser-only)">
+<script>(function(){if(sessionStorage.getItem('banglaCalendarDemoUnlocked')!=='yes')location.replace('CLIENT-ID684273.html')})();</script>
+<style>
+:root{
+ --p:#174979;--p2:#2f80ed;--accent:#c2185b;
+ --bg:#eef2f8;--ink:#1b2434;--muted:#66738a;--card:#fff;--line:#dee6f0;
+ --sidebar:#0f2340;--sidebar2:#173a63;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--ink)}
+a{color:inherit}
+.app{display:grid;grid-template-columns:250px 1fr;min-height:100vh}
+.sidebar{background:linear-gradient(180deg,var(--sidebar),var(--sidebar2));color:#fff;padding:20px 14px;position:sticky;top:0;height:100vh;overflow:auto}
+.sidebar .brand{font-weight:900;font-size:15px;line-height:1.3;padding:6px 8px 18px}
+.sidebar .brand small{display:block;font-weight:600;color:#9fb4d6;font-size:11px;margin-top:4px}
+.navbtn{display:flex;align-items:center;gap:10px;width:100%;text-align:left;border:0;background:transparent;color:#cfe0f7;padding:11px 12px;border-radius:10px;font-weight:700;font-size:13px;cursor:pointer;margin-bottom:3px}
+.navbtn:hover{background:#ffffff14}
+.navbtn.active{background:linear-gradient(135deg,var(--p2),#5aa0ff);color:#fff}
+.navbtn .ic{font-size:16px;width:20px;text-align:center}
+.badge{margin-left:auto;background:#ffffff22;font-size:10px;padding:2px 7px;border-radius:999px}
+.sidebar .back{display:block;margin-top:18px;padding:11px 12px;border-radius:10px;background:#ffffff10;color:#cfe0f7;text-decoration:none;font-size:12px;font-weight:800;text-align:center}
+.main{padding:26px 30px 60px;max-width:1180px}
+.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;gap:14px;flex-wrap:wrap}
+.topbar h1{margin:0;font-size:23px}
+.topbar p{margin:3px 0 0;color:var(--muted);font-size:13px}
+.chip{display:inline-block;background:#e7f0ff;color:var(--p);font-weight:800;font-size:11px;padding:5px 10px;border-radius:999px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 8px 22px #1b243408}
+.stat .ic{font-size:22px}
+.stat b{display:block;font-size:24px;margin-top:6px}
+.stat span{color:var(--muted);font-size:12px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:0 8px 22px #1b243408;margin-bottom:20px}
+.panel h2{margin:0 0 4px;font-size:17px}
+.panel .sub{color:var(--muted);font-size:12.5px;margin:0 0 16px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.03em;padding:8px 10px;border-bottom:1px solid var(--line)}
+td{padding:10px;border-bottom:1px solid #f0f3f8;vertical-align:top}
+tr:last-child td{border-bottom:0}
+.tag{display:inline-block;padding:3px 9px;border-radius:999px;font-size:10.5px;font-weight:800}
+.tag.urgent{background:#fde3e3;color:#a3231f}
+.tag.important{background:#fff2d6;color:#a06a05}
+.tag.normal{background:#e6f3ea;color:#1c7a41}
+.tag.new{background:#e6eefc;color:#1c4f9c}
+.iconbtn{border:0;background:#f2f5fa;border-radius:8px;padding:6px 9px;cursor:pointer;font-size:12px;font-weight:800;color:#425066}
+.iconbtn.danger{background:#fdeaea;color:#b3251f}
+.iconbtn:hover{filter:brightness(.96)}
+.formrow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px}
+.formrow.wide{grid-template-columns:repeat(2,1fr) auto}
+.formrow label{display:block;font-size:11px;font-weight:800;color:var(--muted);margin-bottom:5px}
+.formrow input,.formrow select,.formrow textarea{width:100%;padding:9px 10px;border:1px solid #d6dfec;border-radius:9px;font:inherit;font-size:13px}
+.btn{border:0;border-radius:10px;padding:10px 16px;font-weight:800;font-size:13px;cursor:pointer;background:linear-gradient(135deg,var(--p),var(--p2));color:#fff}
+.btn.secondary{background:#eef3fb;color:var(--p)}
+.empty{padding:26px;text-align:center;color:var(--muted);font-size:13px}
+.note{background:#fff6d9;border:1px solid #ead17b;border-radius:12px;padding:12px 14px;font-size:12.5px;line-height:1.6;margin-bottom:18px}
+.msgtext{max-width:340px;color:#2a3244}
+.meta{color:var(--muted);font-size:11px;margin-top:3px}
+@media(max-width:900px){
+ .app{grid-template-columns:1fr}
+ .sidebar{position:relative;height:auto;display:flex;flex-wrap:wrap;gap:6px;padding:14px}
+ .sidebar .brand{width:100%;padding-bottom:6px}
+ .navbtn{width:auto}
+ .grid4{grid-template-columns:1fr 1fr}
+ .formrow{grid-template-columns:1fr 1fr}
+ .main{padding:18px}
+ table{display:block;overflow-x:auto}
+}
+</style>
+</head>
+<body>
+<div class="app">
+ <aside class="sidebar">
+  <div class="brand">Bangla Calendar App<small>Admin Panel • Web View Demo</small></div>
+  <nav id="sideNav"></nav>
+  <a class="back" href="CLIENT-ID684273.html">← Project Page</a>
+  <a class="back" href="bangla-calendar-app-project-view.html" onclick="sessionStorage.setItem('banglaSelectedView','app')">📱 Mobile Demo</a>
+ </aside>
+ <main class="main" id="main"></main>
+</div>
+
+<script>
+/* ---------- shared helpers ---------- */
+function readLS(key,fallback){try{const v=JSON.parse(localStorage.getItem(key));return v==null?fallback:v}catch(e){return fallback}}
+function writeLS(key,val){localStorage.setItem(key,JSON.stringify(val))}
+function fmtDate(d){return new Date(d).toLocaleString('en-IN',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'})}
+function esc(s){return (s||'').toString().replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+
+/* ---------- seed demo data (only if empty) ---------- */
+function seed(key,data){if(localStorage.getItem(key)===null)writeLS(key,data)}
+seed('admin_festivals',[
+ {id:1,name:'পূর্ণিমা',date:'৮ আগস্ট ২০২৬',type:'Tithi',status:'Published'},
+ {id:2,name:'স্বাধীনতা দিবস',date:'১৫ আগস্ট ২০২৬',type:'National',status:'Published'},
+ {id:3,name:'জন্মাষ্টমী',date:'১৮ আগস্ট ২০২৬',type:'Religious',status:'Published'},
+ {id:4,name:'দুর্গাপূজা',date:'১৮ অক্টোবর ২০২৬',type:'Religious',status:'Draft'}
+]);
+seed('admin_notifications',[
+ {id:1,title:'উৎসব রিমাইন্ডার চালু হয়েছে',date:'2026-08-01',status:'Sent'},
+ {id:2,title:'নতুন Panchang আপডেট',date:'2026-08-03',status:'Scheduled'}
+]);
+seed('admin_banners',[
+ {id:1,title:'Independence Day Special',emoji:'🇮🇳',active:true},
+ {id:2,title:'Durga Puja Countdown',emoji:'🌺',active:false}
+]);
+seed('admin_users',[
+ {id:1,name:'Ritwik Sarkar',mobile:'98XXXXXX01',plan:'Free'},
+ {id:2,name:'Ananya Ghosh',mobile:'98XXXXXX02',plan:'Premium'},
+ {id:3,name:'Sourav Das',mobile:'98XXXXXX03',plan:'Free'}
+]);
+seed('admin_panchang',[
+ {id:1,date:'৩ আগস্ট ২০২৬',tithi:'দশমী',nakshatra:'রোহিণী'},
+ {id:2,date:'৪ আগস্ট ২০২৬',tithi:'একাদশী',nakshatra:'মৃগশিরা'}
+]);
+seed('admin_horoscope',[
+ {id:1,sign:'মেষ',message:'আজ কাজের অগ্রগতি হবে।'},
+ {id:2,sign:'বৃষ',message:'আর্থিক বিষয়ে সতর্ক থাকুন।'}
+]);
+
+/* ---------- nav ---------- */
+const sections=[
+ ['dashboard','📊','Dashboard'],
+ ['calendar','📅','Calendar Management'],
+ ['festival','🎉','Festival Management'],
+ ['panchang','📖','Panchang Management'],
+ ['horoscope','⭐','Horoscope Management'],
+ ['notification','🔔','Notification Management'],
+ ['banner','🖼','Banner Management'],
+ ['user','👥','User Management'],
+ ['feedback','📝','Client Feedback Inbox'],
+ ['requests','➕','Feature Requests'],
+ ['settings','⚙️','Settings']
+];
+let page='dashboard';
+function go(p){page=p;render();}
+function renderNav(){
+ document.getElementById('sideNav').innerHTML=sections.map(s=>{
+  let count='';
+  if(s[0]==='feedback')count=readLS('calendarClientFeedback',[]).length;
+  if(s[0]==='requests')count=readLS('calendarFeatureRequests',[]).length;
+  return `<button class="navbtn ${page===s[0]?'active':''}" onclick="go('${s[0]}')"><span class="ic">${s[1]}</span>${s[2]}${count!==''&&count>0?`<span class="badge">${count}</span>`:''}</button>`;
+ }).join('');
+}
+
+/* ---------- generic CRUD table ---------- */
+function crudSection(key,title,sub,columns,addFields){
+ const rows=readLS(key,[]);
+ const head=`<tr>${columns.map(c=>`<th>${c.label}</th>`).join('')}<th></th></tr>`;
+ const body=rows.length?rows.map(r=>`<tr>${columns.map(c=>`<td>${esc(r[c.id])}</td>`).join('')}<td><button class="iconbtn danger" onclick="crudDelete('${key}',${r.id})">Delete</button></td></tr>`).join(''):`<tr><td colspan="${columns.length+1}"><div class="empty">এখনো কোনো তথ্য নেই। নিচের form থেকে যোগ করুন।</div></td></tr>`;
+ const formInputs=addFields.map(f=>`<div><label>${f.label}</label><input id="crud_${f.id}" placeholder="${f.placeholder||''}"></div>`).join('');
+ return `<div class="panel">
+  <h2>${title}</h2><p class="sub">${sub}</p>
+  <table><thead>${head}</thead><tbody>${body}</tbody></table>
+ </div>
+ <div class="panel">
+  <h2>➕ নতুন যোগ করুন</h2><p class="sub">Demo only — এই data browser-এ local ভাবে save হয়।</p>
+  <div class="formrow">${formInputs}</div>
+  <button class="btn" onclick="crudAdd('${key}',${JSON.stringify(addFields.map(f=>f.id))})">Save</button>
+ </div>`;
+}
+function crudAdd(key,fieldIds){
+ const rows=readLS(key,[]);
+ const item={id:Date.now()};
+ let ok=true;
+ fieldIds.forEach(id=>{
+  const el=document.getElementById('crud_'+id);
+  const v=(el?.value||'').trim();
+  if(!v)ok=false;
+  item[id]=v;
+ });
+ if(!ok){alert('সব field পূরণ করুন');return}
+ rows.unshift(item);
+ writeLS(key,rows);
+ render();
+}
+function crudDelete(key,id){
+ const rows=readLS(key,[]).filter(r=>r.id!==id);
+ writeLS(key,rows);
+ render();
+}
+
+/* ---------- page renderers ---------- */
+function dashboard(){
+ const feedback=readLS('calendarClientFeedback',[]);
+ const requests=readLS('calendarFeatureRequests',[]);
+ const stats=[
+  ['👥','Users',readLS('admin_users',[]).length||0],
+  ['🎉','Festivals',readLS('admin_festivals',[]).length||0],
+  ['🔔','Notifications',readLS('admin_notifications',[]).length||0],
+  ['🖼','Banners',readLS('admin_banners',[]).length||0]
+ ];
+ document.getElementById('main').innerHTML=`
+ <div class="topbar"><div><h1>Dashboard</h1><p>Bangla Calendar App — project overview ও client activity</p></div><span class="chip">🖥 Admin Panel Web View</span></div>
+ <div class="note"><b>Demo Notice:</b> এটি একটি interactive browser-only Admin Panel demo। সব data এই browser-এর localStorage-এ save হয়, কোনো live server বা database connect নেই। Final production Admin Panel-এ real backend যুক্ত হবে।</div>
+ <div class="grid4">${stats.map(s=>`<div class="stat"><div class="ic">${s[0]}</div><b>${s[2]}</b><span>${s[1]}</span></div>`).join('')}</div>
+ <div class="grid4" style="grid-template-columns:1fr 1fr">
+  <div class="panel"><h2>📝 Client Feedback</h2><p class="sub">Client demo থেকে সরাসরি জমা হওয়া feedback</p><b style="font-size:26px">${feedback.length}</b><span style="color:var(--muted);font-size:12px;display:block;margin-top:4px">Total submitted</span><button class="btn secondary" style="margin-top:12px" onclick="go('feedback')">Feedback Inbox দেখুন</button></div>
+  <div class="panel"><h2>➕ Feature Requests</h2><p class="sub">Mobile demo থেকে client-এর চাওয়া নতুন feature</p><b style="font-size:26px">${requests.length}</b><span style="color:var(--muted);font-size:12px;display:block;margin-top:4px">Total requests</span><button class="btn secondary" style="margin-top:12px" onclick="go('requests')">Requests দেখুন</button></div>
+ </div>`;
+}
+function calendarMgmt(){
+ document.getElementById('main').innerHTML=`<div class="topbar"><div><h1>Calendar Management</h1><p>বিশেষ দিন, তিথি ও ক্যালেন্ডার entry পরিচালনা করুন</p></div></div>`+
+ crudSection('admin_panchang','Calendar Entries','তারিখ অনুযায়ী তিথি/নক্ষত্র তথ্য',
+  [{id:'date',label:'তারিখ'},{id:'tithi',label:'তিথি'},{id:'nakshatra',label:'নক্ষত্র'}],
+  [{id:'date',label:'তারিখ',placeholder:'৫ আগস্ট ২০২৬'},{id:'tithi',label:'তিথি',placeholder:'একাদশী'},{id:'nakshatra',label:'নক্ষত্র',placeholder:'মৃগশিরা'}]);
+}
+function festivalMgmt(){
+ document.getElementById('main').innerHTML=`<div class="topbar"><div><h1>Festival Management</h1><p>উৎসব ও ছুটির তালিকা পরিচালনা করুন</p></div></div>`+
+ crudSection('admin_festivals','All Festivals','App-এ প্রদর্শিত উৎসবের তালিকা',
+  [{id:'name',label:'নাম'},{id:'date',label:'তারিখ'},{id:'type',label:'ধরন'},{id:'status',label:'Status'}],
+  [{id:'name',label:'নাম',placeholder:'কালীপূজা'},{id:'date',label:'তারিখ',placeholder:'২০ অক্টোবর ২০২৬'},{id:'type',label:'ধরন',placeholder:'Religious'},{id:'status',label:'Status',placeholder:'Draft'}]);
+}
+function panchangMgmt(){
+ document.getElementById('main').innerHTML=`<div class="topbar"><div><h1>Panchang Management</h1><p>দৈনিক পঞ্জিকা তথ্য পরিচালনা করুন</p></div></div>`+
+ crudSection('admin_panchang','Panchang Entries','তারিখ ভিত্তিক তিথি/নক্ষত্র ডেটা',
+  [{id:'date',label:'তারিখ'},{id:'tithi',label:'তিথি'},{id:'nakshatra',label:'নক্ষত্র'}],
+  [{id:'date',label:'তারিখ',placeholder:'৬ আগস্ট ২০২৬'},{id:'tithi',label:'তিথি',placeholder:'দ্বাদশী'},{id:'nakshatra',label:'নক্ষত্র',placeholder:'আর্দ্রা'}]);
+}
+function horoscopeMgmt(){
+ document.getElementById('main').innerHTML=`<div class="topbar"><div><h1>Horoscope Management</h1><p>দৈনিক রাশিফল content পরিচালনা করুন</p></div></div>`+
+ crudSection('admin_horoscope','Horoscope Entries','রাশি অনুযায়ী আজকের বার্তা',
+  [{id:'sign',label:'রাশি'},{id:'message',label:'বার্তা'}],
+  [{id:'sign',label:'রাশি',placeholder:'সিংহ'},{id:'message',label:'বার্তা',placeholder:'আজ ভালো সময় যাবে।'}]);
+}
+function notificationMgmt(){
+ document.getElementById('main').innerHTML=`<div class="topbar"><div><h1>Notification Management</h1><p>Push notification পাঠান ও পরিচালনা করুন</p></div></div>`+
+ crudSection('admin_notifications','Notifications','পাঠানো/schedule করা notification তালিকা',
+  [{id:'title',label:'শিরোনাম'},{id:'date',label:'তারিখ'},{id:'status',label:'Status'}],
+  [{id:'title',label:'শিরোনাম',placeholder:'একাদশী রিমাইন্ডার'},{id:'date',label:'তারিখ',placeholder:'2026-08-10'},{id:'status',label:'Status',placeholder:'Scheduled'}]);
+}
+function bannerMgmt(){
+ const rows=readLS('admin_banners',[]);
+ document.getElementById('main').innerHTML=`<div class="topbar"><div><h1>Banner Management</h1><p>Home screen banner পরিচালনা করুন</p></div></div>
+ <div class="panel"><h2>All Banners</h2><p class="sub">Active/Inactive টগল করতে click করুন</p>
+ <table><thead><tr><th>Preview</th><th>Title</th><th>Status</th><th></th></tr></thead><tbody>
+ ${rows.length?rows.map(r=>`<tr><td style="font-size:24px">${esc(r.emoji||'🖼')}</td><td>${esc(r.title)}</td><td><span class="tag ${r.active?'normal':'urgent'}" style="cursor:pointer" onclick="toggleBanner(${r.id})">${r.active?'Active':'Inactive'}</span></td><td><button class="iconbtn danger" onclick="crudDelete('admin_banners',${r.id})">Delete</button></td></tr>`).join(''):`<tr><td colspan="4"><div class="empty">কোনো banner নেই।</div></td></tr>`}
+ </tbody></table></div>
+ <div class="panel"><h2>➕ নতুন Banner</h2>
+ <div class="formrow" style="grid-template-columns:1fr 1fr auto">
+  <div><label>Title</label><input id="bn_title" placeholder="Puja Special Offer"></div>
+  <div><label>Emoji/Icon</label><input id="bn_emoji" placeholder="🎉"></div>
+  <div style="align-self:end"><button class="btn" onclick="addBanner()">Save</button></div>
+ </div></div>`;
+}
+function addBanner(){
+ const title=(document.getElementById('bn_title').value||'').trim();
+ const emoji=(document.getElementById('bn_emoji').value||'🖼').trim();
+ if(!title){alert('Title দিন');return}
+ const rows=readLS('admin_banners',[]);
+ rows.unshift({id:Date.now(),title,emoji,active:true});
+ writeLS('admin_banners',rows);
+ render();
+}
+function toggleBanner(id){
+ const rows=readLS('admin_banners',[]).map(r=>r.id===id?{...r,active:!r.active}:r);
+ writeLS('admin_banners',rows);
+ render();
+}
+function userMgmt(){
+ document.getElementById('main').innerHTML=`<div class="topbar"><div><h1>User Management</h1><p>App ব্যবহারকারীদের তালিকা</p></div></div>`+
+ crudSection('admin_users','All Users','Registered user (demo data)',
+  [{id:'name',label:'নাম'},{id:'mobile',label:'মোবাইল'},{id:'plan',label:'Plan'}],
+  [{id:'name',label:'নাম',placeholder:'Rahul Roy'},{id:'mobile',label:'মোবাইল',placeholder:'98XXXXXXXX'},{id:'plan',label:'Plan',placeholder:'Free'}]);
+}
+function feedbackInbox(){
+ const list=readLS('calendarClientFeedback',[]);
+ document.getElementById('main').innerHTML=`<div class="topbar"><div><h1>Client Feedback Inbox</h1><p>Client Project Dashboard-এর Feedback Form থেকে সরাসরি জমা হওয়া তথ্য</p></div></div>
+ <div class="panel">
+ ${list.length?`<table><thead><tr><th>Client</th><th>Type / Screen</th><th>Priority</th><th>Message</th><th>Date</th><th></th></tr></thead><tbody>
+ ${list.map((x,i)=>`<tr><td>${esc(x.name||'—')}</td><td>${esc(x.type||'—')}<div class="meta">${esc(x.screen||'')}</div></td><td><span class="tag ${(x.priority||'').toLowerCase()==='urgent'?'urgent':(x.priority||'').toLowerCase()==='important'?'important':'normal'}">${esc(x.priority||'Normal')}</span></td><td class="msgtext">${esc(x.message)}</td><td class="meta">${esc(x.date)}</td><td><button class="iconbtn danger" onclick="deleteFeedback(${i})">Delete</button></td></tr>`).join('')}
+ </tbody></table>`:'<div class="empty">এখনো কোনো client feedback জমা পড়েনি। Client Project Dashboard-এর Feedback Form থেকে জমা করলে এখানে দেখাবে।</div>'}
+ </div>`;
+}
+function deleteFeedback(i){
+ const list=readLS('calendarClientFeedback',[]);
+ list.splice(i,1);
+ writeLS('calendarClientFeedback',list);
+ render();
+}
+function requestsInbox(){
+ const list=readLS('calendarFeatureRequests',[]);
+ document.getElementById('main').innerHTML=`<div class="topbar"><div><h1>Feature Requests</h1><p>Mobile app demo-র "Feature Request" screen থেকে জমা হওয়া অনুরোধ</p></div></div>
+ <div class="panel">
+ ${list.length?`<table><thead><tr><th>Feature</th><th>Details</th><th>Date</th><th></th></tr></thead><tbody>
+ ${list.map((x,i)=>`<tr><td><b>${esc(x.feature)}</b></td><td class="msgtext">${esc(x.details)}</td><td class="meta">${esc(x.date)}</td><td><button class="iconbtn danger" onclick="deleteRequest(${i})">Delete</button></td></tr>`).join('')}
+ </tbody></table>`:'<div class="empty">এখনো কোনো feature request নেই। Mobile demo-র Admin Panel Preview → Add Feature Request থেকে জমা করলে এখানে দেখাবে।</div>'}
+ </div>`;
+}
+function deleteRequest(i){
+ const list=readLS('calendarFeatureRequests',[]);
+ list.splice(i,1);
+ writeLS('calendarFeatureRequests',list);
+ render();
+}
+function settingsPage(){
+ document.getElementById('main').innerHTML=`<div class="topbar"><div><h1>Settings</h1><p>Admin Panel সাধারণ preferences</p></div></div>
+ <div class="panel"><h2>Access</h2><p class="sub">Client PIN দিয়ে সুরক্ষিত demo। PIN পরিবর্তনের জন্য Digital Agency by Chandan Das-এর সঙ্গে যোগাযোগ করুন।</p>
+ <button class="btn secondary" onclick="sessionStorage.removeItem('banglaCalendarDemoUnlocked');location.href='CLIENT-ID684273.html'">🔒 Lock &amp; Exit Demo</button></div>
+ <div class="panel"><h2>Demo Data</h2><p class="sub">এই browser-এ save হওয়া সব demo data (festivals, users, feedback ইত্যাদি) মুছে ফেলুন।</p>
+ <button class="btn secondary" onclick="resetDemoData()">🗑 Reset All Demo Data</button></div>`;
+}
+function resetDemoData(){
+ if(!confirm('সব demo data মুছে যাবে। আপনি কি নিশ্চিত?'))return;
+ ['admin_festivals','admin_notifications','admin_banners','admin_users','admin_panchang','admin_horoscope'].forEach(k=>localStorage.removeItem(k));
+ location.reload();
+}
+
+function render(){
+ renderNav();
+ ({
+  dashboard,
+  calendar:calendarMgmt,
+  festival:festivalMgmt,
+  panchang:panchangMgmt,
+  horoscope:horoscopeMgmt,
+  notification:notificationMgmt,
+  banner:bannerMgmt,
+  user:userMgmt,
+  feedback:feedbackInbox,
+  requests:requestsInbox,
+  settings:settingsPage
+ }[page]||dashboard)();
+}
+render();
+</script>
+</body></html>

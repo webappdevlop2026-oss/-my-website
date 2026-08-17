@@ -1,0 +1,624 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Freelance Development Agreement Form</title>
+<meta name="description" content="Online Freelance App and Website Development Agreement Form by Digital Agency by Chandan Das">
+<meta name="robots" content="noindex,nofollow">
+<style>
+:root{
+  --blue:#155aa8;--blue2:#2f80ed;--navy:#0f2f55;--bg:#eef4fb;
+  --card:#fff;--ink:#172235;--muted:#687489;--line:#dce6f1;
+  --green:#0a9d65;--red:#d64045;--orange:#f59e0b;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--ink)}
+header{
+  background:linear-gradient(135deg,var(--navy),var(--blue2));
+  color:#fff;padding:28px 16px;text-align:center
+}
+header h1{margin:0 0 7px;font-size:30px}
+header p{margin:0;opacity:.92;line-height:1.55}
+.brand{
+  display:inline-block;margin-top:12px;padding:8px 12px;border-radius:999px;
+  background:#ffffff20;font-weight:900
+}
+.wrap{max-width:1050px;margin:auto;padding:22px 16px 50px}
+.progress{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px
+}
+.step{
+  background:#fff;border:1px solid var(--line);padding:10px;border-radius:11px;
+  text-align:center;font-size:11px;font-weight:800;color:var(--muted)
+}
+.step.active{background:#e9f3ff;color:var(--blue);border-color:#b9d6f5}
+.card{
+  background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px;
+  margin-bottom:16px;box-shadow:0 10px 28px #244b7610
+}
+.card h2{margin:0 0 15px;color:var(--blue);font-size:20px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.field{margin-bottom:13px}
+.field label{display:block;font-weight:800;font-size:12px;margin-bottom:6px}
+.required{color:var(--red)}
+.field input,.field select,.field textarea{
+  width:100%;border:1px solid #cfdbe8;border-radius:11px;padding:12px;
+  background:#fff;font:inherit;color:var(--ink);outline:none
+}
+.field input:focus,.field select:focus,.field textarea:focus{
+  border-color:var(--blue2);box-shadow:0 0 0 3px #2f80ed18
+}
+.field textarea{min-height:105px;resize:vertical}
+.help{font-size:10px;color:var(--muted);margin-top:5px;line-height:1.45}
+.money-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.check-row{
+  display:flex;gap:9px;align-items:flex-start;margin:10px 0;padding:11px;
+  background:#f8fbff;border:1px solid #e5edf5;border-radius:11px
+}
+.check-row input{margin-top:2px;accent-color:var(--blue)}
+.terms{
+  max-height:320px;overflow:auto;background:#f8fbff;border:1px solid var(--line);
+  border-radius:13px;padding:14px;font-size:12px;line-height:1.65
+}
+.terms h3{margin:10px 0 5px;color:var(--navy)}
+.signature-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.sig-box{border:1px solid var(--line);border-radius:13px;padding:12px;background:#fbfdff}
+.sig-box h3{margin:0 0 8px;font-size:14px}
+canvas{
+  width:100%;height:170px;background:#fff;border:1px dashed #9db2c9;
+  border-radius:10px;touch-action:none
+}
+.sig-actions{display:flex;justify-content:flex-end;margin-top:7px}
+.small-btn{
+  border:0;border-radius:9px;padding:8px 10px;background:#eaf2fb;color:#174c82;
+  font-weight:800;cursor:pointer
+}
+.actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:18px}
+.btn{
+  border:0;border-radius:12px;padding:13px 18px;font-weight:900;cursor:pointer;
+  text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:7px
+}
+.primary{background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff}
+.success{background:var(--green);color:#fff}
+.light{background:#eaf2fb;color:#174c82}
+.warning{background:var(--orange);color:#fff}
+.notice{
+  background:#fff5d7;border:1px solid #ead17b;border-radius:12px;padding:13px;
+  font-size:12px;line-height:1.55
+}
+#preview{display:none}
+.agreement{
+  background:#fff;border:1px solid var(--line);border-radius:18px;padding:28px;
+  line-height:1.65
+}
+.agreement h1{text-align:center;font-size:24px;margin:0 0 4px}
+.agreement .subtitle{text-align:center;color:var(--muted);margin-bottom:20px}
+.agreement h2{font-size:16px;color:var(--navy);margin:18px 0 7px;border-bottom:1px solid var(--line);padding-bottom:5px}
+.agreement table{width:100%;border-collapse:collapse;margin:10px 0}
+.agreement th,.agreement td{border:1px solid #cad7e5;padding:8px;text-align:left;vertical-align:top;font-size:12px}
+.agreement th{background:#f2f7fc}
+.preview-sig{max-width:220px;max-height:100px;border-bottom:1px solid #333}
+.status{
+  position:fixed;right:18px;bottom:18px;background:#172235;color:#fff;
+  padding:10px 14px;border-radius:999px;font-size:12px;opacity:0;
+  transition:.2s;z-index:20
+}
+.status.show{opacity:1}
+footer{text-align:center;padding:20px;color:var(--muted);font-size:12px}
+@media(max-width:760px){
+  .grid,.money-grid,.signature-grid{grid-template-columns:1fr}
+  .progress{grid-template-columns:1fr 1fr}
+  header h1{font-size:24px}
+  .agreement{padding:16px}
+}
+@media print{
+  body{background:#fff}
+  header,.progress,#formSection,.actions,.notice,footer,.status{display:none!important}
+  #preview{display:block!important}
+  .wrap{max-width:none;padding:0}
+  .agreement{border:0;box-shadow:none;padding:0}
+  @page{size:A4;margin:14mm}
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>Freelance App / Website Development Agreement</h1>
+  <p>Online Agreement Form — Client details পূরণ করুন, terms accept করুন এবং signature দিন।</p>
+  <div class="brand">Digital Agency by Chandan Das</div>
+</header>
+
+<main class="wrap">
+  <div class="progress">
+    <div class="step active">1. Parties</div>
+    <div class="step active">2. Project</div>
+    <div class="step active">3. Terms</div>
+    <div class="step active">4. Signatures</div>
+  </div>
+
+  <section id="formSection">
+    <form id="agreementForm">
+      <div class="card">
+        <h2>1. Agreement Information</h2>
+        <div class="grid">
+          <div class="field">
+            <label>Agreement ID <span class="required">*</span></label>
+            <input id="agreementId" name="agreementId" required>
+            <div class="help">Automatically generated; চাইলে পরিবর্তন করতে পারেন।</div>
+          </div>
+          <div class="field">
+            <label>Agreement Date <span class="required">*</span></label>
+            <input id="agreementDate" name="agreementDate" type="date" required>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>2. Service Provider (Freelancer)</h2>
+        <div class="grid">
+          <div class="field">
+            <label>Name</label>
+            <input id="providerName" value="Chandan Das" readonly>
+          </div>
+          <div class="field">
+            <label>Brand</label>
+            <input id="providerBrand" value="Digital Agency by Chandan Das" readonly>
+          </div>
+          <div class="field">
+            <label>Address</label>
+            <input id="providerAddress" value="Dubrajpur, West Bengal" readonly>
+          </div>
+          <div class="field">
+            <label>Business Contact</label>
+            <input id="providerContact" value="WhatsApp: 7549459770 | Call: 9735474770" readonly>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>3. Client Details</h2>
+        <div class="grid">
+          <div class="field">
+            <label>Client Full Name <span class="required">*</span></label>
+            <input id="clientName" required placeholder="Enter client name">
+          </div>
+          <div class="field">
+            <label>Mobile Number <span class="required">*</span></label>
+            <input id="clientMobile" required inputmode="numeric" maxlength="10" placeholder="10-digit mobile number">
+          </div>
+          <div class="field">
+            <label>Email Address</label>
+            <input id="clientEmail" type="email" placeholder="client@example.com">
+          </div>
+          <div class="field">
+            <label>City / State <span class="required">*</span></label>
+            <input id="clientLocation" required placeholder="City, State">
+          </div>
+        </div>
+        <div class="field">
+          <label>Full Address</label>
+          <textarea id="clientAddress" placeholder="Client's complete address"></textarea>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>4. Project Details</h2>
+        <div class="grid">
+          <div class="field">
+            <label>Project Name <span class="required">*</span></label>
+            <input id="projectName" required placeholder="Example: KAKABABU App">
+          </div>
+          <div class="field">
+            <label>Project Type <span class="required">*</span></label>
+            <select id="projectType" required>
+              <option value="">Select project type</option>
+              <option>Android App</option>
+              <option>iOS App</option>
+              <option>Website</option>
+              <option>Web Application</option>
+              <option>Android + iOS App</option>
+              <option>App + Website + Admin Panel</option>
+              <option>Other Software Development</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label>Project Description <span class="required">*</span></label>
+          <textarea id="projectDescription" required placeholder="Describe the project and its purpose"></textarea>
+        </div>
+        <div class="field">
+          <label>Agreed Features / Scope <span class="required">*</span></label>
+          <textarea id="projectScope" required placeholder="Write each agreed feature on a new line"></textarea>
+          <div class="help">Agreement-এর বাইরে নতুন feature চাইলে extra charge প্রযোজ্য হবে।</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>5. Cost & Payment</h2>
+        <div class="money-grid">
+          <div class="field">
+            <label>Total Project Cost (₹) <span class="required">*</span></label>
+            <input id="totalCost" type="number" min="0" required placeholder="45000">
+          </div>
+          <div class="field">
+            <label>Advance Amount (₹) <span class="required">*</span></label>
+            <input id="advanceAmount" type="number" min="0" required placeholder="15000">
+          </div>
+          <div class="field">
+            <label>Balance Amount (₹)</label>
+            <input id="balanceAmount" type="number" min="0" readonly>
+          </div>
+        </div>
+        <div class="grid">
+          <div class="field">
+            <label>Payment Method</label>
+            <select id="paymentMethod">
+              <option>UPI</option>
+              <option>Bank Transfer</option>
+              <option>Cash</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Payment Status</label>
+            <select id="paymentStatus">
+              <option>Advance Pending</option>
+              <option>Advance Received</option>
+              <option>Partially Paid</option>
+              <option>Fully Paid</option>
+            </select>
+          </div>
+        </div>
+        <div class="notice">
+          GST: Not Applicable — Service Provider is not registered under GST. GST charge আলাদাভাবে নেওয়া হবে না।
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>6. Timeline, Revisions & Support</h2>
+        <div class="grid">
+          <div class="field">
+            <label>Estimated Delivery Time <span class="required">*</span></label>
+            <input id="timeline" required placeholder="Example: 45–60 working days">
+          </div>
+          <div class="field">
+            <label>Free Revisions</label>
+            <input id="freeRevisions" value="3 revision rounds">
+          </div>
+          <div class="field">
+            <label>Free Support Period</label>
+            <input id="supportPeriod" value="30 days after final delivery">
+          </div>
+          <div class="field">
+            <label>Maintenance Plan</label>
+            <select id="maintenancePlan">
+              <option>Not included</option>
+              <option>1 Month</option>
+              <option>3 Months</option>
+              <option>6 Months</option>
+              <option>1 Year</option>
+              <option>Separate agreement required</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>7. Agreement Terms</h2>
+        <div class="terms">
+          <h3>Scope of Work</h3>
+          <p>Service Provider শুধুমাত্র এই agreement-এ লেখা feature ও deliverable তৈরি করবেন। নতুন feature, redesign বা scope change-এর জন্য অতিরিক্ত charge ও timeline প্রযোজ্য হতে পারে।</p>
+
+          <h3>Payment Terms</h3>
+          <p>কাজ শুরু করার আগে agreed advance payment প্রদান করতে হবে। Final APK, website deployment, source code বা complete ownership handover-এর আগে বাকি payment পরিশোধ করতে হবে।</p>
+
+          <h3>Timeline</h3>
+          <p>Timeline client-এর content, feedback, approvals, API credentials ও payment সময়মতো দেওয়ার উপর নির্ভরশীল। Client-side delay হলে delivery date পরিবর্তিত হতে পারে।</p>
+
+          <h3>Revisions</h3>
+          <p>Agreement-এ উল্লেখিত free revision limit পর্যন্ত correction দেওয়া হবে। নতুন feature বা approved design-এর বড় পরিবর্তন revision হিসেবে গণ্য হবে না এবং extra charge প্রযোজ্য হবে।</p>
+
+          <h3>Third-Party Charges</h3>
+          <p>Domain, hosting, server, Firebase paid plan, SMS/OTP, payment gateway, maps/API, Play Store/App Store fee, premium theme/plugin ও third-party service charge client বহন করবেন, যদি quotation-এ included না থাকে।</p>
+
+          <h3>Ownership & Handover</h3>
+          <p>Full payment পাওয়ার পরে agreed final deliverables client-কে handover করা হবে। Third-party assets তাদের নিজস্ব license-এর অধীনে থাকবে। Service Provider নিজের reusable code, framework ও generic components ভবিষ্যৎ কাজে ব্যবহার করতে পারবেন, যদি client-এর confidential data প্রকাশ না হয়।</p>
+
+          <h3>Cancellation & Refund</h3>
+          <p>Development শুরু হওয়ার পরে advance payment সাধারণত non-refundable, কারণ planning, design ও development time ব্যয় হয়। উভয় পক্ষের লিখিত সম্মতিতে ব্যতিক্রম করা যেতে পারে।</p>
+
+          <h3>Client Responsibilities</h3>
+          <p>Client সঠিক content, logo, images, documents, legal permissions ও timely feedback প্রদান করবেন। Client দেওয়া copyrighted বা illegal content-এর দায়িত্ব client-এর।</p>
+
+          <h3>Warranty & Support</h3>
+          <p>Free support period-এ agreed feature-এর verified bugs fix করা হবে। নতুন feature, operating-system/API change, third-party outage বা client-made modification free support-এর অন্তর্ভুক্ত নয়।</p>
+
+          <h3>Confidentiality & Dispute</h3>
+          <p>উভয় পক্ষ project-এর confidential তথ্য গোপন রাখবেন। কোনো dispute হলে প্রথমে mutual discussion-এর মাধ্যমে সমাধান করা হবে।</p>
+        </div>
+
+        <label class="check-row">
+          <input id="acceptScope" type="checkbox" required>
+          <span>আমি project scope, cost, payment, timeline ও revision terms পড়েছি এবং সম্মত আছি।</span>
+        </label>
+        <label class="check-row">
+          <input id="acceptTerms" type="checkbox" required>
+          <span>আমি সম্পূর্ণ agreement terms, cancellation, ownership ও third-party charge policy গ্রহণ করছি।</span>
+        </label>
+      </div>
+
+      <div class="card">
+        <h2>8. Signatures</h2>
+        <div class="signature-grid">
+          <div class="sig-box">
+            <h3>Client Signature <span class="required">*</span></h3>
+            <canvas id="clientSignature" width="600" height="220"></canvas>
+            <div class="sig-actions"><button type="button" class="small-btn" onclick="clearSignature('clientSignature')">Clear</button></div>
+            <div class="field">
+              <label>Client Typed Name <span class="required">*</span></label>
+              <input id="clientTypedName" required placeholder="Type client name">
+            </div>
+          </div>
+          <div class="sig-box">
+            <h3>Service Provider Signature</h3>
+            <canvas id="providerSignature" width="600" height="220"></canvas>
+            <div class="sig-actions"><button type="button" class="small-btn" onclick="clearSignature('providerSignature')">Clear</button></div>
+            <div class="field">
+              <label>Service Provider Typed Name</label>
+              <input id="providerTypedName" value="Chandan Das">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button type="button" class="btn light" onclick="saveDraft()">💾 Save Draft</button>
+        <button type="submit" class="btn primary">📄 Generate Agreement</button>
+      </div>
+    </form>
+  </section>
+
+  <section id="preview">
+    <div id="agreementPreview" class="agreement"></div>
+    <div class="actions">
+      <button class="btn light" onclick="editForm()">✏️ Edit Form</button>
+      <button class="btn success" onclick="window.print()">⬇ Print / Save PDF</button>
+      <button class="btn warning" onclick="sendWhatsApp()">💬 Send Summary on WhatsApp</button>
+    </div>
+  </section>
+</main>
+
+<footer>
+  Digital Agency by Chandan Das • Independent Freelance Website, Mobile App & Software Developer • Dubrajpur, West Bengal
+</footer>
+<div id="status" class="status"></div>
+
+<script>
+const form=document.getElementById('agreementForm');
+const formSection=document.getElementById('formSection');
+const preview=document.getElementById('preview');
+const previewBox=document.getElementById('agreementPreview');
+
+function todayISO(){
+  const d=new Date();
+  return new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().slice(0,10);
+}
+function generateId(){
+  const d=new Date();
+  const y=d.getFullYear();
+  const rand=Math.floor(100000+Math.random()*900000);
+  return `DA-${y}-${rand}`;
+}
+document.getElementById('agreementDate').value=todayISO();
+document.getElementById('agreementId').value=generateId();
+
+function money(n){
+  return new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:0}).format(Number(n||0));
+}
+function calculateBalance(){
+  const total=Number(document.getElementById('totalCost').value||0);
+  const advance=Number(document.getElementById('advanceAmount').value||0);
+  document.getElementById('balanceAmount').value=Math.max(total-advance,0);
+}
+document.getElementById('totalCost').addEventListener('input',calculateBalance);
+document.getElementById('advanceAmount').addEventListener('input',calculateBalance);
+
+function setupSignature(canvasId){
+  const canvas=document.getElementById(canvasId);
+  const ctx=canvas.getContext('2d');
+  ctx.lineWidth=3;
+  ctx.lineCap='round';
+  ctx.strokeStyle='#172235';
+  let drawing=false,lastX=0,lastY=0;
+
+  function pos(e){
+    const r=canvas.getBoundingClientRect();
+    const point=e.touches?e.touches[0]:e;
+    return {
+      x:(point.clientX-r.left)*(canvas.width/r.width),
+      y:(point.clientY-r.top)*(canvas.height/r.height)
+    };
+  }
+  function start(e){drawing=true;const p=pos(e);lastX=p.x;lastY=p.y;e.preventDefault()}
+  function move(e){
+    if(!drawing)return;
+    const p=pos(e);
+    ctx.beginPath();ctx.moveTo(lastX,lastY);ctx.lineTo(p.x,p.y);ctx.stroke();
+    lastX=p.x;lastY=p.y;e.preventDefault();
+  }
+  function end(){drawing=false}
+  canvas.addEventListener('mousedown',start);
+  canvas.addEventListener('mousemove',move);
+  window.addEventListener('mouseup',end);
+  canvas.addEventListener('touchstart',start,{passive:false});
+  canvas.addEventListener('touchmove',move,{passive:false});
+  canvas.addEventListener('touchend',end);
+}
+setupSignature('clientSignature');
+setupSignature('providerSignature');
+
+function clearSignature(id){
+  const c=document.getElementById(id);
+  c.getContext('2d').clearRect(0,0,c.width,c.height);
+}
+function signatureEmpty(id){
+  const c=document.getElementById(id);
+  const pixels=c.getContext('2d').getImageData(0,0,c.width,c.height).data;
+  return !pixels.some(v=>v!==0);
+}
+function escapeHTML(s){
+  return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+}
+function linesToList(text){
+  const lines=String(text||'').split(/\n+/).map(x=>x.trim()).filter(Boolean);
+  return lines.length?'<ol>'+lines.map(x=>`<li>${escapeHTML(x)}</li>`).join('')+'</ol>':'Not specified';
+}
+function val(id){return document.getElementById(id).value.trim()}
+function showStatus(msg){
+  const s=document.getElementById('status');s.textContent=msg;s.classList.add('show');
+  setTimeout(()=>s.classList.remove('show'),1800);
+}
+function getData(){
+  return {
+    agreementId:val('agreementId'),agreementDate:val('agreementDate'),
+    clientName:val('clientName'),clientMobile:val('clientMobile'),clientEmail:val('clientEmail'),
+    clientLocation:val('clientLocation'),clientAddress:val('clientAddress'),
+    projectName:val('projectName'),projectType:val('projectType'),
+    projectDescription:val('projectDescription'),projectScope:val('projectScope'),
+    totalCost:val('totalCost'),advanceAmount:val('advanceAmount'),balanceAmount:val('balanceAmount'),
+    paymentMethod:val('paymentMethod'),paymentStatus:val('paymentStatus'),
+    timeline:val('timeline'),freeRevisions:val('freeRevisions'),
+    supportPeriod:val('supportPeriod'),maintenancePlan:val('maintenancePlan'),
+    clientTypedName:val('clientTypedName'),providerTypedName:val('providerTypedName')
+  };
+}
+function saveDraft(){
+  const data=getData();
+  data.clientSig=document.getElementById('clientSignature').toDataURL();
+  data.providerSig=document.getElementById('providerSignature').toDataURL();
+  localStorage.setItem('freelanceAgreementDraft',JSON.stringify(data));
+  showStatus('Draft saved on this device');
+}
+function loadDraft(){
+  const raw=localStorage.getItem('freelanceAgreementDraft');
+  if(!raw)return;
+  try{
+    const d=JSON.parse(raw);
+    Object.keys(d).forEach(k=>{
+      const el=document.getElementById(k);
+      if(el && typeof d[k]==='string' && !k.endsWith('Sig'))el.value=d[k];
+    });
+    ['clientSignature','providerSignature'].forEach(id=>{
+      const key=id==='clientSignature'?'clientSig':'providerSig';
+      if(d[key]){
+        const img=new Image();img.onload=()=>document.getElementById(id).getContext('2d').drawImage(img,0,0);
+        img.src=d[key];
+      }
+    });
+    calculateBalance();
+  }catch(e){}
+}
+loadDraft();
+
+form.addEventListener('submit',function(e){
+  e.preventDefault();
+  calculateBalance();
+  if(!form.reportValidity())return;
+  if(!/^[0-9]{10}$/.test(val('clientMobile'))){
+    alert('Please enter a valid 10-digit client mobile number.');return;
+  }
+  if(signatureEmpty('clientSignature')){
+    alert('Client signature is required.');return;
+  }
+  generatePreview();
+});
+
+function generatePreview(){
+  const d=getData();
+  const clientSig=document.getElementById('clientSignature').toDataURL();
+  const providerSig=signatureEmpty('providerSignature')?'':document.getElementById('providerSignature').toDataURL();
+  previewBox.innerHTML=`
+    <h1>FREELANCE APP / WEBSITE DEVELOPMENT AGREEMENT</h1>
+    <div class="subtitle">Agreement ID: <b>${escapeHTML(d.agreementId)}</b> | Date: <b>${escapeHTML(d.agreementDate)}</b></div>
+
+    <p>This agreement is entered into between the following parties:</p>
+
+    <h2>1. Parties</h2>
+    <table>
+      <tr><th>Service Provider</th><td>Chandan Das<br>Independent Freelance Developer<br>Brand: Digital Agency by Chandan Das<br>Dubrajpur, West Bengal<br>WhatsApp: 7549459770 | Call: 9735474770</td></tr>
+      <tr><th>Client</th><td>${escapeHTML(d.clientName)}<br>Mobile: ${escapeHTML(d.clientMobile)}<br>Email: ${escapeHTML(d.clientEmail||'Not provided')}<br>${escapeHTML(d.clientLocation)}<br>${escapeHTML(d.clientAddress||'')}</td></tr>
+    </table>
+
+    <h2>2. Project</h2>
+    <table>
+      <tr><th>Project Name</th><td>${escapeHTML(d.projectName)}</td></tr>
+      <tr><th>Project Type</th><td>${escapeHTML(d.projectType)}</td></tr>
+      <tr><th>Description</th><td>${escapeHTML(d.projectDescription).replace(/\n/g,'<br>')}</td></tr>
+    </table>
+    <p><b>Agreed Features / Scope:</b></p>${linesToList(d.projectScope)}
+
+    <h2>3. Cost & Payment</h2>
+    <table>
+      <tr><th>Total Project Cost</th><td>${money(d.totalCost)}</td></tr>
+      <tr><th>Advance Amount</th><td>${money(d.advanceAmount)}</td></tr>
+      <tr><th>Balance Amount</th><td>${money(d.balanceAmount)}</td></tr>
+      <tr><th>Payment Method</th><td>${escapeHTML(d.paymentMethod)}</td></tr>
+      <tr><th>Payment Status</th><td>${escapeHTML(d.paymentStatus)}</td></tr>
+      <tr><th>GST</th><td>Not Applicable — Service Provider is not registered under GST.</td></tr>
+    </table>
+
+    <h2>4. Timeline, Revisions & Support</h2>
+    <table>
+      <tr><th>Estimated Delivery</th><td>${escapeHTML(d.timeline)}</td></tr>
+      <tr><th>Free Revisions</th><td>${escapeHTML(d.freeRevisions)}</td></tr>
+      <tr><th>Free Support</th><td>${escapeHTML(d.supportPeriod)}</td></tr>
+      <tr><th>Maintenance</th><td>${escapeHTML(d.maintenancePlan)}</td></tr>
+    </table>
+
+    <h2>5. Terms & Conditions</h2>
+    <ol>
+      <li>Service Provider will develop only the features and deliverables written in this agreement. New features or major scope changes may require additional cost and time.</li>
+      <li>Agreed advance payment is required before development begins. Remaining payment must be completed before final APK, website deployment, source code or ownership handover.</li>
+      <li>Delivery timeline depends on timely client content, feedback, approvals, credentials and payments. Client-side delay may extend the timeline.</li>
+      <li>Free revisions are limited to the quantity written above. New features or major changes to an approved design are not treated as free revisions.</li>
+      <li>Domain, hosting, server, OTP/SMS, paid API, payment gateway, Play Store/App Store, premium asset and other third-party charges are payable by the client unless included in the quotation.</li>
+      <li>After full payment, agreed final deliverables will be handed over. Third-party assets remain subject to their own licenses.</li>
+      <li>Advance payment is generally non-refundable after development starts, unless both parties agree otherwise in writing.</li>
+      <li>The client is responsible for providing lawful content, images, logos, documents and permissions.</li>
+      <li>During the free support period, verified bugs in agreed features will be fixed. New features, platform/API changes, third-party outages or client modifications are outside free support.</li>
+      <li>Both parties will protect confidential project information and first attempt to resolve disputes through mutual discussion.</li>
+    </ol>
+
+    <h2>6. Signatures & Acceptance</h2>
+    <table>
+      <tr>
+        <th>Client</th>
+        <th>Service Provider</th>
+      </tr>
+      <tr>
+        <td><img class="preview-sig" src="${clientSig}"><br><b>${escapeHTML(d.clientTypedName)}</b><br>Date: ${escapeHTML(d.agreementDate)}</td>
+        <td>${providerSig?`<img class="preview-sig" src="${providerSig}"><br>`:''}<b>${escapeHTML(d.providerTypedName)}</b><br>Digital Agency by Chandan Das<br>Date: ${escapeHTML(d.agreementDate)}</td>
+      </tr>
+    </table>
+
+    <p style="text-align:center;margin-top:24px"><b>Both parties confirm that they have read, understood and accepted this agreement.</b></p>
+  `;
+  formSection.style.display='none';
+  preview.style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function editForm(){
+  preview.style.display='none';
+  formSection.style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function sendWhatsApp(){
+  const d=getData();
+  const msg=`Freelance Development Agreement\n\nAgreement ID: ${d.agreementId}\nClient: ${d.clientName}\nProject: ${d.projectName}\nProject Type: ${d.projectType}\nTotal Cost: ${money(d.totalCost)}\nAdvance: ${money(d.advanceAmount)}\nBalance: ${money(d.balanceAmount)}\nTimeline: ${d.timeline}\n\nAgreement preview generated and accepted by client.\n\nDigital Agency by Chandan Das`;
+  window.open('https://wa.me/917549459770?text='+encodeURIComponent(msg),'_blank');
+}
+</script>
+</body>
+</html>

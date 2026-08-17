@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="Submit your app, website or software project requirements.">
+  <title>Project Requirement Form</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <div class="client-shell">
+    <header class="client-topbar">
+      <div class="client-topbar-inner">
+        <a class="brand-row" href="index.html" aria-label="Home">
+          <div class="brand-mark">DA</div>
+          <div class="brand-copy">
+            <strong data-agency-name>Digital Agency by Chandan Das</strong>
+            <small data-agency-tagline>App • Website • iOS • Custom Software</small>
+          </div>
+        </a>
+
+        <div class="topbar-help">
+<button class="btn btn-icon btn-soft mobile-only" type="button" id="mobileHelpBtn" aria-label="Help">
+            <svg class="icon"><use href="#icon-help"></use></svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="client-main">
+      <aside class="client-intro">
+        <span class="badge" style="background:rgba(255,255,255,.14);color:#fff">New Project Enquiry</span>
+        <h1>Tell us what you want to build.</h1>
+        <p>Share your app, website, iOS or complete software requirement. We will review it and contact you with the next steps.</p>
+
+        <div class="intro-list">
+          <div class="intro-point"><b>1</b><span>Complete the requirement form.</span></div>
+          <div class="intro-point"><b>2</b><span>Receive your unique Project Request ID.</span></div>
+          <div class="intro-point"><b>3</b><span>Our team reviews the scope and contacts you.</span></div>
+        </div>
+      </aside>
+
+      <section class="form-card" id="formCard">
+        <div class="form-card-head">
+          <h2>Project Requirement Form</h2>
+          <p>Fields marked with <span class="required">*</span> are required.</p>
+          <div class="stepper" aria-label="Form progress">
+            <div class="step active" data-step-dot="1"><span class="step-number">1</span></div>
+            <div class="step" data-step-dot="2"><span class="step-number">2</span></div>
+            <div class="step" data-step-dot="3"><span class="step-number">3</span></div>
+            <div class="step" data-step-dot="4"><span class="step-number">4</span></div>
+          </div>
+        </div>
+
+        <form id="projectForm" novalidate>
+          <section class="form-section active" data-step="1">
+            <h3>Contact information</h3>
+            <p class="section-note">How should we contact you about this project?</p>
+
+            <div class="form-grid">
+              <div class="field">
+                <label for="clientName">Full name <span class="required">*</span></label>
+                <input id="clientName" name="clientName" autocomplete="name" required placeholder="Enter your full name">
+              </div>
+              <div class="field">
+                <label for="company">Business / company name</label>
+                <input id="company" name="company" autocomplete="organization" placeholder="Optional">
+              </div>
+              <div class="field">
+                <label for="mobile">Mobile number <span class="required">*</span></label>
+                <input id="mobile" name="mobile" inputmode="numeric" autocomplete="tel" required pattern="[0-9]{10,15}" placeholder="10-digit mobile number">
+              </div>
+              <div class="field">
+                <label for="whatsapp">WhatsApp number</label>
+                <input id="whatsapp" name="whatsapp" inputmode="numeric" autocomplete="tel" pattern="[0-9]{10,15}" placeholder="Leave blank if same">
+              </div>
+              <div class="field">
+                <label for="email">Email address</label>
+                <input id="email" name="email" type="email" autocomplete="email" placeholder="name@example.com">
+              </div>
+              <div class="field">
+                <label for="city">City / location</label>
+                <input id="city" name="city" autocomplete="address-level2" placeholder="City or district">
+              </div>
+              <div class="field wide">
+                <label for="preferredContact">Preferred contact method</label>
+                <select id="preferredContact" name="preferredContact">
+                  <option>WhatsApp</option>
+                  <option>Phone Call</option>
+                  <option>Email</option>
+                </select>
+              </div>
+            </div>
+          </section>
+
+          <section class="form-section" data-step="2">
+            <h3>Project basics</h3>
+            <p class="section-note">Select everything you need. Multiple options are allowed.</p>
+
+            <div class="form-grid">
+              <div class="field wide">
+                <label>Project type <span class="required">*</span></label>
+                <div class="chip-grid" data-required-group="projectTypes">
+                  <label class="check-chip"><input type="checkbox" name="projectTypes" value="Android App"><span>Android App</span></label>
+                  <label class="check-chip"><input type="checkbox" name="projectTypes" value="iOS App"><span>iOS App</span></label>
+                  <label class="check-chip"><input type="checkbox" name="projectTypes" value="Website"><span>Website</span></label>
+                  <label class="check-chip"><input type="checkbox" name="projectTypes" value="Web App"><span>Web App</span></label>
+                  <label class="check-chip"><input type="checkbox" name="projectTypes" value="Admin Panel"><span>Admin Panel</span></label>
+                  <label class="check-chip"><input type="checkbox" name="projectTypes" value="Complete System"><span>Complete System</span></label>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="projectName">App / website name</label>
+                <input id="projectName" name="projectName" placeholder="Working name is fine">
+              </div>
+
+              <div class="field">
+                <label>Target platforms</label>
+                <div class="chip-grid">
+                  <label class="check-chip"><input type="checkbox" name="platforms" value="Android"><span>Android</span></label>
+                  <label class="check-chip"><input type="checkbox" name="platforms" value="iPhone / iPad"><span>iPhone / iPad</span></label>
+                  <label class="check-chip"><input type="checkbox" name="platforms" value="Web"><span>Web</span></label>
+                  <label class="check-chip"><input type="checkbox" name="platforms" value="Web Admin"><span>Web Admin</span></label>
+                </div>
+              </div>
+
+              <div class="field wide">
+                <label for="description">Project description <span class="required">*</span></label>
+                <textarea id="description" name="description" required placeholder="Explain what users will do, who will use it, and how the system should work."></textarea>
+              </div>
+            </div>
+          </section>
+
+          <section class="form-section" data-step="3">
+            <h3>Features and design</h3>
+            <p class="section-note">Choose important features and share reference links.</p>
+
+            <div class="form-grid">
+              <div class="field wide">
+                <label>Features needed</label>
+                <div class="chip-grid">
+                  <label class="check-chip"><input type="checkbox" name="features" value="Login / OTP"><span>Login / OTP</span></label>
+                  <label class="check-chip"><input type="checkbox" name="features" value="Payment Gateway"><span>Payment Gateway</span></label>
+                  <label class="check-chip"><input type="checkbox" name="features" value="Booking System"><span>Booking System</span></label>
+                  <label class="check-chip"><input type="checkbox" name="features" value="E-commerce / Cart"><span>E-commerce / Cart</span></label>
+                  <label class="check-chip"><input type="checkbox" name="features" value="Maps / Location"><span>Maps / Location</span></label>
+                  <label class="check-chip"><input type="checkbox" name="features" value="Live Chat"><span>Live Chat</span></label>
+                  <label class="check-chip"><input type="checkbox" name="features" value="Notifications"><span>Notifications</span></label>
+                  <label class="check-chip"><input type="checkbox" name="features" value="Admin Dashboard"><span>Admin Dashboard</span></label>
+                  <label class="check-chip"><input type="checkbox" name="features" value="Seller / Vendor Panel"><span>Seller / Vendor Panel</span></label>
+                  <label class="check-chip"><input type="checkbox" name="features" value="Subscription"><span>Subscription</span></label>
+                  <label class="check-chip"><input type="checkbox" name="features" value="Multi-language"><span>Multi-language</span></label>
+                  <label class="check-chip"><input type="checkbox" name="features" value="Other"><span>Other</span></label>
+                </div>
+              </div>
+
+              <div class="field wide">
+                <label>Languages</label>
+                <div class="chip-grid">
+                  <label class="check-chip"><input type="checkbox" name="languages" value="English"><span>English</span></label>
+                  <label class="check-chip"><input type="checkbox" name="languages" value="Hindi"><span>Hindi</span></label>
+                  <label class="check-chip"><input type="checkbox" name="languages" value="Bengali"><span>Bengali</span></label>
+                  <label class="check-chip"><input type="checkbox" name="languages" value="Other"><span>Other</span></label>
+                </div>
+              </div>
+
+              <div class="field wide">
+                <label for="referenceLinks">Reference app / website links</label>
+                <textarea id="referenceLinks" name="referenceLinks" placeholder="Paste Play Store, App Store or website links, one per line."></textarea>
+              </div>
+
+              <div class="field wide">
+                <label>Logo, design, document or screenshot</label>
+                <label class="file-drop" for="attachments">
+                  <span>
+                    <svg class="icon" style="width:28px;height:28px;margin-bottom:8px"><use href="#icon-upload"></use></svg>
+                    <strong style="display:block">Tap or click to select files</strong>
+                    <small class="helper">PNG, JPG, PDF, DOC, ZIP — maximum 3 files, 2 MB each</small>
+                  </span>
+                  <input id="attachments" type="file" multiple accept=".png,.jpg,.jpeg,.webp,.pdf,.doc,.docx,.zip">
+                </label>
+                <div id="fileList" class="file-list"></div>
+              </div>
+            </div>
+          </section>
+
+          <section class="form-section" data-step="4">
+            <h3>Budget and delivery</h3>
+            <p class="section-note">These details help us prepare a suitable quotation.</p>
+
+            <div class="form-grid">
+              <div class="field">
+                <label for="budget">Estimated budget</label>
+                <select id="budget" name="budget">
+                  <option value="">Select budget range</option>
+                  <option>Below ₹15,000</option>
+                  <option>₹15,000 – ₹30,000</option>
+                  <option>₹30,000 – ₹50,000</option>
+                  <option>₹50,000 – ₹1,00,000</option>
+                  <option>Above ₹1,00,000</option>
+                  <option>Need quotation</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="timeline">Expected timeline</label>
+                <select id="timeline" name="timeline">
+                  <option value="">Select expected timeline</option>
+                  <option>Urgent — within 2 weeks</option>
+                  <option>2–4 weeks</option>
+                  <option>1–2 months</option>
+                  <option>2–3 months</option>
+                  <option>Flexible</option>
+                </select>
+              </div>
+
+              <div class="field wide">
+                <label for="additionalNotes">Additional notes</label>
+                <textarea id="additionalNotes" name="additionalNotes" placeholder="Add any special requirement, deadline or important information."></textarea>
+              </div>
+
+              <div class="field wide">
+                <label class="consent-line">
+                  <input id="consent" name="consent" type="checkbox" required>
+                  <span>I confirm that the information is correct and agree to be contacted regarding this project. <span class="required">*</span></span>
+                </label>
+              </div>
+            </div>
+          </section>
+
+          <div class="form-actions">
+            <button class="btn btn-secondary" type="button" id="backBtn" disabled>
+              <svg class="icon"><use href="#icon-left"></use></svg>
+              Back
+            </button>
+            <button class="btn btn-primary" type="button" id="nextBtn">
+              Continue
+              <svg class="icon"><use href="#icon-right"></use></svg>
+            </button>
+            <button class="btn btn-primary hidden" type="submit" id="submitBtn">
+              <span>Submit Requirement</span>
+              <svg class="icon"><use href="#icon-send"></use></svg>
+            </button>
+          </div>
+        </form>
+
+        <div class="success-panel hidden" id="successPanel">
+          <div class="success-icon">
+            <svg class="icon" style="width:34px;height:34px"><use href="#icon-check"></use></svg>
+          </div>
+          <h2>Requirement submitted!</h2>
+          <p>Your project request has been saved. Please keep the Request ID below for future communication.</p>
+          <div class="request-id-box" id="successRequestId"></div>
+          <div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap">
+            <button class="btn btn-primary" type="button" id="copyRequestId">Copy Request ID</button>
+            <button class="btn btn-secondary" type="button" id="newRequestBtn">Submit another request</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast-wrap" id="toastWrap"></div>
+
+  <svg width="0" height="0" style="position:absolute">
+    <symbol id="icon-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.7 2.7 0 1 1 4.7 1.8c-1.2 1-2.2 1.4-2.2 3"/><path d="M12 17h.01"/></symbol>
+    <symbol id="icon-upload" viewBox="0 0 24 24"><path d="M12 16V4"/><path d="m7 9 5-5 5 5"/><path d="M5 20h14"/></symbol>
+    <symbol id="icon-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+    <symbol id="icon-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+    <symbol id="icon-send" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></symbol>
+    <symbol id="icon-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+  </svg>
+  <script src="../app-config.js"></script>
+  <script src="../firebase-helper.js"></script>
+  <script src="../app.js"></script>
+</body>
+</html>

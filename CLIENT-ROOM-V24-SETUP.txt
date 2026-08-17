@@ -1,0 +1,9 @@
+CLIENT ROOM V24 CLEAN RECEPTION
+
+1. Upload/replace all files in GitHub root.
+2. Firebase Firestore Rules: paste firestore.rules and Publish.
+3. Admin login; Reception tab opens first.
+4. Client main PIN -> Waiting Hall -> Check-in.
+5. Admin selects a Room and clicks Assign Room & Generate Code.
+6. Unique 4-digit Room Code is generated automatically and appears live on client screen.
+7. Client enters that Room Code and opens only the assigned room.

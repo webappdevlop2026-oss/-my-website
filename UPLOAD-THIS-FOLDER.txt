@@ -1,0 +1,10 @@
+READY TO UPLOAD — SEO FIXED VERSION
+
+Upload all files and folders from this directory to the root of your GitHub repository.
+Fixes included:
+- Removed obsolete SearchAction schema URLs (?s= and ?q=)
+- Redirected old /partner.html 404 to homepage
+- Removed broken partner login link from admin approval message
+- Added homepage internal link to Mobile App Development article
+- Refreshed sitemap lastmod dates for the two blog pages
+- Main design and existing features unchanged

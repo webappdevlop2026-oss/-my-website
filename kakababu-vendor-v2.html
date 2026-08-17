@@ -1,0 +1,1304 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KAKABABU Vendor App Review v2</title><meta name="robots" content="noindex,nofollow">
+<meta name="description" content="Interactive KAKABABU Vendor App project preview based on the supplied Flutter demo source.">
+<style>
+:root{--blue:#1256a0;--blue2:#2d83df;--orange:#ff8a00;--bg:#eef3f9;--ink:#172235;--muted:#687489;--line:#dbe4ef;--card:#fff;--green:#0a9d65;--red:#d64045}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--ink)}
+body{overflow:hidden}
+.topbar{height:64px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 4.5vw;gap:14px}
+.brand{font-weight:900;font-size:20px}.brand small{display:block;font-size:11px;color:var(--muted);margin-top:2px}
+.top-actions{display:flex;gap:9px}.top-actions a,.top-actions button{border:0;border-radius:12px;padding:12px 15px;text-decoration:none;font-weight:800;cursor:pointer}
+.soft{background:#eaf2fb;color:#184c7f}.orange{background:var(--orange);color:#fff}
+.layout{height:calc(100vh - 64px);display:grid;grid-template-columns:minmax(330px,420px) 1fr;gap:20px;max-width:1280px;margin:auto;padding:14px 18px}
+.device-zone{display:grid;place-items:center;min-height:0}
+.phone{height:min(780px,calc(100vh - 92px));aspect-ratio:9/19.35;background:#121b26;border:9px solid #121b26;border-radius:37px;box-shadow:0 22px 52px #24364c33;overflow:hidden;position:relative}
+.phone-inner{height:100%;background:#f4f7fb;border-radius:27px;overflow:hidden;display:flex;flex-direction:column}
+.status{height:28px;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 16px;font-size:11px;font-weight:800;flex:0 0 auto}
+.appbar{background:#fff;border-bottom:1px solid #e1e7ef;padding:12px 14px;display:flex;align-items:center;gap:11px;flex:0 0 auto}
+.appbar .back{width:38px;height:38px;border-radius:50%;border:0;background:#f0f4f9;font-size:19px;cursor:pointer}
+.appbar-title{flex:1}.appbar-title h2{font-size:17px;margin:0}.appbar-title p{font-size:10px;color:var(--muted);margin:3px 0 0}
+.bell{border:0;background:transparent;font-size:21px;cursor:pointer}
+.phone-scroll{flex:1;overflow:auto;padding:13px;scrollbar-width:thin}
+.phone-scroll::-webkit-scrollbar{width:4px}.phone-scroll::-webkit-scrollbar-thumb{background:#bdc8d5;border-radius:8px}
+.bottom-nav{background:#fff;border-top:1px solid #dce4ed;display:grid;grid-template-columns:repeat(5,1fr);flex:0 0 auto}
+.bottom-nav button{border:0;background:transparent;padding:8px 2px 7px;font-size:9px;color:#657386;cursor:pointer}.bottom-nav button b{display:block;font-size:17px;margin-bottom:2px}.bottom-nav button.active{color:var(--blue);font-weight:800}
+.hero{background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff;border-radius:18px;padding:17px;margin-bottom:12px}.hero h3{margin:0 0 5px;font-size:18px}.hero p{margin:0;font-size:11px;opacity:.9}
+.online-row{background:#fff;border-radius:14px;padding:12px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 4px 15px #1936530d;margin-bottom:11px}.switch{width:49px;height:27px;border-radius:999px;background:#cdd6e0;padding:3px;cursor:pointer}.switch i{display:block;width:21px;height:21px;border-radius:50%;background:#fff;transition:.2s}.switch.on{background:var(--green)}.switch.on i{transform:translateX(22px)}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:11px}.stat{background:#fff;border-radius:13px;padding:12px;box-shadow:0 4px 15px #1936530d}.stat small{color:var(--muted);font-size:10px}.stat strong{display:block;font-size:20px;margin-top:5px}
+.actions-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.action{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:13px;text-align:left;cursor:pointer}.action span{font-size:24px}.action b{display:block;margin-top:7px;font-size:12px}.action small{color:var(--muted);font-size:9px}
+.section-title{font-size:14px;margin:14px 0 8px}.card{background:#fff;border-radius:14px;padding:13px;margin-bottom:9px;box-shadow:0 4px 14px #1936530b}.row{display:flex;align-items:center;gap:10px}.icon{width:39px;height:39px;border-radius:11px;background:#eaf3fd;display:grid;place-items:center;font-size:20px}.grow{flex:1}.row b{font-size:12px}.row small{display:block;color:var(--muted);font-size:9px;margin-top:3px}
+.chip{font-size:9px;border-radius:999px;padding:5px 8px;font-weight:800}.upcoming{background:#fff0d7;color:#a85f00}.completed{background:#dcf8ea;color:#08794c}.cancelled{background:#fee6e7;color:#a72e34}
+.btn-row{display:flex;gap:7px;margin-top:10px}.mini{flex:1;border:0;border-radius:9px;padding:8px;font-size:10px;font-weight:800;cursor:pointer}.accept{background:#daf7e9;color:#08794c}.reject{background:#fee7e8;color:#aa3037}.primary{background:var(--blue);color:#fff}.outline{background:#eef4fb;color:#174c82}
+.field{margin-bottom:10px}.field label{display:block;font-size:10px;font-weight:800;margin-bottom:5px}.field input,.field select,.field textarea{width:100%;border:1px solid #d5dee9;border-radius:11px;padding:10px;background:#fff;font:inherit;font-size:11px}.field textarea{min-height:66px;resize:none}
+.full-btn{width:100%;border:0;border-radius:11px;padding:12px;background:var(--blue);color:#fff;font-weight:900;cursor:pointer}.ghost{background:#edf4fb;color:#174d83}
+.check{display:flex;align-items:center;gap:7px;font-size:10px;margin:8px 0}.check input{accent-color:var(--blue)}
+.profile-head{text-align:center;background:#fff;border-radius:15px;padding:16px;margin-bottom:10px}.avatar{width:67px;height:67px;border-radius:50%;background:linear-gradient(135deg,#bfe0ff,#62a9ee);display:grid;place-items:center;font-size:32px;margin:auto}.profile-head h3{margin:9px 0 3px}.profile-head p{margin:0;color:var(--muted);font-size:10px}
+.menu-item{background:#fff;border-radius:12px;padding:12px;margin-bottom:8px;display:flex;align-items:center;gap:10px;cursor:pointer}.menu-item span{font-size:20px}.menu-item b{font-size:11px}.menu-item small{display:block;color:var(--muted);font-size:9px;margin-top:2px}
+.side{min-width:0;overflow:auto;padding:4px 4px 25px}.side-head{display:flex;align-items:center;justify-content:space-between;gap:10px}.side h1{font-size:27px;margin:5px 0 4px}.side p{color:var(--muted);margin:0}
+.feature-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:14px 0}.feature{background:#fff;border:1px solid var(--line);padding:11px;border-radius:12px;font-size:11px}
+.quick{display:flex;gap:7px;flex-wrap:wrap;margin:13px 0}.quick button{border:0;border-radius:999px;padding:8px 11px;background:#eaf2fb;color:#183f68;font-weight:800;font-size:10px;cursor:pointer}
+.screen-list{display:grid;grid-template-columns:1fr 1fr;gap:8px}.screen-list button{text-align:left;border:1px solid var(--line);background:#fff;border-radius:11px;padding:11px;font-weight:800;cursor:pointer}
+.note{margin-top:15px;background:#fff5d7;border:1px solid #ecd27d;border-radius:13px;padding:13px;font-size:11px;line-height:1.55}
+.toast{position:absolute;left:50%;bottom:62px;transform:translateX(-50%);background:#172235;color:#fff;border-radius:999px;padding:8px 12px;font-size:10px;opacity:0;pointer-events:none;transition:.2s;z-index:20;white-space:nowrap}.toast.show{opacity:1}
+@media(max-width:780px){
+ body{overflow:auto;background:#f4f7fb}.topbar{display:none}.layout{display:block;height:100vh;padding:0}.side{display:none}.device-zone{height:100vh}.phone{height:100vh;width:100%;aspect-ratio:auto;border:0;border-radius:0;box-shadow:none}.phone-inner{border-radius:0}
+}
+</style>
+
+<style id="kaka-v2-polish">
+:root{--v2blue:#1459a6;--v2blue2:#2f80ed;--v2ink:#132238;--v2muted:#66768a;--v2line:#dce6f1}
+html{scroll-behavior:smooth}body{background:linear-gradient(180deg,#edf4fb 0,#f8fbff 48%,#eef4fb 100%)!important}
+.kaka-v2-loader{position:fixed;inset:0;z-index:1000000;background:linear-gradient(135deg,#071322,#123963);display:grid;place-items:center;transition:opacity .35s,visibility .35s}
+.kaka-v2-loader.hide{opacity:0;visibility:hidden}.kaka-v2-loader-card{text-align:center;color:#fff}.kaka-v2-spinner{width:58px;height:58px;border:5px solid #ffffff35;border-top-color:#fff;border-radius:50%;animation:kakaSpin .8s linear infinite;margin:0 auto 14px}@keyframes kakaSpin{to{transform:rotate(360deg)}}
+.kaka-v2-topline{background:linear-gradient(135deg,#071a31,#174c82);color:#fff;padding:12px 18px;text-align:center;box-shadow:0 8px 24px #173b611c}.kaka-v2-topline strong{display:block;font-size:20px}.kaka-v2-topline span{display:block;color:#c9ddf2;font-size:12px;margin-top:3px}
+#kakababuProjectChoices{border:1px solid #dce6f1!important;box-shadow:0 18px 48px #20476c16!important;background:linear-gradient(180deg,#fff,#f9fcff)!important}
+#kakababuProjectChoices .btn{min-width:210px;margin:5px;box-shadow:0 10px 25px #1456a024;transition:.2s ease}#kakababuProjectChoices .btn:hover{transform:translateY(-2px);box-shadow:0 14px 30px #1456a035}
+.kaka-v2-status{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:14px}.kaka-v2-status span{padding:7px 10px;border-radius:999px;background:#e8f8ef;color:#08794c;font-size:11px;font-weight:800;border:1px solid #bfe8d2}
+.form{border:1px solid #dce6f1!important;box-shadow:0 18px 45px #244b7612!important}.section{background:#fbfdff}.submit{box-shadow:0 10px 24px #1456a02c;transition:.2s}.submit:hover{transform:translateY(-1px)}
+@media(max-width:700px){.kaka-v2-topline strong{font-size:17px}#kakababuProjectChoices .btn{display:block;width:100%;margin:8px 0}}
+</style>
+<style id="vendor-v2-extra">.topbar{box-shadow:0 8px 24px #1f466b12}.phone{box-shadow:0 24px 60px #173b612e!important}.side{background:#ffffffb8;border:1px solid #dce6f1;border-radius:22px;padding:20px!important;box-shadow:0 18px 48px #244b7612}.action,.screen-list button{transition:.18s}.action:hover,.screen-list button:hover{transform:translateY(-1px)}</style>
+<style id="client-phase1-vendor-css">
+.multi-box{display:flex;flex-wrap:wrap;gap:7px;padding:10px;border:1px solid #d6e0eb;border-radius:11px;background:#fff}
+.multi-box label{display:flex;align-items:center;gap:5px;padding:7px 9px;border-radius:999px;background:#eef4fb;font-size:10px;font-weight:800}
+.dynamic-panel{background:#f8fbff;border:1px solid #dce6f1;border-radius:13px;padding:12px;margin-bottom:11px}
+.dynamic-panel h3{font-size:13px;margin:0 0 10px;color:#155aa8}
+.inline-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.price-box{background:#e9f8f0;border:1px solid #bce5ce;border-radius:12px;padding:11px;margin-bottom:10px}
+.price-box strong{font-size:18px;color:#08794c}
+.upload-box{border:1px dashed #9bb0c7;border-radius:11px;padding:12px;text-align:center;background:#fff;margin-bottom:9px}
+.view-link{border:0;background:transparent;color:#155aa8;text-decoration:underline;font-size:10px;font-weight:800;cursor:pointer}
+@media(max-width:480px){.inline-grid{grid-template-columns:1fr}}
+</style>
+
+<style id="client-phase2-vendor-css">
+.matrix{overflow:auto;border:1px solid #dce6f1;border-radius:12px;margin-bottom:10px}.matrix table{width:100%;border-collapse:collapse;min-width:620px}.matrix th,.matrix td{padding:8px;border-bottom:1px solid #e6edf5;font-size:10px;text-align:left}.matrix th{background:#f2f7fc}
+.matrix input,.matrix select{width:100%;min-width:90px;border:1px solid #d6e0eb;border-radius:8px;padding:7px}
+</style>
+
+
+<style id="client-phase3-vendor-css">
+.rule-box{background:#fff5d7;border:1px solid #ead17b;border-radius:12px;padding:11px;margin-bottom:10px;font-size:10px;line-height:1.5}
+.approval-box{background:#eef6ff;border:1px solid #a9c9ef;border-radius:12px;padding:11px;margin-bottom:10px}
+.approval-line{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:7px 0;font-size:10px}
+.status-dot{width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:6px}
+.status-pending{background:#f59e0b}.status-approved{background:#16a34a}.status-rejected{background:#dc2626}
+.field-hidden{display:none!important}
+</style>
+
+
+<style id="phase4-education-policy-css">
+.timing-list{display:grid;gap:8px;margin-top:8px}
+.timing-row{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:7px;align-items:end}
+.timing-row input,.timing-row select{width:100%}
+.remove-time{border:0;border-radius:8px;background:#fee6e7;color:#a72e34;padding:9px;font-weight:800}
+.policy-modal{position:fixed;inset:0;background:rgba(4,12,24,.72);display:none;align-items:center;justify-content:center;z-index:9999;padding:16px}
+.policy-modal.show{display:flex}
+.policy-box{width:min(720px,100%);max-height:88vh;overflow:auto;background:#fff;border-radius:18px;padding:18px}
+.policy-box h2{margin-top:0}.policy-box p,.policy-box li{font-size:11px;line-height:1.65}
+.price-preview{background:#eef7ff;border:1px solid #a9c9ef;border-radius:12px;padding:11px;margin-top:8px}
+@media(max-width:520px){.timing-row{grid-template-columns:1fr 1fr}.timing-row .full-mobile{grid-column:1/-1}}
+</style>
+
+
+<style id="phase5-vendor-css">
+.gst-live{background:#eef7ff;border:1px solid #9fc8f5;border-radius:12px;padding:11px;margin-bottom:10px}
+.cleanup-note{background:#edf9f3;border:1px solid #80c7a4;border-radius:12px;padding:11px;margin-bottom:10px}
+</style>
+
+
+<style id="vendor-professional-ui-css">
+.vendor-service-card{background:#fff;border:1px solid #dce6f1;border-radius:15px;padding:13px;margin-bottom:10px;box-shadow:0 7px 20px rgba(20,50,80,.07)}
+.vendor-service-top{display:flex;align-items:center;gap:10px}.vendor-service-icon{width:44px;height:44px;border-radius:12px;background:#eef5ff;display:grid;place-items:center;font-size:22px}
+.vendor-service-main{flex:1}.vendor-service-main b{display:block}.vendor-service-main small{display:block;color:#687489;font-size:9px;margin-top:3px}
+.vendor-service-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}
+.vendor-service-actions button{border:0;border-radius:8px;padding:7px 9px;font-size:9px;font-weight:800}
+.v-edit{background:#fff3d8;color:#9a6200}.v-manage{background:#eaf2fb;color:#174c82}.v-status{background:#dcf8ea;color:#08794c}
+</style>
+
+<style id="final-demo-vendor-css">
+.vendor-final-card{background:#edf9f3;border:1px solid #80c7a4;border-radius:13px;padding:11px;margin-bottom:10px}
+.booking-manage-card{background:#fff;border:1px solid #dce6f1;border-radius:14px;padding:12px;margin-bottom:10px}
+.booking-manage-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}
+.booking-manage-actions button{border:0;border-radius:8px;padding:8px 10px;font-size:9px;font-weight:900}
+</style>
+<style id="vendor-location-dropdown-css">
+.location-panel{
+  background:#f8fbff;border:1px solid #dce6f1;border-radius:13px;
+  padding:11px;margin-bottom:11px
+}
+.location-row{
+  display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:end;
+  padding:9px;background:#fff;border:1px solid #e3ebf4;border-radius:11px;
+  margin-bottom:8px
+}
+.location-row .field{margin-bottom:0}
+.location-remove{
+  border:0;border-radius:9px;background:#fee6e7;color:#a72e34;
+  padding:11px 9px;font-weight:900;cursor:pointer
+}
+.location-add{
+  width:100%;border:1px dashed #8eb5df;border-radius:10px;
+  padding:10px;background:#eef6ff;color:#174c82;font-weight:900;cursor:pointer
+}
+@media(max-width:480px){
+  .location-row{grid-template-columns:1fr}
+  .location-remove{width:100%}
+}
+</style>
+
+
+<style id="class-selector-grid-fix-css">
+.class-select-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:8px;
+  padding:10px;
+  border:1px solid #d6e0eb;
+  border-radius:12px;
+  background:#fff;
+}
+.class-select-grid label{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  min-height:42px;
+  margin:0;
+  padding:9px 10px;
+  border:1px solid #e1e9f2;
+  border-radius:10px;
+  background:#f3f7fc;
+  font-size:10px;
+  font-weight:800;
+  cursor:pointer;
+}
+.class-select-grid label:has(input:checked){
+  background:#e5f1ff;
+  border-color:#75aeea;
+  color:#154f8c;
+}
+.class-select-grid input{
+  width:16px;
+  height:16px;
+  margin:0;
+  flex:0 0 auto;
+  accent-color:#155aa8;
+}
+@media(max-width:360px){
+  .class-select-grid{grid-template-columns:1fr 1fr;gap:6px;padding:8px}
+  .class-select-grid label{padding:8px;font-size:9px;min-height:39px}
+}
+</style>
+
+
+<style id="vendor-multi-business-css">
+.vendor-type-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:8px;
+  margin-bottom:12px;
+}
+.vendor-type-option{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  padding:11px;
+  border:1px solid #dce6f1;
+  border-radius:12px;
+  background:#fff;
+  cursor:pointer;
+  min-height:58px;
+}
+.vendor-type-option input{width:16px;height:16px;accent-color:#155aa8}
+.vendor-type-option span{font-size:20px}
+.vendor-type-option b{display:block;font-size:10px}
+.vendor-type-option small{display:block;font-size:8px;color:#687489;margin-top:2px}
+.vendor-type-option:has(input:checked){
+  border-color:#75aeea;
+  background:#eaf4ff;
+}
+.business-panel{
+  border:1px solid #dce6f1;
+  border-radius:14px;
+  background:#f8fbff;
+  padding:11px;
+  margin-bottom:10px;
+}
+.business-panel-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  margin-bottom:9px;
+}
+.business-panel-head h3{margin:0;font-size:12px}
+.business-remove{
+  border:0;
+  border-radius:8px;
+  padding:7px 9px;
+  background:#fee6e7;
+  color:#a72e34;
+  font-size:9px;
+  font-weight:900;
+  cursor:pointer;
+}
+.business-add{
+  width:100%;
+  border:1px dashed #8eb5df;
+  border-radius:11px;
+  padding:11px;
+  background:#eef6ff;
+  color:#174c82;
+  font-weight:900;
+  cursor:pointer;
+  margin-bottom:11px;
+}
+.business-summary-card{
+  background:#fff;
+  border:1px solid #dce6f1;
+  border-radius:14px;
+  padding:12px;
+  margin-bottom:10px;
+}
+.business-summary-top{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+}
+.business-summary-icon{
+  width:44px;
+  height:44px;
+  border-radius:12px;
+  background:#eef5ff;
+  display:grid;
+  place-items:center;
+  font-size:22px;
+}
+.business-summary-main{flex:1}
+.business-summary-main b{display:block}
+.business-summary-main small{display:block;color:#687489;font-size:9px;margin-top:3px}
+.business-summary-actions{
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+  margin-top:9px;
+}
+.business-summary-actions button{
+  border:0;
+  border-radius:8px;
+  padding:7px 9px;
+  font-size:9px;
+  font-weight:900;
+  cursor:pointer;
+}
+.biz-edit{background:#fff3d8;color:#9a6200}
+.biz-manage{background:#eaf2fb;color:#174c82}
+.biz-toggle{background:#dcf8ea;color:#08794c}
+.biz-delete{background:#fee6e7;color:#a72e34}
+@media(max-width:480px){
+  .vendor-type-grid{grid-template-columns:1fr}
+}
+</style>
+
+
+<style id="vendor-document-verification-css">
+.verify-summary{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin-bottom:12px;
+}
+.verify-stat{
+  background:#fff;
+  border:1px solid #dce6f1;
+  border-radius:12px;
+  padding:10px;
+  text-align:center;
+}
+.verify-stat strong{display:block;font-size:16px}
+.verify-stat small{font-size:8px;color:#687489}
+.vendor-doc-card{
+  background:#fff;
+  border:1px solid #dce6f1;
+  border-radius:14px;
+  padding:12px;
+  margin-bottom:10px;
+}
+.vendor-doc-head{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+}
+.vendor-doc-icon{
+  width:42px;height:42px;border-radius:11px;
+  background:#eef5ff;display:grid;place-items:center;font-size:21px
+}
+.vendor-doc-main{flex:1}
+.vendor-doc-main b{display:block}
+.vendor-doc-main small{display:block;color:#687489;font-size:9px;margin-top:3px}
+.vendor-doc-status{
+  border-radius:999px;padding:5px 8px;font-size:8px;font-weight:900
+}
+.doc-approved{background:#dcf8ea;color:#08794c}
+.doc-pending{background:#fff0d7;color:#9a6200}
+.doc-rejected{background:#fee6e7;color:#a72e34}
+.vendor-doc-actions{
+  display:flex;gap:7px;flex-wrap:wrap;margin-top:9px
+}
+.vendor-doc-actions button,.vendor-doc-actions label{
+  border:0;border-radius:8px;padding:8px 9px;font-size:9px;font-weight:900;cursor:pointer
+}
+.doc-view{background:#eaf2fb;color:#174c82}
+.doc-upload{background:#edf9f3;color:#08794c}
+.doc-delete{background:#fee6e7;color:#a72e34}
+@media(max-width:420px){
+  .verify-summary{grid-template-columns:1fr 1fr 1fr}
+}
+</style>
+
+
+<style id="final-demo-completion-vendor-css">
+.biz-dashboard-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:10px 0}
+.biz-dashboard-grid div{background:#f8fbff;border:1px solid #dce6f1;border-radius:11px;padding:10px}
+.location-edit-list{display:grid;gap:8px}
+</style>
+
+
+<style id="final-clean-ui-css">
+html,body{max-width:100%;overflow-x:hidden}
+button,input,select,textarea{font-family:inherit}
+button{touch-action:manipulation}
+input,select,textarea{max-width:100%}
+.card,.row,.field,.dynamic-panel,.service-detail-card,.vendor-service-card,.approval-card{
+  overflow-wrap:anywhere
+}
+.btn,.full-btn,.small-btn,.action{
+  min-height:40px
+}
+.field label{line-height:1.35}
+img{max-width:100%}
+@media(max-width:480px){
+  .wrap,.screen,.content{max-width:100%}
+  .grid2,.inline-grid,.money-grid,.filter-row{min-width:0}
+}
+</style>
+
+
+<style id="fixed-viewport-scroll-vendor">
+html,body{height:100%;overflow:hidden!important}
+body{display:flex;flex-direction:column}
+.topbar{flex:0 0 auto}
+.layout{
+  flex:1;
+  height:calc(100dvh - 64px)!important;
+  min-height:0;
+  overflow:hidden
+}
+.device-zone{height:100%;min-height:0;overflow:hidden}
+.phone{height:100%!important;max-height:100%;min-height:0}
+.side{
+  height:100%;
+  min-height:0;
+  overflow-y:auto!important;
+  overscroll-behavior:contain;
+  scrollbar-width:thin
+}
+.phone-scroll{
+  overscroll-behavior:contain;
+  -webkit-overflow-scrolling:touch
+}
+@media(max-width:780px){
+  html,body{height:100dvh;overflow:hidden!important}
+  body{overflow:hidden!important}
+  .layout{height:100dvh!important;min-height:0;overflow:hidden;padding:0}
+  .device-zone{height:100dvh!important;overflow:hidden}
+  .phone{height:100dvh!important;max-height:none}
+  .phone-scroll{overflow-y:auto!important}
+}
+</style>
+
+
+<script id="single-pin-app-guard">
+(function(){
+  if(sessionStorage.getItem('client483921Unlocked')!=='yes'){
+    location.replace('CLIENT-KOL-2026-ID483921.html');
+  }
+})();
+</script>
+
+</head>
+<body><div class="kaka-v2-loader" id="kakaV2Loader"><div class="kaka-v2-loader-card"><div class="kaka-v2-spinner"></div><b>KAKABABU Project Preview</b><div style="margin-top:5px;font-size:12px;color:#c9ddf2">Loading secure client demo...</div></div></div>
+<header class="topbar">
+<div class="brand">KAKABABU Vendor App View<small>Digital Agency by Chandan Das</small></div>
+<div class="top-actions"><a class="soft" href="kakababu-project-v2.html">← Project Home</a><button class="orange" onclick="restartDemo()">Restart Demo</button></div>
+</header>
+<main class="layout">
+<section class="device-zone">
+<div class="phone">
+<div class="phone-inner">
+<div class="status"><span>9:41</span><span>●●● 4G 🔋</span></div>
+<div id="appbar" class="appbar"></div>
+<div id="screen" class="phone-scroll"></div>
+<div id="bottom" class="bottom-nav"></div>
+</div>
+<div id="toast" class="toast"></div>
+</div>
+</section>
+<aside class="side">
+<div class="side-head"><div><h1>KAKABABU Vendor App</h1><p>Uploaded Flutter demo source অনুযায়ী interactive project preview</p></div></div>
+<div class="feature-strip">
+<div class="feature">✅ Login & Registration</div><div class="feature">✅ Dashboard & Online Status</div><div class="feature">✅ Add Service</div>
+<div class="feature">✅ Add Vehicle</div><div class="feature">✅ Booking Status</div><div class="feature">✅ Past Booking</div>
+<div class="feature">✅ Online Service Link</div><div class="feature">✅ Payment Summary</div><div class="feature">✅ KYC & Bank</div>
+</div>
+<div class="quick">
+<button onclick="go('login')">Login</button><button onclick="go('home')">Dashboard</button><button onclick="go('addService')">Add Service</button><button onclick="go('addVehicle')">Add Vehicle</button><button onclick="go('status')">Booking Status</button><button onclick="go('profile')">Profile</button>
+</div>
+<h2>All Screens</h2>
+<div class="screen-list">
+<button onclick="go('login')">Vendor Login</button><button onclick="go('signup')">Vendor Registration</button>
+<button onclick="go('home')">Vendor Dashboard</button><button onclick="go('addService')">Add Your Service</button>
+<button onclick="go('addVehicle')">Add Your Vehicle</button><button onclick="go('status')">Booking Status</button>
+<button onclick="go('past')">Past Booking</button><button onclick="go('online')">Online Service Link</button>
+<button onclick="go('profile')">Vendor Profile</button><button onclick="go('payment')">Payment Summary</button>
+<button onclick="go('kyc')">Aadhaar KYC</button><button onclick="go('bank')">Bank Account</button>
+</div>
+<div class="note"><b>Source-based Demo:</b> এই Project View-এ supplied Vendor Flutter source-এর screen ও demo behaviour দেখানো হয়েছে। Image picker, Aadhaar verification, bank verification, live chat এবং backend production version-এ real service-এর সঙ্গে connect হবে।</div>
+</aside>
+</main>
+<script>
+let current='login',online=true,kyc=false,bank=false;
+let services=[{name:'Home Electrician',cat:'Additional Services',price:499,active:true},{name:'Offline Tutor - Class 8',cat:'Education',price:1200,active:true}];
+let vehicles=[{name:'Maruti Swift',type:'Car Hatchback',fuel:'Petrol',approved:true}];
+let bookings=[
+{id:'KBV-260801',customer:'Rahul Kumar',service:'Home Electrician',date:'03 Aug 2026, 10:30 AM',amount:499,status:'Upcoming'},
+{id:'KBV-260799',customer:'Sangita Das',service:'Offline Tutor - Class 8',date:'02 Aug 2026, 5:00 PM',amount:1200,status:'Completed'},
+{id:'KBV-260780',customer:'Amit Sharma',service:'Maruti Swift Rental',date:'01 Aug 2026, 9:00 AM',amount:2800,status:'Cancelled'}];
+
+const $=id=>document.getElementById(id);
+function toast(msg){$('toast').textContent=msg;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),1800)}
+function appbar(title,sub,back=true){$('appbar').innerHTML=`${back?'<button class="back" onclick="historyBack()">←</button>':''}<div class="appbar-title"><h2>${title}</h2><p>${sub||''}</p></div><button class="bell" onclick="toast('No new critical notification')">🔔</button>`}
+function historyBack(){go(current==='login'?'login':'home')}
+function bottom(active){const items=[['home','🏠','Home'],['status','📊','Status'],['past','🕘','Past'],['online','🔗','Online'],['profile','👤','Profile']];$('bottom').innerHTML=items.map(i=>`<button class="${active===i[0]?'active':''}" onclick="go('${i[0]}')"><b>${i[1]}</b>${i[2]}</button>`).join('')}
+function noBottom(){$('bottom').innerHTML=''}
+function go(page){current=page;loadVendorBusinesses();loadVendorDocuments();render();$('screen').scrollTop=0}
+
+
+
+
+function recalcMatrixRow(el){
+  const row=el.closest('tr');
+  if(!row)return;
+  const nums=row.querySelectorAll('input[type="number"]');
+  const original=Number(nums[0]?.value||0);
+  const discount=Number(nums[1]?.value||0);
+  const final=Math.max(original-(original*discount/100),0);
+  const target=row.querySelector('.matrix-final');
+  if(target)target.textContent='₹'+Math.round(final);
+}
+
+function educationPriceMatrixHTML(){
+  const rows=['Play-Nursery','LKG-UKG','STD 1-5','STD 6-8','STD 9-10','STD 11-12'];
+  return `<div class="dynamic-panel"><h3>Class & Payment-wise Pricing</h3>
+  <div class="matrix"><table><tr><th>Class Group</th><th>Payment Term</th><th>Original Price</th><th>Discount %</th><th>Final Price</th></tr>
+  ${rows.map((r,i)=>`<tr><td>${r}</td><td><select><option>Monthly</option><option>Quarterly</option><option>Half Yearly</option><option>Yearly</option></select></td><td><input type="number" value="${800+i*100}" oninput="recalcMatrixRow(this)"></td><td><input type="number" value="10" oninput="recalcMatrixRow(this)"></td><td class="matrix-final">₹${Math.round((800+i*100)*0.9)}</td></tr>`).join('')}
+  </table></div></div>`;
+}
+
+
+
+let serviceTimings=[{city:'Kolkata',start:'10:00',end:'12:00'}];
+
+function renderServiceTimings(){
+  const box=document.getElementById('serviceTimingList');
+  if(!box)return;
+  box.innerHTML=serviceTimings.map((t,i)=>`<div class="timing-row">
+    <div class="field"><label>City</label><select onchange="serviceTimings[${i}].city=this.value">
+      ${['Kolkata','Dubrajpur','Dumka','Asansol','Durgapur','Suri'].map(c=>`<option ${c===t.city?'selected':''}>${c}</option>`).join('')}
+    </select></div>
+    <div class="field"><label>Start</label><input type="time" value="${t.start}" onchange="serviceTimings[${i}].start=this.value"></div>
+    <div class="field"><label>End</label><input type="time" value="${t.end}" onchange="serviceTimings[${i}].end=this.value"></div>
+    <button class="remove-time full-mobile" onclick="removeServiceTiming(${i})">Remove</button>
+  </div>`).join('');
+}
+function addServiceTiming(){
+  const duplicate=serviceTimings.some((a,ai)=>serviceTimings.some((b,bi)=>ai!==bi&&a.city===b.city&&a.start===b.start&&a.end===b.end));
+  if(duplicate){alert('Duplicate timing is not allowed for the same city.');return}
+  serviceTimings.push({city:'Kolkata',start:'14:00',end:'16:00'});
+  renderServiceTimings();
+}
+function removeServiceTiming(i){
+  serviceTimings.splice(i,1);
+  renderServiceTimings();
+}
+function validateServiceTimings(){
+  for(let i=0;i<serviceTimings.length;i++){
+    for(let j=i+1;j<serviceTimings.length;j++){
+      const a=serviceTimings[i],b=serviceTimings[j];
+      if(a.city===b.city&&a.start===b.start&&a.end===b.end){
+        alert('Same city-তে duplicate timing allowed নয়.');
+        return false;
+      }
+    }
+  }
+  return true;
+}
+function showPolicy(type){
+  const title=type==='terms'?'Terms & Conditions':'Vendor User Policy';
+  const body=type==='terms'
+    ? `<ol><li>Vendor must provide correct service, pricing and availability information.</li><li>Submitted documents may be verified by admin.</li><li>False information may result in suspension.</li><li>Booking cancellation and refund rules depend on service category.</li><li>Third-party tax/payment rules apply where relevant.</li></ol>`
+    : `<ol><li>Vendor must follow platform conduct and customer-service standards.</li><li>Personal customer data must not be misused.</li><li>Vendor must maintain valid licences, certificates and bank details.</li><li>Repeated complaints may lead to account review.</li><li>All disputes will first be handled through platform support.</li></ol>`;
+  document.getElementById('policyTitle').textContent=title;
+  document.getElementById('policyContent').innerHTML=body;
+  document.getElementById('policyModal').classList.add('show');
+}
+function closePolicy(){document.getElementById('policyModal').classList.remove('show')}
+
+function updateUniformPreview(){
+  const price=Number(document.getElementById('uniformPrice')?.value||0);
+  const discount=Number(document.getElementById('uniformDiscount')?.value||0);
+  const final=Math.max(price-price*discount/100,0);
+  const el=document.getElementById('uniformFinal');
+  if(el)el.textContent='₹'+Math.round(final);
+}
+
+
+function openEducationSubcategory(subcategory){
+  go('addService');
+  setTimeout(()=>{
+    const cat=document.getElementById('svcCat');
+    if(cat){cat.value='Education Service';updateServiceFields();serviceSpecificFields();}
+    setTimeout(()=>{
+      const sub=document.getElementById('svcSub');
+      if(sub){sub.value=subcategory;updateServiceFields();serviceSpecificFields();}
+      const screen=document.getElementById('screen');
+      if(screen)screen.scrollTop=0;
+    },40);
+  },40);
+}
+
+
+function vendorGSTPreview(){
+  const mode=document.getElementById('vendorGSTMode')?.value||'GST Included';
+  const base=Number(document.getElementById('svcPrice')?.value||0);
+  const discount=Number(document.getElementById('svcDiscount')?.value||0);
+  const discounted=Math.max(base-base*discount/100,0);
+  const gst=mode==='GST Extra 18%'?Math.round(discounted*.18):0;
+  const total=Math.round(discounted+gst);
+  const box=document.getElementById('vendorGSTPreview');
+  if(box)box.innerHTML=`<div><b>GST Mode:</b> ${mode}</div><div><b>Discounted Price:</b> ₹${Math.round(discounted)}</div><div><b>GST:</b> ₹${gst}</div><div><b>Customer Price:</b> ₹${total}</div>`;
+}
+function saveVendorDraft(){
+  const draft={
+    service:document.getElementById('svcName')?.value||'',
+    category:document.getElementById('svcCat')?.value||'',
+    price:document.getElementById('svcPrice')?.value||'',
+    discount:document.getElementById('svcDiscount')?.value||'',
+    gst:document.getElementById('vendorGSTMode')?.value||''
+  };
+  localStorage.setItem('kakababuVendorDraft',JSON.stringify(draft));
+  toast('Vendor service draft saved');
+}
+
+function approvedVehicles(){
+  return vehicles.filter(v=>v.approved===true);
+}
+function vehicleApprovalSummary(){
+  const approved=approvedVehicles().length;
+  const pending=vehicles.filter(v=>v.approved===false).length;
+  return `<div class="approval-box"><b>Vehicle Approval Status</b>
+    <div class="approval-line"><span><i class="status-dot status-approved"></i>Approved Vehicles</span><strong>${approved}</strong></div>
+    <div class="approval-line"><span><i class="status-dot status-pending"></i>Pending Vehicles</span><strong>${pending}</strong></div>
+  </div>`;
+}
+function enforceVehicleFirst(){
+  const cat=document.getElementById('svcCat')?.value||'Education Service';
+  if(cat==='Transportation Service' && approvedVehicles().length===0){
+    alert('Transportation service add করার আগে অন্তত একটি approved vehicle প্রয়োজন।');
+    go('addVehicle');
+    return false;
+  }
+  return true;
+}
+function serviceSpecificFields(){
+  const cat=document.getElementById('svcCat')?.value||'Education Service';
+  const timing=document.getElementById('timingOnlyBlock');
+  const transport=document.getElementById('transportOnlyBlock');
+  const education=document.getElementById('educationOnlyBlock');
+  if(timing) timing.classList.toggle('field-hidden', !['Education Service'].includes(cat));
+  if(transport) transport.classList.toggle('field-hidden', cat!=='Transportation Service');
+  if(education) education.classList.toggle('field-hidden', cat!=='Education Service');
+}
+
+
+
+
+let vendorDocuments=[
+  {name:'Identity Proof / KYC',icon:'🪪',file:'aadhaar-card.pdf',status:'Approved',note:'Identity verified by admin'},
+  {name:'Business Certificate',icon:'🏪',file:'business-certificate.pdf',status:'Pending',note:'Waiting for admin verification'},
+  {name:'Qualification Certificate',icon:'🎓',file:'qualification.pdf',status:'Approved',note:'Certificate verified'},
+  {name:'Bank Passbook / Cancelled Cheque',icon:'🏦',file:'bank-proof.jpg',status:'Pending',note:'Bank verification pending'},
+  {name:'Driving Licence',icon:'🪪',file:'driving-licence.pdf',status:'Approved',note:'Licence verified'},
+  {name:'Vehicle RC',icon:'🚗',file:'vehicle-rc.pdf',status:'Pending',note:'RC verification pending'},
+  {name:'Vehicle Insurance',icon:'🛡️',file:'vehicle-insurance.pdf',status:'Approved',note:'Insurance active'},
+  {name:'PUC Certificate',icon:'🌿',file:'vehicle-puc.pdf',status:'Rejected',note:'Please upload a valid/current PUC'}
+];
+
+function vendorDocStatusClass(status){
+  if(status==='Approved')return 'doc-approved';
+  if(status==='Rejected')return 'doc-rejected';
+  return 'doc-pending';
+}
+
+function saveVendorDocuments(){
+  localStorage.setItem('vendorDocuments',JSON.stringify(vendorDocuments));demoWrite(DEMO_KEYS.documents,vendorDocuments);
+}
+
+function loadVendorDocuments(){
+  try{
+    const saved=demoRead(DEMO_KEYS.documents,JSON.parse(localStorage.getItem('vendorDocuments')||'[]'));
+    if(Array.isArray(saved)&&saved.length)vendorDocuments=saved;
+  }catch(e){}
+}
+
+function vendorDocumentVerificationScreen(){
+  appbar('Document Verification','KYC, business, bank and vehicle documents');noBottom();
+  const approved=vendorDocuments.filter(x=>x.status==='Approved').length;
+  const pending=vendorDocuments.filter(x=>x.status==='Pending').length;
+  const rejected=vendorDocuments.filter(x=>x.status==='Rejected').length;
+  $('screen').innerHTML=`<div class="verify-summary">
+    <div class="verify-stat"><strong>${approved}</strong><small>Approved</small></div>
+    <div class="verify-stat"><strong>${pending}</strong><small>Pending</small></div>
+    <div class="verify-stat"><strong>${rejected}</strong><small>Rejected</small></div>
+  </div>
+  ${vendorDocuments.map((d,i)=>`<div class="vendor-doc-card">
+    <div class="vendor-doc-head">
+      <div class="vendor-doc-icon">${d.icon}</div>
+      <div class="vendor-doc-main"><b>${d.name}</b><small>${d.file||'No file uploaded'}</small><small>${d.note||''}</small></div>
+      <span class="vendor-doc-status ${vendorDocStatusClass(d.status)}">${d.status}</span>
+    </div>
+    <div class="vendor-doc-actions">
+      <button class="doc-view" onclick="viewVendorDocument(${i})">View</button>
+      <label class="doc-upload">Upload / Re-upload<input type="file" hidden onchange="uploadVendorDocument(${i},this)"></label>
+      <button class="doc-delete" onclick="removeVendorDocument(${i})">Remove</button>
+    </div>
+  </div>`).join('')}`;
+}
+
+function viewVendorDocument(i){
+  const d=vendorDocuments[i];
+  if(!d)return;
+  alert(`${d.name}\nFile: ${d.file||'No file'}\nStatus: ${d.status}\nAdmin Note: ${d.note||'No note'}`);
+}
+
+function uploadVendorDocument(i,input){
+  const file=input.files&&input.files[0];
+  if(!file)return;
+  vendorDocuments[i].file=file.name;
+  vendorDocuments[i].status='Pending';
+  vendorDocuments[i].note='New document uploaded. Waiting for admin verification.';
+  saveVendorDocuments();
+  toast('Document uploaded for verification');
+  vendorDocumentVerificationScreen();
+}
+
+function removeVendorDocument(i){
+  if(!confirm('Remove this uploaded document?'))return;
+  vendorDocuments[i].file='';
+  vendorDocuments[i].status='Pending';
+  vendorDocuments[i].note='Document removed. Please upload again.';
+  saveVendorDocuments();
+  vendorDocumentVerificationScreen();
+}
+
+
+const DEMO_KEYS={
+  bookings:'kakababu_demo_bookings',
+  services:'kakababu_demo_services',
+  documents:'kakababu_demo_documents',
+  notifications:'kakababu_demo_notifications',
+  vendors:'kakababu_demo_vendors',
+  users:'kakababu_demo_users'
+};
+function demoRead(key,fallback=[]){
+  try{
+    const value=JSON.parse(localStorage.getItem(key)||'null');
+    return value===null?fallback:value;
+  }catch(e){return fallback}
+}
+function demoWrite(key,value){
+  localStorage.setItem(key,JSON.stringify(value));
+}
+
+function demoVendorBookings(){
+  const all=demoRead(DEMO_KEYS.bookings,[]);
+  if(all.length)return all;
+  return [
+    {id:'KB782145',user:'Sangita Das',service:'Online Tutor',amount:1179,city:'Dubrajpur',status:'Pending',date:'Demo'},
+    {id:'KB782146',user:'Rahul Kumar',service:'AC Repair',amount:637,city:'Kolkata',status:'Accepted',date:'Demo'}
+  ];
+}
+function saveVendorBookingStatus(id,status){
+  const list=demoVendorBookings();
+  const row=list.find(x=>x.id===id);
+  if(row)row.status=status;
+  demoWrite(DEMO_KEYS.bookings,list);
+  toast('Booking '+status.toLowerCase());
+  vendorBookingManagementScreen();
+}
+function vendorBookingManagementScreen(){
+  appbar('Booking Management','Business-wise bookings');noBottom();
+  const bookings=demoVendorBookings();
+  $('screen').innerHTML=`<div class="vendor-final-card"><b>Business Booking Management</b><p class="small">Accept, reject and complete user bookings.</p></div>
+  ${vendorBusinesses.map((biz,bi)=>{
+    const matches=bookings.filter((_,i)=>i%Math.max(vendorBusinesses.length,1)===bi);
+    const earning=matches.filter(x=>x.status==='Completed'||x.status==='Paid').reduce((a,b)=>a+Number(b.amount||0),0);
+    return `<div class="business-summary-card"><b>${biz.businessName}</b><small style="display:block">${(biz.locations||[]).map(x=>x.city).join(', ')}</small>
+      <div class="biz-dashboard-grid"><div><small>Bookings</small><strong>${matches.length}</strong></div><div><small>Earnings</small><strong>₹${earning}</strong></div></div>
+      ${matches.map(x=>`<div class="booking-manage-card"><b>${x.service}</b><small style="display:block">${x.id} • ${x.user} • ₹${x.amount||0}</small><span class="chip">${x.status}</span><div class="booking-manage-actions"><button class="v-status" onclick="saveVendorBookingStatus('${x.id}','Accepted')">Accept</button><button class="v-edit" onclick="saveVendorBookingStatus('${x.id}','Rejected')">Reject</button><button class="v-manage" onclick="saveVendorBookingStatus('${x.id}','Completed')">Complete</button></div></div>`).join('')||'<p class="small">No booking assigned.</p>'}
+    </div>`;
+  }).join('')}`;
+}
+function editBusinessLocations(i){
+  const b=vendorBusinesses[i];if(!b)return;
+  appbar('Manage Locations',b.businessName);noBottom();
+  $('screen').innerHTML=`<div id="editBusinessLocationPanel" class="location-panel"><b>${b.businessName} Locations</b>
+    ${(b.locations||[]).map((l,li)=>locationRowHTML(li,l.state,l.city,'editbiz')).join('')}
+    <button class="location-add" onclick="addVendorLocation('editBusinessLocationPanel','editbiz')">+ Add Another Location</button>
+  </div><button class="full-btn" onclick="b.locations=selectedVendorLocations('editBusinessLocationPanel');saveVendorBusinesses();toast('Locations updated');homeScreen()">SAVE LOCATIONS</button>`;
+}
+function validateNoOverlap(){
+  for(let i=0;i<serviceTimings.length;i++){
+    for(let j=i+1;j<serviceTimings.length;j++){
+      const a=serviceTimings[i],b=serviceTimings[j];
+      if(a.city!==b.city)continue;
+      const a1=a.start,a2=a.end,b1=b.start,b2=b.end;
+      if(a1<b2&&b1<a2){alert('Overlapping timing is not allowed in the same city.');return false}
+    }
+  }
+  return true;
+}
+function selectedApprovedVehicle(){
+  const el=document.getElementById('approvedVehicleSelect');
+  return el?el.value:'';
+}
+
+const allVendorTypes=[
+  {value:'Education',icon:'🎓',title:'Education',sub:'Tutor, Coaching, Classes'},
+  {value:'Transportation',icon:'🚕',title:'Transportation',sub:'Taxi, Rental, Driver'},
+  {value:'Delivery & Courier',icon:'🚚',title:'Delivery & Courier',sub:'Parcel, Document, Goods'},
+  {value:'Home Services',icon:'🛠️',title:'Home Services',sub:'Cleaning, Repair, Appliance'},
+  {value:'Event & Entertainment',icon:'🎉',title:'Event & Entertainment',sub:'Music, Photography, Event'},
+  {value:'Health & Wellness',icon:'❤️',title:'Health & Wellness',sub:'Doctor, Clinic, Therapist'},
+  {value:'IT & Digital Services',icon:'💻',title:'IT & Digital Services',sub:'Web, App, Design, SEO'},
+  {value:'Business Services',icon:'💼',title:'Business Services',sub:'CA, Consulting, Legal'},
+  {value:'Retail & Store',icon:'🛍️',title:'Retail & Store',sub:'Shop, Grocery, Fashion'},
+  {value:'Beauty & Salon',icon:'✂️',title:'Beauty & Salon',sub:'Salon, Spa, Makeup'},
+  {value:'Food & Restaurant',icon:'🍽️',title:'Food & Restaurant',sub:'Restaurant, Caterer, Cloud'},
+  {value:'Property & Rental',icon:'🏠',title:'Property & Rental',sub:'House, Office, Property'},
+  {value:'Finance & Insurance',icon:'🛡️',title:'Finance & Insurance',sub:'Insurance, Loan, Advisor'},
+  {value:'Professional Services',icon:'🧾',title:'Professional Services',sub:'Freelancer, Consultant'},
+  {value:'Other',icon:'➕',title:'Other',sub:'Any other vendor type'}
+];
+
+let vendorBusinesses=[
+  {
+    id:Date.now(),
+    vendorType:'Education',
+    businessName:'Chandan Coaching Classes',
+    description:'Education and coaching services',
+    locations:[{state:'West Bengal',city:'Dubrajpur'}],
+    status:'Active'
+  }
+];
+
+function vendorTypeGridHTML(group='vendorType'){
+  return `<div class="vendor-type-grid">${allVendorTypes.map((x,i)=>`
+    <label class="vendor-type-option">
+      <input type="checkbox" name="${group}" value="${x.value}">
+      <span>${x.icon}</span>
+      <div><b>${x.title}</b><small>${x.sub}</small></div>
+    </label>`).join('')}</div>`;
+}
+
+function businessPanelHTML(index,business={}){
+  const id=business.id||Date.now()+index;
+  const type=business.vendorType||'Education';
+  const name=business.businessName||'';
+  const desc=business.description||'';
+  const locations=business.locations&&business.locations.length?business.locations:[{state:'West Bengal',city:'Dubrajpur'}];
+  return `<div class="business-panel" data-business-index="${index}" data-business-id="${id}">
+    <div class="business-panel-head">
+      <h3>Business / Service ${index+1}</h3>
+      <button type="button" class="business-remove" onclick="removeBusinessPanel(this)">Remove</button>
+    </div>
+    <div class="field"><label>Vendor / Business Type</label>
+      <select class="business-type-select">
+        ${allVendorTypes.map(x=>`<option ${x.value===type?'selected':''}>${x.value}</option>`).join('')}
+      </select>
+    </div>
+    <div class="field"><label>Business / Service Name</label>
+      <input class="business-name-input" value="${name}" placeholder="Enter business name">
+    </div>
+    <div class="field"><label>Description</label>
+      <textarea class="business-description-input" placeholder="Describe this business">${desc}</textarea>
+    </div>
+    <div id="businessLocationPanel-${id}" class="location-panel">
+      <b>Business Service Locations</b>
+      <p class="small">প্রতিটি business-এর জন্য এক বা একাধিক city যোগ করতে পারবেন।</p>
+      ${locations.map((l,i)=>locationRowHTML(i,l.state,l.city,'business'+id)).join('')}
+      <button type="button" class="location-add" onclick="addVendorLocation('businessLocationPanel-${id}','business${id}')">+ Add Another Location</button>
+    </div>
+  </div>`;
+}
+
+function addBusinessPanel(){
+  const box=document.getElementById('businessPanelList');
+  if(!box)return;
+  const count=box.querySelectorAll('.business-panel').length;
+  box.insertAdjacentHTML('beforeend',businessPanelHTML(count));
+}
+
+function removeBusinessPanel(btn){
+  const box=document.getElementById('businessPanelList');
+  const rows=box?.querySelectorAll('.business-panel')||[];
+  if(rows.length<=1){alert('At least one business is required.');return}
+  btn.closest('.business-panel')?.remove();
+  refreshBusinessPanelTitles();
+}
+
+function refreshBusinessPanelTitles(){
+  document.querySelectorAll('#businessPanelList .business-panel').forEach((panel,i)=>{
+    const h=panel.querySelector('.business-panel-head h3');
+    if(h)h.textContent='Business / Service '+(i+1);
+  });
+}
+
+function collectBusinessPanels(){
+  return Array.from(document.querySelectorAll('#businessPanelList .business-panel')).map(panel=>{
+    const id=panel.dataset.businessId;
+    return {
+      id:Number(id)||Date.now(),
+      vendorType:panel.querySelector('.business-type-select')?.value||'Other',
+      businessName:panel.querySelector('.business-name-input')?.value.trim()||'Unnamed Business',
+      description:panel.querySelector('.business-description-input')?.value.trim()||'',
+      locations:selectedVendorLocations('businessLocationPanel-'+id),
+      status:'Active'
+    };
+  });
+}
+
+function saveVendorRegistration(){
+  const selectedTypes=Array.from(document.querySelectorAll('input[name="signupVendorTypes"]:checked')).map(x=>x.value);
+  const businesses=collectBusinessPanels();
+  if(!selectedTypes.length){alert('Please select at least one Vendor Type.');return}
+  if(!businesses.length){alert('Please add at least one Business / Service.');return}
+  if(businesses.some(b=>!b.businessName)){alert('Please enter every Business / Service name.');return}
+  if(businesses.some(b=>!b.locations.length)){alert('Please select at least one location for every business.');return}
+  vendorBusinesses=businesses;
+  localStorage.setItem('vendorBusinesses',JSON.stringify(vendorBusinesses));
+  localStorage.setItem('vendorTypes',JSON.stringify(selectedTypes));
+  toast('Vendor registration saved');
+  go('login');
+}
+
+function loadVendorBusinesses(){
+  try{
+    const saved=JSON.parse(localStorage.getItem('vendorBusinesses')||'[]');
+    if(Array.isArray(saved)&&saved.length)vendorBusinesses=saved;
+  }catch(e){}
+}
+
+function editVendorBusiness(i){
+  const b=vendorBusinesses[i]; if(!b)return;
+  const n=prompt('Edit business name',b.businessName);
+  if(n!==null&&n.trim())b.businessName=n.trim();
+  const d=prompt('Edit description',b.description||'');
+  if(d!==null)b.description=d;
+  saveVendorBusinesses();
+  homeScreen();
+}
+
+function toggleVendorBusiness(i){
+  const b=vendorBusinesses[i]; if(!b)return;
+  b.status=b.status==='Active'?'Paused':'Active';
+  saveVendorBusinesses();
+  homeScreen();
+}
+
+function deleteVendorBusiness(i){
+  if(vendorBusinesses.length<=1){alert('At least one business is required.');return}
+  if(!confirm('Delete this business?'))return;
+  vendorBusinesses.splice(i,1);
+  saveVendorBusinesses();
+  homeScreen();
+}
+
+function saveVendorBusinesses(){
+  localStorage.setItem('vendorBusinesses',JSON.stringify(vendorBusinesses));
+}
+
+function vendorBusinessCardsHTML(){
+  if(!vendorBusinesses.length)return `<div class="card"><b>No business added</b><small>Add your first business from registration or Add Service.</small></div>`;
+  return vendorBusinesses.map((b,i)=>`<div class="business-summary-card">
+    <div class="business-summary-top">
+      <div class="business-summary-icon">${allVendorTypes.find(x=>x.value===b.vendorType)?.icon||'🏪'}</div>
+      <div class="business-summary-main">
+        <b>${b.businessName}</b>
+        <small>${b.vendorType}</small>
+        <small>${(b.locations||[]).map(x=>x.city).join(', ')||'No location'}</small>
+      </div>
+      <span class="chip ${b.status==='Active'?'completed':'upcoming'}">${b.status}</span>
+    </div>
+    <div class="business-summary-actions">
+      <button class="biz-edit" onclick="editVendorBusiness(${i})">Edit</button>
+      <button class="biz-manage" onclick="editBusinessLocations(${i})">Manage Locations</button>
+      <button class="biz-toggle" onclick="toggleVendorBusiness(${i})">${b.status==='Active'?'Pause':'Activate'}</button>
+      <button class="biz-delete" onclick="deleteVendorBusiness(${i})">Delete</button>
+    </div>
+  </div>`).join('');
+}
+
+const vendorIndiaLocations={
+  'West Bengal':['Kolkata','Howrah','Durgapur','Asansol','Siliguri','Darjeeling','Malda','Bardhaman','Suri','Dubrajpur','Bolpur','Rampurhat','Bankura','Purulia','Kharagpur','Haldia'],
+  'Jharkhand':['Ranchi','Jamshedpur','Dhanbad','Bokaro','Deoghar','Dumka','Hazaribagh','Giridih','Ramgarh','Chaibasa'],
+  'Bihar':['Patna','Gaya','Bhagalpur','Muzaffarpur','Darbhanga','Purnia','Ara','Begusarai','Katihar'],
+  'Odisha':['Bhubaneswar','Cuttack','Rourkela','Sambalpur','Berhampur','Puri','Balasore','Baripada'],
+  'Delhi':['New Delhi','Delhi','Dwarka','Rohini','Saket','Janakpuri'],
+  'Uttar Pradesh':['Lucknow','Kanpur','Noida','Ghaziabad','Agra','Varanasi','Prayagraj','Meerut','Gorakhpur'],
+  'Maharashtra':['Mumbai','Pune','Nagpur','Nashik','Thane','Navi Mumbai','Kolhapur','Aurangabad'],
+  'Karnataka':['Bengaluru','Mysuru','Mangaluru','Hubballi','Belagavi','Shivamogga'],
+  'Tamil Nadu':['Chennai','Coimbatore','Madurai','Salem','Tiruchirappalli','Vellore'],
+  'Telangana':['Hyderabad','Warangal','Nizamabad','Karimnagar','Khammam'],
+  'Gujarat':['Ahmedabad','Surat','Vadodara','Rajkot','Gandhinagar','Jamnagar'],
+  'Rajasthan':['Jaipur','Jodhpur','Udaipur','Kota','Ajmer','Bikaner'],
+  'Madhya Pradesh':['Bhopal','Indore','Jabalpur','Gwalior','Ujjain','Rewa'],
+  'Kerala':['Thiruvananthapuram','Kochi','Kozhikode','Thrissur','Kollam','Kannur'],
+  'Punjab':['Ludhiana','Amritsar','Jalandhar','Patiala','Mohali','Bathinda'],
+  'Haryana':['Gurugram','Faridabad','Panipat','Ambala','Karnal','Rohtak'],
+  'Assam':['Guwahati','Silchar','Dibrugarh','Jorhat','Tezpur','Nagaon'],
+  'Chhattisgarh':['Raipur','Bhilai','Durg','Bilaspur','Korba','Jagdalpur'],
+  'Uttarakhand':['Dehradun','Haridwar','Haldwani','Roorkee','Rishikesh'],
+  'Himachal Pradesh':['Shimla','Dharamshala','Solan','Mandi','Kullu'],
+  'Goa':['Panaji','Margao','Vasco da Gama','Mapusa','Ponda']
+};
+
+function vendorStateOptions(selected='West Bengal'){
+  return Object.keys(vendorIndiaLocations)
+    .map(s=>`<option ${s===selected?'selected':''}>${s}</option>`).join('');
+}
+function vendorCityOptions(state,selected=''){
+  return (vendorIndiaLocations[state]||[])
+    .map(c=>`<option ${c===selected?'selected':''}>${c}</option>`).join('');
+}
+function updateVendorCityDropdown(stateSelect){
+  const row=stateSelect.closest('.location-row');
+  const city=row?.querySelector('.vendor-city-select');
+  if(city)city.innerHTML=vendorCityOptions(stateSelect.value);
+}
+function locationRowHTML(index,state='West Bengal',city='Kolkata',group='signup'){
+  return `<div class="location-row" data-location-index="${index}">
+    <div class="field"><label>Service State</label>
+      <select class="vendor-state-select" name="${group}State" onchange="updateVendorCityDropdown(this)">
+        ${vendorStateOptions(state)}
+      </select>
+    </div>
+    <div class="field"><label>Service City</label>
+      <select class="vendor-city-select" name="${group}City">
+        ${vendorCityOptions(state,city)}
+      </select>
+    </div>
+    <button type="button" class="location-remove" onclick="removeVendorLocation(this)">Remove</button>
+  </div>`;
+}
+function addVendorLocation(containerId,group='signup'){
+  const box=document.getElementById(containerId);
+  if(!box)return;
+  const count=box.querySelectorAll('.location-row').length;
+  box.insertAdjacentHTML('beforeend',locationRowHTML(count,'West Bengal','Kolkata',group));
+}
+function removeVendorLocation(btn){
+  const box=btn.closest('.location-panel');
+  const rows=box?.querySelectorAll('.location-row')||[];
+  if(rows.length<=1){alert('At least one State and City is required.');return}
+  btn.closest('.location-row')?.remove();
+}
+function selectedVendorLocations(containerId){
+  const box=document.getElementById(containerId);
+  if(!box)return [];
+  return Array.from(box.querySelectorAll('.location-row')).map(row=>({
+    state:row.querySelector('.vendor-state-select')?.value||'',
+    city:row.querySelector('.vendor-city-select')?.value||''
+  })).filter(x=>x.state&&x.city);
+}
+
+function selectedValues(name){
+  return Array.from(document.querySelectorAll(`input[name="${name}"]:checked`)).map(x=>x.value);
+}
+function calcVendorDiscount(){
+  const original=Number(document.getElementById('svcPrice')?.value||0);
+  const discount=Number(document.getElementById('svcDiscount')?.value||0);
+  const final=Math.max(original-(original*discount/100),0);
+  const el=document.getElementById('discountPrice');
+  if(el)el.textContent='₹'+Math.round(final);
+}
+function updateServiceFields(){
+  const cat=document.getElementById('svcCat')?.value||'Education Service';
+  const sub=document.getElementById('svcSub')?.value||'Online Tutor';
+  const box=document.getElementById('dynamicServiceFields');
+  if(!box)return;
+  let h='';
+  if(cat==='Education Service'){
+    h=`<div class="dynamic-panel"><h3>Education Service Details</h3>
+      <div class="field"><label>Sub-category</label><select id="svcSub" onchange="updateServiceFields()">
+      ${['Online Tutor','Offline Tutor','Career Coaching','Public Speaking','Uniform Booking','Admission','Re-Admission'].map(x=>`<option ${x===sub?'selected':''}>${x}</option>`).join('')}
+      </select></div>
+      <div class="field"><label>Class Available — Multiple Select</label><div class="class-select-grid">
+      ${['Play','Nursery','LKG','UKG','STD 1','STD 2','STD 3','STD 4','STD 5','STD 6','STD 7','STD 8','STD 9','STD 10','STD 11','STD 12'].map(x=>`<label><input type="checkbox" name="classes" value="${x}"><span>${x}</span></label>`).join('')}
+      </div></div>`;
+    if(['Online Tutor','Offline Tutor','Career Coaching','Public Speaking'].includes(sub)){
+      h+=`<div class="inline-grid"><div class="field"><label>Teaching Hours</label><input value="2 hours / day"></div>
+      <div class="field"><label>Payment Terms</label><select><option>Monthly</option><option>Quarterly</option><option>Half Yearly</option><option>Yearly</option></select></div></div>
+      <div class="dynamic-panel"><h3>Service Timing — Multiple</h3><div id="serviceTimingList" class="timing-list"></div><button class="view-link" onclick="addServiceTiming()">+ Add Another Time</button><small>Same city-তে duplicate timing blocked থাকবে।</small></div>
+      <div class="upload-box">🎓 Upload Qualification Certificate<br><button class="view-link" onclick="toast('Qualification certificate picker opened')">Choose Certificate</button></div>`;
+    }
+    if(sub==='Uniform Booking'){
+      h+=`<div class="dynamic-panel"><h3>Uniform Booking Fields</h3>
+      <div class="inline-grid"><div class="field"><label>City</label><select><option>Kolkata</option><option>Dubrajpur</option><option>Dumka</option><option>Asansol</option></select></div>
+      <div class="field"><label>Class / Standard</label><select>${['Play','Nursery','LKG','UKG','STD 1','STD 2','STD 3','STD 4','STD 5','STD 6','STD 7','STD 8','STD 9','STD 10','STD 11','STD 12'].map(x=>`<option>${x}</option>`).join('')}</select></div></div>
+      <div class="inline-grid"><div class="field"><label>Gender</label><select><option>Boy</option><option>Girl</option></select></div>
+      <div class="field"><label>Dress Size</label><select><option>20</option><option>22</option><option>24</option><option>26</option><option>28</option><option>30</option><option>32</option><option>34</option></select></div></div>
+      <div class="field"><label>School / Organisation</label><input placeholder="School name"></div>
+      <div class="inline-grid"><div class="field"><label>Original Price ₹</label><input id="uniformPrice" type="number" value="1200" oninput="updateUniformPreview()"></div>
+      <div class="field"><label>Student Discount %</label><input id="uniformDiscount" type="number" value="10" oninput="updateUniformPreview()"></div></div>
+      <div class="price-preview">Final Uniform Price: <strong id="uniformFinal">₹1080</strong></div></div>`;
+    }
+    if(['Admission','Re-Admission'].includes(sub)){
+      h+=`<div class="dynamic-panel"><h3>${sub} Fields</h3>
+      <div class="inline-grid"><div class="field"><label>City</label><select><option>Kolkata</option><option>Dubrajpur</option><option>Dumka</option><option>Asansol</option></select></div>
+      <div class="field"><label>Class / Standard</label><select>${['Play','Nursery','LKG','UKG','STD 1','STD 2','STD 3','STD 4','STD 5','STD 6','STD 7','STD 8','STD 9','STD 10','STD 11','STD 12'].map(x=>`<option>${x}</option>`).join('')}</select></div></div>
+      <div class="field"><label>School / Organisation</label><input placeholder="Enter organisation name"></div>
+      <div class="field"><label>Admission Session</label><input value="2026-27"></div>
+      <div class="inline-grid"><div class="field"><label>Original Price ₹</label><input type="number" value="${sub==='Admission'?5000:2500}"></div>
+      <div class="field"><label>Student Discount %</label><input type="number" value="5"></div></div>
+      <div class="price-preview">Discount price will auto-calculate in final backend version.</div></div>`;
+    }
+  }else if(cat==='Transportation Service'){
+    h=`<div class="dynamic-panel"><h3>Transportation Rules</h3><p class="small">Transportation service add করার আগে approved vehicle থাকা প্রয়োজন।</p>
+    <div class="inline-grid"><div class="field"><label>Route Type</label><select><option>In Station</option><option>Out Station</option></select></div>
+    <div class="field"><label>Duration</label><select><option>Per Hour</option><option>4 Hours</option><option>8 Hours</option><option>Per Day</option></select></div></div>
+    <div class="field"><label>Approved Vehicle</label><select id="approvedVehicleSelect">${approvedVehicles().map(v=>`<option>${v.name} — ${v.number||'No number'}</option>`).join('')}</select></div><div class="field"><label>Out Station Night Stay Charge ₹</label><input type="number" value="700"></div></div>`;
+  }else{
+    h=`<div class="dynamic-panel"><h3>${cat} Details</h3><p class="small">Selected category অনুযায়ী booking ও payment fields বদলাবে। Timing option শুধু relevant online/offline/counselling service-এ থাকবে।</p></div>`;
+  }
+  if(cat==='Education Service')h+=educationPriceMatrixHTML();
+  box.innerHTML=h;setTimeout(()=>{renderServiceTimings();updateUniformPreview();},0);
+}
+function updateVehicleDriverFields(){
+  const mode=document.getElementById('vehMode')?.value||'With Driver';
+  const box=document.getElementById('vehicleDriverFields');
+  if(!box)return;
+  box.innerHTML=`<div class="dynamic-panel"><h3>${mode} Details</h3>
+  <div class="field"><label>${mode==='Self Drive'?'Owner / Responsible Person Name':'Driver Name'}</label><input id="driverName" placeholder="Enter name"></div>
+  <div class="field"><label>Driving Licence Number</label><input id="licenceNo" placeholder="Enter licence number"></div>
+  <div class="upload-box">📄 Upload Driving Licence Copy<br><button class="view-link" onclick="toast('Driving licence upload opened')">Choose File</button></div></div>`;
+}
+
+function loginScreen(){
+ appbar('KAKABABU VENDOR','Manage services, rentals and bookings',false);noBottom();
+ $('screen').innerHTML=`<div class="profile-head"><div class="avatar">🏪</div><h3>KAKABABU VENDOR</h3><p>Demo login: any email/password</p></div>
+ <div class="field"><label>Email or contact number</label><input value="vendor@example.com"></div>
+ <div class="field"><label>Password</label><input type="password" value="123456"></div>
+ <button class="full-btn" onclick="go('home')">LOGIN</button><button class="full-btn ghost" style="margin-top:8px" onclick="go('signup')">Create vendor account</button>`;
+}
+
+function signupScreen(){
+ appbar('Vendor registration','Create partner account');noBottom();
+ $('screen').innerHTML=`<div class="upload-box">📷 Upload Profile Picture<br><button class="view-link" onclick="toast('Profile picture picker opened')">Choose Photo</button></div>
+ <div class="field"><label>Vendor / Business Name</label><input placeholder="Enter owner or main business name"></div>
+ <div class="inline-grid"><div class="field"><label>Email</label><input placeholder="Email"></div><div class="field"><label>Contact Number</label><input placeholder="Mobile number"></div></div>
+ <div class="field"><label>Vendor Type — Multiple Select</label>${vendorTypeGridHTML('signupVendorTypes')}</div>
+ <div id="businessPanelList">${vendorBusinesses.map((b,i)=>businessPanelHTML(i,b)).join('')}</div>
+ <button type="button" class="business-add" onclick="addBusinessPanel()">+ Add Another Business / Service</button>
+ <div class="upload-box">🎓 Qualification / Business Certificate Upload<br><button class="view-link" onclick="toast('Certificate upload opened')">Choose Certificate</button></div>
+ <div class="field"><label>Password</label><input type="password" placeholder="Password"></div>
+ <button class="full-btn" onclick="saveVendorRegistration()">SIGN UP</button>`;
+}
+function updateVendorBooking(i,status){
+ vendorDemoBookings[i].status=status;
+ localStorage.setItem('vendorDemoBookings',JSON.stringify(vendorDemoBookings));
+ toast('Booking '+status.toLowerCase());vendorBookingManagementScreen();
+}
+function editServiceDemo(i){const s=services[i];if(!s)return;const n=prompt('Edit service name',s.name);if(n)s.name=n;const p=prompt('Edit price',s.price);if(p!==null&&p!=='')s.price=Number(p)||s.price;homeScreen()}
+function toggleServiceDemo(i){const s=services[i];if(!s)return;s.active=!s.active;homeScreen()}
+function deleteServiceDemo(i){if(confirm('Delete this demo service?')){services.splice(i,1);homeScreen()}}
+
+function homeScreen(){
+ appbar('Vendor Dashboard','Dumka • Vendor ID KBV1025',false);bottom('home');
+ const pending=bookings.filter(x=>x.status==='Upcoming').length,total=bookings.reduce((a,b)=>a+b.amount,0);
+ $('screen').innerHTML=`<div class="hero"><h3>Hello, KAKABABU Partner</h3><p>Manage services, rentals and bookings</p></div>
+ <div class="online-row"><div><b style="font-size:12px">${online?'ONLINE':'OFFLINE'}</b><small style="display:block;color:var(--muted);font-size:9px">${online?'Customers can see your services':'Your services are temporarily hidden'}</small></div><div class="switch ${online?'on':''}" onclick="online=!online;homeScreen()"><i></i></div></div>
+ <div class="stats"><div class="stat"><small>My businesses</small><strong>${vendorBusinesses.length}</strong></div><div class="stat"><small>Upcoming bookings</small><strong>${pending}</strong></div><div class="stat"><small>Total payment</small><strong>₹${total}</strong></div><div class="stat"><small>Active services</small><strong>${services.length}</strong></div><div class="stat"><small>Rental vehicles</small><strong>${vehicles.length}</strong></div></div>
+ <div class="card" style="border:1px solid #80c7a4;background:#edf9f3">
+  <div class="row"><div class="icon">🎓</div><div class="grow"><b>Education Service Forms</b><small>Uniform, Admission, Re-Admission, multiple timing and policy view</small></div></div>
+  <div class="actions-grid" style="margin-top:10px">
+    <button class="action" onclick="openEducationSubcategory('Uniform Booking')"><span>👕</span><b>Uniform Booking</b><small>City, class, gender, size & price</small></button>
+    <button class="action" onclick="openEducationSubcategory('Admission')"><span>🏫</span><b>Admission Form</b><small>City, class, session & price</small></button>
+    <button class="action" onclick="openEducationSubcategory('Re-Admission')"><span>🔁</span><b>Re-Admission</b><small>Renewal details & pricing</small></button>
+    <button class="action" onclick="openEducationSubcategory('Online Tutor')"><span>🕐</span><b>Multiple Timing</b><small>Add/remove city-wise times</small></button>
+  </div>
+</div><div class="card" style="border:1px solid #9fc8f5;background:#eef6ff">
+  <div class="row"><div class="icon">🧾</div><div class="grow"><b>Pricing & GST Settings</b><small>Class-wise pricing, payment terms, discount, GST, duration and rating settings</small></div><button class="small-btn" onclick="go('addService')">Open</button></div>
+</div><div class="cleanup-note"><b>Professional Service Management</b><p class="small">Premium service cards, edit, manage and status actions added.</p></div><div class="cleanup-note"><b>GST & Service Settings</b><p class="small">GST mode, customer price preview and vendor draft save added.</p></div><div class="vendor-final-card"><b>Vendor Management Ready</b><p class="small">Service, booking, vehicle, GST, bank, document and approval flows are ready.</p></div><div class="actions-grid"><button class="action" onclick="go('signup')"><span>🏪</span><b>Add Business</b><small>Add another business/service</small></button><button class="action" onclick="go('addService')"><span>🧰</span><b>Add Service</b><small>Dynamic service details</small></button><button class="action" onclick="go('addService')"><span>📊</span><b>Education Pricing Matrix</b><small>Class, term, discount & GST</small></button><button class="action" onclick="go('addVehicle')"><span>🚗</span><b>Add Vehicle</b><small>Driver, licence & documents</small></button><button class="action" onclick="go('vehicleStatus')"><span>✅</span><b>Check Vehicle Approval</b><small>Approved / Pending status</small></button><button class="action" onclick="vendorBookingManagementScreen()"><span>📦</span><b>Manage Bookings</b><small>Accept, reject and complete</small></button><button class="action" onclick="go('status')"><span>📊</span><b>Booking Status</b><small>Upcoming and ongoing</small></button><button class="action" onclick="vendorDocumentVerificationScreen()"><span>🗂️</span><b>Verify Documents</b><small>KYC, bank, certificates & vehicle</small></button><button class="action" onclick="go('payment')"><span>💰</span><b>Payment Summary</b><small>Settlement details</small></button></div>
+ <h3 class="section-title">My Businesses / Services (${vendorBusinesses.length})</h3>${vendorBusinessCardsHTML()}<h3 class="section-title">Active services (${services.length})</h3>${services.map((s,i)=>`<div class="vendor-service-card"><div class="vendor-service-top"><div class="vendor-service-icon">🛠️</div><div class="vendor-service-main"><b>${s.name}</b><small>${s.cat}</small><small>Price: ₹${s.price} • Verified listing</small></div><span class="chip ${s.active===false?'upcoming':'completed'}">${s.active===false?'Paused':'Active'}</span></div><div class="vendor-service-actions"><button class="v-edit" onclick="editServiceDemo(i)">Edit</button><button class="v-manage" onclick="toggleServiceDemo(i)">Pause / Resume</button><button class="v-status" onclick="deleteServiceDemo(i)">Delete</button></div></div>`).join('')}`;
+}
+
+function addServiceScreen(){
+ appbar('Add your service','Dynamic service form');noBottom();
+ $('screen').innerHTML=`<div class="dynamic-panel"><h3>Education Service Forms</h3>
+        <div class="multi-box">
+          <label onclick="openEducationSubcategory('Uniform Booking')">👕 Uniform</label>
+          <label onclick="openEducationSubcategory('Admission')">🏫 Admission</label>
+          <label onclick="openEducationSubcategory('Re-Admission')">🔁 Re-Admission</label>
+          <label onclick="openEducationSubcategory('Online Tutor')">🕐 Multiple Timing</label>
+        </div></div>
+ <div class="field"><label>Service Name</label><input id="svcName" value="Online Tutor"></div>
+ <div class="field"><label>Category</label><select id="svcCat" onchange="updateServiceFields();serviceSpecificFields()"><option>Education Service</option><option>Transportation Service</option><option>Home Service</option><option>Entertainment Service</option><option>Business Service</option></select></div>
+ <div id="dynamicServiceFields"></div>
+<div id="educationOnlyBlock" class="rule-box">Education service-এ Class, Payment Term, Timing, Qualification এবং Pricing Matrix প্রযোজ্য।</div>
+<div id="timingOnlyBlock" class="rule-box">Timing option শুধু Online Tutor, Offline Tutor, Career Coaching ও Public Speaking-এর মতো relevant service-এ দেখাবে।</div>
+<div id="transportOnlyBlock" class="rule-box field-hidden">Transportation service-এর জন্য approved vehicle বাধ্যতামূলক। In-station/Out-station, duration এবং night-stay charge দেখাবে।</div>
+ <div id="serviceLocationPanel" class="location-panel">
+   <b>Service Locations</b>
+   <p class="small">Multiple location দরকার হলে Add Another Location ব্যবহার করুন।</p>
+   ${locationRowHTML(0,'West Bengal','Dubrajpur','service')}
+   <button type="button" class="location-add" onclick="addVendorLocation('serviceLocationPanel','service')">+ Add Another Location</button>
+ </div>
+ <div class="field"><label>Description / Additional Information</label><textarea>Professional verified service.</textarea></div><div class="dynamic-panel"><h3>Pricing, GST & Rating</h3><p class="small">Client request অনুযায়ী payment term, duration, GST এবং rating settings এখানে যোগ হয়েছে।</p></div>
+ <div class="inline-grid"><div class="field"><label>GST Setting</label><select id="vendorGSTMode" onchange="vendorGSTPreview()"><option>GST Included</option><option>GST Extra 18%</option><option>No GST</option></select></div>
+ <div class="field"><label>Duration Unit</label><select><option>Per Hour</option><option>Per Session</option><option>Per Day</option><option>Monthly</option></select></div></div>
+ <label class="check"><input type="checkbox" checked> Enable Rating & Comments for this service</label>
+ <div class="inline-grid"><div class="field"><label>Original Price ₹</label><input id="svcPrice" type="number" value="1000" oninput="calcVendorDiscount();vendorGSTPreview()"></div><div class="field"><label>Student Discount %</label><input id="svcDiscount" type="number" value="10" oninput="calcVendorDiscount();vendorGSTPreview()"></div></div>
+ <div class="price-box">Discount Price: <strong id="discountPrice">₹900</strong></div><div id="vendorGSTPreview" class="gst-live"></div><button class="view-link" onclick="saveVendorDraft()">Save Draft</button>
+ <div class="upload-box">🖼 Upload Reference Images from Gallery<br><button class="view-link" onclick="toast('Reference image picker opened')">Choose Images</button></div>
+ <label class="check"><input type="checkbox" checked> Accept Terms and Conditions <button class="view-link" onclick="showPolicy('terms')">View Agreement</button></label>
+ <label class="check"><input type="checkbox" checked> Accept Vendor User Policy <button class="view-link" onclick="showPolicy('vendor')">View Policy</button></label>
+ <button class="full-btn" onclick="addService()">ADD SERVICE</button>`;
+ updateServiceFields();serviceSpecificFields();calcVendorDiscount();vendorGSTPreview();
+}
+
+function addService(){
+ if(!enforceVehicleFirst())return;if(!validateServiceTimings())return;if(!validateNoOverlap())return;
+ const name=$('svcName').value||'New Service';
+ const price=Number($('svcPrice').value)||0;
+ const discount=Number($('svcDiscount').value)||0;
+ const finalPrice=Math.round(price-(price*discount/100));
+ const locations=selectedVendorLocations('serviceLocationPanel');
+ if(!locations.length){alert('Please select at least one State and City.');return}
+ services.push({name:name,cat:$('svcCat').value,price:finalPrice,active:true,locations:locations});
+ toast('Dynamic service added successfully');setTimeout(()=>go('home'),500);
+}
+
+
+function vehicleStatusScreen(){
+ appbar('Vehicle Approval Status','Admin verification');noBottom();
+ $('screen').innerHTML=`${vehicleApprovalSummary()}<div class="list">${vehicles.map(v=>`<div class="card row"><div class="icon">🚗</div><div class="grow"><b>${v.name}</b><small>${v.number||'Vehicle No pending'} • ${v.type}</small></div><span class="chip ${v.approved?'completed':'upcoming'}">${v.approved?'Approved':'Pending'}</span></div>`).join('')}</div><button class="full-btn" onclick="go('addVehicle')">ADD ANOTHER VEHICLE</button>`;
+}
+
+function addVehicleScreen(){
+ appbar('Add your vehicle','Vehicle and driver verification');noBottom();
+ $('screen').innerHTML=`<div class="field"><label>Vehicle Number *</label><input id="vehNo" placeholder="WB 00 AB 1234"></div>
+ <div class="field"><label>Vehicle Type</label><select id="vehType"><option>Bike</option><option>Car Hatchback</option><option>Car Sedan</option><option>Car SUV</option><option>Mini Bus</option><option>Luxury Bus</option></select></div>
+ <div class="field"><label>Vehicle Display Name</label><input id="vehName" value="Honda City"></div>
+ <div class="inline-grid"><div class="field"><label>Fuel</label><select><option>Petrol</option><option>Diesel</option><option>EV</option><option>CNG</option></select></div><div class="field"><label>Mode of Operation</label><select id="vehMode" onchange="updateVehicleDriverFields()"><option>With Driver</option><option>Self Drive</option><option>Both</option></select></div></div>
+ <div id="vehicleDriverFields"></div>
+ <div class="inline-grid"><div class="field"><label>Service Type</label><select><option>In Station</option><option>Out Station</option><option>Both</option></select></div><div class="field"><label>Minimum Booking</label><select><option>Per Hour</option><option>2 Hours</option><option>4 Hours</option><option>8 Hours</option><option>Per Day</option></select></div></div>
+ <div class="field"><label>Out Station Night Stay Charge ₹</label><input type="number" value="700"></div>
+ <div class="upload-box">📷 Upload Vehicle Images (up to 10)<br><button class="view-link" onclick="toast('Vehicle image upload opened')">Choose Images</button></div>
+ <div class="upload-box">📑 Upload RC / Insurance / PUC<br><button class="view-link" onclick="toast('Vehicle document upload opened')">Choose Documents</button></div>
+ <label class="check"><input type="checkbox" checked> Accept Terms and Vendor Policy <button class="view-link" onclick="toast('Vehicle agreement opened')">View</button></label>
+ <button class="full-btn" onclick="addVehicle()">SUBMIT VEHICLE</button>`;
+ updateVehicleDriverFields();
+}
+
+function addVehicle(){
+ const no=$('vehNo').value.trim();
+ const driver=$('driverName')?.value.trim();
+ const licence=$('licenceNo')?.value.trim();
+ if(!no){alert('Vehicle number is required.');return}
+ if(!driver||!licence){alert('Driver/responsible person and licence details are required.');return}
+ vehicles.push({name:$('vehName').value||'New Vehicle',type:$('vehType').value,number:no,fuel:'Petrol',approved:true});
+ toast('Vehicle submitted for admin approval');setTimeout(()=>go('home'),600);
+}
+function statusScreen(){
+ appbar('Booking Status','Manage active customer bookings',false);bottom('status');
+ $('screen').innerHTML=`${bookings.filter(b=>b.status!=='Completed'&&b.status!=='Cancelled').map((b,i)=>bookingCard(b,i,true)).join('')||'<div class="card">No bookings in this status</div>'}`;
+}
+function bookingCard(b,i,manage){return `<div class="card"><div class="row"><div class="icon">📦</div><div class="grow"><b>${b.service}</b><small>${b.customer} • ${b.id}</small><small>${b.date} • ₹${b.amount}</small></div><span class="chip ${b.status.toLowerCase()}">${b.status}</span></div>${manage?`<div class="btn-row"><button class="mini accept" onclick="setBooking(${i},'Completed')">Complete</button><button class="mini reject" onclick="setBooking(${i},'Cancelled')">Cancel</button><button class="mini outline" onclick="toast('Customer chat opened. Contact number remains hidden.')">Chat</button></div>`:''}</div>`}
+function setBooking(i,status){bookings[i].status=status;toast('Booking status updated');statusScreen()}
+function pastScreen(){
+ appbar('Past Booking','Completed and cancelled history',false);bottom('past');
+ $('screen').innerHTML=`${bookings.filter(b=>b.status==='Completed'||b.status==='Cancelled').map((b,i)=>bookingCard(b,i,false)).join('')}<button class="full-btn ghost" onclick="toast('Booking report download started in demo mode')">⬇ Download booking report</button>`;
+}
+function onlineScreen(){
+ appbar('Online Service Link','Send Zoom / Google Meet link',false);bottom('online');
+ $('screen').innerHTML=`<div class="hero"><h3>Online Link</h3><p>Send a meeting link to an online-service customer.</p></div>
+ <div class="field"><label>Select booking</label><select><option>Offline Tutor - Class 8</option><option>Dance Online</option><option>Yoga Online</option></select></div>
+ <div class="field"><label>Zoom / Google Meet URL</label><input value="https://meet.google.com/demo-link"></div>
+ <button class="full-btn" onclick="toast('Online link updated and sent to user')">SEND ONLINE LINK</button>`;
+}
+function paymentScreen(){
+ appbar('Payment summary','Vendor earning and settlement');noBottom();
+ $('screen').innerHTML=`<div class="hero"><h3>₹3,450</h3><p>Total payment in demo period</p></div>
+ <div class="card"><div class="row"><div class="grow"><b>Gross booking value</b></div><b>₹4,000</b></div></div>
+ <div class="card"><div class="row"><div class="grow"><b>Commission deducted</b></div><b>- ₹550</b></div></div>
+ <div class="card"><div class="row"><div class="grow"><b>Payment settled</b></div><span class="chip completed">₹2,600</span></div></div>
+ <div class="card"><div class="row"><div class="grow"><b>Payment pending</b></div><span class="chip upcoming">₹850</span></div></div>
+ <button class="full-btn ghost" onclick="toast('Settlement report generated in demo mode')">Download payment report</button>`;
+}
+function profileScreen(){
+ appbar('Profile','Vendor account and verification',false);bottom('profile');
+ $('screen').innerHTML=`<div class="profile-head"><div class="avatar">🏪</div><h3>KAKABABU Partner</h3><p>vendor@example.com • 989XXXXX89</p><p>Dumka • Vendor ID KBV1025</p></div>
+ <div class="menu-item" onclick="toast('Profile photo picker will open in production')"><span>📷</span><div><b>CHANGE PROFILE PIC</b><small>Profile picture</small></div></div>
+ <div class="menu-item" onclick="vendorDocumentVerificationScreen()"><span>🗂️</span><div><b>Document Verification</b><small>KYC, certificates, bank and vehicle documents</small></div></div><div class="menu-item" onclick="toast('Qualification and business certificate manager opened')"><span>🎓</span><div><b>Qualification / Certificates</b><small>Upload and manage documents</small></div></div><div class="menu-item" onclick="go('kyc')"><span>🪪</span><div><b>Verify KYC — Aadhaar</b><small>${kyc?'Verified':'Verification pending'}</small></div></div>
+ <div class="menu-item" onclick="go('bank')"><span>🏦</span><div><b>Bank account</b><small>${bank?'Bank account added':'Add settlement account'}</small></div></div>
+ <div class="menu-item" onclick="go('payment')"><span>💰</span><div><b>Payment summary</b><small>Settlement and commission</small></div></div>
+ <div class="menu-item" onclick="toast('Block service date & time opened')"><span>📅</span><div><b>Block service date & time</b><small>Manage availability</small></div></div>
+ <div class="menu-item" onclick="toast('Support ticket created in demo mode')"><span>🎧</span><div><b>Customer support</b><small>Create a support ticket</small></div></div>
+ <div class="menu-item" onclick="toast('Terms & vendor policy opened')"><span>📄</span><div><b>Terms & vendor policy</b><small>KAKABABU Vendor v1.0.0</small></div></div>
+ <button class="full-btn" style="background:var(--red)" onclick="toast('Delete vendor account confirmation opened')">Delete vendor account</button>`;
+}
+function kycScreen(){
+ appbar('Verify KYC — Aadhaar','Demo identity verification');noBottom();
+ $('screen').innerHTML=`<div class="profile-head"><div class="avatar">🪪</div><h3>${kyc?'KYC Verified':'KYC Verification'}</h3><p>Aadhaar verification demo</p></div><div class="field"><label>Aadhaar number</label><input value="XXXX XXXX 1234"></div><button class="full-btn" onclick="kyc=true;toast('Demo Aadhaar KYC verified');setTimeout(()=>go('profile'),500)">VERIFY KYC</button>`;
+}
+
+function bankScreen(){
+ appbar('Bank account','Settlement details');noBottom();
+ $('screen').innerHTML=`<div class="field"><label>Account Holder Name</label><input value="KAKABABU Partner"></div>
+ <div class="field"><label>Bank Name</label><input value="State Bank of India"></div>
+ <div class="field"><label>Branch Name</label><input value="Dubrajpur Branch"></div>
+ <div class="field"><label>Account Number</label><input value="1234567890"></div>
+ <div class="field"><label>IFSC</label><input value="DEMO0001234"></div>
+ <div class="upload-box">📄 Upload Cancelled Cheque / Passbook<br><button class="view-link" onclick="toast('Bank document upload opened')">Choose File</button></div>
+ <button class="full-btn" onclick="bank=true;toast('Demo bank details saved');setTimeout(()=>go('profile'),500)">SAVE BANK DETAILS</button>`;
+}
+function render(){({login:loginScreen,signup:signupScreen,home:homeScreen,addService:addServiceScreen,addVehicle:addVehicleScreen,status:statusScreen,past:pastScreen,online:onlineScreen,profile:profileScreen,payment:paymentScreen,kyc:kycScreen,bank:bankScreen}[current]||loginScreen)()}
+function restartDemo(){current='login';online=true;kyc=false;bank=false;render();toast('Vendor demo restarted')}
+render();
+</script>
+<script id="kaka-v2-loader-js">window.addEventListener('load',()=>setTimeout(()=>document.getElementById('kakaV2Loader')?.classList.add('hide'),350));</script>
+<div id="policyModal" class="policy-modal" onclick="if(event.target===this)closePolicy()">
+  <div class="policy-box">
+    <h2 id="policyTitle">Policy</h2>
+    <div id="policyContent"></div>
+    <button class="full-btn" onclick="closePolicy()">CLOSE</button>
+  </div>
+</div>
+
+</body>
+</html>

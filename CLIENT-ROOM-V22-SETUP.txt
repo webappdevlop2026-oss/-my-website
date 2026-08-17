@@ -1,0 +1,6 @@
+CLIENT ROOM V22 CLEAN OFFICE REBUILD
+
+Upload/replace all files in GitHub root.
+Then publish firestore.rules manually in Firebase Console.
+Main flow: Main PIN -> Waiting Hall -> Reception Check-in -> Cabin Assign -> Cabin PIN -> Clean Office Cabin View.
+Old agency LCD/player overlay has been completely removed from the cabin view. Only the Waiting Hall vertical LCD remains.

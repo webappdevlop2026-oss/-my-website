@@ -1,0 +1,2 @@
+Main PIN -> Waiting Hall -> Reception -> Auto Room + 4-digit Code -> Guided route -> Room-specific LCD + male speaker.
+Publish firestore.rules in Firebase Console.

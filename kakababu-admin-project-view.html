@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KAKABABU Admin Panel Project View</title>
+<style>
+:root{--bg:#08111f;--panel:#0f1b2e;--card:#13233a;--line:#233954;--text:#f5f8ff;--muted:#9eb0c8;--blue:#3b82f6;--purple:#7c3aed;--green:#10b981;--orange:#f59e0b;--red:#ef4444}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text)}
+header{height:68px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 22px;background:#0a1424;position:sticky;top:0;z-index:10}
+.brand{font-size:20px;font-weight:900}.brand small{display:block;color:var(--muted);font-size:11px;margin-top:3px}
+.header-actions{display:flex;gap:8px}.header-actions a,.header-actions button{border:0;border-radius:10px;padding:10px 13px;text-decoration:none;font-weight:800;cursor:pointer;background:#1d2b40;color:#fff}
+.layout{display:grid;grid-template-columns:235px 1fr;min-height:calc(100vh - 68px)}
+aside{border-right:1px solid var(--line);padding:18px 12px;background:#0a1424}
+aside button{width:100%;border:0;background:transparent;color:#c8d4e5;padding:12px 13px;border-radius:10px;text-align:left;font-weight:800;cursor:pointer;margin-bottom:6px}
+aside button.active,aside button:hover{background:linear-gradient(90deg,#2563eb,#7c3aed);color:#fff}
+main{padding:20px;min-width:0}
+.page{display:none}.page.active{display:block}
+.page-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:16px}.page-head h1{margin:0;font-size:27px}.page-head p{margin:5px 0 0;color:var(--muted)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}.stat small{color:var(--muted)}.stat strong{display:block;font-size:27px;margin-top:7px}
+.grid{display:grid;grid-template-columns:1.2fr .8fr;gap:14px;margin-top:14px}.box{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px}
+.box h3{margin-top:0}.list{display:grid;gap:9px}.item{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;display:flex;align-items:center;gap:10px}.icon{width:40px;height:40px;border-radius:11px;background:#1c3150;display:grid;place-items:center}.grow{flex:1}.item b{font-size:13px}.item small{display:block;color:var(--muted);font-size:10px;margin-top:3px}
+.chip{font-size:9px;font-weight:900;border-radius:999px;padding:5px 8px}.green{background:#0c513b;color:#8cf1c9}.orange{background:#5a3c0c;color:#ffd58a}.red{background:#5b1f24;color:#ffb0b4}.blue{background:#143f7c;color:#b9d7ff}
+.table-wrap{overflow:auto}.table{width:100%;border-collapse:collapse;min-width:700px}.table th,.table td{padding:11px;border-bottom:1px solid var(--line);text-align:left;font-size:12px}.table th{color:#9eb0c8}
+.btn{border:0;border-radius:9px;padding:8px 10px;font-weight:800;cursor:pointer;background:#2563eb;color:#fff}.btn.alt{background:#25364e}.btn.good{background:#0f9f6e}.btn.bad{background:#c43e46}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap}.toolbar input,.toolbar select{background:#07111e;border:1px solid var(--line);color:#fff;border-radius:10px;padding:10px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.service-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
+.notice{margin-top:15px;padding:13px;border-radius:12px;background:#3f320e;border:1px solid #7d641a;color:#ffe5a8}
+.toast{position:fixed;right:20px;bottom:20px;background:#fff;color:#172235;border-radius:999px;padding:10px 14px;font-weight:800;opacity:0;transition:.2s}.toast.show{opacity:1}
+@media(max-width:900px){.layout{grid-template-columns:1fr}aside{display:flex;overflow:auto;border-right:0;border-bottom:1px solid var(--line)}aside button{width:auto;white-space:nowrap}.stats,.cards{grid-template-columns:1fr 1fr}.grid{grid-template-columns:1fr}}
+@media(max-width:560px){header{height:auto;padding:12px}.header-actions{display:none}.stats,.cards{grid-template-columns:1fr}main{padding:12px}}
+</style>
+
+
+
+
+<script id="kakababu-view-access-guard">
+(function(){
+  const unlocked=sessionStorage.getItem("kakababuProjectUnlocked")==="yes";
+  const selected=sessionStorage.getItem("kakaSelectedView");
+  if(!unlocked || selected!=="admin"){
+    location.replace("kakababu.html");
+  }
+})();
+</script>
+</head>
+<body>
+
+
+
+
+
+<header>
+<div class="brand">KAKABABU Admin Panel Demo<small>Client-safe project view • No login required</small></div>
+<div class="header-actions"><a href="kakababu.html">← Project Demo</a><button onclick="restart()">Restart Demo</button></div>
+</header>
+<div class="layout">
+<aside id="nav"></aside>
+<main>
+<section id="dashboard" class="page active"></section>
+<section id="users" class="page"></section>
+<section id="vendors" class="page"></section>
+<section id="orders" class="page"></section>
+<section id="services" class="page"></section>
+<section id="payments" class="page"></section>
+<section id="approvals" class="page"></section>
+<section id="notifications" class="page"></section>
+<section id="settings" class="page"></section>
+</main>
+</div>
+<div id="toast" class="toast"></div>
+<script>
+const pages=[
+['dashboard','📊 Dashboard'],['users','👥 Users'],['vendors','🏪 Vendors'],['orders','📦 Orders'],
+['services','🧰 Services'],['payments','💰 Payments'],['approvals','✅ Approvals'],['notifications','🔔 Notifications'],['settings','⚙️ Settings']
+];
+let vendorPending=3,orderPending=8,paymentPending=18500;
+const toast=t=>{let x=document.getElementById('toast');x.textContent=t;x.classList.add('show');setTimeout(()=>x.classList.remove('show'),1700)}
+function show(id){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('aside button').forEach(x=>x.classList.toggle('active',x.dataset.id===id))}
+function renderNav(){document.getElementById('nav').innerHTML=pages.map((p,i)=>`<button data-id="${p[0]}" class="${i===0?'active':''}" onclick="show('${p[0]}')">${p[1]}</button>`).join('')}
+function card(icon,title,sub,status,cls='blue'){return `<div class="item"><div class="icon">${icon}</div><div class="grow"><b>${title}</b><small>${sub}</small></div><span class="chip ${cls}">${status}</span></div>`}
+function render(){
+dashboard.innerHTML=`<div class="page-head"><div><h1>Admin Dashboard</h1><p>KAKABABU ecosystem overview</p></div><button class="btn" onclick="toast('Dashboard refreshed')">↻ Refresh</button></div>
+<div class="stats"><div class="stat"><small>Total Users</small><strong>1,248</strong></div><div class="stat"><small>Active Vendors</small><strong>86</strong></div><div class="stat"><small>Pending Orders</small><strong>${orderPending}</strong></div><div class="stat"><small>Monthly Revenue</small><strong>₹84,650</strong></div></div>
+<div class="grid"><div class="box"><h3>Recent Orders</h3><div class="list">${card('🔧','AC Repair Booking','Rahul Kumar • Dumka','Pending','orange')}${card('📚','Home Tutor Booking','Sangita Das • Birbhum','Confirmed','green')}${card('🚗','Car Rental','Amit Sharma • Asansol','Payment Due','red')}</div></div><div class="box"><h3>Quick Actions</h3><div class="list">${card('🏪','Vendor Approvals',vendorPending+' pending','Review','orange')}${card('💰','Settlement Queue','₹'+paymentPending,'Process','blue')}${card('🔔','Send Announcement','All users & vendors','Open','green')}</div></div></div>`;
+users.innerHTML=`<div class="page-head"><div><h1>User Management</h1><p>Search, view and manage registered users</p></div></div><div class="box table-wrap"><table class="table"><tr><th>User</th><th>Contact</th><th>Bookings</th><th>Status</th><th>Action</th></tr>${[['Sangita Das','7549459770',12,'Active'],['Rahul Kumar','9876543210',4,'Active'],['Amit Sharma','9123456780',2,'Blocked']].map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td><span class="chip ${r[3]==='Active'?'green':'red'}">${r[3]}</span></td><td><button class="btn alt" onclick="toast('User details opened')">View</button></td></tr>`).join('')}</table></div>`;
+vendors.innerHTML=`<div class="page-head"><div><h1>Vendor Management</h1><p>KYC, service and availability management</p></div></div><div class="cards">${[['Raju Service Center','Electrician • Dumka','Verified'],['Smart Tutor Hub','Education • Birbhum','Pending'],['City Car Rental','Rental • Asansol','Verified']].map(v=>`<div class="service-card"><h3>${v[0]}</h3><p style="color:var(--muted)">${v[1]}</p><span class="chip ${v[2]==='Verified'?'green':'orange'}">${v[2]}</span><div style="margin-top:12px"><button class="btn" onclick="toast('Vendor profile opened')">Manage</button></div></div>`).join('')}</div>`;
+orders.innerHTML=`<div class="page-head"><div><h1>Order Management</h1><p>Track and update all service bookings</p></div></div><div class="box table-wrap"><table class="table"><tr><th>Order ID</th><th>Service</th><th>User</th><th>Amount</th><th>Status</th><th>Action</th></tr>${[['KB260801','AC Repair','Rahul','₹499','Pending'],['KB260799','Home Tutor','Sangita','₹1200','Confirmed'],['KB260780','Car Rental','Amit','₹2800','Completed']].map((r,i)=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td><span class="chip ${i===0?'orange':i===1?'blue':'green'}">${r[4]}</span></td><td><button class="btn good" onclick="toast('Order status updated')">Update</button></td></tr>`).join('')}</table></div>`;
+services.innerHTML=`<div class="page-head"><div><h1>Service Management</h1><p>Categories, pricing and availability</p></div><button class="btn" onclick="toast('Add service dialog opened')">+ Add Service</button></div><div class="cards">${[['Home Services','48 vendors','Active'],['Education','26 vendors','Active'],['Rental','12 vendors','Active'],['Entertainment','9 vendors','Active'],['Delivery','17 vendors','Active'],['Partner Services','11 vendors','Review']].map(x=>`<div class="service-card"><h3>${x[0]}</h3><p style="color:var(--muted)">${x[1]}</p><span class="chip ${x[2]==='Active'?'green':'orange'}">${x[2]}</span></div>`).join('')}</div>`;
+payments.innerHTML=`<div class="page-head"><div><h1>Payment & Settlement</h1><p>Revenue, commission and vendor payouts</p></div></div><div class="stats"><div class="stat"><small>Gross Revenue</small><strong>₹1,12,500</strong></div><div class="stat"><small>Commission</small><strong>₹27,850</strong></div><div class="stat"><small>Vendor Settlement</small><strong>₹66,150</strong></div><div class="stat"><small>Pending</small><strong>₹${paymentPending}</strong></div></div><div class="box" style="margin-top:14px"><button class="btn good" onclick="paymentPending=0;toast('Demo settlement processed');render()">Process Pending Settlement</button></div>`;
+approvals.innerHTML=`<div class="page-head"><div><h1>Approval Center</h1><p>Vendor KYC, vehicle and service approval</p></div></div><div class="list">${card('🪪','Vendor Aadhaar KYC','Smart Tutor Hub','Pending','orange')}${card('🚗','Vehicle Approval','Honda City • Rental','Pending','orange')}${card('🧰','New Service Approval','Home Cleaning','Pending','orange')}</div><div style="margin-top:12px"><button class="btn good" onclick="vendorPending=0;toast('All demo approvals completed');render()">Approve All</button></div>`;
+notifications.innerHTML=`<div class="page-head"><div><h1>Notifications</h1><p>Send updates to users and vendors</p></div></div><div class="box"><div class="toolbar"><select><option>All Users</option><option>All Vendors</option><option>Selected City</option></select><input placeholder="Notification title"><input placeholder="Message"></div><button class="btn" style="margin-top:12px" onclick="toast('Demo notification sent')">Send Notification</button></div>`;
+settings.innerHTML=`<div class="page-head"><div><h1>App Settings</h1><p>Demo configuration controls</p></div></div><div class="cards">${[['Booking Commission','12%'],['Vendor Registration Fee','₹299'],['Cancellation Window','2 hours'],['Support Number','9735474770'],['WhatsApp','7549459770'],['Maintenance Mode','Off']].map(x=>`<div class="service-card"><small style="color:var(--muted)">${x[0]}</small><h3>${x[1]}</h3><button class="btn alt" onclick="toast('Setting edit opened')">Edit</button></div>`).join('')}</div><div class="notice"><b>Client Demo:</b> এই page শুধু KAKABABU Admin Panel-এর feature flow দেখানোর জন্য। আপনার আসল agency admin login বা private data এখানে নেই।</div>`;
+}
+function restart(){vendorPending=3;orderPending=8;paymentPending=18500;render();show('dashboard');toast('Admin demo restarted')}
+renderNav();render();
+</script>
+
+
+
+</body>
+</html>

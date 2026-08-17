@@ -1,0 +1,21 @@
+CENTRAL ADMIN SETUP
+
+1. GitHub-এ পুরো updated folder upload করুন।
+2. Firebase Console > Authentication > Sign-in method > Email/Password enable করুন।
+3. Authentication > Users > Add user করে আপনার admin email/password তৈরি করুন।
+4. Firebase Console > Firestore Database > Rules-এ updated firestore.rules paste করে Publish করুন।
+5. Admin URL:
+   https://www.digitalagencybychandandas.in/central-admin.html
+
+এই Admin Panel-এ থাকবে:
+- Dashboard
+- All Projects
+- KAKABABU/Bangla Calendar feedback
+- Client Room clients/projects
+- Feature requests
+- Live chat
+- Demo URL/PIN/APK links
+- Tasks/workflow
+- Existing website controls
+
+নোট: KAKABABU ও Bangla Calendar form submit করলে PDF download-এর পাশাপাশি project_feedback collection-এ data save হবে।
