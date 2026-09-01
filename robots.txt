@@ -1,8 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /agency-control-2026.html
-Disallow: /agency-admin-2026.html
-Disallow: /client-room.html
-Disallow: /client-room-admin.html
 
 Sitemap: https://www.digitalagencybychandandas.in/sitemap.xml
