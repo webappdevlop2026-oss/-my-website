@@ -1,6 +1,5 @@
-index.html
-robots.txt
-sitemap.xml
+FINAL REPLACEMENT FILES
+
 CLIENT-ASN-2026-ID684273.html
 CLIENT-ID684273.html
 admin-panel.html
@@ -11,10 +10,24 @@ bangla-calendar-app-project-view.html
 bangla-calendar-ios-app-view.html
 bangla-calendar-mobile-preview.html
 bangla-calendar.html
+billing-software-dubrajpur.html
+blog-mobile-app-development.html
+blog-online-business-ideas-2026.html
+blog-website-design-dubrajpur.html
 central-admin.html
+digital-marketing-darjeeling.html
+digital-marketing-dubrajpur.html
+digital-visiting-card-dubrajpur.html
+ecommerce-website-birbhum.html
+index.html
 kakababu-admin-project-view.html
 kakababu-project-view.html
 kakababu-user-project-view.html
 kakababu-vendor-project-view.html
 mock-test-admin-panel-view.html
 mock-test-teacher-app-view.html
+robots.txt
+seo-service-asansol.html
+seo-service-birbhum.html
+sitemap.xml
+website-design-dubrajpur.html

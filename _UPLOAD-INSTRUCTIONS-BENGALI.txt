@@ -1,24 +1,14 @@
-SEO REPLACEMENT PACKAGE — FREELANCER + WEST BENGAL — 02-09-2026
+FINAL SEO + FREELANCER REPLACEMENT
 
-কীভাবে upload করবেন:
-1) ZIP extract করুন।
-2) _UPLOAD-INSTRUCTIONS-BENGALI.txt ছাড়া বাকি file/folder গুলো আপনার website project-এর ROOT folder-এ দিন।
-3) Windows/Hostinger/Vercel যখন Replace/Overwrite চাইবে → Replace করুন।
-4) কোনো file delete করার দরকার নেই।
-5) Deploy/Upload শেষ হলে এই URL তিনটি check করুন:
-   https://www.digitalagencybychandandas.in/
-   https://www.digitalagencybychandandas.in/robots.txt
-   https://www.digitalagencybychandandas.in/sitemap.xml
-6) তারপর Google Search Console → Sitemaps → sitemap.xml Submit/Resubmit করুন।
-7) Homepage URL Inspection → Request Indexing দিন।
+1) এই folder-এর সব file আপনার website root folder-এ একসাথে copy/upload করুন।
+2) একই নামের file এলে Replace / Overwrite দিন।
+3) কোনো existing file delete করবেন না।
+4) আগের replacement ZIP আর ব্যবহার করার দরকার নেই।
+5) GitHub/Vercel হলে: git add . -> git commit -> git push, তারপর নতুন deployment complete হওয়া পর্যন্ত অপেক্ষা করুন।
 
-IMPORTANT:
-- পুরোনো Netlify copy থাকলে Netlify dashboard-এ সেটিকে main domain-এ 301 redirect বা unpublish করতে হবে। শুধু Vercel files upload করলে অন্য Netlify account-এর site বন্ধ হবে না।
-- এই package app/client-room/backend code delete করে না; শুধু SEO-safe replacements আছে।
-
-
-SEO IDENTITY UPDATE:
-- Website owner/service provider is presented as an Independent Freelancer, not a company.
-- Homepage targets clients across West Bengal.
-- Existing Dubrajpur/Birbhum local SEO pages are kept for local lead generation.
-- Brand name “Digital Agency by Chandan Das” remains unchanged.
+মূল পরিবর্তন:
+- Company/Agency হিসেবে self-description বাদ দিয়ে Freelancer/Freelance Developer করা হয়েছে।
+- Brand name “Digital Agency by Chandan Das” অপরিবর্তিত।
+- Dubrajpur website page title/H1/FAQ freelancer identity অনুযায়ী ঠিক।
+- Birbhum/Asansol SEO এবং Darjeeling marketing titles freelancer wording-এ ঠিক।
+- আগের noindex, robots, sitemap এবং West Bengal homepage SEO files-ও এই package-এ আছে।
