@@ -4,140 +4,75 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Client Feedback | Digital Agency by Chandan Das</title>
-  <meta name="description" content="Share project feedback with Chandan Das, Independent Freelance Web & App Developer." />
+  <meta name="description" content="Private client feedback page for Chandan Das, Independent Freelance Web & App Developer." />
   <meta name="robots" content="noindex, nofollow, noarchive" />
   <meta name="theme-color" content="#0b1f4d" />
   <style>
-    :root{--navy:#071b49;--blue:#1765e5;--purple:#7557ef;--yellow:#ffc928;--green:#16a26a;--ink:#17233c;--muted:#66728b;--line:#e4e9f2;--bg:#f4f7fc;--white:#fff;--shadow:0 18px 50px rgba(10,35,84,.12)}
-    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:linear-gradient(180deg,#f8fbff 0,#f4f7fd 70%,#fff 100%);color:var(--ink)}
-    a{text-decoration:none;color:inherit}.top{background:var(--navy);color:#dce7ff;text-align:center;padding:9px 16px;font-size:13px}.top b{color:#fff}
-    .nav{height:78px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center}.navin{width:min(1160px,calc(100% - 36px));margin:auto;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{display:flex;align-items:center;gap:12px}.mark{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;color:white;font-weight:900;font-size:18px;background:linear-gradient(135deg,var(--blue),var(--purple));box-shadow:0 10px 24px rgba(23,101,229,.24)}.brand strong{display:block;font-size:17px}.brand small{display:block;color:var(--muted);font-size:11px;margin-top:2px}.home{font-weight:800;font-size:13px;border:1px solid var(--line);padding:10px 14px;border-radius:11px;background:#fff}.home:hover{border-color:#b8cef6;color:var(--blue)}
-    .hero{width:min(1160px,calc(100% - 36px));margin:auto;padding:48px 0 25px;display:grid;grid-template-columns:1.08fr .92fr;gap:28px;align-items:center}.eyebrow{display:inline-flex;align-items:center;gap:8px;background:#eaf2ff;color:#1558c7;border:1px solid #d7e6ff;border-radius:999px;padding:8px 12px;font-size:12px;font-weight:900}.hero h1{font-size:clamp(38px,5vw,60px);line-height:1.02;letter-spacing:-1.9px;margin:15px 0 14px}.hero h1 span{color:var(--blue)}.hero p{font-size:17px;line-height:1.7;color:var(--muted);max-width:700px;margin:0}.points{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}.points span{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:12px;font-weight:800;box-shadow:0 7px 18px rgba(10,35,84,.05)}
-    .sidehero{border-radius:26px;padding:28px;color:white;background:linear-gradient(145deg,#081c49 0,#1246a4 62%,#6552df 100%);box-shadow:var(--shadow);position:relative;overflow:hidden}.sidehero:before,.sidehero:after{content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,.08)}.sidehero:before{width:220px;height:220px;right:-90px;top:-90px}.sidehero:after{width:150px;height:150px;left:-70px;bottom:-80px}.sidehero h3{font-size:25px;margin:0 0 8px;position:relative}.sidehero p{color:#dae6ff;font-size:14px;line-height:1.6;position:relative}.mini{display:grid;gap:10px;margin-top:20px;position:relative}.mini div{padding:13px 14px;border-radius:14px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.1)}.mini b{display:block;color:#c9dcff;font-size:11px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}.mini span{font-size:14px;font-weight:800}
-    .main{width:min(1160px,calc(100% - 36px));margin:0 auto 65px;display:grid;grid-template-columns:1fr 340px;gap:22px;align-items:start}.card{background:#fff;border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow)}.formcard{padding:27px}.formcard h2{font-size:29px;margin:0 0 5px}.intro{color:var(--muted);font-size:14px;line-height:1.6;margin:0 0 22px}.ref{display:none;background:#fff7d7;color:#655000;border:1px solid #ffe28a;border-radius:12px;padding:11px 13px;font-size:12px;font-weight:800;margin-bottom:18px}
-    .grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.field{margin-bottom:15px}.full{grid-column:1/-1}label{display:block;font-size:12px;font-weight:900;color:#35415a;margin-bottom:7px}input,select,textarea{width:100%;border:1px solid #d9e0eb;border-radius:12px;background:#fbfcff;padding:13px 14px;font:inherit;color:var(--ink);outline:none;transition:.18s}input:focus,select:focus,textarea:focus{background:#fff;border-color:var(--blue);box-shadow:0 0 0 4px rgba(23,101,229,.08)}textarea{min-height:138px;resize:vertical}.hint{font-size:11px;color:#8490a6;margin-top:6px}
-    .stars{display:flex;gap:7px}.star{width:48px;height:48px;border:1px solid #dfe5ee;border-radius:12px;background:#fff;font-size:25px;cursor:pointer;transition:.15s}.star:hover,.star.on{background:#fff6cf;border-color:#ffd250;transform:translateY(-2px)}.ratingtxt{font-size:12px;color:var(--muted);margin-top:7px;font-weight:700}
-    .choice{display:grid;grid-template-columns:1fr 1fr;gap:10px}.choice label{margin:0;border:1px solid var(--line);border-radius:12px;padding:12px;background:#fbfcff;cursor:pointer;font-size:13px}.choice input{width:auto;margin-right:7px}.privacy{font-size:11px;line-height:1.55;color:var(--muted);background:#f7f9fc;border:1px solid var(--line);border-radius:12px;padding:11px 13px;margin:5px 0 17px}.submit{width:100%;border:0;border-radius:13px;padding:15px 18px;color:#fff;font-size:15px;font-weight:900;background:linear-gradient(135deg,var(--blue),var(--purple));box-shadow:0 12px 25px rgba(23,101,229,.23);cursor:pointer}.submit:hover{filter:brightness(1.04)}.submit:active{transform:translateY(1px)}
-    .rail{display:grid;gap:16px}.railcard{padding:21px}.railcard h3{margin:0 0 8px;font-size:19px}.railcard>p{margin:0;color:var(--muted);font-size:13px;line-height:1.6}.step{display:flex;gap:11px;padding:13px 0;border-bottom:1px solid var(--line)}.step:last-child{border-bottom:0}.num{width:30px;height:30px;border-radius:9px;background:#eaf2ff;color:var(--blue);display:grid;place-items:center;font-size:12px;font-weight:900;flex:none}.step b{display:block;font-size:13px}.step small{display:block;color:var(--muted);font-size:11px;margin-top:3px;line-height:1.45}.contact{margin-top:14px;padding:14px;border-radius:14px;background:#f6f9ff;border:1px solid #e0e8f7;display:grid;gap:7px;font-size:12px}.contact strong{color:#263554}.green{background:#ebfff6!important;color:#0a7c4d!important;border-color:#c7f2df!important}
-    .thank{display:none;text-align:center;padding:42px 22px}.check{width:74px;height:74px;border-radius:50%;display:grid;place-items:center;background:#e9fff4;color:var(--green);font-size:34px;font-weight:1000;margin:0 auto 16px}.thank h2{font-size:31px;margin:0 0 8px}.thank p{max-width:560px;margin:0 auto 18px;color:var(--muted);line-height:1.65}.back{display:inline-block;padding:11px 16px;border-radius:11px;border:1px solid var(--line);background:#fff;font-weight:900;font-size:13px}
-    footer{background:var(--navy);color:#cbd9f5;text-align:center;padding:27px 18px;font-size:12px;line-height:1.7}footer b{color:#fff}
-    @media(max-width:850px){.hero,.main{grid-template-columns:1fr}.sidehero{order:2}.main{gap:16px}.rail{grid-template-columns:1fr 1fr}.hero{padding-top:32px}.hero h1{font-size:42px}}
-    @media(max-width:620px){.top{font-size:11px}.nav{height:70px}.brand small{display:none}.brand strong{font-size:14px}.mark{width:40px;height:40px}.home{font-size:11px;padding:9px 11px}.hero h1{font-size:36px}.hero p{font-size:15px}.grid{grid-template-columns:1fr}.full{grid-column:auto}.rail{grid-template-columns:1fr}.formcard{padding:20px}.choice{grid-template-columns:1fr}.star{width:43px;height:43px}.points span{font-size:11px}}
+    :root{--navy:#071b49;--blue:#1765e5;--purple:#7657f1;--green:#13a667;--yellow:#ffd257;--ink:#17233c;--muted:#6a768e;--line:#e2e8f2;--bg:#f5f8fd;--shadow:0 18px 50px rgba(10,35,84,.12)}
+    *{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;background:linear-gradient(180deg,#f8fbff,#f2f6fc 70%,#fff);color:var(--ink)}a{text-decoration:none;color:inherit}
+    .top{background:var(--navy);color:#dce8ff;text-align:center;padding:9px 16px;font-size:13px}.nav{background:#fff;border-bottom:1px solid var(--line)}.navin{width:min(1140px,calc(100% - 34px));height:76px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:15px}.brand{display:flex;align-items:center;gap:11px}.logo{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;font-weight:900}.brand strong{display:block}.brand small{display:block;color:var(--muted);font-size:11px;margin-top:2px}.back{padding:10px 13px;border:1px solid var(--line);border-radius:11px;background:#fff;font-size:12px;font-weight:800}
+    .hero{width:min(1140px,calc(100% - 34px));margin:auto;padding:43px 0 24px;display:grid;grid-template-columns:1.05fr .95fr;gap:25px;align-items:center}.tag{display:inline-block;padding:7px 11px;border-radius:999px;background:#eaf2ff;border:1px solid #d7e7ff;color:#1259ca;font-size:11px;font-weight:900}.hero h1{font-size:clamp(38px,5vw,60px);line-height:1.02;letter-spacing:-1.7px;margin:14px 0}.hero h1 span{color:var(--blue)}.hero p{max-width:680px;color:var(--muted);font-size:16px;line-height:1.7;margin:0}.chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:19px}.chips span{background:#fff;border:1px solid var(--line);border-radius:11px;padding:9px 11px;font-size:11px;font-weight:800}.heroCard{padding:25px;border-radius:23px;background:linear-gradient(145deg,#081b48,#164caa 64%,#6c53de);color:#fff;box-shadow:var(--shadow)}.heroCard h3{font-size:24px;margin:0 0 8px}.heroCard p{color:#dbe7ff;font-size:13px;line-height:1.6}.heroInfo{display:grid;gap:9px;margin-top:17px}.heroInfo div{padding:11px 13px;border-radius:12px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.09);font-size:13px}.heroInfo b{display:block;font-size:10px;letter-spacing:.5px;text-transform:uppercase;color:#c9dcff;margin-bottom:3px}
+    .wrap{width:min(1140px,calc(100% - 34px));margin:0 auto 60px}.card{background:#fff;border:1px solid var(--line);border-radius:21px;box-shadow:var(--shadow)}.gate{max-width:680px;margin:0 auto;padding:30px}.lock{width:62px;height:62px;border-radius:18px;display:grid;place-items:center;background:#eef4ff;color:var(--blue);font-size:28px;margin-bottom:14px}.gate h2{font-size:28px;margin:0 0 7px}.gate p{color:var(--muted);line-height:1.6;margin:0 0 20px}.row{display:flex;gap:10px}.row input{flex:1}.msg{display:none;margin-top:12px;padding:11px 12px;border-radius:11px;font-size:12px;font-weight:700}.msg.bad{display:block;background:#fff0f0;color:#a22b2b;border:1px solid #ffd0d0}.msg.good{display:block;background:#ecfff6;color:#0b7b4e;border:1px solid #caf1df}
+    .feedback{display:none;grid-template-columns:1fr 335px;gap:20px;align-items:start}.formcard{padding:27px}.formcard h2{font-size:29px;margin:0 0 5px}.intro{color:var(--muted);font-size:13px;line-height:1.6;margin:0 0 20px}.ref{display:none;background:#fff8dc;border:1px solid #ffe497;color:#665100;border-radius:11px;padding:10px 12px;font-size:12px;font-weight:800;margin-bottom:15px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field{margin-bottom:14px}.full{grid-column:1/-1}label{display:block;font-size:12px;font-weight:900;color:#34415a;margin-bottom:7px}input,select,textarea{width:100%;border:1px solid #d8e0ec;border-radius:12px;background:#fbfcff;padding:13px 14px;font:inherit;color:var(--ink);outline:none}input:focus,select:focus,textarea:focus{background:#fff;border-color:var(--blue);box-shadow:0 0 0 4px rgba(23,101,229,.08)}textarea{min-height:135px;resize:vertical}.hint{font-size:10px;color:#8792a6;margin-top:5px}.stars{display:flex;gap:7px}.star{width:47px;height:47px;border:1px solid #dde4ee;border-radius:11px;background:#fff;font-size:24px;cursor:pointer}.star.on{background:#fff6cf;border-color:#ffd257}.ratingtxt{font-size:11px;color:var(--muted);margin-top:6px;font-weight:700}.choice{display:grid;grid-template-columns:1fr 1fr;gap:9px}.choice label{margin:0;border:1px solid var(--line);border-radius:11px;padding:11px;background:#fbfcff;cursor:pointer;font-size:12px}.choice input{width:auto;margin-right:6px}.privacy{font-size:10.5px;line-height:1.55;color:var(--muted);background:#f7f9fc;border:1px solid var(--line);border-radius:11px;padding:11px 12px;margin:4px 0 15px}.btn{border:0;border-radius:12px;padding:14px 17px;color:#fff;font-weight:900;background:linear-gradient(135deg,var(--blue),var(--purple));cursor:pointer}.submit{width:100%;font-size:14px}.side{display:grid;gap:15px}.sidecard{padding:20px}.sidecard h3{margin:0 0 8px;font-size:18px}.sidecard p{margin:0;color:var(--muted);font-size:12px;line-height:1.6}.step{display:flex;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}.step:last-child{border-bottom:0}.num{width:29px;height:29px;border-radius:9px;background:#eaf2ff;color:var(--blue);display:grid;place-items:center;font-size:11px;font-weight:900;flex:none}.step b{display:block;font-size:12px}.step small{display:block;color:var(--muted);font-size:10.5px;line-height:1.4;margin-top:2px}.contact{margin-top:13px;padding:13px;border-radius:12px;background:#f6f9ff;border:1px solid #e0e8f7;display:grid;gap:6px;font-size:11.5px}.thank{display:none;text-align:center;padding:45px 24px}.check{width:72px;height:72px;border-radius:50%;display:grid;place-items:center;background:#e9fff4;color:var(--green);font-size:34px;font-weight:900;margin:0 auto 15px}.thank h2{font-size:30px;margin:0 0 8px}.thank p{color:var(--muted);line-height:1.6;max-width:540px;margin:0 auto 17px}footer{background:var(--navy);color:#cad8f3;text-align:center;padding:25px 18px;font-size:11.5px;line-height:1.7}footer b{color:#fff}
+    @media(max-width:850px){.hero{grid-template-columns:1fr}.feedback{grid-template-columns:1fr}.side{grid-template-columns:1fr 1fr}.hero h1{font-size:43px}}
+    @media(max-width:620px){.brand small{display:none}.brand strong{font-size:13px}.hero h1{font-size:35px}.hero p{font-size:14px}.gate,.formcard{padding:20px}.row{flex-direction:column}.grid{grid-template-columns:1fr}.full{grid-column:auto}.choice,.side{grid-template-columns:1fr}.star{width:42px;height:42px}.back{font-size:10px}}
   </style>
 </head>
 <body>
-  <div class="top">Independent Freelancer • Website • App • Software • Digital Solutions across West Bengal</div>
-  <div class="nav">
-    <div class="navin">
-      <a class="brand" href="/">
-        <div class="mark">CD</div>
-        <div><strong>Digital Agency by Chandan Das</strong><small>Independent Freelance Web & App Developer</small></div>
-      </a>
-      <a class="home" href="/">← Back to Website</a>
-    </div>
-  </div>
+  <div class="top">Private Client Feedback • Independent Freelancer • West Bengal</div>
+  <div class="nav"><div class="navin"><a class="brand" href="/"><div class="logo">CD</div><div><strong>Digital Agency by Chandan Das</strong><small>Independent Freelance Web & App Developer</small></div></a><a class="back" href="/">← Back to Website</a></div></div>
 
   <section class="hero">
-    <div>
-      <div class="eyebrow">★ CLIENT EXPERIENCE MATTERS</div>
-      <h1>Share Your <span>Feedback</span></h1>
-      <p>Your honest feedback helps me improve my freelance services and understand what worked well in your project. It takes about one minute.</p>
-      <div class="points"><span>✓ Quick & Simple</span><span>✓ No Login Required</span><span>✓ You Control Public Permission</span></div>
-    </div>
-    <div class="sidehero">
-      <h3>Thank you for working with me.</h3>
-      <p>Every project and every suggestion helps me provide a better experience to future clients.</p>
-      <div class="mini">
-        <div><b>Developer</b><span>Chandan Das — Independent Freelancer</span></div>
-        <div><b>Location</b><span>Dubrajpur, Birbhum, West Bengal</span></div>
-        <div><b>Services</b><span>Website • Mobile App • Ecommerce • SEO • Software</span></div>
-      </div>
-    </div>
+    <div><span class="tag">★ VERIFIED CLIENT FEEDBACK</span><h1>Share Your <span>Experience</span></h1><p>This feedback page is only for clients who have worked with me. Your honest review helps me improve my freelance services and future client experience.</p><div class="chips"><span>✓ Client Access Required</span><span>✓ Name & Project Required</span><span>✓ Public Permission Is Your Choice</span></div></div>
+    <div class="heroCard"><h3>Thank you for working with me.</h3><p>Only invited clients can unlock the feedback form using the access code shared personally by Chandan Das.</p><div class="heroInfo"><div><b>Developer</b>Chandan Das — Independent Freelancer</div><div><b>Location</b>Dubrajpur, Birbhum, West Bengal</div><div><b>Services</b>Website • Mobile App • Ecommerce • SEO • Software</div></div></div>
   </section>
 
-  <main class="main">
-    <section class="card formcard">
-      <div id="formArea">
-        <h2>Tell me about your experience</h2>
-        <p class="intro">আপনার মতামত আমার কাজ আরও ভালো করতে সাহায্য করবে। Required fields are marked with *.</p>
-        <div id="refBox" class="ref"></div>
-        <form id="feedbackForm">
-          <div class="grid">
-            <div class="field"><label for="name">Client Name *</label><input id="name" maxlength="60" placeholder="Your name" required></div>
-            <div class="field"><label for="project">Project / Business Name *</label><input id="project" maxlength="80" placeholder="Project or business name" required></div>
-            <div class="field"><label for="service">Service *</label><select id="service" required><option value="">Select service</option><option>Website Development</option><option>Mobile App Development</option><option>Ecommerce Website</option><option>Admin Panel / Business Software</option><option>SEO / Digital Marketing</option><option>Graphic Design</option><option>Other</option></select></div>
-            <div class="field"><label>Overall Rating *</label><div class="stars" aria-label="Rating"><button class="star" type="button" data-v="1">★</button><button class="star" type="button" data-v="2">★</button><button class="star" type="button" data-v="3">★</button><button class="star" type="button" data-v="4">★</button><button class="star" type="button" data-v="5">★</button></div><div class="ratingtxt" id="ratingText">Tap a star to rate</div></div>
-            <div class="field full"><label for="feedback">Your Feedback *</label><textarea id="feedback" maxlength="900" placeholder="What did you like? How was your project experience?" required></textarea><div class="hint">Please write a genuine review in your own words.</div></div>
-            <div class="field full"><label for="improve">Anything I can improve? <span style="font-weight:600;color:#8591a6">(optional)</span></label><textarea id="improve" maxlength="500" style="min-height:90px" placeholder="Suggestion or improvement"></textarea></div>
-            <div class="field full"><label>May I show your feedback publicly as a testimonial? *</label><div class="choice"><label><input type="radio" name="public" value="Yes" required> Yes, you may publish it</label><label><input type="radio" name="public" value="No" required> No, keep it private</label></div></div>
-          </div>
-          <div class="privacy">🔒 This page does not ask for passwords or payment information. When you submit, your feedback is prepared as a WhatsApp message so you can review it before sending.</div>
-          <button class="submit" type="submit">Send Feedback on WhatsApp →</button>
-        </form>
-      </div>
-      <div class="thank" id="thankArea">
-        <div class="check">✓</div>
-        <h2>Thank you!</h2>
-        <p>Your feedback has been prepared. Please send the opened WhatsApp message to complete your feedback.</p>
-        <button class="back" type="button" onclick="location.reload()">Submit another feedback</button>
-      </div>
+  <main class="wrap">
+    <section id="gate" class="card gate">
+      <div class="lock">🔐</div><h2>Client Access Required</h2><p>Please enter the private feedback code shared with you. This prevents unknown visitors from submitting ratings or reviews.</p>
+      <div class="row"><input id="accessCode" type="password" autocomplete="off" placeholder="Enter client feedback code"><button id="unlockBtn" class="btn" type="button">Unlock Feedback</button></div>
+      <div id="gateMsg" class="msg"></div>
     </section>
 
-    <aside class="rail">
-      <div class="card railcard">
-        <h3>How it works</h3>
-        <p>Three simple steps — no account needed.</p>
-        <div class="step"><div class="num">1</div><div><b>Fill the form</b><small>Name, project, service and your honest experience.</small></div></div>
-        <div class="step"><div class="num">2</div><div><b>Choose public permission</b><small>You decide whether your review may be shown publicly.</small></div></div>
-        <div class="step"><div class="num">3</div><div><b>Send on WhatsApp</b><small>Review the prepared message and tap Send.</small></div></div>
+    <section id="feedbackArea" class="feedback">
+      <div class="card formcard">
+        <div id="formArea"><h2>Tell me about your experience</h2><p class="intro">Client Name and Project / Business Name are mandatory so every review can be matched to a genuine client project.</p><div id="refBox" class="ref"></div>
+          <form id="feedbackForm">
+            <div class="grid">
+              <div class="field"><label for="name">Client Name *</label><input id="name" maxlength="60" placeholder="Your full name" required></div>
+              <div class="field"><label for="project">Project / Business Name *</label><input id="project" maxlength="80" placeholder="Project or business name" required></div>
+              <div class="field"><label for="service">Service *</label><select id="service" required><option value="">Select service</option><option>Website Development</option><option>Mobile App Development</option><option>Ecommerce Website</option><option>Admin Panel / Business Software</option><option>SEO / Digital Marketing</option><option>Graphic Design</option><option>Other</option></select></div>
+              <div class="field"><label>Overall Rating *</label><div class="stars"><button class="star" type="button" data-v="1">★</button><button class="star" type="button" data-v="2">★</button><button class="star" type="button" data-v="3">★</button><button class="star" type="button" data-v="4">★</button><button class="star" type="button" data-v="5">★</button></div><div id="ratingText" class="ratingtxt">Tap a star to rate</div></div>
+              <div class="field full"><label for="review">Your Feedback *</label><textarea id="review" maxlength="900" placeholder="Please share your genuine project experience" required></textarea><div class="hint">Please write the review in your own words.</div></div>
+              <div class="field full"><label for="improve">Anything I can improve? <span style="font-weight:600;color:#8792a6">(optional)</span></label><textarea id="improve" maxlength="500" style="min-height:88px" placeholder="Suggestion or improvement"></textarea></div>
+              <div class="field full"><label>May I show your feedback publicly as a testimonial? *</label><div class="choice"><label><input type="radio" name="public" value="Yes" required> Yes, you may publish it</label><label><input type="radio" name="public" value="No" required> No, keep it private</label></div></div>
+            </div>
+            <div class="privacy">🔒 Feedback is prepared as a WhatsApp message so you can review it before sending. No password or payment information is requested.</div>
+            <button class="btn submit" type="submit">Send Feedback on WhatsApp →</button>
+          </form>
+        </div>
+        <div id="thankArea" class="thank"><div class="check">✓</div><h2>Thank you!</h2><p>Your feedback is ready. Please send the opened WhatsApp message to complete your review.</p></div>
       </div>
-      <div class="card railcard">
-        <h3>Need help?</h3>
-        <p>If you have any question about your project, you can contact me directly.</p>
-        <div class="contact"><div>📞 <b>Call:</b> 9735474770</div><div>💬 <b>WhatsApp:</b> 7549459770</div><div>🌐 <b>Website:</b> digitalagencybychandas.in</div></div>
-      </div>
-      <div class="card railcard green"><h3 style="color:#0a7c4d">Your feedback is valuable</h3><p style="color:#30765d">Positive or critical — honest feedback helps improve future work and client experience.</p></div>
-    </aside>
+
+      <aside class="side">
+        <div class="card sidecard"><h3>Verified feedback flow</h3><p>Unknown visitors cannot open the form without the client code.</p><div class="step"><div class="num">1</div><div><b>Private code</b><small>Only a client you invite receives the access code.</small></div></div><div class="step"><div class="num">2</div><div><b>Client & project identity</b><small>Name and project/business name remain required.</small></div></div><div class="step"><div class="num">3</div><div><b>Review permission</b><small>The client chooses whether the testimonial may be public.</small></div></div></div>
+        <div class="card sidecard"><h3>Contact</h3><p>For project support or questions:</p><div class="contact"><div>📞 <b>Call:</b> 9735474770</div><div>💬 <b>WhatsApp:</b> 7549459770</div><div>🌐 <b>Website:</b> digitalagencybychandandas.in</div></div></div>
+      </aside>
+    </section>
   </main>
 
   <footer><b>Digital Agency by Chandan Das</b><br>Independent Freelance Web & App Developer • Dubrajpur, Birbhum, West Bengal<br>Call: 9735474770 • WhatsApp: 7549459770 • www.digitalagencybychandandas.in</footer>
 
   <script>
+    const VALID_HASH='3eafd59b3071552a02d8cf4ce175f922b36fcb4bc9fb7f1b82b72c5f838bee07';
     const WA='917549459770';
-    const params=new URLSearchParams(location.search);
-    const ref=params.get('ref');
-    if(ref){const b=document.getElementById('refBox');b.style.display='block';b.textContent='Client Reference: '+ref.replace(/[^a-zA-Z0-9 _-]/g,'').slice(0,50)}
-    let rating=0;
-    const labels=['','Needs improvement','Fair','Good','Very good','Excellent'];
-    const stars=[...document.querySelectorAll('.star')];
-    stars.forEach(btn=>btn.addEventListener('click',()=>{rating=Number(btn.dataset.v);stars.forEach(s=>s.classList.toggle('on',Number(s.dataset.v)<=rating));document.getElementById('ratingText').textContent=rating+'/5 — '+labels[rating]}));
-    document.getElementById('feedbackForm').addEventListener('submit',e=>{
-      e.preventDefault();
-      if(!rating){alert('Please select a star rating.');return;}
-      const publicChoice=document.querySelector('input[name="public"]:checked');
-      if(!publicChoice){alert('Please choose testimonial permission.');return;}
-      const val=id=>document.getElementById(id).value.trim();
-      const message=[
-        'CLIENT FEEDBACK — Digital Agency by Chandan Das',
-        '',
-        'Client: '+val('name'),
-        'Project / Business: '+val('project'),
-        'Service: '+val('service'),
-        'Rating: '+rating+'/5 '+('★'.repeat(rating)),
-        ref?'Reference: '+ref:'',
-        '',
-        'Feedback:',
-        val('feedback'),
-        '',
-        val('improve')?'Improvement suggestion:\n'+val('improve'):'Improvement suggestion: None',
-        '',
-        'Permission to publish testimonial: '+publicChoice.value
-      ].filter(Boolean).join('\n');
-      const url='https://wa.me/'+WA+'?text='+encodeURIComponent(message);
-      document.getElementById('formArea').style.display='none';
-      document.getElementById('thankArea').style.display='block';
-      window.open(url,'_blank','noopener');
-    });
+    const params=new URLSearchParams(location.search); const ref=params.get('ref');
+    async function sha256(text){const data=new TextEncoder().encode(text.trim());const digest=await crypto.subtle.digest('SHA-256',data);return [...new Uint8Array(digest)].map(b=>b.toString(16).padStart(2,'0')).join('')}
+    async function unlock(){const code=document.getElementById('accessCode').value.trim();const msg=document.getElementById('gateMsg');if(!code){msg.className='msg bad';msg.textContent='Please enter the client feedback code.';return}const hash=await sha256(code);if(hash!==VALID_HASH){msg.className='msg bad';msg.textContent='Invalid client code. Please use the code shared by Chandan Das.';return}msg.className='msg good';msg.textContent='Client access verified.';setTimeout(()=>{document.getElementById('gate').style.display='none';document.getElementById('feedbackArea').style.display='grid';if(ref){const b=document.getElementById('refBox');b.style.display='block';b.textContent='Client Reference: '+ref.replace(/[^a-zA-Z0-9 _-]/g,'').slice(0,50)}},250)}
+    document.getElementById('unlockBtn').addEventListener('click',unlock);document.getElementById('accessCode').addEventListener('keydown',e=>{if(e.key==='Enter')unlock()});
+    let rating=0; const stars=[...document.querySelectorAll('.star')]; const labels=['','Needs improvement','Fair','Good','Very good','Excellent'];stars.forEach(btn=>btn.addEventListener('click',()=>{rating=Number(btn.dataset.v);stars.forEach(s=>s.classList.toggle('on',Number(s.dataset.v)<=rating));document.getElementById('ratingText').textContent=rating+'/5 — '+labels[rating]}));
+    document.getElementById('feedbackForm').addEventListener('submit',e=>{e.preventDefault();if(!rating){alert('Please select a star rating.');return}const pub=document.querySelector('input[name="public"]:checked');if(!pub){alert('Please choose testimonial permission.');return}const v=id=>document.getElementById(id).value.trim();const message=['CLIENT FEEDBACK — Digital Agency by Chandan Das','','Client: '+v('name'),'Project / Business: '+v('project'),'Service: '+v('service'),'Rating: '+rating+'/5 '+('★'.repeat(rating)),ref?'Reference: '+ref:'','','Feedback:',v('review'),' ',v('improve')?'Improvement suggestion:\n'+v('improve'):'Improvement suggestion: None','','Permission to publish testimonial: '+pub.value].filter(Boolean).join('\n');document.getElementById('formArea').style.display='none';document.getElementById('thankArea').style.display='block';window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(message),'_blank','noopener')});
+    const urlCode=params.get('code');if(urlCode){document.getElementById('accessCode').value=urlCode;unlock()}
   </script>
 </body>
 </html>
