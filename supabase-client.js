@@ -49,14 +49,11 @@ async function getSiteSettings() {
   function cleanup(){
     const pricing = document.getElementById('pricing');
     if (pricing) pricing.remove();
-
     document.querySelectorAll('a[href="#pricing"]').forEach(el => el.remove());
-
     document.querySelectorAll('div,span,p,strong').forEach(el => {
       const text = (el.textContent || '').trim();
       if (/Website Starting Price Only\s*₹?\s*999/i.test(text)) el.remove();
     });
-
     document.querySelectorAll('.business-growth-feature').forEach(card => {
       const text = card.textContent || '';
       if (/Starting\s*₹?\s*999/i.test(text)) {
@@ -68,23 +65,17 @@ async function getSiteSettings() {
         if (icon) icon.className = 'fa-solid fa-comments';
       }
     });
-
     const budget = document.getElementById('c_budget');
     if (budget) {
       budget.innerHTML = '<option value="">Budget আলোচনা করবেন?</option><option>Discuss on WhatsApp</option><option>Discuss on Call</option>';
     }
   }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', cleanup, { once:true });
-  } else {
-    cleanup();
-  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', cleanup, { once:true });
+  else cleanup();
 })();
 
 // ============================================================
 // Lead conversion upgrade
-// Adds a compact trust + action block without changing the main layout.
 // ============================================================
 (function improveLeadConversion(){
   const style = document.createElement('style');
@@ -109,52 +100,63 @@ async function getSiteSettings() {
     @media(max-width:760px){.lead-quick-grid{grid-template-columns:1fr}.lead-quick-shell{padding:19px}.lead-quick-actions{display:grid}.lead-quick-btn{width:100%}.lead-trust-grid{grid-template-columns:1fr 1fr}}
   `;
   document.head.appendChild(style);
-
   function trackLead(action){
-    if (typeof window.gtag === 'function') {
-      window.gtag('event','generate_lead',{lead_source:'homepage_quick_cta',lead_action:action});
-    }
+    if (typeof window.gtag === 'function') window.gtag('event','generate_lead',{lead_source:'homepage_quick_cta',lead_action:action});
   }
-
   function addSection(){
     if (document.getElementById('lead-quick-section')) return;
     const intro = document.getElementById('intro');
     if (!intro) return;
-
     const section = document.createElement('section');
     section.id = 'lead-quick-section';
     section.className = 'lead-quick-section';
     section.innerHTML = `
-      <div class="lead-quick-shell">
-        <div class="lead-quick-grid">
-          <div>
-            <span class="lead-quick-kicker">Website • App • SEO • Software</span>
-            <h2 class="lead-quick-title">Tell Me What Your Business Needs</h2>
-            <p class="lead-quick-copy">আপনার business-এর requirement বলুন। কোন service দরকার, কী feature useful এবং কীভাবে শুরু করলে ভালো হবে—সেটা সরাসরি discuss করে project-based quotation দেওয়া হবে।</p>
-            <div class="lead-quick-actions">
-              <a class="lead-quick-btn lead-quick-wa" data-lead-action="whatsapp" href="https://wa.me/917549459770?text=Hello%20Chandan%20Das%2C%20I%20want%20to%20discuss%20a%20website%2C%20app%20or%20digital%20project" target="_blank" rel="noopener">💬 Discuss on WhatsApp</a>
-              <a class="lead-quick-btn lead-quick-call" data-lead-action="call" href="tel:+919735474770">📞 Call 9735474770</a>
-              <a class="lead-quick-btn lead-quick-service" data-lead-action="services" href="digital-services-west-bengal.html">View All Services →</a>
-            </div>
-          </div>
-          <div class="lead-trust-grid">
-            <div class="lead-trust-item"><strong>Direct Developer Contact</strong><span>No sales team or middleman</span></div>
-            <div class="lead-trust-item"><strong>Requirement-Based Quote</strong><span>No fixed public pricing</span></div>
-            <div class="lead-trust-item"><strong>Mobile-Friendly Work</strong><span>Website and app-focused delivery</span></div>
-            <div class="lead-trust-item"><strong>West Bengal + India</strong><span>Remote project discussion and delivery</span></div>
-          </div>
-        </div>
-      </div>`;
-
+      <div class="lead-quick-shell"><div class="lead-quick-grid"><div>
+        <span class="lead-quick-kicker">Website • App • SEO • Software</span>
+        <h2 class="lead-quick-title">Tell Me What Your Business Needs</h2>
+        <p class="lead-quick-copy">আপনার business-এর requirement বলুন। কোন service দরকার, কী feature useful এবং কীভাবে শুরু করলে ভালো হবে—সেটা সরাসরি discuss করে project-based quotation দেওয়া হবে।</p>
+        <div class="lead-quick-actions">
+          <a class="lead-quick-btn lead-quick-wa" data-lead-action="whatsapp" href="https://wa.me/917549459770?text=Hello%20Chandan%20Das%2C%20I%20want%20to%20discuss%20a%20website%2C%20app%20or%20digital%20project" target="_blank" rel="noopener">💬 Discuss on WhatsApp</a>
+          <a class="lead-quick-btn lead-quick-call" data-lead-action="call" href="tel:+919735474770">📞 Call 9735474770</a>
+          <a class="lead-quick-btn lead-quick-service" data-lead-action="services" href="digital-services-west-bengal.html">View All Services →</a>
+        </div></div><div class="lead-trust-grid">
+          <div class="lead-trust-item"><strong>Direct Developer Contact</strong><span>No sales team or middleman</span></div>
+          <div class="lead-trust-item"><strong>Requirement-Based Quote</strong><span>No fixed public pricing</span></div>
+          <div class="lead-trust-item"><strong>Mobile-Friendly Work</strong><span>Website and app-focused delivery</span></div>
+          <div class="lead-trust-item"><strong>West Bengal + India</strong><span>Remote project discussion and delivery</span></div>
+        </div></div></div>`;
     intro.insertAdjacentElement('afterend',section);
-    section.querySelectorAll('[data-lead-action]').forEach(el => {
-      el.addEventListener('click',()=>trackLead(el.dataset.leadAction));
+    section.querySelectorAll('[data-lead-action]').forEach(el => el.addEventListener('click',()=>trackLead(el.dataset.leadAction)));
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', addSection, { once:true });
+  else addSection();
+})();
+
+// ============================================================
+// Footer cleanup: independent freelancer branding + compact spacing
+// ============================================================
+(function polishHomepageFooter(){
+  const style = document.createElement('style');
+  style.id = 'footer-polish-2026';
+  style.textContent = `
+    footer{padding-top:28px!important;padding-bottom:28px!important}
+    footer .max-w-7xl{gap:18px!important}
+    @media(min-width:769px){footer .max-w-7xl{align-items:center!important}}
+    @media(max-width:768px){footer{padding-top:22px!important;padding-bottom:22px!important}}
+  `;
+  document.head.appendChild(style);
+
+  function cleanFooter(){
+    const footer = document.querySelector('footer');
+    if (!footer) return;
+    const call = footer.querySelector('a[href="tel:+919735474770"]');
+    if (call && /24\/7\s*Call/i.test(call.textContent || '')) call.textContent = '📞 Call: 9735474770';
+    footer.querySelectorAll('p').forEach(p => {
+      if (/Founder\s*&\s*Freelance Developer/i.test(p.textContent || '')) {
+        p.textContent = '© 2026 Digital Agency by Chandan Das • Independent Freelance Developer';
+      }
     });
   }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', addSection, { once:true });
-  } else {
-    addSection();
-  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', cleanFooter, { once:true });
+  else cleanFooter();
 })();
