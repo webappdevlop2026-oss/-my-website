@@ -14,7 +14,7 @@ async function getSiteSettings() {
     offer: '',
     price: '',
     whatsapp: '917549459770',
-    call: '917549459770'
+    call: '918062177637'
   };
   try {
     const { data, error } = await sb.from('site_settings').select('*').eq('id', 1).single();
