@@ -348,29 +348,70 @@ section h2.text-4xl{font-size:2rem !important}
 @media(max-width:900px){.fresh-home{padding:calc(var(--topbar-h,72px) + 48px) 20px 66px}.fresh-home-inner{grid-template-columns:1fr;gap:38px}.fresh-home-visual{max-width:580px;width:100%;margin:auto}.fresh-home h1{max-width:650px}}
 @media(max-width:480px){.fresh-home{padding:calc(var(--topbar-h,72px) + 30px) 16px 50px}.fresh-home h1{font-size:39px;margin:20px 0}.fresh-home-description{font-size:15px}.fresh-home-actions a{width:100%}.fresh-home-chips{margin-top:23px}.fresh-home-window-content{padding:12px;gap:9px}.fresh-home-tile{padding:13px 11px;min-height:108px}.fresh-home-tile strong{font-size:13px}.fresh-home-tile small{font-size:10px}.fresh-home-floating{right:0;font-size:11px}}
 @media(prefers-reduced-motion:reduce){.fresh-home-actions a{transition:none}}
+
+/* Animated developer workspace */
+.fresh-home{background-size:170% 170%;animation:fhBackground 15s ease-in-out infinite}
+@keyframes fhBackground{0%,100%{background-position:0 50%}50%{background-position:100% 50%}}
+.fresh-home-visual{min-width:0}
+.fh-editor{position:relative;border:1px solid rgba(103,232,249,.26);border-radius:19px;overflow:hidden;background:#0b1428;box-shadow:0 28px 70px rgba(0,0,0,.4),0 0 50px rgba(79,70,229,.16);animation:fhFloat 6s ease-in-out infinite}
+@keyframes fhFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+.fh-editor-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 16px;background:#19233c;border-bottom:1px solid rgba(255,255,255,.08)}
+.fh-editor-title{font-size:12px;color:#cbd5e1;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+.fh-editor-body{min-height:265px;padding:22px 16px;color:#dbeafe;font:13px/1.9 ui-monospace,SFMono-Regular,Consolas,monospace;white-space:pre-wrap;overflow-wrap:anywhere}
+.fh-editor-body::after{content:"";display:inline-block;width:7px;height:16px;vertical-align:-3px;margin-left:2px;background:#67e8f9;animation:fhBlink .8s step-end infinite}
+@keyframes fhBlink{50%{opacity:0}}
+.fh-editor-bottom{padding:11px 16px;border-top:1px solid rgba(255,255,255,.1);display:flex;align-items:center;gap:9px;color:#94a3b8;font-size:11px}
+.fh-online{height:8px;width:8px;flex:none;border-radius:50%;background:#4ade80;box-shadow:0 0 0 4px rgba(74,222,128,.12);animation:fhPulse 2s infinite}
+@keyframes fhPulse{50%{box-shadow:0 0 0 8px rgba(74,222,128,0)}}
+.fh-flow{display:flex;flex-wrap:wrap;gap:8px;margin-top:17px}
+.fh-flow span{padding:9px 11px;border-radius:10px;border:1px solid rgba(165,180,252,.21);background:rgba(30,41,59,.93);color:#dbeafe;font-size:11px;animation:fhRise 4s ease-in-out infinite}
+.fh-flow span:nth-child(2){animation-delay:.8s}.fh-flow span:nth-child(3){animation-delay:1.6s}.fh-flow span:nth-child(4){animation-delay:2.4s}
+@keyframes fhRise{0%,100%{transform:translateY(0);border-color:rgba(165,180,252,.21)}50%{transform:translateY(-5px);border-color:rgba(103,232,249,.5)}}
+.fh-editor-label{color:#67e8f9;font-size:12px;font-weight:800;letter-spacing:.1em;margin-bottom:12px}
+@media(max-width:480px){.fh-editor-body{min-height:220px;padding:14px 12px;font-size:11px}.fh-editor-head{padding:11px 12px}.fh-flow span{font-size:10px;padding:8px}}
+@media(prefers-reduced-motion:reduce){.fresh-home,.fh-editor,.fh-editor-body::after,.fh-online,.fh-flow span{animation:none!important}}
 </style>
 <section class="fresh-home" id="home" aria-label="Website and app development services">
  <div class="fresh-home-inner">
   <div class="fresh-home-copy">
    <div class="fresh-home-badge"><span></span> Digital Agency by Chandan Das</div>
-   <h1>Your Idea.<br><em>Our Digital Craft.</em></h1>
+   <h1>We Turn Ideas<br><em>Into Working Code.</em></h1>
    <p class="fresh-home-description">From professional business websites to powerful Android apps, admin panels and custom software — bring your ideas to life with a dedicated independent developer based in West Bengal.</p>
    <div class="fresh-home-actions"><a class="fresh-home-primary" href="#contact">Start Your Project &rarr;</a><a class="fresh-home-secondary" href="store.html">Explore Our Work &nearr;</a></div>
    <div class="fresh-home-chips"><span>✓ Website Development</span><span>✓ Android Apps</span><span>✓ Admin Panels</span><span>✓ Custom Software</span></div>
   </div>
-  <div class="fresh-home-visual" aria-label="Services preview">
-   <div class="fresh-home-window"><div class="fresh-home-window-top"><strong>What we can build</strong><div class="fresh-home-circles"><i></i><i></i><i></i></div></div>
-    <div class="fresh-home-window-content">
-     <div class="fresh-home-tile"><span class="fh-icon" aria-hidden="true">🌐</span><strong>Websites</strong><small>Modern &amp; responsive</small></div>
-     <div class="fresh-home-tile"><span class="fh-icon" aria-hidden="true">📱</span><strong>Mobile Apps</strong><small>Android experiences</small></div>
-     <div class="fresh-home-tile"><span class="fh-icon" aria-hidden="true">📊</span><strong>Admin Panels</strong><small>Manage with ease</small></div>
-     <div class="fresh-home-tile"><span class="fh-icon" aria-hidden="true">⚙️</span><strong>Custom Solutions</strong><small>Built for your needs</small></div>
-    </div>
+  <div class="fresh-home-visual">
+   <div class="fh-editor-label">● LIVE DEVELOPMENT PREVIEW</div>
+   <div class="fh-editor">
+    <div class="fh-editor-head"><div class="fresh-home-circles"><i></i><i></i><i></i></div><span class="fh-editor-title">project / app.js</span><span class="fh-editor-title">JS</span></div>
+    <pre class="fh-editor-body" id="fhTypedCode" aria-label="Animated example of development code">// Building your next digital idea...</pre>
+    <div class="fh-editor-bottom"><span class="fh-online"></span><span id="fhBuildStatus">Preparing workspace...</span><span style="margin-left:auto">DEMO PREVIEW</span></div>
    </div>
-   <div class="fresh-home-floating">✦ Designed for your business</div>
+   <div class="fh-flow" aria-label="Development process"><span>✦ Designing UI</span><span>⌨ Writing Code</span><span>✓ Testing Features</span><span>↗ Ready to Deploy</span></div>
   </div>
  </div>
-</section><section class="founder-section" id="about-founder">
+</section><script id="codingHeroScript">
+(function(){
+ const code=document.getElementById('fhTypedCode');
+ const status=document.getElementById('fhBuildStatus');
+ if(!code||!status)return;
+ const examples=[
+ {text:'// Website development\nconst website = {\n  design: "Responsive UI",\n  performance: "Optimized",\n  status: "Building..."\n};',status:'Building responsive website...'},
+ {text:'// Android app development\nconst app = {\n  platform: "Android",\n  experience: "Modern",\n  status: "In progress"\n};',status:'Coding Android experience...'},
+ {text:'// Backend and dashboard\nconst backend = {\n  api: "Connected",\n  database: "Ready",\n  testing: "Running"\n};',status:'Testing backend features...'}
+ ];
+ if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){code.textContent=examples[0].text;status.textContent='Development preview';return;}
+ let index=0,pos=0,timeout=null;
+ function tick(){
+  if(document.hidden){timeout=setTimeout(tick,800);return;}
+  const active=examples[index];status.textContent=active.status;
+  if(pos<=active.text.length){code.textContent=active.text.slice(0,pos);pos++;timeout=setTimeout(tick,35);}
+  else{index=(index+1)%examples.length;pos=0;timeout=setTimeout(tick,2000);}
+ }
+ tick();
+ window.addEventListener('pagehide',()=>clearTimeout(timeout),{once:true});
+})();
+</script><section class="founder-section" id="about-founder">
 <div class="founder-shell">
 <div class="founder-copy">
 <span class="founder-kicker">DIRECTLY WORK WITH THE DEVELOPER</span>
