@@ -14,7 +14,7 @@ async function getSiteSettings() {
     offer: '',
     price: '',
     whatsapp: '917549459770',
-    call: '919735474770'
+    call: '917549459770'
   };
   try {
     const { data, error } = await sb.from('site_settings').select('*').eq('id', 1).single();
@@ -117,7 +117,7 @@ async function getSiteSettings() {
         <p class="lead-quick-copy">আপনার business-এর requirement বলুন। কোন service দরকার, কী feature useful এবং কীভাবে শুরু করলে ভালো হবে—সেটা সরাসরি discuss করে project-based quotation দেওয়া হবে।</p>
         <div class="lead-quick-actions">
           <a class="lead-quick-btn lead-quick-wa" data-lead-action="whatsapp" href="https://wa.me/917549459770?text=Hello%20Chandan%20Das%2C%20I%20want%20to%20discuss%20a%20website%2C%20app%20or%20digital%20project" target="_blank" rel="noopener">💬 Discuss on WhatsApp</a>
-          <a class="lead-quick-btn lead-quick-call" data-lead-action="call" href="tel:+919735474770">📞 Call 9735474770</a>
+          <a class="lead-quick-btn lead-quick-call" data-lead-action="call" href="tel:+917549459770">📞 Call 7549459770</a>
           <a class="lead-quick-btn lead-quick-service" data-lead-action="services" href="digital-services-west-bengal.html">View All Services →</a>
         </div></div><div class="lead-trust-grid">
           <div class="lead-trust-item"><strong>Direct Developer Contact</strong><span>No sales team or middleman</span></div>
@@ -149,8 +149,8 @@ async function getSiteSettings() {
   function cleanFooter(){
     const footer = document.querySelector('footer');
     if (!footer) return;
-    const call = footer.querySelector('a[href="tel:+919735474770"]');
-    if (call && /24\/7\s*Call/i.test(call.textContent || '')) call.textContent = '📞 Call: 9735474770';
+    const call = footer.querySelector('a[href="tel:+917549459770"]');
+    if (call && /24\/7\s*Call/i.test(call.textContent || '')) call.textContent = '📞 Call: 7549459770';
     footer.querySelectorAll('p').forEach(p => {
       if (/Founder\s*&\s*Freelance Developer/i.test(p.textContent || '')) {
         p.textContent = '© 2026 Digital Agency by Chandan Das • Independent Freelance Developer';
