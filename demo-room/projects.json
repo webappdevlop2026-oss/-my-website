@@ -22,5 +22,41 @@
     "description": "Student app, teacher tools and admin preview.",
     "theme": "green",
     "symbol": "✓"
+  },
+  {
+    "id": "oneconect",
+    "title": "OneConnect",
+    "category": "Multi-service platform",
+    "description": "User app, partner app (vendor + delivery) and admin panel.",
+    "theme": "violet",
+    "symbol": "1C",
+    "status": "soon"
+  },
+  {
+    "id": "maa-pitambara-property",
+    "title": "Maa Pitambara Property",
+    "category": "Real estate website & app",
+    "description": "Property buy/sell website, Android app and admin panel.",
+    "theme": "gold",
+    "symbol": "MP",
+    "status": "soon"
+  },
+  {
+    "id": "restaurant-demo",
+    "title": "Restaurant Demo",
+    "category": "Restaurant website",
+    "description": "Menu, online table booking and ordering experience.",
+    "theme": "orange",
+    "symbol": "RK",
+    "status": "soon"
+  },
+  {
+    "id": "love-life",
+    "title": "Love Life",
+    "category": "Live streaming app",
+    "description": "Live rooms, chat, audio & video call app UI.",
+    "theme": "pink",
+    "symbol": "♥",
+    "status": "soon"
   }
 ]
