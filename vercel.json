@@ -2,6 +2,26 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "redirects": [
     {
+      "source": "/client-room.html",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/client-room",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/client-room-admin.html",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/client-room-admin",
+      "destination": "/",
+      "permanent": false
+    },
+    {
       "source": "/website-design-darjeeling.html",
       "destination": "/website-design-dubrajpur.html",
       "permanent": true
@@ -114,87 +134,12 @@
       ]
     },
     {
-      "source": "/client-room-admin.html",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "noindex, nofollow"
-        }
-      ]
-    },
-    {
-      "source": "/client-room.html",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "noindex, nofollow"
-        }
-      ]
-    },
-    {
-      "source": "/client-room.html",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "noindex, nofollow"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "no-store, no-cache, must-revalidate, max-age=0"
-        }
-      ]
-    },
-    {
-      "source": "/client-room-clean-v7.png",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "no-store, no-cache, must-revalidate, max-age=0"
-        }
-      ]
-    },
-    {
-      "source": "/client-room-admin.html",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "noindex, nofollow"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "no-store, no-cache, must-revalidate, max-age=0"
-        }
-      ]
-    },
-    {
       "source": "/agency-control-2026.html",
       "headers": [
         {
           "key": "X-Robots-Tag",
           "value": "noindex, nofollow"
         },
-        {
-          "key": "Cache-Control",
-          "value": "no-store, no-cache, must-revalidate, max-age=0"
-        }
-      ]
-    },
-    {
-      "source": "/client-room.html",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "noindex, nofollow"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "no-store, no-cache, must-revalidate, max-age=0"
-        }
-      ]
-    },
-    {
-      "source": "/client-room-agency-v8.png",
-      "headers": [
         {
           "key": "Cache-Control",
           "value": "no-store, no-cache, must-revalidate, max-age=0"

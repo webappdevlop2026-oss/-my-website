@@ -1,5 +1,5 @@
 /* v34.0.0 build: 2026-09-13-no-pricing */
-const CACHE_NAME='digital-agency-chandan-v3400-no-pricing';
+const CACHE_NAME='digital-agency-chandan-v3500-room-removed';
 const CORE=['/manifest.json'];
 
 function stripHomePricing(html){
@@ -66,20 +66,8 @@ self.addEventListener('fetch',event=>{
 
   const url=new URL(request.url);
   const path=url.pathname;
-  const alwaysFresh=[
-    '/client-room.html',
-    '/client-office-final-v21.png',
-    '/client-room-gate-v10.png',
-    '/client-room-admin.html',
-    '/agency-control-2026.html',
-    '/room-project.png',
-    '/room-meeting.png',
-    '/room-support.png',
-    '/room-accounts.png'
-  ];
-
-  if(alwaysFresh.includes(path)){
-    event.respondWith(fetch(request,{cache:'no-store'}).catch(()=>caches.match(request)));
+  if(url.origin===self.location.origin && ['/client-room.html','/client-room','/client-room-admin.html','/client-room-admin'].includes(path)){
+    event.respondWith(Promise.resolve(Response.redirect(new URL('/',url).href,302)));
     return;
   }
 
