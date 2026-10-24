@@ -8,16 +8,16 @@
 .btn.soon-btn{opacity:.85;border-style:dashed}
 .proj-id{display:inline-flex;align-items:center;gap:6px;width:fit-content;align-self:flex-start;margin:8px 0 8px;padding:8px 16px;border:2px solid var(--accent);border-radius:12px;font-size:18px;font-weight:800;letter-spacing:.08em;color:#fff;background:#0c2238;box-shadow:0 0 0 4px #9cd9ff1a}
 
-/* === PREMIUM DARK UI & PERFECT 3-COLUMN GRID === */
+/* === PAGE BACKGROUND & LAYOUT ONLY (PROJECT BOXES COMPLETELY UNTOUCHED) === */
 body {
-  background-color: #0b1121 !important;
+  background-color: #050811 !important;
   background-image: 
     radial-gradient(circle at 10% 20%, rgba(56, 189, 248, 0.08) 0%, transparent 40%),
     radial-gradient(circle at 90% 80%, rgba(99, 102, 241, 0.08) 0%, transparent 40%) !important;
   color: #f8fafc !important;
 }
 
-/* Hero Section: Side-by-Side Text & Note */
+/* Hero Section Polish */
 .hero {
   display: grid !important;
   grid-template-columns: 1.3fr 1fr !important;
@@ -42,38 +42,7 @@ body {
   border-radius: 16px !important;
 }
 
-/* EXACT 3-COLUMN PROJECT GRID (Never breaks!) */
-.projects, #projectGrid {
-  display: grid !important;
-  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-  gap: 26px !important;
-  margin-top: 30px !important;
-}
-@media (max-width: 960px) {
-  .projects, #projectGrid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
-}
-@media (max-width: 640px) {
-  .projects, #projectGrid { grid-template-columns: 1fr !important; }
-}
-
-/* PREMIUM CARD HOVER EFFECT */
-.projects > * {
-  background: rgba(30, 41, 59, 0.4) !important;
-  backdrop-filter: blur(10px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
-  border-radius: 16px !important;
-  padding: 24px !important;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
-}
-.projects > *:hover {
-  transform: translateY(-6px) !important;
-  border-color: rgba(56, 189, 248, 0.5) !important;
-  background: rgba(30, 41, 59, 0.8) !important;
-  box-shadow: 0 15px 35px rgba(2, 132, 199, 0.2), inset 0 0 20px rgba(56, 189, 248, 0.05) !important;
-}
-
-/* Beautiful Search Input & Buttons */
+/* Beautiful Search Input */
 input.search {
   background: rgba(15, 23, 42, 0.8) !important;
   border: 1px solid rgba(255, 255, 255, 0.15) !important;
@@ -88,27 +57,4 @@ input.search:focus {
   border-color: #38bdf8 !important;
   box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25) !important;
   outline: none !important;
-}
-
-.btn.primary {
-  background: linear-gradient(135deg, #0284c7, #2563eb) !important;
-  border: none !important;
-  color: #fff !important;
-  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3) !important;
-}
-.btn.primary:hover {
-  transform: translateY(-2px) !important;
-  box-shadow: 0 6px 20px rgba(56, 189, 248, 0.4) !important;
-}
-
-/* Fix Dialog/Modal for dark theme */
-dialog {
-  background: #0f172a !important;
-  border: 1px solid rgba(56, 189, 248, 0.3) !important;
-  border-radius: 16px !important;
-  color: white !important;
-}
-dialog::backdrop {
-  background: rgba(0,0,0,0.7) !important;
-  backdrop-filter: blur(4px) !important;
 }
