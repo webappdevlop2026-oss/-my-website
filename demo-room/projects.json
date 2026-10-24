@@ -1,0 +1,26 @@
+[
+  {
+    "id": "kakababu",
+    "title": "KAKABABU",
+    "category": "Service platform",
+    "description": "User app, vendor experience and admin panel.",
+    "theme": "blue",
+    "symbol": "K"
+  },
+  {
+    "id": "bengali-calendar",
+    "title": "Bengali Calendar",
+    "category": "Android application",
+    "description": "Calendar, Panchang and the app project preview.",
+    "theme": "rose",
+    "symbol": "25"
+  },
+  {
+    "id": "mock-test",
+    "title": "Mock Test",
+    "category": "Education platform",
+    "description": "Student app, teacher tools and admin preview.",
+    "theme": "green",
+    "symbol": "✓"
+  }
+]
