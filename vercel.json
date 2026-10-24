@@ -2,6 +2,46 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "redirects": [
     {
+      "source": "/central-admin",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/central-admin.html",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/agency-admin-2026",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/agency-admin-2026.html",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/agency-control-2026",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/agency-control-2026.html",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/secure-admin-portal",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/secure-admin-portal/:path*",
+      "destination": "/",
+      "permanent": false
+    },
+    {
       "source": "/client-room.html",
       "destination": "/",
       "permanent": false
@@ -112,37 +152,6 @@
         {
           "key": "Cache-Control",
           "value": "public, max-age=0, must-revalidate"
-        }
-      ]
-    },
-    {
-      "source": "/agency-admin-2026.html",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "noindex, nofollow"
-        }
-      ]
-    },
-    {
-      "source": "/agency-control-2026.html",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "noindex, nofollow"
-        }
-      ]
-    },
-    {
-      "source": "/agency-control-2026.html",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "noindex, nofollow"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "no-store, no-cache, must-revalidate, max-age=0"
         }
       ]
     },

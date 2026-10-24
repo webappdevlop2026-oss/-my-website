@@ -1,5 +1,5 @@
 /* v34.0.0 build: 2026-09-13-no-pricing */
-const CACHE_NAME='digital-agency-chandan-v3700-client-demo-room';
+const CACHE_NAME='digital-agency-chandan-v3800-retire-old-admin';
 const CORE=['/manifest.json'];
 
 function stripHomePricing(html){
@@ -66,6 +66,10 @@ self.addEventListener('fetch',event=>{
 
   const url=new URL(request.url);
   const path=url.pathname;
+  if(url.origin===self.location.origin && (['/central-admin','/central-admin.html','/agency-admin-2026','/agency-admin-2026.html','/agency-control-2026','/agency-control-2026.html','/secure-admin-portal'].includes(path) || path.startsWith('/secure-admin-portal/'))){
+    event.respondWith(Promise.resolve(Response.redirect(new URL('/',url).href,302)));
+    return;
+  }
   if(path.startsWith('/api/') || path.startsWith('/demo-room/') || ['/client-demo-room.html','/custom-demo-request.html'].includes(path)){
     event.respondWith(fetch(request,{cache:'no-store'}));
     return;

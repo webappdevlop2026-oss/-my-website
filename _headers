@@ -13,15 +13,8 @@
 /sw.js
   Cache-Control: public, max-age=0, must-revalidate
 
-/agency-admin-2026.html
-  X-Robots-Tag: noindex, nofollow
 
-/agency-control-2026.html
-  X-Robots-Tag: noindex, nofollow
 
-/agency-control-2026.html
-  X-Robots-Tag: noindex, nofollow
-  Cache-Control: no-store, no-cache, must-revalidate, max-age=0
 
 /ai-builder.html
   X-Robots-Tag: noindex, nofollow, noarchive
