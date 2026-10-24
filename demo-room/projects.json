@@ -1,62 +1,69 @@
 [
   {
-    "id": "kakababu",
-    "title": "KAKABABU",
+    "id": "p358643",
+    "title": "Service Platform Project",
     "category": "Service platform",
     "description": "User app, vendor experience and admin panel.",
     "theme": "blue",
-    "symbol": "K"
+    "symbol": "⚙",
+    "code": "358643"
   },
   {
-    "id": "bengali-calendar",
-    "title": "Bengali Calendar",
+    "id": "p608977",
+    "title": "Calendar App Project",
     "category": "Android application",
     "description": "Calendar, Panchang and the app project preview.",
     "theme": "rose",
-    "symbol": "25"
+    "symbol": "25",
+    "code": "608977"
   },
   {
-    "id": "mock-test",
-    "title": "Mock Test",
+    "id": "p699350",
+    "title": "Mock Test Project",
     "category": "Education platform",
     "description": "Student app, teacher tools and admin preview.",
     "theme": "green",
-    "symbol": "✓"
+    "symbol": "✓",
+    "code": "699350"
   },
   {
-    "id": "oneconect",
-    "title": "OneConnect",
+    "id": "p940271",
+    "title": "Multi-Service App Project",
     "category": "Multi-service platform",
     "description": "User app, partner app (vendor + delivery) and admin panel.",
     "theme": "violet",
-    "symbol": "1C",
-    "status": "soon"
+    "symbol": "⚡",
+    "status": "soon",
+    "code": "940271"
   },
   {
-    "id": "maa-pitambara-property",
-    "title": "Maa Pitambara Property",
+    "id": "p242836",
+    "title": "Property Project",
     "category": "Real estate website & app",
     "description": "Property buy/sell website, Android app and admin panel.",
     "theme": "gold",
-    "symbol": "MP",
-    "status": "soon"
+    "symbol": "⌂",
+    "status": "soon",
+    "code": "242836"
   },
   {
-    "id": "restaurant-demo",
-    "title": "Restaurant Demo",
+    "id": "p971074",
+    "title": "Restaurant Project",
     "category": "Restaurant website",
     "description": "Menu, online table booking and ordering experience.",
     "theme": "orange",
-    "symbol": "RK",
-    "status": "soon"
+    "symbol": "R",
+    "status": "soon",
+    "code": "971074"
   },
   {
-    "id": "love-life",
-    "title": "Love Life",
+    "id": "p668304",
+    "title": "Live Stream Project",
     "category": "Live streaming app",
     "description": "Live rooms, chat, audio & video call app UI.",
     "theme": "pink",
-    "symbol": "♥",
-    "status": "soon"
+    "symbol": "▶",
+    "status": "soon",
+    "code": "668304"
   }
 ]

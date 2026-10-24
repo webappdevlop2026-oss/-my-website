@@ -6,3 +6,4 @@
 .preview.pink{background:linear-gradient(135deg,#7a2a55,#2c1529)}
 .lock-pill.soon{background:#3a2a07cc;border-color:#ffd56b55;color:#ffd56b}
 .btn.soon-btn{opacity:.85;border-style:dashed}
+.proj-id{display:inline-block;width:fit-content;align-self:flex-start;margin:2px 0 4px;padding:3px 9px;border:1px solid var(--line);border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.04em;color:var(--accent);background:#0c1424}
