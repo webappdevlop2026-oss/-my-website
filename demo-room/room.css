@@ -7,3 +7,8 @@
 .lock-pill.soon{background:#3a2a07cc;border-color:#ffd56b55;color:#ffd56b}
 .btn.soon-btn{opacity:.85;border-style:dashed}
 .proj-id{display:inline-flex;align-items:center;gap:6px;width:fit-content;align-self:flex-start;margin:8px 0 8px;padding:8px 16px;border:2px solid var(--accent);border-radius:12px;font-size:18px;font-weight:800;letter-spacing:.08em;color:#fff;background:#0c2238;box-shadow:0 0 0 4px #9cd9ff1a}
+
+/* 3 Cards Per Row Grid */
+div[aria-live='polite'] { display: grid !important; grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: 24px !important; width: 100% !important; }
+@media (max-width: 960px) { div[aria-live='polite'] { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; } }
+@media (max-width: 640px) { div[aria-live='polite'] { grid-template-columns: 1fr !important; } }
