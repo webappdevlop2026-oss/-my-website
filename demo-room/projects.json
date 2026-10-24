@@ -5,8 +5,11 @@
     "category": "Service platform",
     "description": "User app, vendor experience and admin panel.",
     "theme": "blue",
-    "symbol": "⚙",
-    "code": "358643"
+    "symbol": "\u2699",
+    "code": "358643",
+    "image": "/demo-room/previews/p358643.svg",
+    "imageAlt": "Service Platform Project illustrative interface preview",
+    "previewLabel": "UI illustration"
   },
   {
     "id": "p608977",
@@ -15,7 +18,10 @@
     "description": "Calendar, Panchang and the app project preview.",
     "theme": "rose",
     "symbol": "25",
-    "code": "608977"
+    "code": "608977",
+    "image": "/demo-room/previews/p608977.svg",
+    "imageAlt": "Calendar App Project illustrative interface preview",
+    "previewLabel": "UI illustration"
   },
   {
     "id": "p699350",
@@ -23,8 +29,11 @@
     "category": "Education platform",
     "description": "Student app, teacher tools and admin preview.",
     "theme": "green",
-    "symbol": "✓",
-    "code": "699350"
+    "symbol": "\u2713",
+    "code": "699350",
+    "image": "/demo-room/previews/p699350.svg",
+    "imageAlt": "Mock Test Project illustrative interface preview",
+    "previewLabel": "UI illustration"
   },
   {
     "id": "p940271",
@@ -32,9 +41,12 @@
     "category": "Multi-service platform",
     "description": "User app, partner app (vendor + delivery) and admin panel.",
     "theme": "violet",
-    "symbol": "⚡",
+    "symbol": "\u26a1",
     "status": "soon",
-    "code": "940271"
+    "code": "940271",
+    "image": "/demo-room/previews/p940271.svg",
+    "imageAlt": "Multi-Service App Project illustrative interface preview",
+    "previewLabel": "Concept preview"
   },
   {
     "id": "p242836",
@@ -42,9 +54,12 @@
     "category": "Real estate website & app",
     "description": "Property buy/sell website, Android app and admin panel.",
     "theme": "gold",
-    "symbol": "⌂",
+    "symbol": "\u2302",
     "status": "soon",
-    "code": "242836"
+    "code": "242836",
+    "image": "/demo-room/previews/p242836.svg",
+    "imageAlt": "Property Project illustrative interface preview",
+    "previewLabel": "Concept preview"
   },
   {
     "id": "p971074",
@@ -54,7 +69,10 @@
     "theme": "orange",
     "symbol": "R",
     "status": "soon",
-    "code": "971074"
+    "code": "971074",
+    "image": "/demo-room/previews/p971074.svg",
+    "imageAlt": "Restaurant Project illustrative interface preview",
+    "previewLabel": "Concept preview"
   },
   {
     "id": "p668304",
@@ -62,8 +80,11 @@
     "category": "Live streaming app",
     "description": "Live rooms, chat, audio & video call app UI.",
     "theme": "pink",
-    "symbol": "▶",
+    "symbol": "\u25b6",
     "status": "soon",
-    "code": "668304"
+    "code": "668304",
+    "image": "/demo-room/previews/p668304.svg",
+    "imageAlt": "Live Stream Project illustrative interface preview",
+    "previewLabel": "Concept preview"
   }
 ]
