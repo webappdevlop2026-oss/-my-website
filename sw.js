@@ -1,5 +1,5 @@
 /* v34.0.0 build: 2026-09-13-no-pricing */
-const CACHE_NAME='digital-agency-chandan-v3800-retire-old-admin';
+const CACHE_NAME='digital-agency-chandan-v3900-unified-admin';
 const CORE=['/manifest.json'];
 
 function stripHomePricing(html){
@@ -70,7 +70,7 @@ self.addEventListener('fetch',event=>{
     event.respondWith(Promise.resolve(Response.redirect(new URL('/',url).href,302)));
     return;
   }
-  if(path.startsWith('/api/') || path.startsWith('/demo-room/') || ['/client-demo-room.html','/custom-demo-request.html'].includes(path)){
+  if(path==='/admin'||path.startsWith('/admin/')||path.startsWith('/api/') || path.startsWith('/demo-room/') || ['/client-demo-room.html','/custom-demo-request.html'].includes(path)){
     event.respondWith(fetch(request,{cache:'no-store'}));
     return;
   }
