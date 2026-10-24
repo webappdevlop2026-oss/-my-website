@@ -42,7 +42,7 @@ footer{background:var(--indigo2);color:#c7c9e8;text-align:center;padding:28px 18
 </style></head><body>
 <div class="demo-strip">🧪 DEMO TEMPLATE — Digital Agency by Chandan Das</div>
 <header><div class="nav"><div class="brand"><div class="mark">🧮</div><div><h1>BillEasy</h1><p>Billing & Invoicing Software</p></div></div>
-<nav class="nav-links"><a href="#calc">Try Calculator</a><a href="#pricing">Pricing</a><a href="#contact">Contact</a></nav>
+<nav class="nav-links"><a href="#calc">Try Calculator</a><a href="#pricing">Features</a><a href="#contact">Contact</a></nav>
 <a class="pill" href="https://wa.me/917549459770?text=Hello%2C%20I%20want%20BillEasy%20billing%20software" target="_blank">Get Demo</a></div></header>
 <section class="hero"><div><span class="eyebrow">🧾 GST-ready billing software</span>
 <h2>Create invoices, <span>track stock, in minutes.</span></h2>
@@ -53,7 +53,7 @@ footer{background:var(--indigo2);color:#c7c9e8;text-align:center;padding:28px 18
 <label>GST Rate</label><select id="rate" onchange="calcGST()"><option value="5">5%</option><option value="12">12%</option><option value="18" selected>18%</option><option value="28">28%</option></select>
 <div class="result-row"><span>GST Amount</span><b id="gstAmt">₹0</b></div>
 <div class="result-row"><span>Total Invoice Value</span><b id="totalAmt">₹0</b></div></div></section>
-<section class="stats"><div class="stat"><b>1000+</b><span>Businesses using</span></div><div class="stat"><b>GST</b><span>Ready invoicing</span></div><div class="stat"><b>Offline</b><span>Works without internet</span></div><div class="stat"><b>₹999</b><span>Starting price</span></div></section>
+<section class="stats"><div class="stat"><b>1000+</b><span>Businesses using</span></div><div class="stat"><b>GST</b><span>Ready invoicing</span></div><div class="stat"><b>Offline</b><span>Works without internet</span></div></section>
 <div class="section-head"><h3>Features</h3><p>Everything a small shop needs to manage billing</p></div>
 <div class="grid">
 <div class="card"><div class="ic">🧾</div><h4>GST Invoicing</h4><p>Generate professional GST-compliant invoices instantly.</p></div>
@@ -61,11 +61,11 @@ footer{background:var(--indigo2);color:#c7c9e8;text-align:center;padding:28px 18
 <div class="card"><div class="ic">📊</div><h4>Sales Reports</h4><p>Daily, weekly and monthly sales summary reports.</p></div>
 <div class="card"><div class="ic">🖨️</div><h4>Print & Share</h4><p>Print bills or share directly via WhatsApp/PDF.</p></div>
 </div>
-<div class="section-head" id="pricing"><h3>Simple Pricing</h3><p>One-time purchase, no hidden charges</p></div>
+<div class="section-head" id="pricing"><h3>Choose Your Features</h3><p>Explore the features for your business</p></div>
 <div class="price-grid">
-<div class="plan"><h4>Starter</h4><div class="p">₹999</div><p style="font-size:13px;color:var(--muted)">Basic billing for single shop</p></div>
-<div class="plan pop"><span class="tag">MOST POPULAR</span><h4>Business</h4><div class="p">₹2,499</div><p style="font-size:13px;color:var(--muted)">Billing + stock + reports</p></div>
-<div class="plan"><h4>Premium</h4><div class="p">₹4,999</div><p style="font-size:13px;color:var(--muted)">Multi-user + advanced reports</p></div>
+<div class="plan"><h4>Starter</h4><p style="font-size:13px;color:var(--muted)">Basic billing for single shop</p></div>
+<div class="plan pop"><span class="tag">MOST POPULAR</span><h4>Business</h4><p style="font-size:13px;color:var(--muted)">Billing + stock + reports</p></div>
+<div class="plan"><h4>Premium</h4><p style="font-size:13px;color:var(--muted)">Multi-user + advanced reports</p></div>
 </div>
 <footer id="contact"><b>BillEasy</b> — Demo Website Template · Sample design by Digital Agency by Chandan Das, Dubrajpur.<br>Want this billing software page? <a href="https://wa.me/917549459770?text=I%20want%20the%20BillEasy%20billing%20software%20page" style="color:#a5b4fc;font-weight:800" target="_blank">WhatsApp us →</a></footer>
 <script>function calcGST(){const amt=parseFloat(document.getElementById('amt').value)||0;const rate=parseFloat(document.getElementById('rate').value);const gst=amt*rate/100;document.getElementById('gstAmt').textContent='₹'+gst.toFixed(2);document.getElementById('totalAmt').textContent='₹'+(amt+gst).toFixed(2)}</script>

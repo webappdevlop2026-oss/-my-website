@@ -1,5 +1,5 @@
 /* v34.0.0 build: 2026-09-13-no-pricing */
-const CACHE_NAME='digital-agency-chandan-v3500-room-removed';
+const CACHE_NAME='digital-agency-chandan-v3600-no-public-prices';
 const CORE=['/manifest.json'];
 
 function stripHomePricing(html){
