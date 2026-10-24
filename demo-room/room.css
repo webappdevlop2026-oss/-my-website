@@ -8,7 +8,70 @@
 .btn.soon-btn{opacity:.85;border-style:dashed}
 .proj-id{display:inline-flex;align-items:center;gap:6px;width:fit-content;align-self:flex-start;margin:8px 0 8px;padding:8px 16px;border:2px solid var(--accent);border-radius:12px;font-size:18px;font-weight:800;letter-spacing:.08em;color:#fff;background:#0c2238;box-shadow:0 0 0 4px #9cd9ff1a}
 
-/* 3 Cards Per Row Grid */
-div[aria-live='polite'] { display: grid !important; grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: 24px !important; width: 100% !important; }
-@media (max-width: 960px) { div[aria-live='polite'] { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; } }
-@media (max-width: 640px) { div[aria-live='polite'] { grid-template-columns: 1fr !important; } }
+/* === Professional Background & UI Polish (Keep 3-Column Boxes Intact) === */
+body {
+  background-color: #050811 !important;
+  background-image: 
+    radial-gradient(at 15% 10%, rgba(56, 189, 248, 0.12) 0px, transparent 45%),
+    radial-gradient(at 85% 20%, rgba(99, 102, 241, 0.10) 0px, transparent 50%),
+    radial-gradient(at 50% 85%, rgba(14, 165, 233, 0.08) 0px, transparent 55%),
+    linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px) !important;
+  background-size: 100% 100%, 100% 100%, 100% 100%, 40px 40px, 40px 40px !important;
+  background-attachment: fixed !important;
+}
+
+/* Header Glassmorphism */
+header {
+  background: rgba(5, 8, 17, 0.82) !important;
+  backdrop-filter: blur(18px) !important;
+  -webkit-backdrop-filter: blur(18px) !important;
+  border-bottom: 1px solid rgba(56, 189, 248, 0.14) !important;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.45) !important;
+}
+
+/* Ensure 3 Cards Per Row Remains Locked */
+div[aria-live='polite'] {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 26px !important;
+  width: 100% !important;
+}
+@media (max-width: 960px) {
+  div[aria-live='polite'] { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+}
+@media (max-width: 640px) {
+  div[aria-live='polite'] { grid-template-columns: 1fr !important; }
+}
+
+/* Card Box Professional Finish & Hover Glow */
+div[aria-live='polite'] > * {
+  border: 1px solid rgba(255, 255, 255, 0.09) !important;
+  box-shadow: 0 14px 34px -10px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.28s ease, box-shadow 0.28s ease !important;
+}
+
+div[aria-live='polite'] > *:hover {
+  transform: translateY(-6px) !important;
+  border-color: rgba(56, 189, 248, 0.45) !important;
+  box-shadow: 0 22px 45px -12px rgba(2, 132, 199, 0.28), 0 0 25px rgba(56, 189, 248, 0.12) !important;
+}
+
+/* Search Box & Aside Polish */
+input[type="search"], input[type="text"] {
+  background: rgba(11, 17, 30, 0.85) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.4) !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+input[type="search"]:focus, input[type="text"]:focus {
+  border-color: #38bdf8 !important;
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2), inset 0 2px 6px rgba(0, 0, 0, 0.4) !important;
+}
+
+aside {
+  background: linear-gradient(160deg, rgba(17, 25, 42, 0.88) 0%, rgba(10, 15, 28, 0.92) 100%) !important;
+  border: 1px solid rgba(56, 189, 248, 0.2) !important;
+  box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.7), 0 0 30px rgba(56, 189, 248, 0.08) !important;
+}
