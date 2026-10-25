@@ -9,7 +9,14 @@
     "code": "358643",
     "image": "/demo-room/previews/p358643.svg",
     "imageAlt": "Service Platform Project illustrative interface preview",
-    "previewLabel": "UI illustration"
+    "previewLabel": "UI illustration",
+    "status": "available",
+    "hidden": false,
+    "underReview": false,
+    "placeholder": false,
+    "playStoreUrl": "",
+    "websiteUrl": "",
+    "inviteEnabled": true
   },
   {
     "id": "p608977",
