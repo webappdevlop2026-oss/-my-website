@@ -7,16 +7,24 @@
  function text(value,x,y,size,colour='#09234b',align='center',weight='400') {ctx.fillStyle=colour;ctx.font=`${weight} ${size}px Arial, sans-serif`;ctx.textAlign=align;ctx.fillText(value,x,y);}
  function box(x,y,w,h){ctx.beginPath();ctx.roundRect(x,y,w,h,12);ctx.fillStyle='#fff';ctx.fill();ctx.strokeStyle='#0753d5';ctx.lineWidth=2;ctx.stroke();}
  function draw(){
-  ctx.clearRect(0,0,1050,600);ctx.fillStyle='#fff';ctx.fillRect(0,0,1050,600);
-  const gradient=ctx.createLinearGradient(930,0,1050,600);gradient.addColorStop(0,'#0764df');gradient.addColorStop(1,'#062c65');ctx.fillStyle=gradient;ctx.beginPath();ctx.moveTo(975,0);ctx.bezierCurveTo(1010,190,1090,280,925,600);ctx.lineTo(1050,600);ctx.lineTo(1050,0);ctx.fill();
-  ctx.strokeStyle='#b6d8ff';ctx.lineWidth=2;for(let i=0;i<3;i++){ctx.beginPath();ctx.moveTo(0,30+i*18);ctx.lineTo(60+i*16,30+i*18);ctx.lineTo(95+i*16,65+i*18);ctx.stroke();ctx.beginPath();ctx.arc(95+i*16,65+i*18,4,0,Math.PI*2);ctx.stroke();}
-  text('D I G I T A L  A G E N C Y',515,47,22,'#09234b','center','700');text('by Chandan Das',515,75,20);
-  text('CLIENT DEMO ROOM',510,173,66,'#0648b7','center','800');text('Your exclusive project preview',510,216,27);
-  text('PROJECT ID',115,300,20,'#09234b','left','700');box(280,266,610,55);text(invitation.id,585,302,28,'#073777','center','700');
-  text('INVITE CODE',115,377,20,'#09234b','left','700');box(280,343,610,55);let codeSize=28;ctx.font=`700 ${codeSize}px Arial`;while(ctx.measureText(invitation.code).width>570&&codeSize>10){codeSize--;ctx.font=`700 ${codeSize}px Arial`;}text(invitation.code,585,379,codeSize,'#073777','center','700');
-  text('Open the link  •  Find your project  •  Enter your code',510,444,23);
-  text('www.digitalagencybychandandas.in',510,492,26,'#0753d5','center','700');text('/client-demo-room.html',510,525,25,'#0753d5','center','700');
-  text('WhatsApp: +91 7549459770',310,573,20,'#09234b','center','600');ctx.fillStyle='#0753d5';ctx.beginPath();ctx.roundRect(650,548,240,35,18);ctx.fill();text('INVITATION ONLY',770,572,18,'#fff','center','700');
+  ctx.setTransform(2,0,0,2,0,0);ctx.clearRect(0,0,1050,600);
+  ctx.fillStyle='#f7faff';ctx.fillRect(0,0,1050,600);
+  const bg=ctx.createLinearGradient(0,0,340,600);bg.addColorStop(0,'#071a39');bg.addColorStop(1,'#1257bd');ctx.fillStyle=bg;ctx.fillRect(0,0,310,600);
+  ctx.strokeStyle='#ffffff0d';ctx.lineWidth=1;for(let x=10;x<310;x+=25){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,600);ctx.stroke();}for(let y=0;y<600;y+=25){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(310,y);ctx.stroke();}
+  ctx.strokeStyle='#43a6ff80';ctx.lineWidth=1.5;for(let i=0;i<4;i++){ctx.beginPath();ctx.moveTo(0,370+i*29);ctx.lineTo(45+i*22,370+i*29);ctx.lineTo(105+i*22,430+i*29);ctx.lineTo(260,430+i*29);ctx.stroke();ctx.beginPath();ctx.arc(260,430+i*29,3,0,Math.PI*2);ctx.fillStyle='#74c8ff';ctx.fill();}
+  ctx.fillStyle='#ffffff12';ctx.strokeStyle='#79baff66';ctx.beginPath();ctx.roundRect(38,40,64,64,15);ctx.fill();ctx.stroke();text('CD',70,83,25,'#fff','center','700');
+  text('DIGITAL AGENCY',38,147,22,'#fff','left','700');text('by Chandan Das',38,174,16,'#aacdf9','left');
+  text('Ideas.',38,246,32,'#fff','left','700');text('Code.',38,287,32,'#fff','left','700');text('Possibilities.',38,328,32,'#7ac9ff','left','700');
+  text('EXCLUSIVE PROJECT ACCESS',38,558,10,'#bed9fc','left','700');
+  text('CLIENT INVITATION  /  DIGITAL ACCESS PASS',350,55,11,'#52759f','left','700');
+  text('Client Demo Room',350,111,41,'#0b2448','left','700');text('Your next idea, ready to explore.',350,143,17,'#6b819e','left');
+  ctx.strokeStyle='#dce7f4';ctx.beginPath();ctx.moveTo(350,166);ctx.lineTo(1010,166);ctx.stroke();
+  let titleSize=17;ctx.font=`700 ${titleSize}px Arial`;while(ctx.measureText(invitation.title).width>650&&titleSize>10){titleSize--;ctx.font=`700 ${titleSize}px Arial`;}text(invitation.title,350,198,titleSize,'#32567e','left','700');
+  function panel(y,label,value,accent=false){ctx.fillStyle=accent?'#e9f2ff':'#fff';ctx.strokeStyle=accent?'#99bff3':'#d9e4f1';ctx.lineWidth=1;ctx.beginPath();ctx.roundRect(350,y,660,86,12);ctx.fill();ctx.stroke();ctx.fillStyle=accent?'#1262d8':'#96b6df';ctx.fillRect(350,y+18,3,50);text(label,373,y+27,10,'#587798','left','700');let size=accent?30:28;ctx.font=`700 ${size}px monospace`;while(ctx.measureText(value).width>610&&size>10){size--;ctx.font=`700 ${size}px monospace`;}ctx.font=`700 ${size}px monospace`;ctx.fillStyle=accent?'#0b55c4':'#173e6e';ctx.textAlign='left';ctx.fillText(value,373,y+63);}
+  panel(217,'PROJECT ID',invitation.id);panel(316,'INVITE CODE',invitation.code,true);
+  text('01  Open the room     02  Find your project     03  Enter your code',350,433,12,'#5c7697','left');
+  text('www.digitalagencybychandandas.in',350,477,22,'#154c99','left','700');text('/client-demo-room.html',350,505,20,'#154c99','left','700');
+  ctx.strokeStyle='#dce7f4';ctx.beginPath();ctx.moveTo(350,530);ctx.lineTo(1010,530);ctx.stroke();text('WhatsApp  +91 7549459770',350,564,15,'#345579','left','600');ctx.fillStyle='#125ed2';ctx.beginPath();ctx.roundRect(850,544,160,31,6);ctx.fill();text('INVITATION ONLY',930,564,11,'#fff','center','700');
  }
  const blob=()=>new Promise((resolve,reject)=>canvas.toBlob(b=>b?resolve(b):reject(Error('Could not create card. Please try again.')),'image/png'));
  async function download(){if(!invitation)return;const b=await blob(),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download=`Client-Invitation-${invitation.id}.png`;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000);}
