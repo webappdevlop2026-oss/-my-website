@@ -116,7 +116,15 @@
     "symbol": "EC",
     "code": "544758",
     "status": "invitation",
-    "placeholder": true
+    "placeholder": true,
+    "hidden": false,
+    "underReview": false,
+    "image": "",
+    "imageAlt": "E-Commerce Store Project preview",
+    "previewLabel": "Project preview",
+    "playStoreUrl": "",
+    "websiteUrl": "",
+    "inviteEnabled": true
   },
   {
     "id": "p497540",
