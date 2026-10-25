@@ -1,0 +1,714 @@
+[
+  {
+    "id": "hundred_year_explorer",
+    "title": "100-Year Date Explorer"
+  },
+  {
+    "id": "japa_counter",
+    "title": "108 Japa Counter"
+  },
+  {
+    "id": "next_24h_panchang",
+    "title": "24H Timeline"
+  },
+  {
+    "id": "accuracy_center",
+    "title": "Accuracy Center"
+  },
+  {
+    "id": "advanced_moon_center",
+    "title": "Advanced Moon Center"
+  },
+  {
+    "id": "alpana_generator",
+    "title": "Alpana Generator"
+  },
+  {
+    "id": "baby_naming",
+    "title": "Baby Naming"
+  },
+  {
+    "id": "cloud_backup",
+    "title": "Backup"
+  },
+  {
+    "id": "vastu_bedroom_study",
+    "title": "Bedroom & Study"
+  },
+  {
+    "id": "bengali_birthday",
+    "title": "Bengali Birthday Mode"
+  },
+  {
+    "id": "heritage_map",
+    "title": "Bengali Heritage Map"
+  },
+  {
+    "id": "life_planner",
+    "title": "Bengali Life Planner"
+  },
+  {
+    "id": "ritual_library",
+    "title": "Bengali Ritual Library"
+  },
+  {
+    "id": "bengali_year_journey",
+    "title": "Bengali Year Journey"
+  },
+  {
+    "id": "best_day_finder",
+    "title": "Best Day Finder"
+  },
+  {
+    "id": "rashi_best_day",
+    "title": "Best Day for My Rashi"
+  },
+  {
+    "id": "birth_rashi_setup",
+    "title": "Birth Rashi Setup"
+  },
+  {
+    "id": "calendar_quick_action",
+    "title": "Calendar Quick Action"
+  },
+  {
+    "id": "quality20",
+    "title": "Daily & Quality 2.0"
+  },
+  {
+    "id": "daily_share_card",
+    "title": "Daily Bengali Share Card"
+  },
+  {
+    "id": "daily_routine",
+    "title": "Daily Routine"
+  },
+  {
+    "id": "date_converter",
+    "title": "Date Converter"
+  },
+  {
+    "id": "panchang_compare",
+    "title": "Day Compare"
+  },
+  {
+    "id": "direction_intelligence",
+    "title": "Direction Intelligence"
+  },
+  {
+    "id": "dynamic_home",
+    "title": "Dynamic Home 2.0"
+  },
+  {
+    "id": "eclipse_center",
+    "title": "Eclipse Center"
+  },
+  {
+    "id": "elder_mode",
+    "title": "Elder Mode"
+  },
+  {
+    "id": "family_occasion_assistant",
+    "title": "Family Assistant"
+  },
+  {
+    "id": "family_upcoming_board",
+    "title": "Family Board"
+  },
+  {
+    "id": "family_calendar",
+    "title": "Family Calendar"
+  },
+  {
+    "id": "family_dashboard",
+    "title": "Family Dashboard 2.0"
+  },
+  {
+    "id": "family_festival_duty",
+    "title": "Family Festival Duty Board"
+  },
+  {
+    "id": "family_profiles",
+    "title": "Family Panchang Profiles"
+  },
+  {
+    "id": "family_qr_sync",
+    "title": "Family QR Sync"
+  },
+  {
+    "id": "family_tradition_book",
+    "title": "Family Tradition Book"
+  },
+  {
+    "id": "family_vault",
+    "title": "Family Vault"
+  },
+  {
+    "id": "favourite_day",
+    "title": "Favourite Day"
+  },
+  {
+    "id": "feedback_support",
+    "title": "Feedback / Support"
+  },
+  {
+    "id": "festival_budget",
+    "title": "Festival Budget Planner"
+  },
+  {
+    "id": "festival_countdown",
+    "title": "Festival Countdown"
+  },
+  {
+    "id": "festival_live_mode",
+    "title": "Festival Live"
+  },
+  {
+    "id": "festival_theme_engine",
+    "title": "Festival Live Theme"
+  },
+  {
+    "id": "festival_memory_timeline",
+    "title": "Festival Memory Timeline"
+  },
+  {
+    "id": "festival_poster",
+    "title": "Festival Poster"
+  },
+  {
+    "id": "festival_preparation_timeline",
+    "title": "Festival Preparation Timeline"
+  },
+  {
+    "id": "festival_route_timeline",
+    "title": "Festival Route Timeline"
+  },
+  {
+    "id": "festival_smart_dashboard",
+    "title": "Festival Smart Dashboard"
+  },
+  {
+    "id": "festival_sound_mode",
+    "title": "Festival Sound Mode"
+  },
+  {
+    "id": "festival_hub",
+    "title": "Festival Super Hub"
+  },
+  {
+    "id": "historical_timeline",
+    "title": "Historical Timeline"
+  },
+  {
+    "id": "history_date_explorer",
+    "title": "History Date Explorer"
+  },
+  {
+    "id": "vastu_checklist",
+    "title": "Home Checklist"
+  },
+  {
+    "id": "home_vastu_visual",
+    "title": "Home Vastu Visual Planner"
+  },
+  {
+    "id": "home_widget",
+    "title": "Home Widget"
+  },
+  {
+    "id": "notification_rules",
+    "title": "Intelligent Notification Rules"
+  },
+  {
+    "id": "vastu_kitchen_puja",
+    "title": "Kitchen & Puja"
+  },
+  {
+    "id": "kundli",
+    "title": "Kundli"
+  },
+  {
+    "id": "kundli_milan",
+    "title": "Kundli Milan"
+  },
+  {
+    "id": "latest30",
+    "title": "Latest 30"
+  },
+  {
+    "id": "live_muhurta_radar",
+    "title": "Live Muhurta"
+  },
+  {
+    "id": "live_sky_panchang",
+    "title": "Live Sky Panchang"
+  },
+  {
+    "id": "lucky_window",
+    "title": "Lucky Window Countdown"
+  },
+  {
+    "id": "anniversary_reminder",
+    "title": "Mahapurush Anniversary Reminder"
+  },
+  {
+    "id": "mahapurush_library",
+    "title": "Mahapurush Library"
+  },
+  {
+    "id": "vastu_plot_facing",
+    "title": "Main Door & Plot"
+  },
+  {
+    "id": "meditation_timer",
+    "title": "Meditation & Breath Timer"
+  },
+  {
+    "id": "month_summary",
+    "title": "Month Summary"
+  },
+  {
+    "id": "moon_mood_calendar",
+    "title": "Moon Mood Calendar"
+  },
+  {
+    "id": "moon_sign_sun_sign",
+    "title": "Moon Sign + Sun Sign"
+  },
+  {
+    "id": "app_notifications",
+    "title": "Morning Brief"
+  },
+  {
+    "id": "multi_device_sync",
+    "title": "Multi-device Backup / Sync"
+  },
+  {
+    "id": "my_year_map",
+    "title": "My Year Map"
+  },
+  {
+    "id": "nearby_temple",
+    "title": "Nearby Temple / Spiritual Places"
+  },
+  {
+    "id": "night_panchang_mode",
+    "title": "Night Panchang Mode"
+  },
+  {
+    "id": "notes",
+    "title": "Notes"
+  },
+  {
+    "id": "offline_festival_pack",
+    "title": "Offline Festival Pack"
+  },
+  {
+    "id": "offline_first",
+    "title": "Offline First"
+  },
+  {
+    "id": "offline_year_pack",
+    "title": "Offline Year Pack"
+  },
+  {
+    "id": "one_tap_today",
+    "title": "One Tap Today"
+  },
+  {
+    "id": "pdf_export",
+    "title": "PDF Export"
+  },
+  {
+    "id": "panchang_calculator_hub",
+    "title": "Panchang Calculator Hub"
+  },
+  {
+    "id": "time_capsule",
+    "title": "Panchang Time Capsule"
+  },
+  {
+    "id": "panjika_diary",
+    "title": "Panjika Diary"
+  },
+  {
+    "id": "smart_search",
+    "title": "Panjika Voice"
+  },
+  {
+    "id": "spiritual_analytics",
+    "title": "Personal Spiritual Analytics"
+  },
+  {
+    "id": "personal_year_dashboard",
+    "title": "Personal Year Dashboard"
+  },
+  {
+    "id": "planet_explorer",
+    "title": "Planet Explorer"
+  },
+  {
+    "id": "premium_center",
+    "title": "Premium Center"
+  },
+  {
+    "id": "premium_command_center",
+    "title": "Premium Command Center"
+  },
+  {
+    "id": "premium_dashboard",
+    "title": "Premium Dashboard 2.0"
+  },
+  {
+    "id": "premium_heritage",
+    "title": "Premium Heritage Lab"
+  },
+  {
+    "id": "private_vault",
+    "title": "Premium Private Vault"
+  },
+  {
+    "id": "share_studio",
+    "title": "Premium Share Studio"
+  },
+  {
+    "id": "premium_theme_store",
+    "title": "Premium Theme Store"
+  },
+  {
+    "id": "profile",
+    "title": "Profile"
+  },
+  {
+    "id": "puja_assistant",
+    "title": "Puja Assistant Mode"
+  },
+  {
+    "id": "puja_checklist",
+    "title": "Puja Checklist"
+  },
+  {
+    "id": "puja_planner",
+    "title": "Puja Planner"
+  },
+  {
+    "id": "puja_samagri_generator",
+    "title": "Puja Samagri Generator"
+  },
+  {
+    "id": "puja_step_mode",
+    "title": "Puja Step Mode"
+  },
+  {
+    "id": "rashi_calendar",
+    "title": "Rashi Calendar"
+  },
+  {
+    "id": "reminder_center",
+    "title": "Reminders"
+  },
+  {
+    "id": "vastu_room_planner",
+    "title": "Room Planner Check"
+  },
+  {
+    "id": "super30",
+    "title": "SUPER 30"
+  },
+  {
+    "id": "sadhana_streak",
+    "title": "Sadhana Streak"
+  },
+  {
+    "id": "agriculture_calendar",
+    "title": "Season & Agriculture Calendar"
+  },
+  {
+    "id": "app_settings",
+    "title": "Settings / Personalization"
+  },
+  {
+    "id": "shraddha_tithi",
+    "title": "Shraddha Tithi Finder"
+  },
+  {
+    "id": "shubho_alarm",
+    "title": "Shubho Alarm"
+  },
+  {
+    "id": "sky_map_lite",
+    "title": "Sky Map Lite"
+  },
+  {
+    "id": "smart_agenda",
+    "title": "Smart 30-Day Agenda"
+  },
+  {
+    "id": "smart_notification_digest",
+    "title": "Smart Digest"
+  },
+  {
+    "id": "sadhana_coach",
+    "title": "Smart Sadhana Coach"
+  },
+  {
+    "id": "silent_hours",
+    "title": "Smart Silent Hours"
+  },
+  {
+    "id": "solar_cinematic_mode",
+    "title": "Solar System Cinematic Mode"
+  },
+  {
+    "id": "sunlight_window",
+    "title": "Sunlight Window Planner"
+  },
+  {
+    "id": "sunrise_direction",
+    "title": "Sunrise Direction Visualizer"
+  },
+  {
+    "id": "temple_mela_map",
+    "title": "Temple & Mela Map"
+  },
+  {
+    "id": "temple_schedule",
+    "title": "Temple / Puja Schedule"
+  },
+  {
+    "id": "temple_bell_time",
+    "title": "Temple Bell Reminder"
+  },
+  {
+    "id": "temple_visit_journal",
+    "title": "Temple Visit Journal"
+  },
+  {
+    "id": "panchang_time_machine",
+    "title": "Time Machine"
+  },
+  {
+    "id": "tithi_anniversary",
+    "title": "Tithi Anniversary"
+  },
+  {
+    "id": "today_panchang",
+    "title": "Today’s Panchang"
+  },
+  {
+    "id": "travel_planner",
+    "title": "Travel / Yatra Planner"
+  },
+  {
+    "id": "universal_search",
+    "title": "Universal Search 2.0"
+  },
+  {
+    "id": "vastu_utility_zones",
+    "title": "Utility Zones"
+  },
+  {
+    "id": "vastu",
+    "title": "Vastu Hub"
+  },
+  {
+    "id": "verified_knowledge",
+    "title": "Verified Knowledge Mode"
+  },
+  {
+    "id": "virtual_puja_room",
+    "title": "Virtual Puja Room"
+  },
+  {
+    "id": "weather_panchang",
+    "title": "Weather + Panchang"
+  },
+  {
+    "id": "weather_quick",
+    "title": "Weather Quick View"
+  },
+  {
+    "id": "widget_pack_pro",
+    "title": "Widget Pack Pro"
+  },
+  {
+    "id": "world_clock",
+    "title": "World Clock"
+  },
+  {
+    "id": "abhijit_muhurta",
+    "title": "Abhijit Muhurta"
+  },
+  {
+    "id": "amavasya",
+    "title": "Amavasya"
+  },
+  {
+    "id": "today_history",
+    "title": "Today History"
+  },
+  {
+    "id": "rashi_today",
+    "title": "Daily Horoscope"
+  },
+  {
+    "id": "history_mahapurush",
+    "title": "History Mahapurush"
+  },
+  {
+    "id": "upobash_info",
+    "title": "Upobash Info"
+  },
+  {
+    "id": "ekadashi",
+    "title": "Ekadashi"
+  },
+  {
+    "id": "griha_pravesh",
+    "title": "Griha Pravesh"
+  },
+  {
+    "id": "ghati_pala_prahar",
+    "title": "Ghati Pala Prahar"
+  },
+  {
+    "id": "chandradarshan_alert",
+    "title": "Chandradarshan Alert"
+  },
+  {
+    "id": "moonrise_moonset",
+    "title": "Moonrise Moonset"
+  },
+  {
+    "id": "live_village",
+    "title": "Live Village"
+  },
+  {
+    "id": "tide_calendar",
+    "title": "Tide Calendar"
+  },
+  {
+    "id": "tithi_transition_clock",
+    "title": "Tithi Transition Clock"
+  },
+  {
+    "id": "tithi_details",
+    "title": "Tithi Details"
+  },
+  {
+    "id": "vastu_directions",
+    "title": "Vastu Directions"
+  },
+  {
+    "id": "nakshatra",
+    "title": "Nakshatra"
+  },
+  {
+    "id": "purnima",
+    "title": "Purnima"
+  },
+  {
+    "id": "bengali_anniversary",
+    "title": "Bengali Anniversary"
+  },
+  {
+    "id": "season_dashboard",
+    "title": "Season Dashboard"
+  },
+  {
+    "id": "calendar",
+    "title": "Bengali Calendar"
+  },
+  {
+    "id": "bengali_month_story",
+    "title": "Bengali Month Story"
+  },
+  {
+    "id": "brata_tracker",
+    "title": "Brata Tracker"
+  },
+  {
+    "id": "brahma_muhurta_clock",
+    "title": "Brahma Muhurta Clock"
+  },
+  {
+    "id": "bhumi_puja",
+    "title": "Bhumi Puja"
+  },
+  {
+    "id": "rashi_panchang_fusion",
+    "title": "Rashi Panchang Fusion"
+  },
+  {
+    "id": "rashi_compatibility",
+    "title": "Rashi Compatibility"
+  },
+  {
+    "id": "rashi_intelligence",
+    "title": "Rashi Intelligence"
+  },
+  {
+    "id": "rahu_kal",
+    "title": "Rahu Kal"
+  },
+  {
+    "id": "live_timing",
+    "title": "Live Timing"
+  },
+  {
+    "id": "live_solar_system",
+    "title": "Live Solar System"
+  },
+  {
+    "id": "hora_clock",
+    "title": "Hora Clock"
+  },
+  {
+    "id": "shubho_muhurta",
+    "title": "Shubho Muhurta"
+  },
+  {
+    "id": "sunrise_sunset",
+    "title": "Sunrise Sunset"
+  },
+  {
+    "id": "seva_donation_ledger",
+    "title": "Seva Donation Ledger"
+  },
+  {
+    "id": "easy_calendar",
+    "title": "Sahaj Calendar"
+  },
+  {
+    "id": "panjika_calendar",
+    "title": "Panjika Calendar"
+  },
+  {
+    "id": "puja_fordo",
+    "title": "Puja Samagri"
+  },
+  {
+    "id": "holiday_calendar",
+    "title": "Holidays"
+  },
+  {
+    "id": "purohit_booking",
+    "title": "Purohit Booking"
+  },
+  {
+    "id": "youtube_videos",
+    "title": "Devotional Videos"
+  },
+  {
+    "id": "age_calculator",
+    "title": "Age Calculator"
+  },
+  {
+    "id": "festival_stories",
+    "title": "Festival Stories"
+  },
+  {
+    "id": "panchang_voice",
+    "title": "Voice Assistant"
+  }
+]
