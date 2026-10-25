@@ -33,6 +33,23 @@
  document.getElementById('copyInviteMessage').onclick=async()=>{try{await navigator.clipboard.writeText(document.getElementById('clientMessage').value);status('Client message copied.');}catch{status('Select the message below and copy it manually.');}};
  document.getElementById('whatsappInvite').onclick=()=>{window.open('https://wa.me/?text='+encodeURIComponent(document.getElementById('clientMessage').value),'_blank','noopener,noreferrer');status('Choose the client in WhatsApp. Attach the downloaded card before sending.');};
  document.getElementById('shareInvite').onclick=async()=>{
-  try{if(!invitation)return;const file=new File([await blob()],`Client-Invitation-${invitation.id}.png`,{type:'image/png'});if(navigator.canShare?.({files:[file]})){await navigator.share({files:[file],text:document.getElementById('clientMessage').value,title:'Client Demo Room invitation'});status('Share sheet closed.');}else{await download();status('This browser cannot share an image and message together. Card downloaded: use “WhatsApp message”, then attach the card in WhatsApp.');}}catch(e){status(e.name==='AbortError'?'Sharing cancelled.': 'Sharing unavailable. Download the card and send it with the message in WhatsApp.');}
+  if(!invitation)return;
+  const message=document.getElementById('clientMessage').value;
+  // Start clipboard access directly from the click, before opening another app.
+  const copied=navigator.clipboard?.writeText? navigator.clipboard.writeText(message).then(()=>true,()=>false):Promise.resolve(false);
+  const button=document.getElementById('shareInvite');button.disabled=true;
+  try{
+   const file=new File([await blob()],`Client-Invitation-${invitation.id}.png`,{type:'image/png'});
+   const payload={files:[file],text:message,title:'Client Demo Room invitation'};
+   if(navigator.canShare?.(payload)){
+    status('Sharing card, message and room link. If WhatsApp leaves the caption empty, paste the automatically copied message before sending.');
+    await navigator.share(payload);
+    status(await copied?'Message and room link copied automatically. If WhatsApp omitted the caption, paste it before sending.':'Share sheet closed. Automatic copy was blocked by this browser; use Copy message if the caption is missing.');
+   }else{
+    await download();
+    status(await copied?'Card downloaded; message and room link copied automatically. Open WhatsApp, attach the card and paste into its caption.':'Card downloaded. This browser cannot share files or copy automatically. Use WhatsApp message, then attach the card.');
+   }
+  }catch(e){status(e.name==='AbortError'?'Sharing cancelled. Nothing was sent by this page.':'Sharing unavailable. Use Download card and WhatsApp message.');}
+  finally{button.disabled=false;}
  };
 })();
