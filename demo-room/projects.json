@@ -30,7 +30,12 @@
     "imageAlt": "Calendar App Project illustrative interface preview",
     "previewLabel": "UI illustration",
     "status": "published",
-    "playStoreUrl": "https://play.google.com/store/apps/details?id=com.shripanchang.calendar"
+    "playStoreUrl": "https://play.google.com/store/apps/details?id=com.shripanchang.calendar",
+    "hidden": false,
+    "underReview": false,
+    "placeholder": false,
+    "websiteUrl": "",
+    "inviteEnabled": true
   },
   {
     "id": "p699350",
