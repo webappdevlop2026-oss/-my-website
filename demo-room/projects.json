@@ -85,14 +85,15 @@
     "id": "p971074",
     "title": "Restaurant Project",
     "category": "Restaurant website",
-    "description": "Menu, online table booking and ordering experience.",
+    "description": "Complete restaurant demo: website, table QR ordering, admin and kitchen panels.",
     "theme": "orange",
     "symbol": "R",
     "status": "invitation",
     "code": "971074",
     "image": "/demo-room/previews/p971074.svg",
     "imageAlt": "Restaurant Project illustrative interface preview",
-    "previewLabel": "Concept preview"
+    "previewLabel": "Four-panel demo",
+    "placeholder": false
   },
   {
     "id": "p668304",
