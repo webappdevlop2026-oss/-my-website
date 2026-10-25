@@ -1,4 +1,5 @@
 const crypto = require('node:crypto');
+const {invitationPayload}=require('../lib/admin-core');
 // Read both files at the same current revision; deployment bundles can be stale.
 async function readRoom() {
   const token = process.env.ROOM_GITHUB_TOKEN;
@@ -12,14 +13,14 @@ async function readRoom() {
     return response.json();
   };
   const head = await get('/git/ref/heads/main');
-  const read = async path => {
+  const read = async (path, array=true) => {
     const file = await get('/contents/' + path + '?ref=' + head.object.sha);
     const data = JSON.parse(Buffer.from(file.content, 'base64').toString());
-    if (!Array.isArray(data)) throw new Error('Invalid room configuration');
+    if (array ? !Array.isArray(data) : (!data || typeof data!=='object' || Array.isArray(data))) throw new Error('Invalid room configuration');
     return data;
   };
-  const [catalog, projects] = await Promise.all([read('demo-room/projects.json'), read('demo-room/invitations.json')]);
-  return {catalog, projects};
+  const [catalog, projects, destinations] = await Promise.all([read('demo-room/projects.json'), read('demo-room/invitations.json'), read('lib/demo-destinations.json',false)]);
+  return {catalog, projects, destinations};
 }
 const attempts = new Map();
 module.exports = async function handler(req, res) {
@@ -35,11 +36,11 @@ module.exports = async function handler(req, res) {
   let body;
   try { body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body; } catch { return res.status(400).json({error:'Invalid request.'}); }
   if (!body || typeof body.project !== 'string' || typeof body.code !== 'string' || body.code.length > 80) return res.status(400).json({error:'Enter your project invite code.'});
-  let catalog, projects;
-  try { ({catalog, projects} = await readRoom()); }
+  let catalog, projects, destinations;
+  try { ({catalog, projects, destinations} = await readRoom()); }
   catch { return res.status(503).json({error:'Unable to check demo access right now. Please try again shortly.'}); }
   const entry=catalog.find(p=>p.id===body.project);
-  if(!entry||entry.hidden||entry.status==='soon'||entry.inviteEnabled===false)return res.status(403).json({error:'This demo is not currently available.'});
+  if(!entry||entry.hidden||entry.inviteEnabled===false)return res.status(403).json({error:'This demo is not currently available.'});
   const project = projects.find(p => p.id === body.project);
   const code = body.code.toUpperCase().replace(/[\s-]/g, '');
   if (!project || !(project.codeLength === 4 ? /^[0-9]{4}$/.test(code) : (project.codeLength ? /^[A-Z0-9_]{8,64}$/.test(code)&&code.length===project.codeLength : /^[A-F0-9]{24}$/.test(code)))) return res.status(403).json({error:'This invite code does not match this project.'});
@@ -49,6 +50,7 @@ module.exports = async function handler(req, res) {
     decipher.setAuthTag(Buffer.from(project.tag, 'hex'));
     const payload = JSON.parse(Buffer.concat([decipher.update(Buffer.from(project.data, 'base64')), decipher.final()]).toString());
     attempts.delete(ip);
+    if(payload.pending){const destination=destinations[body.project];if(!destination)return res.status(409).json({error:'Invite code accepted. Demo not added yet. Please contact us for your project preview.'});return res.status(200).json(invitationPayload(destination));}
     return res.status(200).json(payload);
   } catch {return res.status(403).json({error:'This invite code does not match this project.'});}
 };

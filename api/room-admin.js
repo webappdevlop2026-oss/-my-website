@@ -25,9 +25,8 @@ module.exports=async(req,res)=>{
   const data=await read();if(body.revision!==data.sha)fail('The website changed. Reload projects before saving your edits.',409);
   const input=body.project;if(!input||typeof input!=='object')fail('Missing project.');const existing=input.id?data.projects.find(p=>p.id===input.id):null;if(input.id&&!existing)fail('Project not found.',404);
   const p=project(input,existing,new Set(data.projects.map(p=>p.code)));let invites=data.invites;
-  if(body.invite&&body.disableInvite!==true){const destination=data.destinations[p.id];if(!destination)fail('No HTML demo is linked to this project yet. Add the demo first.');const invite=encryptInvite(p.id,body.invite.code,destination);invites=invites.filter(i=>i.id!==p.id).concat(invite);}
+  if(body.invite&&body.disableInvite!==true){const destination=data.destinations[p.id];const invite=encryptInvite(p.id,body.invite.code,destination);invites=invites.filter(i=>i.id!==p.id).concat(invite);}
   if(body.disableInvite===true)invites=invites.filter(i=>i.id!==p.id);
-  if(p.status!=='soon'&&!invites.some(i=>i.id===p.id)&&!['completed','published'].includes(p.status)&&body.disableInvite!==true&&!(existing?.inviteEnabled===false&&existing.status===p.status))fail('Link an HTML demo and set an invite code before making this demo available.');
   p.inviteEnabled=invites.some(i=>i.id===p.id);
   const projects=existing?data.projects.map(old=>old.id===p.id?p:old):[...data.projects,p];
   const tree=await gh('/git/trees','POST',{base_tree:data.sha,tree:[{path:'demo-room/projects.json',mode:'100644',type:'blob',content:JSON.stringify(projects,null,2)+'\n'},{path:'demo-room/invitations.json',mode:'100644',type:'blob',content:JSON.stringify(invites,null,2)+'\n'}]});

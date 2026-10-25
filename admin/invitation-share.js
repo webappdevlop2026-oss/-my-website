@@ -66,8 +66,8 @@
  window.clearInvitation=()=>{invitation=null;document.getElementById('clientMessage').value='';ctx.clearRect(0,0,1536,1024);if(dialog.open)dialog.close();};
  window.showInvitation=({id,title,code,ready,theme,category})=>{
   invitation={id:String(id),code:code.toUpperCase().replace(/[\s-]/g,''),title,theme,category:category||''};draw();
-  document.getElementById('clientMessage').value=`Hello!\n\nYour ${title} project demo is ready to preview.\n\nOpen: ${roomURL}\nProject ID: ${id}\nInvite Code: ${invitation.code}\n\nSelect your project, enter the invite code and tap “Unlock & Open Demo”. Please share your feedback after reviewing it.\n\nDigital Agency by Chandan Das\nWhatsApp: +91 7549459770`;
-  document.getElementById('shareNotice').textContent=ready?'Invite code saved. The card is ready. New website updates may take a little time to publish.':'Invite code saved, but this project is hidden or Coming Soon. Make it visible and available before inviting a client.';
+  document.getElementById('clientMessage').value=`Hello!\n\n${ready?'Your '+title+' project demo is ready to preview.':'Here is your invitation for '+title+'. Your preview will open once the demo is added and access is enabled.'}\n\nOpen: ${roomURL}\nProject ID: ${id}\nInvite Code: ${invitation.code}\n\nSelect your project, enter the invite code and tap “Unlock & Open Demo”. Please share your feedback after reviewing it.\n\nDigital Agency by Chandan Das\nWhatsApp: +91 7549459770`;
+  document.getElementById('shareNotice').textContent=ready?'Invite code saved. The card is ready. New website updates may take a little time to publish.':'Invite code saved, but the demo is not linked yet or the project is hidden. You can share this card now; the preview will open after the demo is linked and the project is visible.';
   status('Download or share now. The invite code is kept only while this card is open; it is not stored in this browser.');dialog.showModal();
  };
  document.getElementById('closeShare').onclick=window.clearInvitation;

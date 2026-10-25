@@ -56,7 +56,7 @@
     "description": "User app, partner app (vendor + delivery) and admin panel.",
     "theme": "violet",
     "symbol": "⚡",
-    "status": "soon",
+    "status": "invitation",
     "code": "940271",
     "image": "/demo-room/previews/p940271.svg",
     "imageAlt": "Multi-Service App Project illustrative interface preview",
@@ -88,7 +88,7 @@
     "description": "Menu, online table booking and ordering experience.",
     "theme": "orange",
     "symbol": "R",
-    "status": "soon",
+    "status": "invitation",
     "code": "971074",
     "image": "/demo-room/previews/p971074.svg",
     "imageAlt": "Restaurant Project illustrative interface preview",
@@ -101,7 +101,7 @@
     "description": "Live rooms, chat, audio & video call app UI.",
     "theme": "pink",
     "symbol": "▶",
-    "status": "soon",
+    "status": "invitation",
     "code": "668304",
     "image": "/demo-room/previews/p668304.svg",
     "imageAlt": "Live Stream Project illustrative interface preview",
@@ -115,7 +115,7 @@
     "theme": "blue",
     "symbol": "EC",
     "code": "544758",
-    "status": "soon",
+    "status": "invitation",
     "placeholder": true
   },
   {
@@ -126,7 +126,7 @@
     "theme": "rose",
     "symbol": "MV",
     "code": "497540",
-    "status": "soon",
+    "status": "invitation",
     "placeholder": true
   },
   {
@@ -137,7 +137,7 @@
     "theme": "green",
     "symbol": "GR",
     "code": "918326",
-    "status": "soon",
+    "status": "invitation",
     "placeholder": true
   },
   {
@@ -148,7 +148,7 @@
     "theme": "violet",
     "symbol": "FD",
     "code": "335777",
-    "status": "soon",
+    "status": "invitation",
     "placeholder": true
   },
   {
@@ -159,7 +159,7 @@
     "theme": "gold",
     "symbol": "CP",
     "code": "305359",
-    "status": "soon",
+    "status": "invitation",
     "placeholder": true
   },
   {
@@ -170,7 +170,7 @@
     "theme": "orange",
     "symbol": "TX",
     "code": "809157",
-    "status": "soon",
+    "status": "invitation",
     "placeholder": true
   },
   {
@@ -181,7 +181,7 @@
     "theme": "pink",
     "symbol": "VR",
     "code": "854356",
-    "status": "soon",
+    "status": "invitation",
     "placeholder": true
   },
   {
@@ -192,7 +192,7 @@
     "theme": "blue",
     "symbol": "BR",
     "code": "699075",
-    "status": "soon",
+    "status": "invitation",
     "placeholder": true
   },
   {
@@ -203,7 +203,7 @@
     "theme": "rose",
     "symbol": "HT",
     "code": "565240",
-    "status": "soon",
+    "status": "invitation",
     "placeholder": true
   },
   {
@@ -214,7 +214,7 @@
     "theme": "green",
     "symbol": "TR",
     "code": "175564",
-    "status": "soon",
+    "status": "invitation",
     "placeholder": true
   },
   {
@@ -225,7 +225,7 @@
     "theme": "violet",
     "symbol": "SC",
     "code": "956185",
-    "status": "soon",
+    "status": "invitation",
     "placeholder": true
   },
   {
@@ -236,7 +236,7 @@
     "theme": "gold",
     "symbol": "ED",
     "code": "528886",
-    "status": "soon",
+    "status": "invitation",
     "placeholder": true
   },
   {
@@ -247,7 +247,7 @@
     "theme": "orange",
     "symbol": "DR",
     "code": "481202",
-    "status": "soon",
+    "status": "invitation",
     "placeholder": true
   },
   {
@@ -258,7 +258,7 @@
     "theme": "pink",
     "symbol": "HC",
     "code": "251274",
-    "status": "soon",
+    "status": "invitation",
     "placeholder": true
   },
   {
@@ -269,7 +269,7 @@
     "theme": "blue",
     "symbol": "PH",
     "code": "903820",
-    "status": "soon",
+    "status": "invitation",
     "placeholder": true
   },
   {
@@ -280,7 +280,7 @@
     "theme": "rose",
     "symbol": "SP",
     "code": "823008",
-    "status": "soon",
+    "status": "invitation",
     "placeholder": true
   },
   {
@@ -291,7 +291,7 @@
     "theme": "green",
     "symbol": "GY",
     "code": "241636",
-    "status": "soon",
+    "status": "invitation",
     "placeholder": true
   },
   {
@@ -302,7 +302,7 @@
     "theme": "violet",
     "symbol": "HS",
     "code": "153870",
-    "status": "soon",
+    "status": "invitation",
     "placeholder": true
   },
   {
@@ -313,7 +313,7 @@
     "theme": "gold",
     "symbol": "BC",
     "code": "455487",
-    "status": "soon",
+    "status": "invitation",
     "placeholder": true
   },
   {
@@ -324,7 +324,7 @@
     "theme": "orange",
     "symbol": "PF",
     "code": "562713",
-    "status": "soon",
+    "status": "invitation",
     "placeholder": true
   },
   {
@@ -335,7 +335,7 @@
     "theme": "pink",
     "symbol": "NW",
     "code": "508213",
-    "status": "soon",
+    "status": "invitation",
     "placeholder": true
   },
   {
@@ -346,7 +346,7 @@
     "theme": "blue",
     "symbol": "YT",
     "code": "755367",
-    "status": "soon",
+    "status": "invitation",
     "placeholder": true
   },
   {
@@ -357,7 +357,7 @@
     "theme": "rose",
     "symbol": "JB",
     "code": "894508",
-    "status": "soon",
+    "status": "invitation",
     "placeholder": true
   },
   {
@@ -368,7 +368,7 @@
     "theme": "green",
     "symbol": "EV",
     "code": "179829",
-    "status": "soon",
+    "status": "invitation",
     "placeholder": true
   },
   {
@@ -379,7 +379,7 @@
     "theme": "violet",
     "symbol": "WP",
     "code": "475459",
-    "status": "soon",
+    "status": "invitation",
     "placeholder": true
   },
   {
@@ -390,7 +390,7 @@
     "theme": "gold",
     "symbol": "NG",
     "code": "710966",
-    "status": "soon",
+    "status": "invitation",
     "placeholder": true
   },
   {
@@ -401,7 +401,7 @@
     "theme": "orange",
     "symbol": "BI",
     "code": "752897",
-    "status": "soon",
+    "status": "invitation",
     "placeholder": true
   },
   {
@@ -412,7 +412,7 @@
     "theme": "pink",
     "symbol": "CR",
     "code": "186932",
-    "status": "soon",
+    "status": "invitation",
     "placeholder": true
   },
   {
@@ -423,7 +423,7 @@
     "theme": "blue",
     "symbol": "HR",
     "code": "828285",
-    "status": "soon",
+    "status": "invitation",
     "placeholder": true
   },
   {
@@ -434,7 +434,7 @@
     "theme": "rose",
     "symbol": "GQ",
     "code": "607810",
-    "status": "soon",
+    "status": "invitation",
     "placeholder": true
   }
 ]
