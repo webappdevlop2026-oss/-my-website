@@ -74,9 +74,9 @@
     "image": "/demo-room/previews/p242836.svg",
     "imageAlt": "Property Project illustrative interface preview",
     "previewLabel": "Concept preview",
-    "inviteEnabled": true,
+    "inviteEnabled": false,
     "hidden": false,
-    "underReview": false,
+    "underReview": true,
     "placeholder": false,
     "playStoreUrl": "",
     "websiteUrl": ""
