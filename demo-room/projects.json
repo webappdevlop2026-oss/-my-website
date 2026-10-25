@@ -76,7 +76,7 @@
     "previewLabel": "Concept preview",
     "inviteEnabled": true,
     "hidden": false,
-    "underReview": true,
+    "underReview": false,
     "placeholder": false,
     "playStoreUrl": "",
     "websiteUrl": ""
