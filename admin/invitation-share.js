@@ -11,12 +11,43 @@
  template.onload=()=>{templateReady=true;if(invitation){draw();status('Your invitation card is ready to download or share.');}};
  template.onerror=()=>{if(invitation)status('Card artwork could not load. Please refresh and try again.');};
  template.src='/admin/assets/invitation-template.webp';
+ function projectKind(){
+  const name=(invitation.title+' '+invitation.category).toLowerCase();
+  const kind=/property|real estate|hotel|resort/.test(name)?'building':/calendar|panjika/.test(name)?'calendar':/education|school|coaching|course|learning|mock test/.test(name)?'book':/restaurant|food/.test(name)?'food':/live|stream|video|youtube/.test(name)?'video':/doctor|hospital|clinic|health|pharmacy/.test(name)?'health':/commerce|shop|grocery|market|store/.test(name)?'shop':/taxi|cab|courier|parcel|rider|rental|vehicle|travel|transport/.test(name)?'travel':/game|quiz/.test(name)?'game':'code';
+  return kind;
+ }
+ function paintProjectArtwork(kind){
+  const light='#75eaff';
+  function stroke(points,color=light,width=3){ctx.beginPath();ctx.strokeStyle=color;ctx.lineWidth=width;points.forEach((p,i)=>i?ctx.lineTo(...p):ctx.moveTo(...p));ctx.stroke();}
+  function icon(type,x,y,size){ctx.save();ctx.translate(x,y);ctx.scale(size/100,size/100);ctx.lineCap='round';ctx.lineJoin='round';ctx.strokeStyle=light;ctx.lineWidth=4;
+   const rect=(x,y,w,h)=>{ctx.beginPath();ctx.roundRect(x,y,w,h,5);ctx.stroke();};
+   if(type==='building'){stroke([[12,44],[50,12],[88,44]]);rect(23,44,54,43);rect(43,62,15,25);}
+   else if(type==='calendar'){rect(16,22,68,65);stroke([[16,42],[84,42]]);stroke([[32,12],[32,31]]);stroke([[68,12],[68,31]]);for(let i=0;i<3;i++)for(let j=0;j<2;j++){ctx.fillStyle=light;ctx.fillRect(29+i*18,53+j*16,7,7);}}
+   else if(type==='book'){stroke([[50,29],[26,18],[12,21],[12,80],[30,78],[50,89],[70,78],[88,80],[88,21],[73,18],[50,29],[50,89]]);stroke([[24,37],[39,43]]);stroke([[62,43],[77,37]]);}
+   else if(type==='food'){stroke([[23,13],[23,88]]);stroke([[12,13],[12,38],[34,38],[34,13]]);stroke([[70,13],[55,45],[70,49],[70,88]]);}
+   else if(type==='video'){rect(9,27,56,49);stroke([[65,41],[90,27],[90,76],[65,62]]);}
+   else if(type==='shop'){stroke([[8,17],[20,17],[29,66],[79,66],[90,30],[24,30]]);for(const x of [36,73]){ctx.beginPath();ctx.arc(x,83,5,0,Math.PI*2);ctx.stroke();}}
+   else if(type==='health'){stroke([[37,13],[63,13],[63,37],[87,37],[87,63],[63,63],[63,87],[37,87],[37,63],[13,63],[13,37],[37,37],[37,13]]);}
+   else if(type==='travel'){stroke([[12,67],[12,44],[24,38],[35,19],[68,19],[79,38],[89,44],[89,67],[12,67]]);stroke([[25,38],[77,38]]);for(const x of [27,74]){ctx.beginPath();ctx.arc(x,73,8,0,Math.PI*2);ctx.stroke();}}
+   else if(type==='game'){rect(9,26,82,51);stroke([[23,51],[43,51]]);stroke([[33,41],[33,61]]);ctx.fillStyle=light;ctx.beginPath();ctx.arc(68,44,4,0,7);ctx.arc(78,57,4,0,7);ctx.fill();}
+   else{stroke([[31,25],[10,50],[31,75]]);stroke([[69,25],[90,50],[69,75]]);stroke([[58,16],[42,84]]);}
+   ctx.restore();
+  }
+  ctx.save();ctx.shadowColor='#00b7ff';ctx.shadowBlur=22;
+  const glow=ctx.createRadialGradient(205,735,25,205,735,135);glow.addColorStop(0,'#125c9c');glow.addColorStop(1,'#031c4380');ctx.fillStyle=glow;ctx.beginPath();ctx.arc(205,735,125,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#5cdaff';ctx.lineWidth=2;ctx.stroke();icon(kind,105,635,200);ctx.restore();
+ }
+ const genericTemplate=new Image();let genericReady=false;
+ genericTemplate.onload=()=>{genericReady=true;if(invitation)draw();};
+ genericTemplate.onerror=()=>{if(invitation)status('Project artwork could not load. Please refresh and try again.');};
+ genericTemplate.src='/admin/assets/invitation-generic.webp';
  function draw(){
   ctx.setTransform(2,0,0,2,0,0);ctx.clearRect(0,0,1536,1024);
-  document.getElementById('shareInvite').disabled=!templateReady;
-  document.getElementById('downloadInvite').disabled=!templateReady;
-  if(!templateReady){ctx.fillStyle='#06172e';ctx.fillRect(0,0,1536,1024);text('Preparing your invitation…',768,512,32,'#fff');return;}
-  ctx.drawImage(template,0,0,1536,1024);
+  const kind=projectKind(),artReady=kind==='building'?templateReady:genericReady;
+  document.getElementById('shareInvite').disabled=!artReady;
+  document.getElementById('downloadInvite').disabled=!artReady;
+  if(!artReady){ctx.fillStyle='#06172e';ctx.fillRect(0,0,1536,1024);text('Preparing your invitation…',768,512,32,'#fff');return;}
+  ctx.drawImage(kind==='building'?template:genericTemplate,0,0,1536,1024);
+  if(kind!=='building')paintProjectArtwork(kind);
   function fit(value,x,y,size,width,metal=false,font='Arial'){
    ctx.font=`700 ${size}px ${font}`;while(ctx.measureText(value).width>width&&size>10){size--;ctx.font=`700 ${size}px ${font}`;}
    ctx.textAlign='left';const g=ctx.createLinearGradient(0,y-size,0,y+5);g.addColorStop(0,'#fff');g.addColorStop(.55,'#f4f8ff');g.addColorStop(1,'#a5b7d4');ctx.fillStyle=metal?g:'#f6f8ff';ctx.shadowColor='#0008';ctx.shadowBlur=4;ctx.fillText(value,x,y);ctx.shadowBlur=0;
