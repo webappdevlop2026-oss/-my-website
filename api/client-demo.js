@@ -1,6 +1,26 @@
 const crypto = require('node:crypto');
-const projects = require('../demo-room/invitations.json');
-const catalog = require('../demo-room/projects.json');
+// Read both files at the same current revision; deployment bundles can be stale.
+async function readRoom() {
+  const token = process.env.ROOM_GITHUB_TOKEN;
+  if (!token) throw new Error('Room configuration unavailable');
+  const get = async path => {
+    const response = await fetch('https://api.github.com/repos/webappdevlop2026-oss/-my-website' + path, {
+      headers: {Authorization: 'Bearer ' + token, Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28'},
+      cache: 'no-store', signal: AbortSignal.timeout(12000)
+    });
+    if (!response.ok) throw new Error('Room configuration unavailable');
+    return response.json();
+  };
+  const head = await get('/git/ref/heads/main');
+  const read = async path => {
+    const file = await get('/contents/' + path + '?ref=' + head.object.sha);
+    const data = JSON.parse(Buffer.from(file.content, 'base64').toString());
+    if (!Array.isArray(data)) throw new Error('Invalid room configuration');
+    return data;
+  };
+  const [catalog, projects] = await Promise.all([read('demo-room/projects.json'), read('demo-room/invitations.json')]);
+  return {catalog, projects};
+}
 const attempts = new Map();
 module.exports = async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store, max-age=0');
@@ -15,6 +35,9 @@ module.exports = async function handler(req, res) {
   let body;
   try { body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body; } catch { return res.status(400).json({error:'Invalid request.'}); }
   if (!body || typeof body.project !== 'string' || typeof body.code !== 'string' || body.code.length > 80) return res.status(400).json({error:'Enter your project invite code.'});
+  let catalog, projects;
+  try { ({catalog, projects} = await readRoom()); }
+  catch { return res.status(503).json({error:'Unable to check demo access right now. Please try again shortly.'}); }
   const entry=catalog.find(p=>p.id===body.project);
   if(!entry||entry.hidden||entry.status==='soon'||entry.inviteEnabled===false)return res.status(403).json({error:'This demo is not currently available.'});
   const project = projects.find(p => p.id === body.project);
