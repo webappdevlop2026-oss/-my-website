@@ -69,7 +69,12 @@
     "image": "/demo-room/previews/p242836.svg",
     "imageAlt": "Property Project illustrative interface preview",
     "previewLabel": "Concept preview",
-    "inviteEnabled": false
+    "inviteEnabled": true,
+    "hidden": false,
+    "underReview": false,
+    "placeholder": false,
+    "playStoreUrl": "",
+    "websiteUrl": ""
   },
   {
     "id": "p971074",
