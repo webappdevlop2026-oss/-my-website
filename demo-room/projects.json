@@ -88,12 +88,17 @@
     "description": "Complete restaurant demo: website, table QR ordering, admin and kitchen panels.",
     "theme": "orange",
     "symbol": "R",
-    "status": "invitation",
+    "status": "available",
     "code": "971074",
     "image": "/demo-room/previews/p971074.svg",
     "imageAlt": "Restaurant Project illustrative interface preview",
     "previewLabel": "Four-panel demo",
-    "placeholder": false
+    "placeholder": false,
+    "hidden": false,
+    "underReview": false,
+    "playStoreUrl": "",
+    "websiteUrl": "",
+    "inviteEnabled": true
   },
   {
     "id": "p668304",
