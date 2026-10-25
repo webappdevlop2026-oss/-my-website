@@ -1,0 +1,673 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
+<title>माँ पीताम्बरा प्रॉपर्टी — मोबाइल ऐप डेमो</title>
+<meta name="description" content="माँ पीताम्बरा प्रॉपर्टी Android ऐप का इंटरैक्टिव डेमो — प्लॉट, ज़मीन और मकान खरीदें-बेचें।">
+<meta name="theme-color" content="#5c1414">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hind:wght@400;500;600;700&family=Rozha+One&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--g:#5c1414;--g2:#7d1f1f;--g3:#3a0c0c;--gl:#fbf0e1;--gold:#f2b705;--gold2:#ffd54f;--gold3:#fff4cc;--ink:#1f1612;--mut:#7a6a61;--line:#eee3d6;--bg:#fbf7f2;--wa:#25d366;--red:#c0392b;--sh:0 6px 20px rgba(60,20,10,.08)}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{font-family:'Hind',system-ui,sans-serif;color:var(--ink);background:radial-gradient(1200px 600px at 20% 10%,#7d1f1f 0%,#3a0c0c 45%,#1a0606 100%);overflow:hidden}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.num{font-family:'Poppins','Hind',sans-serif;font-weight:700}
+.rz{font-family:'Rozha One','Hind',serif;font-weight:400}
+
+/* ===== stage + phone ===== */
+.stage{height:100%;display:flex;align-items:center;justify-content:center;gap:70px;padding:20px}
+.info{color:#fff;max-width:420px}
+.info .badge{display:inline-flex;gap:8px;align-items:center;background:rgba(255,213,79,.12);border:1px solid rgba(255,213,79,.35);color:var(--gold2);padding:5px 14px;border-radius:30px;font-size:14px}
+.info h1{font-family:'Rozha One';font-weight:400;font-size:46px;line-height:1.15;margin:16px 0 10px}
+.info h1 span{color:var(--gold2)}
+.info p{color:#eedccf;font-size:17px}
+.info ul{list-style:none;margin:20px 0;display:grid;gap:10px}
+.info li{display:flex;gap:10px;align-items:center;color:#f6e6da}
+.info li i{font-style:normal;width:30px;height:30px;border-radius:9px;background:rgba(255,255,255,.1);display:grid;place-items:center}
+.info .hint{font-size:14px;color:#d9bfae;border-top:1px solid rgba(255,255,255,.15);padding-top:14px;margin-top:6px}
+.info .hint b{color:var(--gold2)}
+.phone{width:390px;height:min(820px,calc(100vh - 40px));background:#111;border-radius:52px;padding:12px;box-shadow:0 0 0 2px #333,0 40px 80px rgba(0,0,0,.55),inset 0 0 0 2px #222;position:relative;flex:none}
+.phone::before{content:'';position:absolute;top:22px;left:50%;transform:translateX(-50%);width:110px;height:30px;background:#000;border-radius:20px;z-index:50}
+.app{width:100%;height:100%;border-radius:42px;overflow:hidden;background:var(--bg);position:relative;display:flex;flex-direction:column}
+.sbar{height:48px;flex:none;display:flex;justify-content:space-between;align-items:center;padding:6px 28px 0;font-family:'Poppins';font-size:14px;font-weight:600;z-index:40;background:var(--bg);transition:background .3s,color .3s}
+.sbar.dark{background:transparent;color:#fff;position:absolute;left:0;right:0;top:0}
+.sbar.dark.solid{background:rgba(251,247,242,.96);color:var(--ink);backdrop-filter:blur(8px)}
+.sbar.mar{background:var(--g3);color:#fff}
+.sp{display:none}
+.sbar .ic{display:flex;gap:6px;align-items:center}
+@media(max-width:900px){.info{display:none}}
+@media(max-width:500px){
+  body{background:var(--bg)}
+  .stage{padding:0;display:block}
+  .phone{width:100%;height:100%;height:100dvh;border-radius:0;padding:0;box-shadow:none;background:var(--bg)}
+  .phone::before{display:none}
+  .app{border-radius:0}
+  .sbar{display:none}
+  .sbar.dark{display:none}
+  #toast{bottom:90px}
+}
+
+/* ===== view + transitions ===== */
+.view{flex:1;overflow-y:auto;overflow-x:hidden;position:relative;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.view::-webkit-scrollbar{display:none}
+.view.anim-in{animation:vin .28s ease}
+.view.anim-back{animation:vback .28s ease}
+@keyframes vin{from{opacity:.3;transform:translateX(30px)}}
+@keyframes vback{from{opacity:.3;transform:translateX(-30px)}}
+.pad{padding:0 18px}
+
+/* ===== tabs ===== */
+.tabs{flex:none;display:grid;grid-template-columns:repeat(5,1fr);background:#fff;border-top:1px solid var(--line);padding:6px 6px calc(10px + env(safe-area-inset-bottom));position:relative;z-index:20}
+.tabs.hide{display:none}
+.tabs button{border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;font-weight:600;color:#a39389;cursor:pointer;padding:4px 0}
+.tabs button svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.9}
+.tabs button.on{color:var(--g)}
+.tabs button.on svg{fill:var(--gl)}
+.tabs .fab-t{margin-top:-26px}
+.tabs .fab-t span{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--g2),var(--g3));display:grid;place-items:center;box-shadow:0 8px 20px rgba(92,20,20,.4);border:4px solid #fff}
+.tabs .fab-t svg{stroke:#ffd54f!important;fill:none!important}
+
+/* ===== common ===== */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:14px;padding:13px 18px;font-weight:600;cursor:pointer;transition:.15s;white-space:nowrap}
+.btn:active{transform:scale(.97)}
+.b-g{background:var(--g);color:#fff}.b-gold{background:linear-gradient(135deg,#ffd54f,#f2b705);color:#3a1d00}.b-wa{background:var(--wa);color:#fff}
+.b-o{background:#fff;border:1.5px solid var(--line);color:var(--g)}
+.b-full{width:100%}
+.ibtn{width:40px;height:40px;border-radius:50%;border:0;background:#fff;display:grid;place-items:center;cursor:pointer;box-shadow:var(--sh);position:relative;flex:none}
+.ibtn svg{width:20px;height:20px;stroke:var(--ink);fill:none;stroke-width:2}
+.ibtn .dot{position:absolute;top:8px;right:9px;width:8px;height:8px;border-radius:50%;background:var(--red);border:2px solid #fff}
+.topb{display:flex;align-items:center;gap:12px;padding:8px 18px 12px;position:sticky;top:0;background:var(--bg);z-index:5}
+.topb h2{font-size:20px;flex:1;font-weight:700}
+.sh{display:flex;justify-content:space-between;align-items:center;margin:22px 0 12px}
+.sh h3{font-size:18px;font-weight:700}
+.sh a{color:var(--g);font-weight:600;font-size:14px;cursor:pointer}
+.tag{display:inline-block;font-size:12px;font-weight:600;padding:3px 10px;border-radius:20px;background:var(--gl);color:var(--g)}
+.fld{display:grid;gap:5px}
+.fld label{font-size:13px;font-weight:600;color:var(--mut)}
+.fld input,.fld select,.fld textarea{width:100%;padding:13px 14px;border:1.5px solid var(--line);border-radius:14px;background:#fff;outline:none;font-size:15px}
+.fld input:focus,.fld select:focus,.fld textarea:focus{border-color:var(--gold);box-shadow:0 0 0 4px rgba(242,183,5,.14)}
+.empty{text-align:center;padding:50px 20px;color:var(--mut)}
+.empty .e{font-size:54px;margin-bottom:6px}
+.st{font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;white-space:nowrap}
+.st.a{background:#e3f4ea;color:#1c7a45}.st.s{background:#fdecea;color:var(--red)}.st.p{background:#fff3d6;color:#8a6100}.st.n{background:#e6eefb;color:#2456a6}
+
+/* ===== splash / onboarding ===== */
+.splash{position:absolute;inset:0;background:radial-gradient(circle at 50% 40%,#8a2424,#3a0c0c 70%);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;z-index:60;transition:opacity .5s}
+.splash .lg{width:110px;height:110px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#9a2a2a,#4a0f0f);display:grid;place-items:center;box-shadow:0 0 0 6px rgba(255,213,79,.25),0 0 60px rgba(255,213,79,.3);animation:pulse 1.6s ease-in-out infinite}
+.splash .lg svg{width:62px;height:62px;fill:#ffd54f}
+@keyframes pulse{50%{box-shadow:0 0 0 14px rgba(255,213,79,.08),0 0 80px rgba(255,213,79,.4)}}
+.splash h1{font-family:'Rozha One';font-weight:400;font-size:32px;margin-top:22px}
+.splash p{color:var(--gold2);letter-spacing:.5px}
+.splash .ld{position:absolute;bottom:70px;width:120px;height:4px;border-radius:4px;background:rgba(255,255,255,.15);overflow:hidden}
+.splash .ld i{display:block;height:100%;width:40%;background:var(--gold2);border-radius:4px;animation:ld 1s ease-in-out infinite}
+@keyframes ld{0%{transform:translateX(-100%)}100%{transform:translateX(300%)}}
+.onb{height:100%;display:flex;flex-direction:column;background:#fff}
+.onb-sl{flex:1;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+.onb-sl::-webkit-scrollbar{display:none}
+.onb-s{flex:0 0 100%;scroll-snap-align:start;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px 30px 0}
+.onb-s .art{width:240px;height:240px;border-radius:50%;background:var(--gl);display:grid;place-items:center;font-size:100px;margin-bottom:30px;box-shadow:inset 0 0 0 12px #fff,0 0 0 2px var(--line)}
+.onb-s h2{font-family:'Rozha One';font-weight:400;font-size:30px;line-height:1.2;color:var(--g)}
+.onb-s p{color:var(--mut);margin-top:10px;font-size:16px}
+.onb-f{padding:20px 24px 30px;display:flex;align-items:center;justify-content:space-between}
+.onb-d{display:flex;gap:6px}.onb-d i{width:8px;height:8px;border-radius:8px;background:var(--line);transition:.3s}.onb-d i.on{width:26px;background:var(--g)}
+.skip{position:absolute;top:58px;right:20px;z-index:3;background:none;border:0;color:var(--mut);font-weight:600;cursor:pointer}
+@media(max-width:500px){.skip{top:16px}}
+
+/* ===== login ===== */
+.lgn{min-height:100%;display:flex;flex-direction:column;background:#fff}
+.lgn-top{background:linear-gradient(160deg,var(--g3),var(--g2));color:#fff;padding:16px 24px 60px;border-radius:0 0 36px 36px;position:relative}
+.lgn-top h2{font-family:'Rozha One';font-weight:400;font-size:30px;margin-top:16px}
+.lgn-top p{color:#f2ddd0}
+.lgn-box{margin:-40px 18px 0;background:#fff;border-radius:24px;padding:22px;box-shadow:0 20px 40px rgba(60,20,10,.12);display:grid;gap:14px;position:relative}
+.mob{display:flex;border:1.5px solid var(--line);border-radius:14px;overflow:hidden;background:#fff}
+.mob:focus-within{border-color:var(--gold);box-shadow:0 0 0 4px rgba(242,183,5,.14)}
+.mob span{padding:13px 14px;background:var(--gl);color:var(--g);font-weight:700}
+.mob input{border:0;outline:none;flex:1;padding:13px;font-size:17px;letter-spacing:1px;min-width:0}
+.otp{display:flex;gap:10px;justify-content:center}
+.otp input{width:58px;height:62px;text-align:center;font-family:'Poppins';font-weight:700;font-size:26px;color:var(--g);border:1.5px solid var(--line);border-radius:16px;outline:none}
+.otp input:focus{border-color:var(--gold);box-shadow:0 0 0 4px rgba(242,183,5,.18)}
+.demo-otp{background:#fff7e0;border:1px dashed #f1d58a;color:#6b4e00;border-radius:12px;padding:8px;text-align:center;font-size:14px}
+.demo-otp b{font-family:'Poppins';font-size:18px;letter-spacing:3px}
+.lgn small{color:var(--mut);text-align:center;display:block}
+
+/* ===== home ===== */
+.hhead{background:linear-gradient(160deg,var(--g3),var(--g2));color:#fff;padding:10px 18px 70px;border-radius:0 0 30px 30px}
+.hrow{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.hello small{color:#f0cdb8;font-size:13px}
+.hello b{display:block;font-size:20px}
+.loc{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);padding:5px 12px;border-radius:30px;font-size:13px;margin-top:10px;cursor:pointer}
+.hhead .ibtn{background:rgba(255,255,255,.14);box-shadow:none}
+.hhead .ibtn svg{stroke:#fff}
+.sbox{margin:-50px 18px 0;background:#fff;border-radius:18px;padding:6px 6px 6px 16px;display:flex;align-items:center;gap:10px;box-shadow:0 14px 30px rgba(60,20,10,.14);position:relative;cursor:pointer}
+.sbox svg{width:20px;height:20px;stroke:var(--mut);fill:none;stroke-width:2;flex:none}
+.sbox span{flex:1;color:#a8988e}
+.sbox .fb{flex:none!important;width:44px;height:44px;border-radius:14px;background:var(--g);display:grid;place-items:center}
+.sbox .fb svg{stroke:#ffd54f}
+.banner{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:18px 18px 4px;scrollbar-width:none}
+.banner::-webkit-scrollbar{display:none}
+.bn{flex:0 0 88%;scroll-snap-align:center;height:150px;border-radius:20px;background:center/cover;position:relative;overflow:hidden;color:#fff;cursor:pointer}
+.bn::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(40,8,8,.85),rgba(40,8,8,.1))}
+.bn div{position:absolute;left:16px;bottom:16px;right:16px;z-index:2}
+.bn b{font-size:20px;display:block}.bn small{color:#f3d9c4}
+.bn .go{display:inline-block;margin-top:8px;background:var(--gold);color:#3a1d00;font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px}
+.bdots{display:flex;justify-content:center;gap:5px;margin-top:8px}.bdots i{width:6px;height:6px;border-radius:6px;background:#e0d2c4;transition:.3s}.bdots i.on{width:18px;background:var(--g)}
+.cats{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.cat{display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;text-align:center}
+.cat .ci{width:58px;height:58px;border-radius:18px;background:#fff;display:grid;place-items:center;font-size:26px;box-shadow:var(--sh);border:1.5px solid transparent;transition:.2s}
+.cat:active .ci{transform:scale(.92)}
+.cat small{font-size:11px;font-weight:600;line-height:1.2;color:#4a3d36}
+.hsc{display:flex;gap:14px;overflow-x:auto;padding:2px 18px 10px;scroll-snap-type:x mandatory;scrollbar-width:none;margin:0 -18px}
+.hsc::-webkit-scrollbar{display:none}
+.fc{flex:0 0 250px;scroll-snap-align:start;background:#fff;border-radius:20px;overflow:hidden;box-shadow:var(--sh);cursor:pointer}
+.fc .im{height:150px;position:relative;background:#e8d8c4}
+.fc .im img{width:100%;height:100%;object-fit:cover}
+.fc .bd{padding:12px 14px}
+.fc .pr{font-size:19px;color:var(--g)}
+.fc h4{font-size:15px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fc small{color:var(--mut);font-size:13px}
+.bdg{position:absolute;top:10px;left:10px;font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;background:rgba(255,255,255,.95);color:var(--g);z-index:2}
+.bdg.f{background:var(--gold);color:#3a1d00}.bdg.s{background:var(--red);color:#fff}
+.hv{position:absolute;top:8px;right:8px;width:34px;height:34px;border-radius:50%;border:0;background:rgba(255,255,255,.95);display:grid;place-items:center;cursor:pointer;z-index:3;font-size:15px}
+.lc{display:grid;grid-template-columns:110px 1fr;gap:12px;background:#fff;border-radius:18px;padding:10px;box-shadow:var(--sh);margin-bottom:12px;cursor:pointer;position:relative}
+.lc .im{height:100px;border-radius:14px;overflow:hidden;position:relative;background:#e8d8c4}
+.lc .im img{width:100%;height:100%;object-fit:cover}
+.lc.sold .im img{filter:grayscale(.7)}
+.lc .bd{min-width:0;display:flex;flex-direction:column;gap:2px;padding-right:26px}
+.lc .pr{color:var(--g);font-size:18px}
+.lc h4{font-size:15px;font-weight:600;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.lc small{color:var(--mut);font-size:12px}
+.lc .mt{display:flex;gap:6px;margin-top:auto;flex-wrap:wrap}
+.lc .mt span{font-size:11px;background:var(--bg);border:1px solid var(--line);padding:1px 7px;border-radius:6px;color:#5a4c44}
+.lc .hv{top:10px;right:10px;width:30px;height:30px;box-shadow:var(--sh);font-size:13px}
+.emi-b{margin-top:18px;background:linear-gradient(135deg,#fff4cc,#ffe39a);border-radius:20px;padding:16px;display:flex;align-items:center;gap:14px;cursor:pointer}
+.emi-b .e{font-size:36px}
+.emi-b b{display:block;color:#5a3a00}.emi-b small{color:#7a5a10}
+
+/* ===== search ===== */
+.sin{display:flex;align-items:center;gap:10px;background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:0 14px;flex:1;min-width:0}
+.sin:focus-within{border-color:var(--gold)}
+.sin svg{width:19px;height:19px;stroke:var(--mut);fill:none;stroke-width:2;flex:none}
+.sin input{border:0;outline:none;padding:12px 0;flex:1;min-width:0;background:none;font-size:15px}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:4px 18px 10px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;border:1.5px solid var(--line);background:#fff;padding:7px 14px;border-radius:30px;font-weight:500;font-size:14px;cursor:pointer;white-space:nowrap}
+.chip.on{background:var(--g);border-color:var(--g);color:#fff}
+.fbar{display:flex;justify-content:space-between;align-items:center;padding:4px 18px 10px;font-size:14px;color:var(--mut)}
+.fbar button{border:0;background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:6px 12px;font-weight:600;color:var(--g);cursor:pointer}
+
+/* ===== detail ===== */
+.dt-gal{position:relative;height:330px;background:#e8d8c4}
+.dt-sl{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;height:100%;scrollbar-width:none}
+.dt-sl::-webkit-scrollbar{display:none}
+.dt-sl img{flex:0 0 100%;width:100%;height:100%;object-fit:cover;scroll-snap-align:start}
+.dt-gal::after{content:'';position:absolute;inset:0 0 auto 0;height:110px;background:linear-gradient(rgba(0,0,0,.45),transparent);pointer-events:none}
+.dt-top{position:absolute;top:56px;left:16px;right:16px;display:flex;justify-content:space-between;z-index:3}
+@media(max-width:500px){.dt-top{top:14px}}
+.dt-top .ibtn{background:rgba(255,255,255,.92)}
+.dt-cnt{position:absolute;right:16px;bottom:40px;background:rgba(0,0,0,.55);color:#fff;font-size:12px;padding:3px 10px;border-radius:20px;z-index:2}
+.dt-arr{position:absolute;top:50%;transform:translateY(-50%);z-index:2;width:34px;height:34px;border-radius:50%;border:0;background:rgba(255,255,255,.88);font-size:22px;color:var(--g);cursor:pointer;display:grid;place-items:center;padding-bottom:3px}
+.dt-arr.l{left:10px}.dt-arr.r{right:10px}
+.dt-body{background:var(--bg);border-radius:28px 28px 0 0;margin-top:-28px;position:relative;padding:20px 18px 110px}
+.dt-body h2{font-size:22px;line-height:1.3;font-weight:700}
+.dt-loc{color:var(--mut);font-size:14px;margin-top:4px}
+.dt-pr{display:flex;align-items:baseline;gap:10px;margin-top:10px}
+.dt-pr b{font-size:28px;color:var(--g)}
+.dt-pr small{color:var(--mut)}
+.spec{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+.spec div{background:#fff;border-radius:16px;padding:12px;display:flex;gap:10px;align-items:center;box-shadow:var(--sh)}
+.spec i{font-style:normal;width:38px;height:38px;border-radius:12px;background:var(--gl);display:grid;place-items:center;font-size:18px;flex:none}
+.spec small{display:block;color:var(--mut);font-size:11px}
+.spec b{font-size:14px;font-weight:600}
+.feat{display:flex;flex-wrap:wrap;gap:8px}
+.feat span{background:#fff;border:1px solid var(--line);border-radius:12px;padding:7px 12px;font-size:13px;font-weight:500}
+.agent{display:flex;align-items:center;gap:12px;background:#fff;border-radius:18px;padding:12px;box-shadow:var(--sh)}
+.agent .av{width:50px;height:50px;border-radius:50%;background:var(--g);display:grid;place-items:center;flex:none}
+.agent .av svg{width:28px;height:28px;fill:#ffd54f}
+.agent div{flex:1}.agent small{color:var(--mut);display:block;font-size:12px}
+.mapf{width:100%;height:170px;border:0;border-radius:18px;display:block;background:#eee}
+.dt-bar{position:absolute;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);padding:12px 16px calc(14px + env(safe-area-inset-bottom));display:grid;grid-template-columns:auto auto 1fr;gap:10px;z-index:15;border-radius:24px 24px 0 0;box-shadow:0 -10px 30px rgba(0,0,0,.06)}
+.dt-bar .sq{width:50px;height:50px;border-radius:16px;border:0;display:grid;place-items:center;cursor:pointer;font-size:22px}
+.dt-bar .c{background:var(--gl)}.dt-bar .w{background:#e3f8ec}
+
+/* ===== sheet ===== */
+.sbg{position:absolute;inset:0;background:rgba(20,6,4,.5);z-index:70;opacity:0;pointer-events:none;transition:.25s}
+.sbg.show{opacity:1;pointer-events:auto}
+.sheet{position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:28px 28px 0 0;z-index:71;transform:translateY(105%);transition:transform .3s cubic-bezier(.2,.8,.2,1);max-height:88%;overflow-y:auto;padding:10px 18px calc(22px + env(safe-area-inset-bottom))}
+.sheet.show{transform:none}
+.sheet .grab{width:44px;height:5px;border-radius:5px;background:#e3d7cb;margin:0 auto 14px}
+.sheet h3{font-size:20px;margin-bottom:4px}
+.sheet .sub{color:var(--mut);font-size:14px;margin-bottom:14px}
+.days{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;scrollbar-width:none}
+.days button{flex:none;width:62px;padding:10px 0;border-radius:16px;border:1.5px solid var(--line);background:#fff;cursor:pointer;display:flex;flex-direction:column;align-items:center}
+.days button small{font-size:11px;color:var(--mut)}.days button b{font-size:18px;font-family:'Poppins'}
+.days button.on{background:var(--g);border-color:var(--g);color:#fff}.days button.on small{color:#f0cdb8}
+.slots{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.slots button{padding:10px 0;border-radius:12px;border:1.5px solid var(--line);background:#fff;font-weight:600;font-size:13px;cursor:pointer}
+.slots button.on{background:var(--gold3);border-color:var(--gold);color:#6a4a00}
+.ok{text-align:center;padding:20px 0}
+.ok .e{width:90px;height:90px;border-radius:50%;background:#e3f4ea;display:grid;place-items:center;font-size:44px;margin:0 auto 16px;animation:pop .4s}
+@keyframes pop{from{transform:scale(.4)}}
+.opts{display:grid;gap:8px}
+.opts button{display:flex;justify-content:space-between;align-items:center;border:1.5px solid var(--line);background:#fff;border-radius:14px;padding:13px 14px;font-weight:500;cursor:pointer;text-align:left}
+.opts button.on{border-color:var(--g);background:var(--gl);color:var(--g);font-weight:700}
+
+/* ===== sell ===== */
+.steps{display:flex;gap:6px;padding:0 18px 4px}
+.steps i{flex:1;height:5px;border-radius:5px;background:var(--line);transition:.3s}.steps i.on{background:var(--g)}
+.stp-t{padding:10px 18px 4px;color:var(--mut);font-size:13px}
+.form{padding:10px 18px 30px;display:grid;gap:14px}
+.tch{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.tch button{border:1.5px solid var(--line);background:#fff;border-radius:16px;padding:14px 10px;display:flex;align-items:center;gap:8px;font-weight:600;font-size:14px;cursor:pointer;text-align:left}
+.tch button span{font-size:22px}
+.tch button.on{border-color:var(--g);background:var(--gl);color:var(--g)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.sfx{position:relative}.sfx input{padding-right:50px}.sfx span{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--mut);font-weight:600;font-size:14px}
+.phg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.ph{aspect-ratio:1;border-radius:16px;background:#f3ece4 center/cover;position:relative;border:1.5px solid var(--line)}
+.ph.cv{border-color:var(--gold)}
+.ph .x{position:absolute;top:6px;right:6px;width:24px;height:24px;border-radius:50%;border:0;background:rgba(0,0,0,.6);color:#fff;font-size:12px;cursor:pointer}
+.ph .cvl{position:absolute;left:6px;bottom:6px;background:var(--gold);color:#3a1d00;font-size:10px;font-weight:700;padding:1px 7px;border-radius:20px}
+.ph.add{border:2px dashed #e0cdb7;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--mut);cursor:pointer;background:#fff}
+.ph.add b{font-size:28px;line-height:1;color:var(--g)}
+.ph.add small{font-size:11px}
+.sbtm{position:sticky;bottom:0;background:var(--bg);padding:12px 18px 16px;display:flex;gap:10px;border-top:1px solid var(--line)}
+.sbtm .btn{flex:1}
+
+/* ===== profile ===== */
+.pcard{margin:4px 18px 0;background:linear-gradient(135deg,var(--g3),var(--g2));color:#fff;border-radius:24px;padding:20px;display:flex;align-items:center;gap:14px;position:relative;overflow:hidden}
+.pcard::after{content:'';position:absolute;width:180px;height:180px;border-radius:50%;background:radial-gradient(rgba(255,213,79,.25),transparent 70%);right:-50px;top:-60px}
+.pcard .av{width:60px;height:60px;border-radius:50%;background:var(--gold);color:#3a1d00;display:grid;place-items:center;font-size:26px;font-weight:700;flex:none}
+.pcard small{color:#f0cdb8}
+.pk{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 18px 0}
+.pk div{background:#fff;border-radius:18px;padding:12px;text-align:center;box-shadow:var(--sh);cursor:pointer}
+.pk b{display:block;font-size:22px;color:var(--g)}
+.pk small{color:var(--mut);font-size:12px}
+.menu{margin:16px 18px 0;background:#fff;border-radius:20px;box-shadow:var(--sh);overflow:hidden}
+.menu button,.menu a{width:100%;display:flex;align-items:center;gap:12px;padding:14px 16px;border:0;background:none;cursor:pointer;text-align:left;border-bottom:1px solid var(--line);font-weight:500}
+.menu>:last-child{border-bottom:0}
+.menu i{font-style:normal;width:36px;height:36px;border-radius:12px;background:var(--gl);display:grid;place-items:center;font-size:17px;flex:none}
+.menu span{flex:1}.menu em{font-style:normal;color:#c2b3a8;font-size:18px}
+.made{text-align:center;color:var(--mut);font-size:12px;padding:20px 18px 24px}
+.made a{color:var(--g);font-weight:600}
+.row{display:flex;gap:12px;align-items:center;background:#fff;border-radius:16px;padding:12px;box-shadow:var(--sh);margin-bottom:10px}
+.row .ic{width:44px;height:44px;border-radius:14px;background:var(--gl);display:grid;place-items:center;font-size:20px;flex:none}
+.row img{width:56px;height:44px;border-radius:10px;object-fit:cover;flex:none}
+.row div{flex:1;min-width:0}.row small{display:block;color:var(--mut);font-size:12px}
+.row b{display:block;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* EMI */
+.rng{display:grid;gap:6px;margin-bottom:16px}
+.rng label{display:flex;justify-content:space-between;font-weight:600;font-size:14px}
+.rng label b{color:var(--g)}
+.rng input{width:100%;accent-color:var(--g)}
+.emi-o{background:linear-gradient(135deg,var(--g3),var(--g2));color:#fff;border-radius:24px;padding:22px;text-align:center;margin-bottom:18px}
+.emi-o small{color:#f0cdb8}.emi-o b{display:block;font-size:38px;color:var(--gold2)}
+.emi-o .r{display:flex;justify-content:space-between;font-size:14px;border-top:1px dashed rgba(255,255,255,.2);padding-top:8px;margin-top:8px}
+
+/* toast */
+#toast{position:absolute;left:50%;bottom:100px;transform:translate(-50%,30px);opacity:0;background:var(--ink);color:#fff;padding:11px 18px;border-radius:14px;z-index:90;transition:.3s;font-size:14px;width:max-content;max-width:86%;text-align:center;pointer-events:none}
+#toast.show{transform:translate(-50%,0);opacity:1}
+.lotus{fill:currentColor}
+</style>
+</head>
+<body>
+<div class="stage">
+  <aside class="info">
+    <span class="badge">📱 Android ऐप · इंटरैक्टिव डेमो</span>
+    <h1>माँ पीताम्बरा प्रॉपर्टी का <span>मोबाइल ऐप</span></h1>
+    <p>बुंदेलखंड में प्लॉट, ज़मीन और मकान — अब आपकी जेब में। फ़ोन के अंदर ऐप चलाकर देखें।</p>
+    <ul>
+      <li><i>🔐</i> मोबाइल नंबर + OTP से लॉगिन</li>
+      <li><i>🔍</i> जिला, प्रकार और बजट से खोज</li>
+      <li><i>🖼️</i> 5 फोटो तक गैलरी, स्वाइप करके देखें</li>
+      <li><i>📅</i> साइट विज़िट बुकिंग — तारीख और समय</li>
+      <li><i>📝</i> 3 आसान स्टेप में प्रॉपर्टी बेचें</li>
+      <li><i>❤️</i> पसंदीदा, पूछताछ और EMI कैलकुलेटर</li>
+    </ul>
+    <div class="hint">💡 एडमिन पैनल (<b>admin.html</b>) में जोड़ी गई प्रॉपर्टी इस ऐप में भी दिखेगी।</div>
+  </aside>
+  <div class="phone">
+    <div class="app" id="app">
+      <div class="sbar" id="sbar"><span id="clock">9:41</span><span class="ic"><svg width="18" height="12" viewBox="0 0 18 12"><path d="M1 11h2V8H1zm4 0h2V6H5zm4 0h2V3H9zm4 0h2V1h-2z" fill="currentColor"/></svg><svg width="16" height="12" viewBox="0 0 16 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 4.5a10 10 0 0 1 14 0M3.5 7a6.5 6.5 0 0 1 9 0M6 9.5a3 3 0 0 1 4 0"/></svg><svg width="26" height="12" viewBox="0 0 26 12"><rect x=".5" y=".5" width="22" height="11" rx="3" fill="none" stroke="currentColor"/><rect x="2" y="2" width="16" height="8" rx="2" fill="currentColor"/><rect x="23.5" y="4" width="2" height="4" rx="1" fill="currentColor"/></svg></span></div>
+      <div class="view" id="view"></div>
+      <nav class="tabs hide" id="tabs">
+        <button data-t="home"><svg viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>होम</button>
+        <button data-t="search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>खोजें</button>
+        <button data-t="sell" class="fab-t"><span><svg viewBox="0 0 24 24" style="width:26px;height:26px"><path d="M12 5v14M5 12h14"/></svg></span>बेचें</button>
+        <button data-t="favs"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>पसंदीदा</button>
+        <button data-t="profile"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>प्रोफ़ाइल</button>
+      </nav>
+      <div class="sbg" id="sbg" onclick="closeSheet()"></div>
+      <div class="sheet" id="sheet"></div>
+      <div id="toast"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ================= DATA ================= */
+const DISTRICTS=['ललितपुर','झाँसी','जालौन (उरई)','हमीरपुर','महोबा','बाँदा','चित्रकूट'];
+const TYPES={plot:{n:'आवासीय प्लॉट',i:'🏘️',c:'#7fb39a'},agri:{n:'खेती की ज़मीन',i:'🌾',c:'#b7c96a'},comm:{n:'व्यावसायिक प्लॉट',i:'🏬',c:'#8aa6c9'},farm:{n:'फार्महाउस ज़मीन',i:'🌳',c:'#6fa87a'},house:{n:'मकान',i:'🏠',c:'#d4a373'}};
+const SEED=[
+ {id:1,t:'गेटेड कॉलोनी में आवासीय प्लॉट',type:'plot',d:'ललितपुर',area:'सिविल लाइंस',price:18,size:'1200 वर्ग फुट',face:'पूर्व मुखी',road:'30 फुट रोड',f:['बाउंड्री वॉल','बिजली','पानी','रजिस्ट्री तैयार'],feat:true,status:'active'},
+ {id:2,t:'सिंचित खेती की ज़मीन',type:'agri',d:'ललितपुर',area:'तालबेहट',price:32,size:'2 एकड़',face:'नहर के पास',road:'पक्की सड़क से 200 मी.',f:['ट्यूबवेल','नहर सिंचाई','खतौनी साफ़'],feat:true,status:'active'},
+ {id:3,t:'हाईवे पर व्यावसायिक प्लॉट',type:'comm',d:'ललितपुर',area:'NH-44 बायपास',price:85,size:'5000 वर्ग फुट',face:'हाईवे फ्रंट',road:'NH-44',f:['हाईवे फ्रंट','शोरूम/होटल के लिए','कॉर्नर'],feat:true,status:'active'},
+ {id:4,t:'टाउनशिप में प्लॉट — EMI सुविधा',type:'plot',d:'ललितपुर',area:'सागर रोड',price:12.5,size:'1000 वर्ग फुट',face:'उत्तर मुखी',road:'25 फुट रोड',f:['EMI सुविधा','पार्क','स्ट्रीट लाइट'],feat:true,status:'active'},
+ {id:5,t:'डैम व्यू फार्महाउस ज़मीन',type:'farm',d:'ललितपुर',area:'गोविंद सागर बाँध क्षेत्र',price:22,size:'½ एकड़',face:'डैम व्यू',road:'पक्की सड़क',f:['पेड़-पौधे','बिजली कनेक्शन','शांत माहौल'],feat:true,status:'active'},
+ {id:6,t:'कॉर्नर आवासीय प्लॉट',type:'plot',d:'ललितपुर',area:'नेहरू नगर',price:29,size:'1800 वर्ग फुट',face:'दो तरफ़ रोड',road:'40 फुट रोड',f:['कॉर्नर','बाज़ार के पास','स्कूल पास'],feat:true,status:'active'},
+ {id:7,t:'2BHK स्वतंत्र मकान',type:'house',d:'ललितपुर',area:'आज़ाद पुरा',price:42,size:'1100 वर्ग फुट',face:'पूर्व मुखी',road:'20 फुट रोड',f:['2 बेडरूम','पार्किंग','बोरिंग'],feat:false,status:'active'},
+ {id:8,t:'खेती की उपजाऊ ज़मीन',type:'agri',d:'ललितपुर',area:'महरौनी',price:9.5,size:'1.5 एकड़',face:'समतल',road:'कच्चा रास्ता',f:['उपजाऊ मिट्टी','कुआँ'],feat:false,status:'active'},
+ {id:9,t:'नई कॉलोनी में प्लॉट',type:'plot',d:'झाँसी',area:'कानपुर रोड',price:24,size:'1000 वर्ग फुट',face:'पश्चिम मुखी',road:'30 फुट रोड',f:['JDA क्षेत्र','बिजली','सीवर'],feat:false,status:'active'},
+ {id:10,t:'3BHK डुप्लेक्स मकान',type:'house',d:'जालौन (उरई)',area:'राठ रोड, उरई',price:58,size:'1500 वर्ग फुट',face:'उत्तर मुखी',road:'30 फुट रोड',f:['3 बेडरूम','मॉड्यूलर किचन','छत'],feat:false,status:'active'},
+ {id:11,t:'मुख्य सड़क पर व्यावसायिक प्लॉट',type:'comm',d:'हमीरपुर',area:'कलेक्ट्रेट रोड',price:46,size:'2400 वर्ग फुट',face:'रोड फ्रंट',road:'मुख्य मार्ग',f:['दुकान/गोदाम','रोड फ्रंट'],feat:false,status:'active'},
+ {id:12,t:'आवासीय प्लॉट — झील के पास',type:'plot',d:'महोबा',area:'मदन सागर के पास',price:8.5,size:'900 वर्ग फुट',face:'दक्षिण मुखी',road:'20 फुट रोड',f:['झील पास','शांत इलाका'],feat:false,status:'active'},
+ {id:13,t:'खेती की ज़मीन — केन नदी क्षेत्र',type:'agri',d:'बाँदा',area:'अतर्रा रोड',price:27,size:'3 एकड़',face:'समतल',road:'पक्की सड़क',f:['नदी से सिंचाई','खतौनी साफ़'],feat:false,status:'active'},
+ {id:14,t:'फार्महाउस ज़मीन — पहाड़ी व्यू',type:'farm',d:'चित्रकूट',area:'कर्वी',price:16,size:'1 एकड़',face:'पहाड़ी व्यू',road:'पक्की सड़क',f:['पर्यटन क्षेत्र','प्राकृतिक माहौल'],feat:false,status:'active'},
+ {id:15,t:'आवासीय प्लॉट (बिक चुका)',type:'plot',d:'ललितपुर',area:'इलाइट चौराहा',price:35,size:'1500 वर्ग फुट',face:'पूर्व मुखी',road:'40 फुट रोड',f:['प्राइम लोकेशन'],feat:false,status:'sold'}
+];
+const SEED_SUBS=[{id:101,name:'रामकिशोर यादव',phone:'9876500011',type:'agri',district:'ललितपुर',area:'बिरधा',size:'2.5 एकड़',price:21,desc:'ट्यूबवेल है, खतौनी मेरे नाम।',photo:'',date:Date.now()-86400000*2,status:'pending'}];
+const SEED_LEADS=[{id:201,name:'सुनील कुमार',phone:'9998887771',need:'प्लॉट खरीदना है',msg:'सिविल लाइंस वाला प्लॉट देखना है',prop:1,date:Date.now()-3600000*5,status:'new'}];
+
+/* ================= STORE (localStorage + memory fallback) ================= */
+const KEY='mpp_demo_v1';let mem=null;
+function load(){try{const s=localStorage.getItem(KEY);if(s)return JSON.parse(s)}catch(e){}return mem||{props:SEED,subs:SEED_SUBS,leads:SEED_LEADS,favs:[],views:{},settings:{phone:'919161075059',adminMobile:'9161075059'}}}
+let DB=load();
+function save(){mem=DB;try{localStorage.setItem(KEY,JSON.stringify(DB))}catch(e){if(e&&/quota/i.test(e.name+e.message))setTimeout(()=>toast('⚠️ डेमो स्टोरेज भर गया — कुछ फोटो हटाएँ'),300)}}
+const PH=()=>DB.settings.phone;
+
+/* ================= HELPERS ================= */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function money(l){l=+l;if(l>=100)return '₹'+(l/100).toFixed(2).replace(/\.?0+$/,'')+' करोड़';return '₹'+(+l.toFixed(2))+' लाख'}
+function wa(msg){return 'https://wa.me/'+PH()+'?text='+encodeURIComponent(msg)}
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('show'),2600)}
+function ago(ts){const m=Math.round((Date.now()-ts)/60000);if(m<60)return m+' मिनट पहले';const h=Math.round(m/60);if(h<24)return h+' घंटे पहले';return Math.round(h/24)+' दिन पहले'}
+
+/* SVG illustration per type (no external images) */
+function art(type,seed=1,v=0){
+  const c=TYPES[type]?.c||'#7fb39a';const r=(seed*37+v*11)%100;
+  const sky=['#bfe3f2','#ffe2b8','#d6ecff'][v%3];
+  let scene='';
+  if(type==='plot')scene=`<rect x="60" y="150" width="280" height="80" fill="#c9a66b"/><g stroke="#7a5a2a" stroke-width="4">${[...Array(8)].map((_,i)=>`<line x1="${60+i*40}" y1="140" x2="${60+i*40}" y2="160"/>`).join('')}</g><line x1="60" y1="148" x2="340" y2="148" stroke="#7a5a2a" stroke-width="3"/><rect x="250" y="95" width="70" height="38" fill="#fff" stroke="#1f4a3a" stroke-width="3"/><line x1="285" y1="133" x2="285" y2="160" stroke="#1f4a3a" stroke-width="4"/><text x="285" y="120" font-size="14" text-anchor="middle" fill="#1f4a3a" font-weight="700">बिकाऊ</text>`;
+  if(type==='agri')scene=[...Array(6)].map((_,i)=>`<path d="M0 ${150+i*16} Q200 ${140+i*16} 400 ${150+i*16}" stroke="${i%2?'#8fae3e':'#a9c45a'}" stroke-width="12" fill="none"/>`).join('')+`<circle cx="320" cy="60" r="22" fill="#ffd166"/>`;
+  if(type==='comm')scene=`<rect x="0" y="200" width="400" height="40" fill="#555"/><rect x="0" y="216" width="400" height="4" fill="#fff" stroke-dasharray="20 14"/><rect x="120" y="70" width="160" height="130" fill="#e8eef6" stroke="#4a6385" stroke-width="3"/>${[...Array(3)].map((_,j)=>[...Array(4)].map((_,i)=>`<rect x="${135+i*36}" y="${85+j*34}" width="24" height="22" fill="#8aa6c9"/>`).join('')).join('')}`;
+  if(type==='farm')scene=`<rect x="150" y="120" width="110" height="80" fill="#f2e3c6"/><path d="M140 125 L205 75 L270 125Z" fill="#b5523b"/><rect x="190" y="160" width="26" height="40" fill="#7a4b2a"/>${[40,90,320,360].map(x=>`<rect x="${x-4}" y="150" width="8" height="50" fill="#6b4423"/><circle cx="${x}" cy="140" r="26" fill="#4f8f5b"/>`).join('')}`;
+  if(type==='house')scene=`<rect x="110" y="100" width="180" height="110" fill="#fff4e6" stroke="#a0673a" stroke-width="3"/><path d="M95 108 L200 45 L305 108Z" fill="#a0673a"/><rect x="185" y="150" width="32" height="60" fill="#6b4423"/><rect x="130" y="125" width="36" height="30" fill="#9cc9e6"/><rect x="235" y="125" width="36" height="30" fill="#9cc9e6"/>`;
+  const svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250"><rect width="400" height="250" fill="${sky}"/><path d="M0 ${130+r%20} Q100 ${100+r%30} 200 ${130} T400 ${120+r%25} V250 H0Z" fill="${c}"/><rect y="200" width="400" height="50" fill="${c}" opacity=".7"/>${scene}</svg>`;
+  return 'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
+}
+const U=id=>'https://images.unsplash.com/'+id+'?auto=format&fit=crop&w=900&q=70';
+const PHOTOS={
+ plot:['photo-1500382017468-9049fed747ef','photo-1628624747186-a941c476b7ef','photo-1592595896551-12b371d546d5','photo-1464226184884-fa280b87c399'],
+ agri:['photo-1625246333195-78d9c38ad449','photo-1574943320219-553eb213f72d','photo-1464226184884-fa280b87c399','photo-1500382017468-9049fed747ef'],
+ comm:['photo-1486406146926-c627a92ad1ab','photo-1582407947304-fd86f028f716','photo-1497366216548-37526070297c'],
+ farm:['photo-1449844908441-8829872d2607','photo-1416331108676-a22ccb276e35','photo-1523217582562-09d0def993a6'],
+ house:['photo-1564013799919-ab600027ffc6','photo-1570129477492-45c003edd2be','photo-1560518883-ce09059eeffa','photo-1512917774080-9991f1c4c750','photo-1600596542815-ffad4c1539a9']
+};
+const own=p=>(p.photos&&p.photos.length)?p.photos.slice(0,5):(p.photo?[p.photo]:[]);
+function imgs(p){const o=own(p);if(o.length)return o;const L=PHOTOS[p.type]||PHOTOS.plot,n=L.length,b=p.id%n;return [...Array(Math.min(4,n))].map((_,i)=>U(L[(b+i)%n]))}
+function compress(file,max=1280,q=.75){return new Promise((res,rej)=>{if(!file.type.startsWith('image/'))return rej('type');const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{let w=im.width,h=im.height;const k=Math.min(1,max/Math.max(w,h));w=Math.round(w*k);h=Math.round(h*k);const c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(im,0,0,w,h);res(c.toDataURL('image/jpeg',q))};im.onerror=rej;im.src=r.result};r.onerror=rej;r.readAsDataURL(file)})}
+function fb(el,type,id,v){el.onerror=null;el.src=art(type,id,v||0)}
+const IMG=(p,i,extra='')=>`<img src="${imgs(p)[i]}" alt="${esc(p.t)}" ${extra} onerror="fb(this,'${p.type}',${p.id},${i})">`;
+
+
+
+/* ================= APP ================= */
+const LOTUS='<svg class="lotus" viewBox="0 0 64 64"><path d="M32 8c5 7 7 14 7 21s-3 13-7 17c-4-4-7-10-7-17s2-14 7-21z"/><path d="M12 24c8 1 14 5 17 11s3 11 3 13c-6 0-12-2-16-7s-5-11-4-17z"/><path d="M52 24c-8 1-14 5-17 11s-3 11-3 13c6 0 12-2 16-7s5-11 4-17z"/><path d="M8 50h48c-3 4-10 6-24 6S11 54 8 50z"/></svg>';
+const ICO={back:'<svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>',bell:'<svg viewBox="0 0 24 24"><path d="M6 9a6 6 0 0 1 12 0c0 6 2.5 7.5 2.5 7.5h-17S6 15 6 9zM10 20a2 2 0 0 0 4 0"/></svg>',search:'<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>',filter:'<svg viewBox="0 0 24 24"><path d="M4 6h16M7 12h10M10 18h4"/></svg>',share:'<svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="m8.2 10.8 7.6-4.4M8.2 13.2l7.6 4.4"/></svg>'};
+const DEF_SLIDES=[
+ {img:'photo-1500382017468-9049fed747ef',t:'agri',n:'खेती की ज़मीन',d:'सिंचित और उपजाऊ ज़मीन'},
+ {img:'photo-1564013799919-ab600027ffc6',t:'house',n:'मकान',d:'तैयार मकान, सही दाम'},
+ {img:'photo-1628624747186-a941c476b7ef',t:'plot',n:'आवासीय प्लॉट',d:'गेटेड कॉलोनी और टाउनशिप'},
+ {img:'photo-1486406146926-c627a92ad1ab',t:'comm',n:'व्यावसायिक प्लॉट',d:'हाईवे और मुख्य सड़क पर'},
+ {img:'photo-1449844908441-8829872d2607',t:'farm',n:'फार्महाउस ज़मीन',d:'शांत माहौल, प्राकृतिक व्यू'}
+];
+const slSrc=x=>/^(data:|https?:)/.test(x.img)?x.img:'https://images.unsplash.com/'+x.img+'?auto=format&fit=crop&w=900&q=70';
+const SLD=()=>(DB.slides&&DB.slides.length)?DB.slides:DEF_SLIDES;
+DB.users=DB.users||{};
+const ME=()=>DB.session&&DB.users[DB.session]?{mob:DB.session,...DB.users[DB.session]}:null;
+const live=()=>DB.props.filter(p=>p.status!=='hidden');
+const active=()=>live().filter(p=>p.status==='active');
+function track(id,k){DB.views[id]=DB.views[id]||{v:0,call:0,wa:0};DB.views[id][k]++;save()}
+const APP={city:'',seenOnb:false};
+try{Object.assign(APP,JSON.parse(localStorage.getItem('mpp_app')||'{}'))}catch(e){}
+const saveApp=()=>{try{localStorage.setItem('mpp_app',JSON.stringify(APP))}catch(e){}};
+
+/* ---------- router ---------- */
+const TABS=['home','search','sell','favs','profile'];
+let ST=[];
+function draw(dir){
+  const cur=ST[ST.length-1];const v=$('#view');
+  v.className='view '+(dir==='back'?'anim-back':dir==='none'?'':'anim-in');
+  v.innerHTML=S[cur.n](cur.a||{});v.scrollTop=cur.y||0;
+  const isTab=TABS.includes(cur.n)&&ST.length===1;
+  $('#tabs').classList.toggle('hide',!isTab);
+  document.querySelectorAll('#tabs button').forEach(b=>b.classList.toggle('on',b.dataset.t===cur.n));
+  $('#sbar').classList.toggle('dark',cur.n==='detail');$('#sbar').classList.remove('solid');$('#sbar').classList.toggle('mar',['home','login'].includes(cur.n)||(cur.n==='profile'&&!ME()));
+  (A[cur.n]||(()=>{}))(cur.a||{});
+}
+function go(n,a){ST[ST.length-1].y=$('#view').scrollTop;ST.push({n,a});draw('in')}
+function back(){if(ST.length>1){ST.pop();draw('back')}else if(ST[0].n!=='home')tab('home')}
+function tab(n){if(n==='sell'&&!ME()){needLogin('प्रॉपर्टी बेचने के लिए लॉगिन करें',()=>tab('sell'));return}ST=[{n}];draw('none')}
+document.querySelectorAll('#tabs button').forEach(b=>b.onclick=()=>tab(b.dataset.t));
+$('#view').addEventListener('scroll',()=>{const c=ST[ST.length-1];if(c&&c.n==='detail')$('#sbar').classList.toggle('solid',$('#view').scrollTop>260)},{passive:true});
+let afterLogin=null;
+function needLogin(msg,cb){afterLogin=cb;toast(msg);go('login',{})}
+
+/* ---------- sheet ---------- */
+function openSheet(html,after){$('#sheet').innerHTML='<div class="grab"></div>'+html;$('#sheet').classList.add('show');$('#sbg').classList.add('show');after&&after()}
+function closeSheet(){$('#sheet').classList.remove('show');$('#sbg').classList.remove('show')}
+
+/* ---------- pieces ---------- */
+const favBtn=p=>`<button class="hv" onclick="event.stopPropagation();fav(${p.id},this)">${DB.favs.includes(p.id)?'❤️':'🤍'}</button>`;
+function fav(id,el){const i=DB.favs.indexOf(id);i>-1?DB.favs.splice(i,1):DB.favs.push(id);save();if(el)el.textContent=i>-1?'🤍':'❤️';toast(i>-1?'पसंदीदा से हटाया':'❤️ पसंदीदा में जोड़ा');const cur=ST[ST.length-1];if(cur.n==='favs')draw('none')}
+const lcard=p=>`<div class="lc ${p.status==='sold'?'sold':''}" onclick="go('detail',{id:${p.id}})"><div class="im">${IMG(p,0,'loading="lazy"')}${p.status==='sold'?'<span class="bdg s" style="top:6px;left:6px">बिक चुका</span>':p.feat?'<span class="bdg f" style="top:6px;left:6px">★</span>':''}</div>
+  <div class="bd"><b class="pr num">${money(p.price)}</b><h4>${esc(p.t)}</h4><small>📍 ${esc(p.area)}, ${esc(p.d)}</small><div class="mt"><span>${TYPES[p.type].i} ${TYPES[p.type].n}</span><span>📐 ${esc(p.size)}</span></div></div>${favBtn(p)}</div>`;
+const fcard=p=>`<div class="fc" onclick="go('detail',{id:${p.id}})"><div class="im">${IMG(p,0,'loading="lazy"')}<span class="bdg f">★ फ़ीचर्ड</span>${favBtn(p)}</div><div class="bd"><b class="pr num">${money(p.price)}</b><h4>${esc(p.t)}</h4><small>📍 ${esc(p.area)}, ${esc(p.d)} · ${esc(p.size)}</small></div></div>`;
+
+/* ---------- SCREENS ---------- */
+const S={},A={};
+
+S.onb=()=>`<div class="onb"><button class="skip" onclick="endOnb()">छोड़ें</button>
+  <div class="onb-sl" id="onbSl">
+    <div class="onb-s"><div class="art">🏡</div><h2>बुंदेलखंड की भरोसेमंद प्रॉपर्टी</h2><p>ललितपुर, झाँसी, महोबा, बाँदा, चित्रकूट समेत 7 जिलों में प्लॉट, ज़मीन और मकान।</p></div>
+    <div class="onb-s"><div class="art">📄</div><h2>साफ़ कागज़ात, सही दाम</h2><p>हर प्रॉपर्टी के कागज़ात की जाँच — खतौनी से रजिस्ट्री तक पूरा साथ।</p></div>
+    <div class="onb-s"><div class="art">🚗</div><h2>फ्री साइट विज़िट बुक करें</h2><p>पसंद आई प्रॉपर्टी पर एक टैप में विज़िट बुक करें — हम आपको मौके पर ले चलेंगे।</p></div>
+  </div>
+  <div class="onb-f"><div class="onb-d" id="onbD"><i class="on"></i><i></i><i></i></div><button class="btn b-g" id="onbN" onclick="onbNext()">आगे →</button></div></div>`;
+A.onb=()=>{const sl=$('#onbSl');sl.onscroll=()=>{const i=Math.round(sl.scrollLeft/sl.clientWidth);document.querySelectorAll('#onbD i').forEach((d,k)=>d.classList.toggle('on',k===i));$('#onbN').textContent=i===2?'शुरू करें 🙏':'आगे →'}};
+function onbNext(){const sl=$('#onbSl');const i=Math.round(sl.scrollLeft/sl.clientWidth);if(i>=2)endOnb();else sl.scrollTo({left:(i+1)*sl.clientWidth,behavior:'smooth'})}
+function endOnb(){APP.seenOnb=true;saveApp();ST=[{n:'home'}];if(!ME()){go('login',{first:true})}else draw('none')}
+
+S.login=a=>`<div class="lgn"><div class="lgn-top">
+  ${a.first?'':`<button class="ibtn" style="background:rgba(255,255,255,.15);box-shadow:none" onclick="back()"><svg viewBox="0 0 24 24" style="stroke:#fff"><path d="M15 5l-7 7 7 7"/></svg></button>`}
+  <div style="margin-top:${a.first?'10px':'14px'};width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,.12);display:grid;place-items:center;color:#ffd54f"><span style="width:36px;height:36px">${LOTUS}</span></div>
+  <h2>नमस्ते 🙏</h2><p>मोबाइल नंबर से लॉगिन करें — कोई पासवर्ड नहीं</p></div>
+  <div class="lgn-box" id="lb1">
+    <div class="fld"><label>📱 मोबाइल नंबर</label><div class="mob"><span>+91</span><input id="lMob" inputmode="numeric" maxlength="10" placeholder="10 अंकों का नंबर"></div></div>
+    <button class="btn b-g b-full" onclick="lSend()">OTP भेजें →</button>
+    <small>लॉगिन करके आप हमारी शर्तों से सहमत हैं</small>
+  </div>
+  <div class="lgn-box" id="lb2" style="display:none">
+    <div style="text-align:center"><b style="font-size:18px">OTP डालें</b><small>भेजा गया <b id="lTo"></b> पर · <a style="color:var(--g);font-weight:700" onclick="lBack()">बदलें</a></small></div>
+    <div class="otp" id="oBox"><input inputmode="numeric" maxlength="1"><input inputmode="numeric" maxlength="1"><input inputmode="numeric" maxlength="1"><input inputmode="numeric" maxlength="1"></div>
+    <div class="demo-otp" id="oDemo"></div>
+    <div class="fld" id="nmF" style="display:none"><label>आपका नाम (पहली बार)</label><input id="lName" placeholder="जैसे: राजेश कुमार" maxlength="40"></div>
+    <button class="btn b-g b-full" onclick="lVerify()">✔ लॉगिन करें</button>
+    <small id="lRs"></small>
+  </div>
+  ${a.first?`<button class="btn" style="background:none;color:var(--mut);margin:16px auto" onclick="ST=[{n:'home'}];draw('none')">अभी नहीं, बाद में →</button>`:''}
+  </div>`;
+let OTP=null,oMob='',oT=null;
+A.login=()=>{const m=$('#lMob');m.oninput=()=>m.value=m.value.replace(/\D/g,'').slice(0,10);
+  const bx=[...document.querySelectorAll('#oBox input')];bx.forEach((x,i)=>{x.oninput=()=>{x.value=x.value.replace(/\D/g,'').slice(-1);if(x.value&&bx[i+1])bx[i+1].focus();if(bx.every(y=>y.value)&&$('#nmF').style.display==='none')lVerify()};x.onkeydown=e=>{if(e.key==='Backspace'&&!x.value&&bx[i-1])bx[i-1].focus()}})};
+function lSend(){const m=$('#lMob').value;if(!/^[6-9]\d{9}$/.test(m)){toast('⚠️ सही 10 अंकों का नंबर डालें');return}
+  oMob=m;OTP=String(Math.floor(1000+Math.random()*9000));$('#lb1').style.display='none';$('#lb2').style.display='grid';
+  $('#lTo').textContent='+91 '+m;$('#nmF').style.display=DB.users[m]?'none':'grid';$('#oDemo').innerHTML='डेमो OTP: <b>'+OTP+'</b><br><small>(असली ऐप में SMS से आएगा)</small>';
+  document.querySelector('#oBox input').focus();let t=30;clearInterval(oT);const tick=()=>{$('#lRs').innerHTML=t>0?`${t} सेकंड में दोबारा भेजें`:`<a style="color:var(--g);font-weight:700" onclick="lSend()">OTP दोबारा भेजें</a>`;if(t--<=0)clearInterval(oT)};tick();oT=setInterval(tick,1000);toast('📩 OTP भेजा गया')}
+function lBack(){clearInterval(oT);$('#lb2').style.display='none';$('#lb1').style.display='grid'}
+function lVerify(){const v=[...document.querySelectorAll('#oBox input')].map(x=>x.value).join('');if(v.length<4){toast('⚠️ 4 अंकों का OTP डालें');return}
+  if(v!==OTP){toast('❌ गलत OTP');document.querySelectorAll('#oBox input').forEach(x=>x.value='');document.querySelector('#oBox input').focus();return}
+  const isNew=!DB.users[oMob],nm=($('#lName').value||'').trim();if(isNew&&!nm){toast('⚠️ अपना नाम लिखें');$('#lName').focus();return}
+  if(isNew)DB.users[oMob]={name:nm,since:Date.now()};DB.users[oMob].last=Date.now();DB.session=oMob;save();clearInterval(oT);
+  toast(isNew?'🎉 स्वागत है, '+nm+'!':'✅ लॉगिन सफल');const cb=afterLogin;afterLogin=null;
+  ST=[{n:'home'}];draw('none');if(cb)cb()}
+
+S.home=()=>{const m=ME();const L=active().filter(p=>!APP.city||p.d===APP.city);const F=L.filter(p=>p.feat);const sl=SLD();
+  const h=new Date().getHours(),gr=h<12?'सुप्रभात':h<17?'नमस्ते':'शुभ संध्या';
+  return `<div class="hhead"><div style="height:38px" class="sp"></div><div class="hrow"><div class="hello"><small>${gr} 🙏</small><b>${m?esc(m.name):'मेहमान'}</b></div>
+    <button class="ibtn" onclick="go('notif')">${ICO.bell}<span class="dot"></span></button></div>
+    <div class="loc" onclick="pickCity()">📍 ${APP.city||'सभी जिले'} ▾</div></div>
+  <div class="sbox" onclick="go('search',{focus:1})">${ICO.search}<span>प्लॉट, ज़मीन, मकान खोजें...</span><span class="fb">${ICO.filter}</span></div>
+  <div class="banner" id="bnr">${sl.map(x=>`<div class="bn" style="background-image:url('${slSrc(x)}'),linear-gradient(135deg,#7d1f1f,#3a0c0c)" onclick="go('search',{type:'${x.t}'})"><div><b>${esc(x.n)}</b><small>${esc(x.d)}</small><br><span class="go">देखें →</span></div></div>`).join('')}</div>
+  <div class="bdots" id="bdots">${sl.map((_,i)=>`<i class="${i?'':'on'}"></i>`).join('')}</div>
+  <div class="pad">
+    <div class="sh"><h3>प्रॉपर्टी प्रकार</h3></div>
+    <div class="cats">${Object.entries(TYPES).map(([k,v])=>`<div class="cat" onclick="go('search',{type:'${k}'})"><div class="ci">${v.i}</div><small>${v.n}</small></div>`).join('')}</div>
+    ${F.length?`<div class="sh"><h3>★ फ़ीचर्ड प्रॉपर्टी</h3><a onclick="go('search',{sort:'f'})">सभी देखें</a></div><div class="hsc">${F.map(fcard).join('')}</div>`:''}
+    <div class="emi-b" onclick="go('emi')"><span class="e">🧮</span><div><b>EMI कैलकुलेटर</b><small>अपनी मासिक किस्त तुरंत जानें →</small></div></div>
+    <div class="sh"><h3>ताज़ा लिस्टिंग</h3><a onclick="go('search')">सभी देखें</a></div>
+    ${L.length?L.slice(0,8).map(lcard).join(''):`<div class="empty"><div class="e">🏜️</div>${APP.city} में अभी कोई प्रॉपर्टी नहीं</div>`}
+    <div class="made">माँ पीताम्बरा प्रॉपर्टी · ललितपुर<br>App by <a href="tel:+917549459770">Digital Agency by Chandan Das · 7549459770</a></div>
+  </div>`};
+A.home=()=>{const b=$('#bnr');if(!b)return;b.onscroll=()=>{const w=b.firstElementChild.offsetWidth+12;const i=Math.round(b.scrollLeft/w);document.querySelectorAll('#bdots i').forEach((d,k)=>d.classList.toggle('on',k===i))}};
+function pickCity(){openSheet(`<h3>📍 जिला चुनें</h3><p class="sub">इस जिले की प्रॉपर्टी पहले दिखेंगी</p><div class="opts">${['',...DISTRICTS].map(d=>`<button class="${APP.city===d?'on':''}" onclick="APP.city='${d}';saveApp();closeSheet();draw('none')"><span>${d||'सभी जिले'}</span><span>${active().filter(p=>!d||p.d===d).length}</span></button>`).join('')}</div>`)}
+
+const SF={q:'',type:'',d:'',bud:'',sort:'new'};
+S.search=a=>{if(a.type!==undefined){SF.type=a.type;delete a.type}if(a.sort){SF.sort=a.sort;delete a.sort}
+  return `<div class="topb">${ST.length>1?`<button class="ibtn" onclick="back()">${ICO.back}</button>`:''}<div class="sin">${ICO.search}<input id="sq" placeholder="जगह, नाम या सुविधा..." value="${esc(SF.q)}"></div><button class="ibtn" onclick="sFilter()">${ICO.filter}${(SF.d||SF.bud)?'<span class="dot"></span>':''}</button></div>
+  <div class="chips"><span class="chip ${!SF.type?'on':''}" onclick="SF.type='';sRes()">सभी</span>${Object.entries(TYPES).map(([k,v])=>`<span class="chip ${SF.type===k?'on':''}" onclick="SF.type='${k}';sRes()">${v.i} ${v.n}</span>`).join('')}</div>
+  <div id="sres"></div>`};
+A.search=a=>{const q=$('#sq');q.oninput=()=>{SF.q=q.value;sRes(true)};if(a.focus){setTimeout(()=>q.focus(),300);delete a.focus}sRes(true)};
+function sRes(keep){if(!keep){document.querySelectorAll('.chips .chip').forEach((c,i)=>c.classList.toggle('on',i===0?!SF.type:Object.keys(TYPES)[i-1]===SF.type))}
+  let L=live();if(SF.type)L=L.filter(p=>p.type===SF.type);if(SF.d)L=L.filter(p=>p.d===SF.d);
+  if(SF.bud){const[a,b]=SF.bud.split('-').map(Number);L=L.filter(p=>p.price>=a&&p.price<b)}
+  if(SF.q){const q=SF.q.toLowerCase();L=L.filter(p=>(p.t+p.area+p.d+p.f.join(' ')).toLowerCase().includes(q))}
+  L.sort((a,b)=>(a.status==='sold')-(b.status==='sold')||(SF.sort==='pl'?a.price-b.price:SF.sort==='ph'?b.price-a.price:SF.sort==='f'?b.feat-a.feat:b.id-a.id));
+  const sn={new:'नई पहले',pl:'कम कीमत',ph:'ज़्यादा कीमत',f:'फ़ीचर्ड'};
+  $('#sres').innerHTML=`<div class="fbar"><span>${L.length} प्रॉपर्टी ${SF.d?'· '+SF.d:''}</span><button onclick="sSort()">⇅ ${sn[SF.sort]}</button></div><div class="pad">${L.length?L.map(lcard).join(''):'<div class="empty"><div class="e">🔍</div>कोई प्रॉपर्टी नहीं मिली<br><br><button class="btn b-o" onclick="Object.assign(SF,{q:\'\',type:\'\',d:\'\',bud:\'\'});draw(\'none\')">फ़िल्टर हटाएँ</button></div>'}</div>`}
+function sSort(){const o={new:'नई पहले',pl:'कीमत: कम से ज़्यादा',ph:'कीमत: ज़्यादा से कम',f:'फ़ीचर्ड पहले'};openSheet(`<h3>⇅ क्रम बदलें</h3><div class="opts" style="margin-top:12px">${Object.entries(o).map(([k,v])=>`<button class="${SF.sort===k?'on':''}" onclick="SF.sort='${k}';closeSheet();sRes(true)"><span>${v}</span>${SF.sort===k?'✓':''}</button>`).join('')}</div>`)}
+function sFilter(){const B={'':'कोई भी','0-10':'₹10 लाख से कम','10-25':'₹10–25 लाख','25-50':'₹25–50 लाख','50-9999':'₹50 लाख+'};
+  openSheet(`<h3>फ़िल्टर</h3><p class="sub">जिला और बजट चुनें</p><b style="font-size:14px">📍 जिला</b><div class="chips" style="padding:8px 0 14px;flex-wrap:wrap">${['',...DISTRICTS].map(d=>`<span class="chip ${SF.d===d?'on':''}" data-d="${d}">${d||'सभी'}</span>`).join('')}</div>
+  <b style="font-size:14px">💰 बजट</b><div class="chips" style="padding:8px 0 18px;flex-wrap:wrap">${Object.entries(B).map(([k,v])=>`<span class="chip ${SF.bud===k?'on':''}" data-b="${k}">${v}</span>`).join('')}</div>
+  <div style="display:flex;gap:10px"><button class="btn b-o" style="flex:1" onclick="SF.d='';SF.bud='';closeSheet();draw('none')">रीसेट</button><button class="btn b-g" style="flex:2" onclick="closeSheet();draw('none')">लागू करें</button></div>`,()=>{
+  $('#sheet').onclick=e=>{const c=e.target.closest('.chip');if(!c)return;if(c.dataset.d!==undefined){SF.d=c.dataset.d;c.parentNode.querySelectorAll('.chip').forEach(x=>x.classList.toggle('on',x===c))}if(c.dataset.b!==undefined){SF.bud=c.dataset.b;c.parentNode.querySelectorAll('.chip').forEach(x=>x.classList.toggle('on',x===c))}}})}
+
+S.detail=a=>{const p=DB.props.find(x=>x.id===a.id);if(!p)return '<div class="empty">प्रॉपर्टी नहीं मिली</div>';const g=imgs(p);
+  const ppf=/वर्ग/.test(p.size)?`₹${Math.round(p.price*100000/parseInt(p.size)).toLocaleString('en-IN')}/वर्ग फुट`:'';
+  return `<div class="dt-gal"><div class="dt-sl" id="dsl">${g.map((_,i)=>IMG(p,i)).join('')}</div>
+    <div class="dt-top"><button class="ibtn" onclick="back()">${ICO.back}</button><div style="display:flex;gap:8px"><button class="ibtn" onclick="shareP(${p.id})">${ICO.share}</button><button class="ibtn" style="font-size:17px" onclick="fav(${p.id},this)">${DB.favs.includes(p.id)?'❤️':'🤍'}</button></div></div>
+    ${g.length>1?`<button class="dt-arr l" onclick="dGo(-1)">‹</button><button class="dt-arr r" onclick="dGo(1)">›</button>`:''}<span class="dt-cnt" id="dcnt">1 / ${g.length}</span></div>
+  <div class="dt-body">
+    <span class="tag">${TYPES[p.type].i} ${TYPES[p.type].n}</span> ${p.status==='sold'?'<span class="tag" style="background:#fdecea;color:#c0392b">बिक चुका</span>':''} ${p.feat?'<span class="tag" style="background:var(--gold3);color:#6a4a00">★ फ़ीचर्ड</span>':''}
+    <h2 style="margin-top:8px">${esc(p.t)}</h2><div class="dt-loc">📍 ${esc(p.area)}, ${esc(p.d)} · ID: MPP-${p.id}</div>
+    <div class="dt-pr"><b class="num">${money(p.price)}</b><small>${ppf}</small></div>
+    <div class="spec"><div><i>📐</i><span><small>साइज़</small><b>${esc(p.size||'-')}</b></span></div><div><i>🧭</i><span><small>दिशा / व्यू</small><b>${esc(p.face||'-')}</b></span></div><div><i>🛣️</i><span><small>सड़क</small><b>${esc(p.road||'-')}</b></span></div><div><i>📍</i><span><small>जिला</small><b>${esc(p.d)}</b></span></div></div>
+    ${p.f.length?`<div class="sh"><h3>सुविधाएँ</h3></div><div class="feat">${p.f.map(x=>`<span>✔ ${esc(x)}</span>`).join('')}</div>`:''}
+    ${p.desc?`<div class="sh"><h3>विवरण</h3></div><p style="color:var(--mut)">${esc(p.desc)}</p>`:''}
+    <div class="sh"><h3>लोकेशन</h3></div><iframe class="mapf" loading="lazy" title="नक्शा" src="https://maps.google.com/maps?q=${encodeURIComponent(p.area+', '+p.d+', Uttar Pradesh')}&z=13&output=embed"></iframe>
+    <div class="sh"><h3>संपर्क</h3></div><div class="agent"><span class="av">${LOTUS}</span><div><b>माँ पीताम्बरा प्रॉपर्टी</b><small>ललितपुर · रोज़ 9 AM – 8 PM</small></div><span class="tag">✔ वेरिफ़ाइड</span></div>
+  </div>
+  <div class="dt-bar"><a class="sq c" href="tel:+${PH()}" onclick="track(${p.id},'call')">📞</a><a class="sq w" target="_blank" href="${wa(`नमस्ते, मुझे "${p.t}" (ID: MPP-${p.id}) के बारे में जानकारी चाहिए।`)}" onclick="track(${p.id},'wa')">💬</a>
+    ${p.status==='sold'?'<button class="btn b-o" disabled>बिक चुका</button>':`<button class="btn b-gold" onclick="book(${p.id})">📅 फ्री साइट विज़िट बुक करें</button>`}</div>`};
+let dI=0;
+A.detail=a=>{track(a.id,'v');dI=0;const sl=$('#dsl');if(!sl)return;sl.onscroll=()=>{dI=Math.round(sl.scrollLeft/sl.clientWidth);$('#dcnt').textContent=(dI+1)+' / '+sl.children.length}};
+function dGo(d){const sl=$('#dsl'),n=sl.children.length;dI=(dI+d+n)%n;sl.scrollTo({left:dI*sl.clientWidth,behavior:'smooth'})}
+function shareP(id){const p=DB.props.find(x=>x.id===id);const t=`${p.t} — ${money(p.price)}, ${p.area}, ${p.d}`;if(navigator.share)navigator.share({title:t,text:t}).catch(()=>{});else{try{navigator.clipboard.writeText(t);toast('🔗 लिंक कॉपी हो गया')}catch(e){toast(t)}}}
+function book(id){if(!ME()){needLogin('विज़िट बुक करने के लिए लॉगिन करें',()=>go('detail',{id}));return}
+  const p=DB.props.find(x=>x.id===id);const days=[...Array(7)].map((_,i)=>{const d=new Date();d.setDate(d.getDate()+i);return d});const W=['रवि','सोम','मंगल','बुध','गुरु','शुक्र','शनि'];
+  const slots=['10:00 AM','11:30 AM','01:00 PM','03:00 PM','04:30 PM','06:00 PM'];let sd=0,ss=-1;
+  openSheet(`<h3>📅 साइट विज़िट बुक करें</h3><p class="sub">${esc(p.t)} · ${esc(p.area)}</p>
+  <b style="font-size:14px">तारीख चुनें</b><div class="days" id="bd" style="margin:8px 0 16px">${days.map((d,i)=>`<button class="${i?'':'on'}" data-i="${i}"><small>${i===0?'आज':i===1?'कल':W[d.getDay()]}</small><b>${d.getDate()}</b></button>`).join('')}</div>
+  <b style="font-size:14px">समय चुनें</b><div class="slots" id="bs" style="margin:8px 0 18px">${slots.map((s,i)=>`<button data-i="${i}">${s}</button>`).join('')}</div>
+  <button class="btn b-g b-full" id="bk">✔ विज़िट पक्की करें</button>`,()=>{
+    $('#bd').onclick=e=>{const b=e.target.closest('button');if(!b)return;sd=+b.dataset.i;$('#bd').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b))};
+    $('#bs').onclick=e=>{const b=e.target.closest('button');if(!b)return;ss=+b.dataset.i;$('#bs').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b))};
+    $('#bk').onclick=()=>{if(ss<0){toast('⚠️ समय चुनें');return}const m=ME();const when=days[sd].toLocaleDateString('hi-IN',{day:'numeric',month:'short'})+', '+slots[ss];
+      DB.leads.unshift({id:Date.now(),name:m.name,phone:m.mob,need:'साइट विज़िट',msg:'ऐप से बुकिंग: '+when,prop:id,date:Date.now(),status:'new'});save();
+      $('#sheet').innerHTML=`<div class="grab"></div><div class="ok"><div class="e">✅</div><h3>विज़िट बुक हो गई!</h3><p class="sub" style="margin-top:6px">${when}<br>हमारी टीम आपको जल्द कॉल करेगी।</p><button class="btn b-g b-full" onclick="closeSheet()">ठीक है</button></div>`}})}
+
+/* sell (3 steps) */
+let SD={step:1,type:'plot',district:'ललितपुर',area:'',size:'',price:'',desc:'',photos:[]};
+S.sell=()=>{const st=SD.step;const tt=['','प्रॉपर्टी की जानकारी','कीमत और साइज़','फोटो जोड़ें'];
+  return `<div class="topb">${ST.length>1?`<button class="ibtn" onclick="back()">${ICO.back}</button>`:''}<h2>प्रॉपर्टी बेचें</h2><span class="tag">स्टेप ${st}/3</span></div>
+  <div class="steps"><i class="on"></i><i class="${st>1?'on':''}"></i><i class="${st>2?'on':''}"></i></div><div class="stp-t">${tt[st]}</div>
+  <div class="form">${st===1?`
+    <div class="fld"><label>प्रॉपर्टी प्रकार</label><div class="tch" id="tch">${Object.entries(TYPES).map(([k,v])=>`<button data-k="${k}" class="${SD.type===k?'on':''}"><span>${v.i}</span>${v.n}</button>`).join('')}</div></div>
+    <div class="fld"><label>जिला</label><select id="sd">${DISTRICTS.map(d=>`<option ${SD.district===d?'selected':''}>${d}</option>`).join('')}</select></div>
+    <div class="fld"><label>जगह / मोहल्ला *</label><input id="sa" value="${esc(SD.area)}" placeholder="जैसे: सिविल लाइंस"></div>`
+  :st===2?`
+    <div class="fld"><label>अपेक्षित कीमत *</label><div class="sfx"><input id="sp" type="number" inputmode="decimal" value="${SD.price}" placeholder="18"><span>लाख</span></div><small id="spH" style="color:#9a7b2c"></small></div>
+    <div class="fld"><label>साइज़</label><input id="ss" value="${esc(SD.size)}" placeholder="1200 वर्ग फुट / 2 एकड़"></div>
+    <div class="fld"><label>विवरण</label><textarea id="sx" rows="4" placeholder="सड़क, बिजली, पानी, कागज़ात...">${esc(SD.desc)}</textarea></div>`
+  :`<div class="fld"><label>फोटो (5 तक) · पहली फोटो कवर होगी</label><div class="phg" id="phg"></div><input type="file" id="sf" accept="image/*" multiple hidden></div>
+    <div class="row" style="margin:0"><span class="ic">📋</span><div><b>${TYPES[SD.type].n} — ${esc(SD.area)}</b><small>${esc(SD.district)} · ${SD.price?money(SD.price):''} · ${esc(SD.size)}</small></div></div>`}
+  </div>
+  <div class="sbtm">${st>1?`<button class="btn b-o" onclick="sStep(-1)">← पीछे</button>`:''}<button class="btn b-g" onclick="sStep(1)">${st<3?'आगे →':'📤 प्रॉपर्टी भेजें'}</button></div>`};
+A.sell=()=>{if(SD.step===1){$('#tch').onclick=e=>{const b=e.target.closest('button');if(!b)return;SD.type=b.dataset.k;$('#tch').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b))}}
+  if(SD.step===2){const i=$('#sp'),h=()=>$('#spH').textContent=+i.value?'= ₹'+Math.round(+i.value*100000).toLocaleString('en-IN'):'';i.oninput=h;h()}
+  if(SD.step===3){drawPh();$('#sf').onchange=async e=>{const fs=[...e.target.files].slice(0,5-SD.photos.length);e.target.value='';for(const f of fs){try{SD.photos.push(await compress(f,1000,.7))}catch(err){}}drawPh()}}};
+function drawPh(){$('#phg').innerHTML=SD.photos.map((s,i)=>`<div class="ph ${i?'':'cv'}" style="background-image:url('${s}')"><button class="x" onclick="SD.photos.splice(${i},1);drawPh()">✕</button>${i?'':'<span class="cvl">कवर</span>'}</div>`).join('')+(SD.photos.length<5?`<label class="ph add" for="sf"><b>+</b><small>फोटो जोड़ें</small></label>`:'')}
+function sStep(d){const st=SD.step;
+  if(st===1){SD.district=$('#sd').value;SD.area=$('#sa').value.trim();if(d>0&&!SD.area){toast('⚠️ जगह / मोहल्ला भरें');return}}
+  if(st===2){SD.price=$('#sp').value;SD.size=$('#ss').value;SD.desc=$('#sx').value;if(d>0&&!(+SD.price)){toast('⚠️ कीमत भरें');return}}
+  if(st===3&&d>0){const m=ME();DB.subs.unshift({id:Date.now(),name:m.name,phone:m.mob,type:SD.type,district:SD.district,area:SD.area,size:SD.size,price:+SD.price,desc:SD.desc,photos:SD.photos,photo:'',date:Date.now(),status:'pending'});save();
+    SD={step:1,type:'plot',district:'ललितपुर',area:'',size:'',price:'',desc:'',photos:[]};
+    openSheet(`<div class="ok"><div class="e">🎉</div><h3>प्रॉपर्टी भेज दी गई!</h3><p class="sub" style="margin-top:6px">जाँच के बाद यह ऐप और वेबसाइट पर लाइव होगी।<br>स्थिति "प्रोफ़ाइल → मेरी प्रॉपर्टी" में देखें।</p><button class="btn b-g b-full" onclick="closeSheet();tab('profile')">ठीक है</button></div>`);return}
+  SD.step=Math.min(3,Math.max(1,st+d));draw('none')}
+
+S.favs=()=>{const L=DB.props.filter(p=>DB.favs.includes(p.id));return `<div class="topb"><h2>❤️ पसंदीदा</h2><span class="tag">${L.length}</span></div><div class="pad">${L.length?L.map(lcard).join(''):'<div class="empty"><div class="e">🤍</div>अभी कोई पसंदीदा नहीं<br><small>प्रॉपर्टी पर 🤍 दबाकर सेव करें</small><br><br><button class="btn b-g" onclick="tab(\'search\')">प्रॉपर्टी देखें</button></div>'}</div>`};
+
+S.profile=()=>{const m=ME();
+  if(!m)return `<div class="hhead" style="padding-bottom:30px"><div style="height:38px" class="sp"></div><div class="hello"><small>प्रोफ़ाइल</small><b>मेहमान</b></div></div><div class="empty"><div class="e">👤</div>लॉगिन करके अपनी पूछताछ, पसंदीदा और प्रॉपर्टी देखें<br><br><button class="btn b-g" onclick="go('login',{})">📱 मोबाइल से लॉगिन</button></div>${menu()}`;
+  const leads=DB.leads.filter(l=>l.phone===m.mob),subs=DB.subs.filter(x=>x.phone===m.mob);
+  return `<div style="height:48px" class="sp"></div><div class="pcard"><span class="av">${esc(m.name[0])}</span><div style="position:relative;z-index:1"><b style="font-size:19px">${esc(m.name)}</b><br><small>📱 +91 ${m.mob}</small><br><small>सदस्य ${new Date(m.since).toLocaleDateString('hi-IN')} से</small></div></div>
+  <div class="pk"><div onclick="tab('favs')"><b class="num">${DB.favs.length}</b><small>पसंदीदा</small></div><div onclick="go('mylist',{k:'leads'})"><b class="num">${leads.length}</b><small>पूछताछ</small></div><div onclick="go('mylist',{k:'subs'})"><b class="num">${subs.length}</b><small>मेरी प्रॉपर्टी</small></div></div>
+  ${menu(true)}`};
+function menu(auth){return `<div class="menu">
+  ${auth?`<button onclick="go('mylist',{k:'leads'})"><i>📅</i><span>मेरी पूछताछ / विज़िट</span><em>›</em></button><button onclick="go('mylist',{k:'subs'})"><i>🏷️</i><span>मेरी बेचने वाली प्रॉपर्टी</span><em>›</em></button>`:''}
+  <button onclick="go('emi')"><i>🧮</i><span>EMI कैलकुलेटर</span><em>›</em></button>
+  <button onclick="go('notif')"><i>🔔</i><span>सूचनाएँ</span><em>›</em></button>
+  <a href="tel:+${PH()}"><i>📞</i><span>हमें कॉल करें</span><em>›</em></a>
+  <a target="_blank" href="${wa('नमस्ते, मुझे ऐप में मदद चाहिए।')}"><i>💬</i><span>WhatsApp सहायता</span><em>›</em></a>
+  ${auth?`<button onclick="DB.session=null;save();toast('👋 लॉगआउट हो गए');tab('profile')"><i>🚪</i><span style="color:var(--red)">लॉगआउट</span><em>›</em></button>`:''}
+  </div><div class="made">माँ पीताम्बरा प्रॉपर्टी ऐप · वर्ज़न 1.0 (डेमो)<br>App by <a href="tel:+917549459770">Digital Agency by Chandan Das · 📞 7549459770</a></div>`}
+
+S.mylist=a=>{const m=ME();if(!m)return '';const stl={pending:['p','जाँच में'],approved:['a','लाइव'],rejected:['s','रिजेक्ट']};
+  const isL=a.k==='leads';const L=isL?DB.leads.filter(l=>l.phone===m.mob):DB.subs.filter(x=>x.phone===m.mob);
+  return `<div class="topb"><button class="ibtn" onclick="back()">${ICO.back}</button><h2>${isL?'📅 मेरी पूछताछ':'🏷️ मेरी प्रॉपर्टी'}</h2></div><div class="pad">${L.length?L.map(x=>{if(isL){const p=DB.props.find(y=>y.id===x.prop);return `<div class="row" ${p?`onclick="go('detail',{id:${p.id}})"`:''}>${p?IMG(p,0):'<span class="ic">📞</span>'}<div><b>${esc(p?p.t:x.need)}</b><small>${esc(x.msg||x.need)} · ${ago(x.date)}</small></div><span class="st ${x.status==='new'?'n':'a'}">${x.status==='new'?'कॉल आएगा':'संपर्क हुआ'}</span></div>`}
+    return `<div class="row">${x.photos&&x.photos[0]?`<img src="${x.photos[0]}">`:`<span class="ic">${TYPES[x.type]?.i||'🏠'}</span>`}<div><b>${TYPES[x.type]?.n||''} — ${esc(x.area)}</b><small>${esc(x.district)} · ${money(x.price)} · ${ago(x.date)}</small></div><span class="st ${stl[x.status][0]}">${stl[x.status][1]}</span></div>`}).join(''):`<div class="empty"><div class="e">${isL?'📭':'🏷️'}</div>${isL?'अभी कोई पूछताछ नहीं':'अभी कोई प्रॉपर्टी नहीं भेजी'}<br><br><button class="btn b-g" onclick="${isL?"tab('search')":"tab('sell')"}">${isL?'प्रॉपर्टी देखें':'प्रॉपर्टी बेचें'}</button></div>`}</div>`};
+
+S.notif=()=>{const L=active().slice().sort((a,b)=>b.id-a.id).slice(0,6);return `<div class="topb"><button class="ibtn" onclick="back()">${ICO.back}</button><h2>🔔 सूचनाएँ</h2></div><div class="pad">
+  <div class="row"><span class="ic">🙏</span><div><b>माँ पीताम्बरा प्रॉपर्टी में स्वागत है</b><small>फ्री साइट विज़िट के लिए प्रॉपर्टी पर "विज़िट बुक करें" दबाएँ</small></div></div>
+  ${L.map((p,i)=>`<div class="row" onclick="go('detail',{id:${p.id}})">${IMG(p,0)}<div><b>नई लिस्टिंग: ${esc(p.t)}</b><small>${money(p.price)} · ${esc(p.area)}, ${esc(p.d)} · ${i+1} दिन पहले</small></div></div>`).join('')}</div>`};
+
+S.emi=()=>`<div class="topb"><button class="ibtn" onclick="back()">${ICO.back}</button><h2>🧮 EMI कैलकुलेटर</h2></div><div class="pad">
+  <div class="emi-o"><small>अनुमानित मासिक EMI</small><b class="num" id="eO">—</b><div class="r"><span>लोन राशि</span><span id="eL"></span></div><div class="r"><span>कुल ब्याज</span><span id="eI"></span></div><div class="r"><span>कुल भुगतान</span><span id="eT2"></span></div></div>
+  <div class="rng"><label>प्रॉपर्टी की कीमत <b id="eP"></b></label><input type="range" id="rP" min="5" max="100" step="0.5" value="25"></div>
+  <div class="rng"><label>डाउन पेमेंट <b id="eD"></b></label><input type="range" id="rD" min="10" max="80" step="5" value="20"></div>
+  <div class="rng"><label>ब्याज दर <b id="eR"></b></label><input type="range" id="rR" min="7" max="15" step="0.1" value="9"></div>
+  <div class="rng"><label>अवधि <b id="eTm"></b></label><input type="range" id="rT" min="2" max="25" step="1" value="15"></div>
+  <a class="btn b-g b-full" target="_blank" href="${wa('नमस्ते, मुझे प्रॉपर्टी लोन / EMI के बारे में जानकारी चाहिए।')}">🏦 लोन सहायता के लिए बात करें</a><p style="text-align:center;color:var(--mut);font-size:12px;margin:10px 0 24px">* केवल अनुमान, असली दर बैंक तय करेगा</p></div>`;
+A.emi=()=>{const f=()=>{const P=+$('#rP').value,D=+$('#rD').value,R=+$('#rR').value,T=+$('#rT').value,L=P*(1-D/100)*1e5,r=R/1200,n=T*12,E=L*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1),x=v=>'₹'+Math.round(v).toLocaleString('en-IN');
+  $('#eP').textContent=money(P);$('#eD').textContent=D+'%';$('#eR').textContent=R.toFixed(1)+'%';$('#eTm').textContent=T+' साल';$('#eO').textContent=x(E);$('#eL').textContent=x(L);$('#eI').textContent=x(E*n-L);$('#eT2').textContent=x(E*n)};
+  ['rP','rD','rR','rT'].forEach(i=>$('#'+i).oninput=f);f()};
+
+/* ---------- boot ---------- */
+function clock(){const d=new Date();$('#clock').textContent=(d.getHours()%12||12)+':'+String(d.getMinutes()).padStart(2,'0')}
+clock();setInterval(clock,20000);
+addEventListener('storage',e=>{if(e.key===KEY){try{DB=load();DB.users=DB.users||{};const c=ST[ST.length-1];if(c&&!['sell','login'].includes(c.n))draw('none')}catch(err){}}});
+addEventListener('keydown',e=>{if(e.key==='Escape'){if($('#sheet').classList.contains('show'))closeSheet();else back()}});
+(function boot(){
+  $('#view').innerHTML=`<div class="splash" id="spl"><div class="lg">${LOTUS}</div><h1>माँ पीताम्बरा प्रॉपर्टी</h1><p>॥ जय माँ पीताम्बरा ॥</p><div class="ld"><i></i></div></div>`;
+  $('#sbar').classList.add('mar');
+  setTimeout(()=>{if(!APP.seenOnb){ST=[{n:'onb'}];draw('none')}else{ST=[{n:'home'}];draw('none')}},1700);
+})();
+</script>
+</body>
+</html>

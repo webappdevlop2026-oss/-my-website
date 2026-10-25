@@ -59,16 +59,17 @@
   },
   {
     "id": "p242836",
-    "title": "Property Project",
+    "title": "Maa Pitambara Property",
     "category": "Real estate website & app",
-    "description": "Property buy/sell website, Android app and admin panel.",
+    "description": "Explore the property website, mobile app demo and project admin panel.",
     "theme": "gold",
     "symbol": "⌂",
-    "status": "soon",
+    "status": "available",
     "code": "242836",
     "image": "/demo-room/previews/p242836.svg",
     "imageAlt": "Property Project illustrative interface preview",
-    "previewLabel": "Concept preview"
+    "previewLabel": "Concept preview",
+    "inviteEnabled": false
   },
   {
     "id": "p971074",
