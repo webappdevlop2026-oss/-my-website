@@ -357,6 +357,18 @@ footer.site-footer{border-top:1px solid var(--line);padding:64px 0 28px!importan
 @keyframes diwaliGlow{from{filter:drop-shadow(0 0 2px #fbbf24);transform:translateY(0)}to{filter:drop-shadow(0 0 16px #f59e0b);transform:translateY(-5px)}}
 @media(prefers-reduced-motion:reduce){.diwali-offer-overlay,.diwali-offer-card,.diwali-offer-sparks{transition:none;animation:none}}
 
+
+/* Header overflow fix: keep the brand separate from navigation at every viewport width */
+.hdr .wrap{gap:12px}
+.hdr .brand{flex:0 0 auto;max-width:100%}
+.hdr .brand b{font-size:clamp(12px,1.15vw,16px)}
+.hdr .brand small{font-size:11px}
+.hdr .nav{min-width:0;flex:0 1 auto}
+.hdr .nav>a,.hdr .dd>button{padding:9px 7px;font-size:13px;white-space:nowrap}
+.hdr .hdr-cta{flex:0 0 auto}
+@media(max-width:1450px){.hdr .brand small{display:none}.hdr .nav>a,.hdr .dd>button{font-size:12px;padding:9px 5px}}
+@media(max-width:1190px){.hdr .nav{display:none}.hdr .burger{display:grid;place-items:center}.hdr .brand b{font-size:15px}.hdr .brand small{display:block}}
+@media(max-width:520px){.hdr .brand b{font-size:13px}.hdr .brand small{font-size:10px}.hdr .wrap{gap:8px}.hdr .logo{width:36px;height:36px}}
 </style>
 </head>
 <body>
