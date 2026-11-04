@@ -214,5 +214,6 @@
   <script>
     function trackApply(){if(typeof gtag==='function'){gtag('event','generate_lead',{lead_source:'free_offers_page',offer:'club_mandir_free_website'});}}
   </script>
+<script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a||typeof gtag!=='function')return;var h=a.getAttribute('href')||'';if(/^tel:/i.test(h))gtag('event','call_click',{link_url:h,page_location:location.href});else if(/wa\.me|whatsapp/i.test(h))gtag('event','whatsapp_click',{link_url:h,page_location:location.href});},true);</script>
 </body>
 </html>

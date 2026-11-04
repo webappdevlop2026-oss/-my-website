@@ -56,7 +56,7 @@
 {"@type":"FAQPage","mainEntity":[
 {"@type":"Question","name":"Website বানাতে কত খরচ হয়?","acceptedAnswer":{"@type":"Answer","text":"খরচ নির্ভর করে পেজের সংখ্যা, ডিজাইন আর feature-এর উপর — যেমন booking, admin panel বা online payment। আপনার requirement শুনে পরিষ্কার quotation দেওয়া হয়, কোনো লুকানো চার্জ নেই।"}},
 {"@type":"Question","name":"Website তৈরি হতে কতদিন লাগে?","acceptedAnswer":{"@type":"Answer","text":"ছোট business website সাধারণত ৩–৭ দিনে তৈরি হয়। Ecommerce, admin panel বা app-এর মতো বড় project feature অনুযায়ী ২–৬ সপ্তাহ লাগে।"}},
-{"@type":"Question","name":"বীরভূমের বাইরে কাজ করেন?","acceptedAnswer":{"@type":"Answer","text":"হ্যাঁ। দুবরাজপুর, সিউড়ি, বোলপুর, রামপুরহাটে দরকার হলে সামনাসামনি দেখা করা যায়। পশ্চিমবঙ্গ ও ভারতের অন্য জায়গার কাজ WhatsApp ও video call-এ সম্পূর্ণ online হয়।"}},
+{"@type":"Question","name":"বীরভূমের বাইরে কাজ করেন?","acceptedAnswer":{"@type":"Answer","text":"হ্যাঁ। দুবরাজপুর, সিউড়ি, বোলপুর, রামপুরহাট, সাঁইথিয়া, নলহাটিতে দরকার হলে সামনাসামনি দেখা করা যায়। পশ্চিমবঙ্গ ও ভারতের অন্য জায়গার কাজ WhatsApp ও video call-এ সম্পূর্ণ online হয়।"}},
 {"@type":"Question","name":"Website তৈরির পরে কি সাপোর্ট পাওয়া যায়?","acceptedAnswer":{"@type":"Answer","text":"হ্যাঁ। Delivery-র পরে ছোটখাটো পরিবর্তন, hosting ও domain সেটআপে সাহায্য আর প্রয়োজনে maintenance support দেওয়া হয়।"}}
 ]}
 ]}
@@ -602,6 +602,9 @@ const website = {
       <a href="website-design-suri.html"><div>Suri<br><span>District HQ</span></div><i class="fa-solid fa-arrow-right"></i></a>
       <a href="website-design-bolpur.html"><div>Bolpur – Santiniketan<br><span>Homestays &amp; tourism</span></div><i class="fa-solid fa-arrow-right"></i></a>
       <a href="website-design-rampurhat.html"><div>Rampurhat – Tarapith<br><span>Hotels &amp; trade</span></div><i class="fa-solid fa-arrow-right"></i></a>
+      <a href="website-design-sainthia.html"><div>Sainthia<br><span>Rail junction &amp; trade</span></div><i class="fa-solid fa-arrow-right"></i></a>
+      <a href="website-design-nalhati.html"><div>Nalhati<br><span>Shops, hotels &amp; clinics</span></div><i class="fa-solid fa-arrow-right"></i></a>
+      <a href="app-development-birbhum.html"><div>App Development<br><span>Across Birbhum</span></div><i class="fa-solid fa-arrow-right"></i></a>
       <a href="seo-service-asansol.html"><div>Asansol – Durgapur<br><span>SEO &amp; websites</span></div><i class="fa-solid fa-arrow-right"></i></a>
       <a href="website-development-west-bengal.html"><div>All of West Bengal<br><span>Remote delivery</span></div><i class="fa-solid fa-arrow-right"></i></a>
     </div>
@@ -696,7 +699,7 @@ const website = {
       <div class="f-about">
         <a class="brand" href="#home"><span class="logo">CD</span><span><b>Digital Agency by Chandan Das</b></span></a>
         <p>Independent website, app and software developer helping local businesses across West Bengal go online.</p>
-        <address>Ranjan Bazar, Das Para, Dubrajpur,<br>Birbhum, West Bengal 731123<br>Call: <a href="tel:+919735474770">9735474770</a> / <a href="tel:+919735474770">7549459770</a><br>WhatsApp: <a href="https://wa.me/917549459770" target="_blank" rel="noopener">7549459770</a></address>
+        <address>Ranjan Bazar, Das Para, Dubrajpur,<br>Birbhum, West Bengal 731123<br>Call: <a href="tel:+919735474770">9735474770</a> / <a href="tel:+917549459770">7549459770</a><br>WhatsApp: <a href="https://wa.me/917549459770" target="_blank" rel="noopener">7549459770</a></address>
       </div>
       <div>
         <h4>Services</h4>
@@ -717,6 +720,9 @@ const website = {
           <li><a href="website-design-suri.html">Suri</a></li>
           <li><a href="website-design-bolpur.html">Bolpur</a></li>
           <li><a href="website-design-rampurhat.html">Rampurhat</a></li>
+          <li><a href="website-design-sainthia.html">Sainthia</a></li>
+          <li><a href="website-design-nalhati.html">Nalhati</a></li>
+          <li><a href="website-design-birbhum.html">All Birbhum</a></li>
           <li><a href="seo-service-asansol.html">Asansol</a></li>
           <li><a href="website-development-west-bengal.html">West Bengal</a></li>
         </ul>
@@ -865,5 +871,6 @@ function googleTranslateElementInit(){new google.translate.TranslateElement({pag
 })();
 </script>
 
+<script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a||typeof gtag!=='function')return;var h=a.getAttribute('href')||'';if(/^tel:/i.test(h))gtag('event','call_click',{link_url:h,page_location:location.href});else if(/wa\.me|whatsapp/i.test(h))gtag('event','whatsapp_click',{link_url:h,page_location:location.href});},true);</script>
 </body>
 </html>
