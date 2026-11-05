@@ -826,16 +826,16 @@ document.getElementById('contactForm').addEventListener('submit',async function(
   var text='New Service Request:\n\nName: '+name+'\nMobile: '+mobile+'\nService: '+(finalService||'—')+'\nMessage: '+(message||'—');
   var win=window.open('https://wa.me/917549459770?text='+encodeURIComponent(text),'_blank');
   if(!win)location.href='https://wa.me/917549459770?text='+encodeURIComponent(text);
-  if(typeof gtag==='function')gtag('event','generate_lead',{lead_source:'enquiry_form',service:service||'general'});
-  try{if(typeof sb!=='undefined')await sb.from('enquiries').insert({name:name,mobile:mobile,service:finalService||null,message:message||null});}catch(err){}
+  if(window.agencyTrack)window.agencyTrack('whatsapp_click',{contact_method:'whatsapp',lead_source:'enquiry_form'});
+  try{
+    if(typeof sb!=='undefined'){
+      var saved=await sb.from('enquiries').insert({name:name,mobile:mobile,service:finalService||null,message:message||null});
+      if(!saved.error && window.agencyTrack)window.agencyTrack('generate_lead',{lead_source:'enquiry_form',contact_method:'form'});
+    }
+  }catch(err){}
   f.reset();msg.style.color='#86efac';msg.textContent='ধন্যবাদ! WhatsApp-এ আপনার মেসেজ খুলেছে — শুধু Send চাপুন।';
 });
 
-// WhatsApp / call click tracking
-document.addEventListener('click',function(e){
-  var a=e.target.closest('a[href^="https://wa.me"],a[href^="tel:"]');
-  if(a&&typeof gtag==='function')gtag('event','contact_click',{method:a.href.indexOf('tel:')===0?'call':'whatsapp'});
-});
 
 // Service worker
 if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){});});}
@@ -871,6 +871,6 @@ function googleTranslateElementInit(){new google.translate.TranslateElement({pag
 })();
 </script>
 
-<script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a||typeof gtag!=='function')return;var h=a.getAttribute('href')||'';if(/^tel:/i.test(h))gtag('event','call_click',{link_url:h,page_location:location.href});else if(/wa\.me|whatsapp/i.test(h))gtag('event','whatsapp_click',{link_url:h,page_location:location.href});},true);</script>
+<script src="/analytics-events.js?v=20261106" defer></script>
 </body>
 </html>

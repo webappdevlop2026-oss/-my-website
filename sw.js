@@ -1,5 +1,5 @@
 /* v34.0.0 build: 2026-09-13-no-pricing */
-const CACHE_NAME='digital-agency-chandan-v3900-unified-admin';
+const CACHE_NAME='digital-agency-chandan-v3901-analytics';
 const CORE=['/manifest.json'];
 
 function stripHomePricing(html){

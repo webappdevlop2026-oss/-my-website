@@ -101,7 +101,8 @@ async function getSiteSettings() {
   `;
   document.head.appendChild(style);
   function trackLead(action){
-    if (typeof window.gtag === 'function') window.gtag('event','generate_lead',{lead_source:'homepage_quick_cta',lead_action:action});
+    // Contact anchors are measured once by analytics-events.js; browsing is not a lead.
+    if (action === 'services' && typeof window.gtag === 'function') window.gtag('event','select_content',{content_type:'service_list',item_id:'homepage_quick_cta'});
   }
   function addSection(){
     if (document.getElementById('lead-quick-section')) return;

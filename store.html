@@ -190,6 +190,6 @@ renderCats();renderProducts();
   }catch(e){console.warn('Demo links load failed, using local defaults',e)}
 })();
 </script>
-<script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a||typeof gtag!=='function')return;var h=a.getAttribute('href')||'';if(/^tel:/i.test(h))gtag('event','call_click',{link_url:h,page_location:location.href});else if(/wa\.me|whatsapp/i.test(h))gtag('event','whatsapp_click',{link_url:h,page_location:location.href});},true);</script>
+<script src="/analytics-events.js?v=20261106" defer></script>
 </body>
 </html>
