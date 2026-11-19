@@ -868,7 +868,7 @@ function googleTranslateElementInit(){new google.translate.TranslateElement({pag
   overlay.addEventListener('click',function(e){if(e.target===overlay)dismiss()});
   document.addEventListener('keydown',function(e){if(!overlay.classList.contains('is-open'))return;if(e.key==='Escape')dismiss();if(e.key==='Tab'){var focusable=overlay.querySelectorAll('button,a[href]');var first=focusable[0],last=focusable[focusable.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});
   var seen=false;try{seen=sessionStorage.getItem(storageKey)==='1'}catch(e){}
-  if(!seen)window.addEventListener('load',function(){setTimeout(show,1700)});
+  // Seasonal popup disabled after the campaign period.
 })();
 </script>
 
