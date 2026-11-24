@@ -465,6 +465,169 @@ const website = {
 </div>
 
 <!-- SERVICES -->
+<!-- BEGINNER_BANNER_START -->
+<style>
+  .dc-mini-banner-wrap {
+    max-width: 1140px;
+    margin: 22px auto;
+    padding: 0 16px;
+  }
+  .dc-mini-banner {
+    background: linear-gradient(135deg, #0b162c 0%, #10254a 55%, #0a1428 100%);
+    border: 1px solid rgba(56, 189, 248, 0.35);
+    border-radius: 18px;
+    padding: 18px 22px;
+    box-shadow: 0 14px 34px rgba(2, 8, 23, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .dc-mb-left {
+    flex: 1 1 62%;
+    min-width: 0;
+  }
+  .dc-mb-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(90deg, #b91c1c, #dc2626);
+    color: #fff;
+    font-size: 11.5px;
+    font-weight: 700;
+    padding: 4px 11px;
+    border-radius: 999px;
+    letter-spacing: 0.3px;
+    margin-bottom: 8px;
+    border: 1px solid rgba(251, 191, 36, 0.55);
+  }
+  .dc-mb-title {
+    color: #f8fafc;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.45;
+    margin: 0 0 6px;
+  }
+  .dc-mb-title span {
+    color: #fbbf24;
+  }
+  .dc-mb-desc {
+    color: #cbd5e1;
+    font-size: 13.5px;
+    line-height: 1.6;
+    margin: 0 0 11px;
+  }
+  .dc-mb-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+  }
+  .dc-mb-pill {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    color: #e2e8f0;
+    font-size: 11.5px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 8px;
+  }
+  .dc-mb-right {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 9px;
+    min-width: 235px;
+  }
+  .dc-mb-btn-wa {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: #ffffff !important;
+    text-decoration: none;
+    font-size: 13.5px;
+    font-weight: 700;
+    padding: 11px 16px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 6px 18px rgba(34, 197, 94, 0.32);
+    transition: transform 0.15s ease;
+  }
+  .dc-mb-btn-call {
+    background: rgba(251, 191, 36, 0.16);
+    border: 1px solid rgba(251, 191, 36, 0.55);
+    color: #fde68a !important;
+    text-decoration: none;
+    font-size: 13.5px;
+    font-weight: 700;
+    padding: 10px 16px;
+    border-radius: 12px;
+    text-align: center;
+    transition: transform 0.15s ease;
+  }
+  .dc-mb-btn-wa:hover, .dc-mb-btn-call:hover {
+    transform: translateY(-1px);
+  }
+  .dc-mb-trust {
+    font-size: 11px;
+    color: #94a3b8;
+    text-align: center;
+  }
+  @media (max-width: 768px) {
+    .dc-mini-banner-wrap {
+      margin: 14px auto;
+      padding: 0 12px;
+    }
+    .dc-mini-banner {
+      flex-direction: column;
+      align-items: stretch;
+      padding: 16px 15px;
+      gap: 14px;
+      border-radius: 16px;
+    }
+    .dc-mb-title {
+      font-size: 16px;
+    }
+    .dc-mb-desc {
+      font-size: 12.8px;
+    }
+    .dc-mb-right {
+      min-width: 100%;
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+    .dc-mb-btn-wa, .dc-mb-btn-call {
+      flex: 1 1 46%;
+      font-size: 12.8px;
+      padding: 10px 10px;
+    }
+    .dc-mb-trust {
+      flex: 1 1 100%;
+    }
+  }
+</style>
+
+<section class="dc-mini-banner-wrap" aria-label="Special Help for Beginners">
+  <div class="dc-mini-banner">
+    <div class="dc-mb-left">
+      <div class="dc-mb-badge">&#9733; Special Help for Beginners</div>
+      <h2 class="dc-mb-title">অ্যাপ, ওয়েবসাইট বা সফটওয়্যার সম্পর্কে কিছুই জানেন না? <span>চিন্তা নয়, আমরা আছি আপনার সাথে</span></h2>
+      <p class="dc-mb-desc">আপনার আইডিয়া থেকে শুরু করে ডিজাইন, ডেভেলপমেন্ট, ডোমেইন, হোস্টিং ও পাবলিশ — সবকিছু আমরা সহজভাবে করে দেব।</p>
+      <div class="dc-mb-pills">
+        <span class="dc-mb-pill">&#128640; Idea to Launch গাইড</span>
+        <span class="dc-mb-pill">&#128161; টেকনিক্যাল জ্ঞান লাগবে না</span>
+        <span class="dc-mb-pill">&#127978; দোকান, ক্লাব ও ব্যবসার জন্য</span>
+        <span class="dc-mb-pill">&#129309; সহজ ভাষায় Friendly Support</span>
+      </div>
+    </div>
+    <div class="dc-mb-right">
+      <a class="dc-mb-btn-wa" href="https://wa.me/917549459770?text=Hello%20Chandan%20Das%2C%20ami%20beginner%20hishebe%20Website%20ba%20App%20banate%20chai." target="_blank" rel="noopener">WhatsApp: 7549459770</a>
+      <a class="dc-mb-btn-call" href="tel:+917549459770">Call: 7549459770</a>
+      <div class="dc-mb-trust">নিরাপদ • বিশ্বস্ত • মানসম্মত | আপনি শুধু কী চান বলুন</div>
+    </div>
+  </div>
+</section>
+<!-- BEGINNER_BANNER_END -->
 <section id="services">
   <div class="wrap">
     <div class="sec-head rv">
